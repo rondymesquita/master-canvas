@@ -1,36 +1,58 @@
-import { Container } from "@chakra-ui/react";
+import { addPrefix, Container } from "@chakra-ui/react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import Area from "../components/Area";
-import { AddCardToAreaUseCase } from "../../application/usecases/AddCardToArea";
-import { useEffect } from "react";
+import { Template } from "../components/Template";
+import { Command, useCommander } from "../contexts/CommanderContext";
+import { AddCardModal } from "./dashboard/AddCardModal";
+import { v4 } from "uuid";
 
-const areas = [
+const DEFAULT_AREAS = [
   {
     title: "Cursos",
+    category: "cursos",
     icon: "",
-  },
-  {
-    title: "Cursos2",
-    icon: "",
-  },
-  {
-    title: "Cursos3",
-    icon: "",
+    templates: ["Fulano", "Sicrano"],
+    cards: [],
   },
 ];
 
+const DEFAULT_CARDS = [
+  {
+    category: "cursos",
+  },
+];
+
+const templates = [];
+
 export default function DashboardPage() {
-  let useCase: any;
+  const { execute } = useCommander();
+  const modal = useRef();
 
-  const onAddAreaClick = () => {
-    useCase.execute();
+  const [areas, setAreas] = useState(DEFAULT_AREAS);
+  const [cards, setCards] = useState<any[]>(DEFAULT_CARDS);
+
+  const onAddAreaClick = ({ templates, category }: any) => {
+    console.log({ templates, category });
+    // areas.find((area) => area.category === category);
+    const card = {
+      category: category,
+    };
+
+    setCards((oldCards: any[]) => {
+      return [...oldCards, card];
+    });
+
+    // setAreas((state) => ([...areas, ]))
+
+    // execute(Command.CARD_ADD, {
+    //   selectedOption,
+    // });
   };
-
-  useEffect(() => {
-    useCase = new AddCardToAreaUseCase();
-  }, []);
 
   return (
     <>
+      {/* <AddCardModal ref={modal}></AddCardModal> */}
+
       <Container>
         {areas.map((area) => (
           <Area
@@ -38,7 +60,16 @@ export default function DashboardPage() {
             title={area.title}
             icon=""
             onAddClick={onAddAreaClick}
-          ></Area>
+            templates={area.templates}
+            category={area.category}
+          >
+            {cards
+              .filter((c) => c.category === area.category)
+              .map((card) => (
+                // <h1 key={card.category}>{card.category}</h1>
+                <Template key={v4()} data={{}}></Template>
+              ))}
+          </Area>
         ))}
       </Container>
     </>

@@ -1,9 +1,9 @@
 import { ModalEvent } from "../../domain/events";
 import { Bus } from "../../util/Bus";
 import React, { useEffect } from "react";
-const Context = React.createContext({});
+export const ModalContext = React.createContext({});
 
-export default function ModalContext({ children }: any) {
+export function ModalProvider({ children }: any) {
   const bus = Bus.getInstance();
 
   useEffect(() => {
@@ -15,5 +15,5 @@ export default function ModalContext({ children }: any) {
     };
   }, []);
 
-  return <Context.Provider value={{}}>{children}</Context.Provider>;
+  return <ModalContext.Provider value={{}}>{children}</ModalContext.Provider>;
 }

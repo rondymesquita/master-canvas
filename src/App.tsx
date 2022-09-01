@@ -13,20 +13,24 @@ import {
 import ReactDOM from "react-dom/client";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import DashboardPage from "./presentation/pages/DashboardPage";
-import ModalContext from "./presentation/contexts/ModalContext";
+import { ModalProvider } from "./presentation/contexts/ModalContext";
+import { CommanderProvider } from "./presentation/contexts/CommanderContext";
+import Modal from "./presentation/components/Modal";
 
 function App() {
   const [count, setCount] = useState(0);
 
   return (
     <ChakraProvider>
-      <ModalContext>
-        <BrowserRouter>
-          <Routes>
-            <Route path="/" element={<DashboardPage />}></Route>
-          </Routes>
-        </BrowserRouter>
-      </ModalContext>
+      <CommanderProvider>
+        <ModalProvider>
+          <BrowserRouter>
+            <Routes>
+              <Route path="/" element={<DashboardPage />}></Route>
+            </Routes>
+          </BrowserRouter>
+        </ModalProvider>
+      </CommanderProvider>
     </ChakraProvider>
   );
 }

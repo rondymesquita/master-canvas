@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { ChakraProvider } from "@chakra-ui/react";
+import { ChakraProvider, Container } from "@chakra-ui/react";
 import reactLogo from "./assets/react.svg";
 import "./App.css";
 
@@ -24,11 +24,13 @@ function App() {
     <ChakraProvider>
       <CommanderProvider>
         <ModalProvider>
-          <BrowserRouter>
-            <Routes>
-              <Route path="/" element={<DashboardPage />}></Route>
-            </Routes>
-          </BrowserRouter>
+          <Container maxWidth={"container.md"}>
+            <BrowserRouter>
+              <Routes>
+                <Route path="/" element={<DashboardPage />}></Route>
+              </Routes>
+            </BrowserRouter>
+          </Container>
         </ModalProvider>
       </CommanderProvider>
     </ChakraProvider>

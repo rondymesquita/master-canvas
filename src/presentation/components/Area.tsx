@@ -39,6 +39,7 @@ export default function Area({
             </Box>
             <Box>
               <IconButton
+                aria-label="button"
                 onClick={() => onAddClick({ option, category })}
                 icon={<AddIcon />}
               ></IconButton>

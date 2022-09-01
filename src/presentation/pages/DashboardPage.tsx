@@ -1,7 +1,19 @@
-import { addPrefix, Container } from "@chakra-ui/react";
+import {
+  addPrefix,
+  Container,
+  Flex,
+  Box,
+  Text,
+  Stack,
+  Wrap,
+  WrapItem,
+  Heading,
+  Center,
+} from "@chakra-ui/react";
 import { useCallback, useEffect, useRef, useState } from "react";
 import Area from "../components/Area";
-import { Template } from "../components/Template";
+import Drawer from "../components/Drawer";
+import Template from "../components/Template";
 import { Command, useCommander } from "../contexts/CommanderContext";
 import { AddCardModal } from "./dashboard/AddCardModal";
 import { v4 } from "uuid";
@@ -52,26 +64,39 @@ export default function DashboardPage() {
   return (
     <>
       {/* <AddCardModal ref={modal}></AddCardModal> */}
-
-      <Container>
-        {areas.map((area) => (
-          <Area
-            key={area.title}
-            title={area.title}
-            icon=""
-            onAddClick={onAddAreaClick}
-            templates={area.templates}
-            category={area.category}
-          >
-            {cards
-              .filter((c) => c.category === area.category)
-              .map((card) => (
-                // <h1 key={card.category}>{card.category}</h1>
-                <Template key={v4()} data={{}}></Template>
-              ))}
-          </Area>
-        ))}
-      </Container>
+      <Drawer></Drawer>
+      <Wrap>
+        <WrapItem>
+          {areas.map((area) => (
+            <Area
+              key={area.title}
+              title={area.title}
+              icon=""
+              onAddClick={onAddAreaClick}
+              templates={area.templates}
+              category={area.category}
+            >
+              {/* {cards
+                .filter((c) => c.category === area.category)
+                .map((card) => (
+                  // <h1 key={card.category}>{card.category}</h1>
+                  <Template key={v4()} data={{}}></Template>
+                ))} */}
+            </Area>
+          ))}
+        </WrapItem>
+        <WrapItem>
+          <Flex direction={"column"}>
+            <Center>
+              <Heading size={"md"}>Cards</Heading>
+            </Center>
+            <Stack spacing="4">
+              <Template></Template>
+            </Stack>
+          </Flex>
+        </WrapItem>
+      </Wrap>
+      <Wrap></Wrap>
     </>
   );
 }

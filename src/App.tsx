@@ -17,10 +17,19 @@ import { ModalProvider } from "./presentation/contexts/ModalContext";
 import { CommanderProvider } from "./presentation/contexts/CommanderContext";
 import Modal from "./presentation/components/Modal";
 import { extendTheme } from "@chakra-ui/react";
+import Header from "./presentation/components/Header";
 
 const theme = extendTheme({
+  components: {
+    Heading: {
+      baseStyle: {
+        fontFamily: "Russo One",
+      },
+    },
+  },
   colors: {
     primary: {
+      b: "teal",
       "50": "#E6FFFA",
       "100": "#B2F5EA",
       "200": "#81E6D9",
@@ -44,6 +53,7 @@ function App() {
     <ChakraProvider theme={theme}>
       <CommanderProvider>
         <ModalProvider>
+          <Header />
           <Container maxWidth={"container.md"}>
             <BrowserRouter>
               <Routes>

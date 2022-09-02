@@ -27,7 +27,8 @@ export default function Area({
 
   return (
     <Box
-      w="100%"
+      data-testid="area"
+      w="full"
       minH="200px"
       borderWidth="1px"
       p="2"
@@ -38,36 +39,22 @@ export default function Area({
         <Center>
           <InfoIcon />
         </Center>
+
+        <Center paddingX={2}>
+          <Heading as="h4" size="sm">
+            {title}
+          </Heading>
+        </Center>
         <Spacer />
-        <Box>
-          <Flex>
-            <Center paddingX={2}>
-              <Heading as="h4" size="sm">
-                {title}
-              </Heading>
-            </Center>
-            {/* <Box>
-              <Select
-                placeholder="Select option"
-                onChange={(e) => setOption(e.target.value)}
-              >
-                {templates.map((value) => (
-                  <option key={value} value={value}>
-                    {value}
-                  </option>
-                ))}
-              </Select>
-            </Box> */}
-            <Center>
-              <IconButton
-                size={"sm"}
-                aria-label="button"
-                onClick={() => onAddClick({ option, category })}
-                icon={<AddIcon />}
-              ></IconButton>
-            </Center>
-          </Flex>
-        </Box>
+        <Center>
+          <IconButton
+            size={"sm"}
+            colorScheme="primary"
+            aria-label="button"
+            onClick={() => onAddClick({ option, category })}
+            icon={<AddIcon />}
+          ></IconButton>
+        </Center>
       </Flex>
       <Flex>{children}</Flex>
     </Box>

@@ -90,7 +90,6 @@ export default function DashboardPage() {
 
   return (
     <>
-      {/* <AddCardModal ref={modal}></AddCardModal> */}
       <Drawer
         isOpen={isOpen}
         onOpen={onOpen}
@@ -98,7 +97,7 @@ export default function DashboardPage() {
         onSelectTemplate={onSelectTemplate}
       ></Drawer>
       <Flex>
-        <Box>
+        <Box width={"full"}>
           {areas.map((area) => (
             <Area
               key={area.id}
@@ -118,7 +117,10 @@ export default function DashboardPage() {
                       description={card.description}
                       questions={card.questions}
                       onDelete={() => onCardDelete(card.id)}
-                      onResponseChange={(newResponse, questionId) =>
+                      onResponseChange={(
+                        newResponse: string,
+                        questionId: string
+                      ) =>
                         onCardResponseChange(newResponse, questionId, card.id)
                       }
                     ></Card>

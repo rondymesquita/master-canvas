@@ -19,37 +19,30 @@ import Template from "../components/Template";
 import { Command, useCommander } from "../contexts/CommanderContext";
 import { AddCardModal } from "./dashboard/AddCardModal";
 import { v4 } from "uuid";
+import { GetAreasUseCase } from "../../application/usecases/GetAreas";
+import { AreaModel } from "../../domain/area";
 
-const DEFAULT_AREAS = [
-  {
-    id: v4(),
-    title: "Cursos",
-    category: "cursos",
-    icon: "",
-    templates: ["Fulano", "Sicrano"],
-    cards: [],
-  },
-];
-
-const DEFAULT_CARDS: any = [];
-
-const templates = [];
+const getAreasUseCase = new GetAreasUseCase();
 
 export default function DashboardPage() {
   const { execute } = useCommander();
   const modal = useRef();
 
-  const [areas, setAreas] = useState(DEFAULT_AREAS);
-  const [cards, setCards] = useState<any[]>(DEFAULT_CARDS);
+  const [areas, setAreas] = useState<AreaModel[]>([]);
+  const [cards, setCards] = useState<any[]>([]);
+
+  useEffect(() => {
+    async function fetchData() {
+      const data = await getAreasUseCase.execute();
+      setAreas(data);
+    }
+    fetchData();
+  }, []);
 
   const { isOpen, onOpen, onClose } = useDisclosure();
 
   const onAddAreaClick = ({ templates, category }: any) => {
     onOpen();
-
-    // execute(Command.CARD_ADD, {
-    //   selectedOption,
-    // });
   };
 
   const onSelectTemplate = (template: any) => {
@@ -104,7 +97,6 @@ export default function DashboardPage() {
               title={area.title}
               icon=""
               onAddClick={onAddAreaClick}
-              templates={area.templates}
               category={area.category}
             >
               <Stack>
@@ -113,7 +105,7 @@ export default function DashboardPage() {
                   .map((card) => (
                     <Card
                       title={card.title}
-                      key={card.title}
+                      key={card.id}
                       description={card.description}
                       questions={card.questions}
                       onDelete={() => onCardDelete(card.id)}

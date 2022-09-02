@@ -1,5 +1,6 @@
 import React, { useEffect, useContext } from "react";
 import { AddCardToAreaUseCase } from "../../application/usecases/AddCardToArea";
+import { ExportCardsUseCase } from "../../application/usecases/ExportCards";
 
 interface ICommandContext {
   execute: (command: Command, payload?: any) => Promise<void>;
@@ -7,7 +8,13 @@ interface ICommandContext {
 
 export enum Command {
   CARD_ADD = "CARD_ADD",
+  EXPORT = "EXPORT",
 }
+
+const commands = {
+  [Command.CARD_ADD]: new AddCardToAreaUseCase(),
+  [Command.EXPORT]: new ExportCardsUseCase(),
+};
 
 export const CommanderContext = React.createContext<ICommandContext>({});
 
@@ -21,10 +28,6 @@ export function CommanderProvider({ children }: any) {
   }, []);
 
   const execute = async (command: Command, payload?: any) => {
-    const commands = {
-      [Command.CARD_ADD]: new AddCardToAreaUseCase(),
-    };
-
     const useCase = commands[command];
     console.log("command called", { useCase, command, payload });
     await useCase.execute(payload);

@@ -16,7 +16,6 @@ export default function Area({
   children,
   title,
   onAddClick,
-  templates,
   category,
 }: any): JSX.Element {
   const [option, setOption] = useState("");

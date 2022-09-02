@@ -39,9 +39,6 @@ export default function DashboardPage() {
     async function fetchData() {
       const areasData = await getAreasUseCase.execute();
       setAreas(areasData);
-
-      // const templatesData = await getTemplatesUseCase.execute();
-      // setTemplates(templatesData);
     }
     fetchData();
   }, []);
@@ -60,7 +57,7 @@ export default function DashboardPage() {
     console.log({ category });
   }, [category]);
 
-  const onAddAreaClick = (category) => {
+  const onAddAreaClick = (category: string) => {
     setCategory(category);
     onOpen();
   };
@@ -71,6 +68,8 @@ export default function DashboardPage() {
     setCards((oldCards: any[]) => {
       return [...oldCards, template];
     });
+
+    onClose();
   };
 
   const onCardDelete = (cardId: string) => {

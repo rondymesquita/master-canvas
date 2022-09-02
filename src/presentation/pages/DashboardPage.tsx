@@ -22,6 +22,7 @@ import { v4 } from "uuid";
 
 const DEFAULT_AREAS = [
   {
+    id: v4(),
     title: "Cursos",
     category: "cursos",
     icon: "",
@@ -59,10 +60,32 @@ export default function DashboardPage() {
     });
   };
 
-  const onDeleteCard = (cardId: string) => {
+  const onCardDelete = (cardId: string) => {
     setCards((oldCards: any[]) => {
       return oldCards.filter((card) => card.id !== cardId);
     });
+  };
+
+  const onCardResponseChange = (
+    newResponse: string,
+    questionId: string,
+    cardId: string
+  ) => {
+    const newCards = cards.map((card) => {
+      if (card.id === cardId) {
+        const newQuestions = card.questions.map((question: any) => {
+          if (question.id === questionId) {
+            return { ...question, response: newResponse };
+          }
+          return question;
+        });
+        card.questions = newQuestions;
+        return card;
+      }
+      return card;
+    });
+
+    setCards(newCards);
   };
 
   return (
@@ -74,42 +97,37 @@ export default function DashboardPage() {
         onClose={onClose}
         onSelectTemplate={onSelectTemplate}
       ></Drawer>
-      <Wrap>
-        <WrapItem>
+      <Flex>
+        <Box>
           {areas.map((area) => (
             <Area
-              key={area.title}
+              key={area.id}
               title={area.title}
               icon=""
               onAddClick={onAddAreaClick}
               templates={area.templates}
               category={area.category}
             >
-              {cards
-                // .filter((card) => card.category === area.category)
-                .map((card) => (
-                  // <h1 key={card.category}>{card.category}</h1>
-                  <Card
-                    title={card.title}
-                    key={card.title}
-                    description={card.description}
-                    questions={card.questions}
-                    onDelete={() => onDeleteCard(card.id)}
-                  ></Card>
-                ))}
+              <Stack>
+                {cards
+                  .filter((card) => card.category === area.category)
+                  .map((card) => (
+                    <Card
+                      title={card.title}
+                      key={card.title}
+                      description={card.description}
+                      questions={card.questions}
+                      onDelete={() => onCardDelete(card.id)}
+                      onResponseChange={(newResponse, questionId) =>
+                        onCardResponseChange(newResponse, questionId, card.id)
+                      }
+                    ></Card>
+                  ))}
+              </Stack>
             </Area>
           ))}
-        </WrapItem>
-        <WrapItem hidden>
-          <Flex direction={"column"}>
-            <Center>
-              <Heading size={"md"}>Cards</Heading>
-            </Center>
-            <Stack spacing="4"></Stack>
-          </Flex>
-        </WrapItem>
-      </Wrap>
-      <Wrap></Wrap>
+        </Box>
+      </Flex>
     </>
   );
 }

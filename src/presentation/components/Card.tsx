@@ -1,4 +1,4 @@
-import { InfoIcon } from "@chakra-ui/icons";
+import { EditIcon, InfoIcon } from "@chakra-ui/icons";
 import {
   Box,
   Button,
@@ -19,14 +19,26 @@ function Question({ text }: any) {
   return <Text color="teal.500">{text}</Text>;
 }
 
-function Response({ text, onResponseChange }: any) {
+function Response({ text, onChange }: any) {
   return (
-    <Text color="gray.700">
-      <Editable defaultValue={text} onChange={onResponseChange}>
-        <EditablePreview />
-        <EditableInput />
-      </Editable>
-    </Text>
+    <Box color="gray.700">
+      <Flex>
+        <Center>
+          <EditIcon />
+        </Center>
+        <Box pl={2}>
+          <Editable defaultValue={text} onChange={onChange}>
+            <EditablePreview
+              borderWidth={1}
+              borderColor={"gray.300"}
+              shadow={"md"}
+              px={2}
+            />
+            <EditableTextarea borderWidth={1} px={2} />
+          </Editable>
+        </Box>
+      </Flex>
+    </Box>
   );
 }
 
@@ -35,17 +47,8 @@ export default function Template({
   description,
   questions,
   onDelete,
+  onResponseChange,
 }: any) {
-  const data = {
-    title,
-    description,
-    questions,
-  };
-
-  console.log({ data });
-
-  const onResponseChange = () => {};
-
   return (
     <Box
       bg="white"
@@ -76,7 +79,9 @@ export default function Template({
               <Question text={q.question}></Question>
               <Response
                 text={q.response}
-                onChange={onResponseChange}
+                onChange={(newResponse: string) =>
+                  onResponseChange(newResponse, q.id)
+                }
               ></Response>
             </Box>
           );
@@ -84,7 +89,7 @@ export default function Template({
       </Stack>
       <Flex pt={4}>
         <Spacer />
-        <Button colorScheme="primary" onClick={() => onDelete(data)}>
+        <Button colorScheme="primary" onClick={() => onDelete()}>
           Remover
         </Button>
       </Flex>

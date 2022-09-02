@@ -32,10 +32,12 @@ export default function Drawer({
       description: "Descrição do curso o qual se deseja criar ou ajustar",
       questions: [
         {
+          id: v4(),
           question: "Qual area de atuação?",
           response: "Ex: Engenharia de Software",
         },
         {
+          id: v4(),
           question: "Pergunta",
           response: "Ex: Resposta",
         },

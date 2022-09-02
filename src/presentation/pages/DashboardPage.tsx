@@ -9,9 +9,11 @@ import {
   WrapItem,
   Heading,
   Center,
+  useDisclosure,
 } from "@chakra-ui/react";
 import { useCallback, useEffect, useRef, useState } from "react";
 import Area from "../components/Area";
+import Card from "../components/Card";
 import Drawer from "../components/Drawer";
 import Template from "../components/Template";
 import { Command, useCommander } from "../contexts/CommanderContext";
@@ -28,11 +30,7 @@ const DEFAULT_AREAS = [
   },
 ];
 
-const DEFAULT_CARDS = [
-  {
-    category: "cursos",
-  },
-];
+const DEFAULT_CARDS: any = [];
 
 const templates = [];
 
@@ -43,28 +41,39 @@ export default function DashboardPage() {
   const [areas, setAreas] = useState(DEFAULT_AREAS);
   const [cards, setCards] = useState<any[]>(DEFAULT_CARDS);
 
+  const { isOpen, onOpen, onClose } = useDisclosure();
+
   const onAddAreaClick = ({ templates, category }: any) => {
-    console.log({ templates, category });
-    // areas.find((area) => area.category === category);
-    const card = {
-      category: category,
-    };
-
-    setCards((oldCards: any[]) => {
-      return [...oldCards, card];
-    });
-
-    // setAreas((state) => ([...areas, ]))
+    onOpen();
 
     // execute(Command.CARD_ADD, {
     //   selectedOption,
     // });
   };
 
+  const onSelectTemplate = (template: any) => {
+    console.log({ template });
+
+    setCards((oldCards: any[]) => {
+      return [...oldCards, template];
+    });
+  };
+
+  const onDeleteCard = (cardId: string) => {
+    setCards((oldCards: any[]) => {
+      return oldCards.filter((card) => card.id !== cardId);
+    });
+  };
+
   return (
     <>
       {/* <AddCardModal ref={modal}></AddCardModal> */}
-      <Drawer></Drawer>
+      <Drawer
+        isOpen={isOpen}
+        onOpen={onOpen}
+        onClose={onClose}
+        onSelectTemplate={onSelectTemplate}
+      ></Drawer>
       <Wrap>
         <WrapItem>
           {areas.map((area) => (
@@ -76,23 +85,27 @@ export default function DashboardPage() {
               templates={area.templates}
               category={area.category}
             >
-              {/* {cards
-                .filter((c) => c.category === area.category)
+              {cards
+                // .filter((card) => card.category === area.category)
                 .map((card) => (
                   // <h1 key={card.category}>{card.category}</h1>
-                  <Template key={v4()} data={{}}></Template>
-                ))} */}
+                  <Card
+                    title={card.title}
+                    key={card.title}
+                    description={card.description}
+                    questions={card.questions}
+                    onDelete={() => onDeleteCard(card.id)}
+                  ></Card>
+                ))}
             </Area>
           ))}
         </WrapItem>
-        <WrapItem>
+        <WrapItem hidden>
           <Flex direction={"column"}>
             <Center>
               <Heading size={"md"}>Cards</Heading>
             </Center>
-            <Stack spacing="4">
-              <Template></Template>
-            </Stack>
+            <Stack spacing="4"></Stack>
           </Flex>
         </WrapItem>
       </Wrap>

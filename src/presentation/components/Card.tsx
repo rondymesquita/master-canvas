@@ -8,6 +8,10 @@ import {
   Spacer,
   Stack,
   Text,
+  Editable,
+  EditableInput,
+  EditableTextarea,
+  EditablePreview,
 } from "@chakra-ui/react";
 import React from "react";
 
@@ -15,15 +19,22 @@ function Question({ text }: any) {
   return <Text color="teal.500">{text}</Text>;
 }
 
-function Response({ text }: any) {
-  return <Text color="gray.500">{text}</Text>;
+function Response({ text, onResponseChange }: any) {
+  return (
+    <Text color="gray.700">
+      <Editable defaultValue={text} onChange={onResponseChange}>
+        <EditablePreview />
+        <EditableInput />
+      </Editable>
+    </Text>
+  );
 }
 
 export default function Template({
   title,
   description,
   questions,
-  onSelect,
+  onDelete,
 }: any) {
   const data = {
     title,
@@ -32,6 +43,8 @@ export default function Template({
   };
 
   console.log({ data });
+
+  const onResponseChange = () => {};
 
   return (
     <Box
@@ -61,15 +74,18 @@ export default function Template({
           return (
             <Box key={q.question}>
               <Question text={q.question}></Question>
-              <Response text={q.response}></Response>
+              <Response
+                text={q.response}
+                onChange={onResponseChange}
+              ></Response>
             </Box>
           );
         })}
       </Stack>
       <Flex pt={4}>
         <Spacer />
-        <Button colorScheme="primary" onClick={() => onSelect(data)}>
-          Selecionar
+        <Button colorScheme="primary" onClick={() => onDelete(data)}>
+          Remover
         </Button>
       </Flex>
     </Box>

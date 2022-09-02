@@ -1,7 +1,16 @@
-import { Box, Flex, IconButton, Select, Spacer, Text } from "@chakra-ui/react";
+import {
+  Box,
+  Center,
+  Flex,
+  Heading,
+  IconButton,
+  Select,
+  Spacer,
+  Text,
+} from "@chakra-ui/react";
 import React, { useEffect, useState } from "react";
 
-import { AddIcon } from "@chakra-ui/icons";
+import { AddIcon, InfoIcon } from "@chakra-ui/icons";
 
 export default function Area({
   children,
@@ -17,15 +26,27 @@ export default function Area({
   }, [option]);
 
   return (
-    <Box w="100%" h="200px" border="1px" p="4">
+    <Box
+      w="100%"
+      minH="200px"
+      borderWidth="1px"
+      p="2"
+      borderRadius="lg"
+      overflow="hidden"
+    >
       <Flex>
-        <Box>
-          <Text>{title}</Text>
-        </Box>
+        <Center>
+          <InfoIcon />
+        </Center>
         <Spacer />
         <Box>
           <Flex>
-            <Box>
+            <Center paddingX={2}>
+              <Heading as="h4" size="sm">
+                {title}
+              </Heading>
+            </Center>
+            {/* <Box>
               <Select
                 placeholder="Select option"
                 onChange={(e) => setOption(e.target.value)}
@@ -36,17 +57,17 @@ export default function Area({
                   </option>
                 ))}
               </Select>
-            </Box>
-            <Box>
+            </Box> */}
+            <Center>
               <IconButton
+                size={"sm"}
                 aria-label="button"
                 onClick={() => onAddClick({ option, category })}
                 icon={<AddIcon />}
               ></IconButton>
-            </Box>
+            </Center>
           </Flex>
         </Box>
-        {/* <Box onClick={() => onAddClick()}>[+]</Box> */}
       </Flex>
       <Flex>{children}</Flex>
     </Box>

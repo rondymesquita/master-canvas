@@ -4,7 +4,7 @@ import { Bus } from "../../util/Bus";
 import { v4 } from "uuid";
 
 export interface IGetAreasUseCase {
-  execute: () => Promise<Area[]>;
+  execute: () => Promise<AreaModel[]>;
 }
 
 export class GetAreasUseCase implements IGetAreasUseCase {

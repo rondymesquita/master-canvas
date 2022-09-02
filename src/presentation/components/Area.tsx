@@ -50,7 +50,7 @@ export default function Area({
             size={"sm"}
             colorScheme="primary"
             aria-label="button"
-            onClick={() => onAddClick({ option, category })}
+            onClick={() => onAddClick(category)}
             icon={<AddIcon />}
           ></IconButton>
         </Center>

@@ -20,28 +20,48 @@ import { Command, useCommander } from "../contexts/CommanderContext";
 import { AddCardModal } from "./dashboard/AddCardModal";
 import { v4 } from "uuid";
 import { GetAreasUseCase } from "../../application/usecases/GetAreas";
+import { GetTemplatesUseCase } from "../../application/usecases/GetTemplates";
 import { AreaModel } from "../../domain/area";
+import { TemplateModel } from "../../domain/template";
 
 const getAreasUseCase = new GetAreasUseCase();
+const getTemplatesUseCase = new GetTemplatesUseCase();
 
 export default function DashboardPage() {
-  const { execute } = useCommander();
-  const modal = useRef();
+  const { isOpen, onOpen, onClose } = useDisclosure();
 
   const [areas, setAreas] = useState<AreaModel[]>([]);
+  const [category, setCategory] = useState<String>("");
+  const [templates, setTemplates] = useState<TemplateModel[]>([]);
   const [cards, setCards] = useState<any[]>([]);
 
   useEffect(() => {
     async function fetchData() {
-      const data = await getAreasUseCase.execute();
-      setAreas(data);
+      const areasData = await getAreasUseCase.execute();
+      setAreas(areasData);
+
+      // const templatesData = await getTemplatesUseCase.execute();
+      // setTemplates(templatesData);
     }
     fetchData();
   }, []);
 
-  const { isOpen, onOpen, onClose } = useDisclosure();
+  useEffect(() => {
+    async function fetchData() {
+      const templatesData = await getTemplatesUseCase.execute();
+      const filteredTemplates = templatesData.filter(
+        (template) => template.category === category
+      );
+      console.log({ filteredTemplates });
 
-  const onAddAreaClick = ({ templates, category }: any) => {
+      setTemplates(filteredTemplates);
+    }
+    fetchData();
+    console.log({ category });
+  }, [category]);
+
+  const onAddAreaClick = (category) => {
+    setCategory(category);
     onOpen();
   };
 
@@ -88,6 +108,8 @@ export default function DashboardPage() {
         onOpen={onOpen}
         onClose={onClose}
         onSelectTemplate={onSelectTemplate}
+        templates={templates}
+        category={category}
       ></Drawer>
       <Flex>
         <Box width={"full"}>

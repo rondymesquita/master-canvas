@@ -31,7 +31,7 @@ export default function Template({
     questions,
   };
 
-  console.log({ data });
+  // console.log({ data });
 
   return (
     <Box

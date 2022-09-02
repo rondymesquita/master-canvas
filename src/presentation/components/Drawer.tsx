@@ -1,5 +1,8 @@
 import {
+  Alert,
+  AlertIcon,
   Button,
+  Center,
   Drawer as CDrawer,
   DrawerBody,
   DrawerCloseButton,
@@ -7,12 +10,10 @@ import {
   DrawerFooter,
   DrawerHeader,
   DrawerOverlay,
-  Input,
-  useDisclosure,
+  Heading,
 } from "@chakra-ui/react";
-import { useRef } from "react";
 import Template from "./Template";
-import { v4 } from "uuid";
+import { TemplateModel } from "../../domain/template";
 
 export default function Drawer({
   title,
@@ -20,61 +21,40 @@ export default function Drawer({
   onOpen,
   onClose,
   onSelectTemplate,
+  category,
+  templates,
 }: any) {
-  // const { isOpen, onOpen, onClose } = useDisclosure();
-  const btnRef = useRef();
-
-  const TEMPLATES = [
-    {
-      id: v4(),
-      title: "Descritivo Básico",
-      category: "cursos",
-      description: "Descrição do curso o qual se deseja criar ou ajustar",
-      questions: [
-        {
-          id: v4(),
-          question: "Qual area de atuação?",
-          response: "Ex: Engenharia de Software",
-        },
-        {
-          id: v4(),
-          question: "Pergunta",
-          response: "Ex: Resposta",
-        },
-      ],
-    },
-  ];
-
   return (
     <>
-      {/* <Button ref={btnRef} colorScheme="teal" onClick={onOpen}>
-        Open
-      </Button> */}
-      <CDrawer
-        isOpen={isOpen}
-        placement="right"
-        onClose={onClose}
-        finalFocusRef={btnRef}
-      >
+      <CDrawer isOpen={isOpen} placement="right" onClose={onClose} size={"md"}>
         <DrawerOverlay />
         <DrawerContent bg="gray.100">
           <DrawerCloseButton />
-          <DrawerHeader>{title}</DrawerHeader>
+          <DrawerHeader>
+            <Center>
+              <Heading size={"md"}>Templates "{category}"</Heading>
+            </Center>
+          </DrawerHeader>
 
           <DrawerBody>
-            {/* <Input placeholder="Type here..." /> */}
-
-            {TEMPLATES.map((template) => {
-              return (
-                <Template
-                  key={template.title}
-                  onSelect={() => onSelectTemplate(template)}
-                  title={template.title}
-                  description={template.description}
-                  questions={template.questions}
-                />
-              );
-            })}
+            {templates.length > 0 ? (
+              templates.map((template: TemplateModel) => {
+                return (
+                  <Template
+                    key={template.title}
+                    onSelect={() => onSelectTemplate(template)}
+                    title={template.title}
+                    description={template.description}
+                    questions={template.questions}
+                  />
+                );
+              })
+            ) : (
+              <Alert status="warning" borderWidth={1} boxShadow={"md"}>
+                <AlertIcon />
+                Vazio
+              </Alert>
+            )}
           </DrawerBody>
 
           <DrawerFooter hidden>
@@ -82,6 +62,7 @@ export default function Drawer({
               colorScheme="primary"
               variant="outline"
               mr={3}
+              size={"lg"}
               onClick={onClose}
             >
               Cancel

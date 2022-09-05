@@ -1,5 +1,6 @@
 import { EditIcon } from '@chakra-ui/icons';
 import {
+  Box,
   Center,
   Editable,
   EditablePreview,
@@ -64,8 +65,8 @@ export default function EditableQuestion({
   onQuestionChange,
 }: any) {
   return (
-    <>
-      {/* <Flex width={'full'} direction={'column'} mb={4}> */}
+    // <Box>
+    <Flex width={'full'} direction={'column'} flexGrow={1}>
       <Question
         text={input}
         onChange={(input: string) =>
@@ -78,7 +79,7 @@ export default function EditableQuestion({
           onQuestionChange({ input: input, output }, id)
         }
       ></Response>
-      {/* </Flex> */}
-    </>
+    </Flex>
+    // </Box>
   );
 }

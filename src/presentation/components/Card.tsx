@@ -1,4 +1,4 @@
-import { EditIcon, InfoIcon } from '@chakra-ui/icons';
+import { AddIcon, DeleteIcon, EditIcon, InfoIcon } from '@chakra-ui/icons';
 import {
   Box,
   Button,
@@ -13,6 +13,7 @@ import {
   EditableTextarea,
   EditablePreview,
   VStack,
+  IconButton,
 } from '@chakra-ui/react';
 import React from 'react';
 import { QuestionModel } from '../../domain/template';
@@ -32,12 +33,15 @@ export default function Template({
   questions,
   onDelete,
   onQuestionChange,
+  addQuestionClick,
+  deleteQuestionClick,
 }: any) {
   return (
     <Box
       bg="white"
       shadow={'sm'}
-      maxW="sm"
+      width="full"
+      flexGrow={1}
       borderWidth="1px"
       borderRadius="lg"
       overflow="hidden"
@@ -59,25 +63,50 @@ export default function Template({
       <Flex
         mt="4"
         alignItems={'start'}
-        borderWidth={1}
-        borderRadius={'lg'}
-        shadow={'md'}
+        // borderWidth={1}
+        // borderRadius={'lg'}
+        // shadow={'md'}
         p={2}
         direction={'column'}
       >
-        {questions.map((question: QuestionModel) => {
+        {questions.map((question: QuestionModel, index: number) => {
           return (
-            <Flex width={'full'} direction={'column'} key={question.id} mb={4}>
-              <EditableQuestion
-                input={question.input}
-                output={question.output}
-                onChange={(input: string) =>
-                  onQuestionChange(
-                    { input, output: question.output },
-                    question.id
-                  )
-                }
-              ></EditableQuestion>
+            <Flex direction={'column'} width={'full'} mb={4}>
+              <Flex
+                width={'full'}
+                direction={'row'}
+                key={question.id}
+                shadow={'md'}
+                borderWidth={1}
+                padding={4}
+                mb={2}
+              >
+                <EditableQuestion
+                  input={question.input}
+                  output={question.output}
+                  onChange={(input: string) =>
+                    onQuestionChange(
+                      { input, output: question.output },
+                      question.id
+                    )
+                  }
+                ></EditableQuestion>
+                <Spacer />
+                <Center pl={4}>
+                  <IconButton
+                    variant="outline"
+                    aria-label=""
+                    icon={<DeleteIcon />}
+                    onClick={() => deleteQuestionClick(index)}
+                  ></IconButton>
+                </Center>
+              </Flex>
+              <Button
+                leftIcon={<AddIcon />}
+                size={'xs'}
+                shadow={'md'}
+                onClick={() => addQuestionClick(index)}
+              ></Button>
             </Flex>
           );
         })}

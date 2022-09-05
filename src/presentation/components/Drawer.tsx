@@ -31,7 +31,7 @@ export default function Drawer({
     return !selectedCardIds.includes(templateId);
   };
 
-  console.log({ selectedCardIds });
+  // console.log({ selectedCardIds });
   return (
     <>
       <CDrawer isOpen={isOpen} placement="right" onClose={onClose} size={'md'}>

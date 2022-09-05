@@ -25,6 +25,7 @@ import { AreaModel } from '../../domain/area';
 import { TemplateModel } from '../../domain/template';
 import Sidebar from '../components/Sidebar';
 import Toolbar from '../components/Toolbar';
+import { GetNewEmptyQuestionUseCase } from '../../application/usecases/GetNewEmptyQuestion';
 
 const getAreasUseCase = new GetAreasUseCase();
 const getTemplatesUseCase = new GetTemplatesUseCase();
@@ -53,6 +54,9 @@ export default function DashboardPage() {
       setAreas(areasData);
 
       const templatesData = await getTemplatesUseCase.execute();
+      console.log(Object.fromEntries(templatesData));
+      // console.log(Object.assign({}, ...templatesData));
+
       setTemplates(templatesData);
     }
     fetchData();
@@ -60,7 +64,7 @@ export default function DashboardPage() {
   }, []);
 
   const categories = useMemo(() => {
-    console.log(areas);
+    // console.log(areas);
     return areas.map((template) => template.category).join();
   }, [areas]);
 
@@ -69,7 +73,7 @@ export default function DashboardPage() {
   };
 
   const onSelectTemplate = (template: TemplateModel) => {
-    console.log({ template });
+    // console.log({ template });
 
     setCards((oldCards: TemplateModel[]) => {
       return [...oldCards, ...[{ ...template }]];
@@ -111,6 +115,45 @@ export default function DashboardPage() {
     setCategory(clickedMenu);
   };
 
+  const onAddQuestionClick = async (questionIndex: number, cardId: string) => {
+    console.log({ questionIndex, cardId });
+    const uc = new GetNewEmptyQuestionUseCase();
+    const emptyCard = await uc.execute();
+
+    const copy = [...cards];
+
+    const cardToUpdateIndex = copy.findIndex((card) => card.id === cardId)!;
+    const cardToUpdate = copy[cardToUpdateIndex];
+
+    const copyQuestions = [...cardToUpdate.questions];
+    copyQuestions.splice(questionIndex + 1, 0, emptyCard);
+    console.log({ cardToUpdate });
+
+    const newCard = {
+      ...cardToUpdate,
+      questions: copyQuestions,
+    };
+    copy.splice(cardToUpdateIndex, 1, newCard);
+
+    setCards(copy);
+  };
+
+  const onDeleteQuestionClick = (questionIndex: number, cardId: string) => {
+    const copy = [...cards];
+    const cardToUpdateIndex = copy.findIndex((card) => card.id === cardId)!;
+    const cardToUpdate = copy[cardToUpdateIndex];
+
+    const copyQuestions = [...cardToUpdate.questions];
+    copyQuestions.splice(questionIndex, 1);
+
+    const newCard = {
+      ...cardToUpdate,
+      questions: copyQuestions,
+    };
+    copy.splice(cardToUpdateIndex, 1, newCard);
+    setCards(copy);
+  };
+
   return (
     <>
       {/* {JSON.stringify(cards)} */}
@@ -146,6 +189,12 @@ export default function DashboardPage() {
                   onDelete={() => onCardDelete(card.id)}
                   onQuestionChange={(newQuestion: any, questionId: string) =>
                     onQuestionChange(newQuestion, questionId, card.id)
+                  }
+                  addQuestionClick={(questionIndex: number) =>
+                    onAddQuestionClick(questionIndex, card.id)
+                  }
+                  deleteQuestionClick={(questionIndex: number) =>
+                    onDeleteQuestionClick(questionIndex, card.id)
                   }
                 ></Card>
               ))}

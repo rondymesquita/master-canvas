@@ -180,7 +180,7 @@ export default function DashboardPage() {
 
           <Flex width={'full'}>
             <Stack>
-              {filteredCards.map((card) => (
+              {filteredCards.map((card, index) => (
                 <Card
                   title={card.title}
                   key={card.id}

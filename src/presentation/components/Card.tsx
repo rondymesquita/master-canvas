@@ -36,6 +36,10 @@ export default function Template({
   addQuestionClick,
   deleteQuestionClick,
 }: any) {
+  const hideAddButon = (index: number) => {
+    return questions.length === index + 1;
+  };
+
   return (
     <Box
       bg="white"
@@ -60,18 +64,10 @@ export default function Template({
       <Flex>
         <Text>{description}</Text>
       </Flex>
-      <Flex
-        mt="4"
-        alignItems={'start'}
-        // borderWidth={1}
-        // borderRadius={'lg'}
-        // shadow={'md'}
-        p={2}
-        direction={'column'}
-      >
+      <Flex mt="4" alignItems={'start'} direction={'column'}>
         {questions.map((question: QuestionModel, index: number) => {
           return (
-            <Flex direction={'column'} width={'full'} mb={4}>
+            <Flex direction={'column'} width={'full'}>
               <Flex
                 width={'full'}
                 direction={'row'}
@@ -79,6 +75,7 @@ export default function Template({
                 shadow={'md'}
                 borderWidth={1}
                 padding={4}
+                mt={6}
                 mb={2}
               >
                 <EditableQuestion
@@ -92,7 +89,7 @@ export default function Template({
                   }
                 ></EditableQuestion>
                 <Spacer />
-                <Center pl={4}>
+                <Center pl={2}>
                   <IconButton
                     variant="outline"
                     aria-label=""
@@ -101,15 +98,28 @@ export default function Template({
                   ></IconButton>
                 </Center>
               </Flex>
-              <Button
-                leftIcon={<AddIcon />}
-                size={'xs'}
-                shadow={'md'}
-                onClick={() => addQuestionClick(index)}
-              ></Button>
+              {!hideAddButon(index) ? (
+                <Button
+                  leftIcon={<AddIcon />}
+                  size={'xs'}
+                  shadow={'md'}
+                  onClick={() => addQuestionClick(index)}
+                ></Button>
+              ) : (
+                ''
+              )}
             </Flex>
           );
         })}
+      </Flex>
+      <Flex>
+        <Button
+          width={'full'}
+          leftIcon={<AddIcon />}
+          size={'xs'}
+          shadow={'md'}
+          onClick={() => addQuestionClick(questions.length - 1)}
+        ></Button>
       </Flex>
       <Flex pt={4}>
         <Spacer />

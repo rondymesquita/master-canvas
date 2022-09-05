@@ -25,12 +25,9 @@ export default function Template({
   description,
   questions,
   onSelect,
+  isEnabled = true,
 }: any) {
-  const data = {
-    title,
-    description,
-    questions,
-  };
+  console.log({ isEnabled });
 
   return (
     <Box
@@ -67,8 +64,12 @@ export default function Template({
       </Stack>
       <Flex pt={4}>
         <Spacer />
-        <Button colorScheme="primary" onClick={() => onSelect(data)}>
-          Selecionar
+        <Button
+          disabled={!isEnabled}
+          colorScheme="primary"
+          onClick={() => onSelect()}
+        >
+          {isEnabled ? 'Selecionar' : 'Já selecionado'}
         </Button>
       </Flex>
     </Box>

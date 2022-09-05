@@ -17,7 +17,7 @@ export default function Toolbar({ onNewClick }: any) {
         colorScheme={'primary'}
         leftIcon={<AddIcon />}
       >
-        Novo
+        Novo Card
       </Button>
       <Center px={4}>
         <FormControl display="flex" alignItems="center">

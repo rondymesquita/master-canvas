@@ -39,6 +39,13 @@ export default function DashboardPage() {
   const [cards, setCards] = useState<TemplateModel[]>([]);
 
   const filteredCards = cards.filter((cards) => cards.category === category);
+  const filteredTemplates = templates.filter(
+    (template) => template.category === category
+  );
+
+  const selectedCardIds = useMemo(() => {
+    return cards.map((card) => card.id);
+  }, [cards]);
 
   useEffect(() => {
     async function fetchData() {
@@ -58,7 +65,6 @@ export default function DashboardPage() {
   }, [areas]);
 
   const onAddAreaClick = (category: string) => {
-    // setCategory(category);
     onOpen();
   };
 
@@ -107,12 +113,14 @@ export default function DashboardPage() {
 
   return (
     <>
+      {/* {JSON.stringify(cards)} */}
       <Drawer
         isOpen={isOpen}
         onOpen={onOpen}
         onClose={onClose}
         onSelectTemplate={onSelectTemplate}
-        templates={templates}
+        templates={filteredTemplates}
+        selectedCardIds={selectedCardIds}
         category={category}
       ></Drawer>
       <Flex borderWidth={1} borderColor={'gray.200'} borderRadius={'lg'}>

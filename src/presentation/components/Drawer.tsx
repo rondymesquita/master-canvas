@@ -11,9 +11,9 @@ import {
   DrawerHeader,
   DrawerOverlay,
   Heading,
-} from "@chakra-ui/react";
-import Template from "./Template";
-import { TemplateModel } from "../../domain/template";
+} from '@chakra-ui/react';
+import Template from './Template';
+import { TemplateModel } from '../../domain/template';
 
 export default function Drawer({
   title,
@@ -23,16 +23,25 @@ export default function Drawer({
   onSelectTemplate,
   category,
   templates,
+  selectedCardIds,
 }: any) {
+  const isTemplateEnabled = (templateId: string) => {
+    console.log({ templateId });
+
+    return !selectedCardIds.includes(templateId);
+  };
+
+  console.log({ selectedCardIds });
   return (
     <>
-      <CDrawer isOpen={isOpen} placement="right" onClose={onClose} size={"md"}>
+      <CDrawer isOpen={isOpen} placement="right" onClose={onClose} size={'md'}>
         <DrawerOverlay />
         <DrawerContent bg="gray.100">
           <DrawerCloseButton />
           <DrawerHeader>
             <Center>
-              <Heading size={"md"}>Templates "{category}"</Heading>
+              <Heading size={'md'}>Templates "{category}"</Heading>
+              {selectedCardIds}
             </Center>
           </DrawerHeader>
 
@@ -46,29 +55,19 @@ export default function Drawer({
                     title={template.title}
                     description={template.description}
                     questions={template.questions}
+                    isEnabled={isTemplateEnabled(template.id)}
                   />
                 );
               })
             ) : (
-              <Alert status="warning" borderWidth={1} boxShadow={"md"}>
+              <Alert status="warning" borderWidth={1} boxShadow={'md'}>
                 <AlertIcon />
                 Vazio
               </Alert>
             )}
           </DrawerBody>
 
-          <DrawerFooter hidden>
-            <Button
-              colorScheme="primary"
-              variant="outline"
-              mr={3}
-              size={"lg"}
-              onClick={onClose}
-            >
-              Cancel
-            </Button>
-            <Button colorScheme="primary">Save</Button>
-          </DrawerFooter>
+          <DrawerFooter hidden></DrawerFooter>
         </DrawerContent>
       </CDrawer>
     </>

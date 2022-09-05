@@ -1,4 +1,4 @@
-import { EditIcon, InfoIcon } from "@chakra-ui/icons";
+import { EditIcon, InfoIcon } from '@chakra-ui/icons';
 import {
   Box,
   Button,
@@ -12,47 +12,76 @@ import {
   EditableInput,
   EditableTextarea,
   EditablePreview,
-} from "@chakra-ui/react";
-import React from "react";
+  VStack,
+} from '@chakra-ui/react';
+import React from 'react';
+import { QuestionModel } from '../../domain/template';
 
-function Question({ text }: any) {
-  return <Text color="teal.500">{text}</Text>;
+function Question({ text, onChange }: any) {
+  // return <Text color="primary.500">{text}</Text>;
+  return (
+    <Flex color="primary.500" px={0} fontWeight={'bold'} width="full">
+      <Center>
+        <EditIcon />
+      </Center>
+      <Flex pl={2} flexGrow={1}>
+        <Editable defaultValue={text} onChange={onChange} width="full">
+          <EditablePreview
+            borderWidth={1}
+            borderColor={'gray.300'}
+            width={'full'}
+            // shadow={'md'}
+            px={2}
+          />
+          <EditableTextarea borderWidth={1} px={2} />
+        </Editable>
+      </Flex>
+    </Flex>
+  );
 }
 
 function Response({ text, onChange }: any) {
   return (
-    <Box color="gray.700">
-      <Flex>
-        <Center>
-          <EditIcon />
-        </Center>
-        <Box pl={2}>
-          <Editable defaultValue={text} onChange={onChange}>
-            <EditablePreview
-              borderWidth={1}
-              borderColor={"gray.300"}
-              shadow={"md"}
-              px={2}
-            />
-            <EditableTextarea borderWidth={1} px={2} />
-          </Editable>
-        </Box>
+    <Flex color="gray.700" px={0} width="full">
+      <Center>
+        <EditIcon />
+      </Center>
+      <Flex pl={2} flexGrow={1}>
+        <Editable defaultValue={text} onChange={onChange} width="full">
+          <EditablePreview
+            // marginLeft={2}
+            borderWidth={1}
+            borderColor={'gray.300'}
+            width={'full'}
+            // shadow={'md'}
+            px={2}
+          />
+          <EditableTextarea borderWidth={1} px={2} />
+        </Editable>
       </Flex>
-    </Box>
+    </Flex>
   );
 }
+
+export type TemplateProps = {
+  title: string;
+  description: string;
+  questions: QuestionModel[];
+  onDelete: Function;
+  onQuestionChange: Function;
+};
 
 export default function Template({
   title,
   description,
   questions,
   onDelete,
-  onResponseChange,
+  onQuestionChange,
 }: any) {
   return (
     <Box
       bg="white"
-      shadow={"sm"}
+      shadow={'sm'}
       maxW="sm"
       borderWidth="1px"
       borderRadius="lg"
@@ -73,17 +102,29 @@ export default function Template({
         <Text>{description}</Text>
       </Flex>
       <Stack spacing="2" mt="4">
-        {questions.map((q: any) => {
+        {questions.map((q: QuestionModel) => {
           return (
-            <Box key={q.question}>
-              <Question text={q.question}></Question>
+            <VStack
+              alignItems={'start'}
+              borderWidth={1}
+              borderRadius={'lg'}
+              shadow={'md'}
+              p={2}
+              key={q.id}
+            >
+              <Question
+                text={q.input}
+                onChange={(input: string) =>
+                  onQuestionChange({ input, output: q.output }, q.id)
+                }
+              ></Question>
               <Response
-                text={q.response}
-                onChange={(newResponse: string) =>
-                  onResponseChange(newResponse, q.id)
+                text={q.output}
+                onChange={(output: string) =>
+                  onQuestionChange({ input: q.input, output }, q.id)
                 }
               ></Response>
-            </Box>
+            </VStack>
           );
         })}
       </Stack>

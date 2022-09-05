@@ -1,3 +1,13 @@
-import { CardModel } from "./card";
+export interface QuestionModel {
+  id: string;
+  input: string;
+  output: string;
+}
 
-export interface TemplateModel extends CardModel {}
+export class TemplateModel {
+  id: string;
+  title: string;
+  description: string;
+  category: string;
+  questions: QuestionModel[];
+}

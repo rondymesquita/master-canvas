@@ -1,4 +1,4 @@
-import { InfoIcon } from "@chakra-ui/icons";
+import { InfoIcon } from '@chakra-ui/icons';
 import {
   Box,
   Button,
@@ -8,11 +8,12 @@ import {
   Spacer,
   Stack,
   Text,
-} from "@chakra-ui/react";
-import React from "react";
+} from '@chakra-ui/react';
+import React from 'react';
+import { QuestionModel } from '../../domain/template';
 
 function Question({ text }: any) {
-  return <Text color="teal.500">{text}</Text>;
+  return <Text color="primary.500">{text}</Text>;
 }
 
 function Response({ text }: any) {
@@ -31,12 +32,10 @@ export default function Template({
     questions,
   };
 
-  // console.log({ data });
-
   return (
     <Box
       bg="white"
-      shadow={"sm"}
+      shadow={'sm'}
       maxW="sm"
       borderWidth="1px"
       borderRadius="lg"
@@ -57,11 +56,11 @@ export default function Template({
         <Text>{description}</Text>
       </Flex>
       <Stack spacing="2" mt="4">
-        {questions.map((q: any) => {
+        {questions.map((q: QuestionModel) => {
           return (
-            <Box key={q.question}>
-              <Question text={q.question}></Question>
-              <Response text={q.response}></Response>
+            <Box key={q.id}>
+              <Question text={q.input}></Question>
+              <Response text={q.output}></Response>
             </Box>
           );
         })}

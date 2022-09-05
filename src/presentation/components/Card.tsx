@@ -67,7 +67,7 @@ export default function Template({
       <Flex mt="4" alignItems={'start'} direction={'column'}>
         {questions.map((question: QuestionModel, index: number) => {
           return (
-            <Flex direction={'column'} width={'full'}>
+            <Flex direction={'column'} width={'full'} key={question.id}>
               <Flex
                 width={'full'}
                 direction={'row'}

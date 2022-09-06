@@ -4,9 +4,7 @@ import { viteVConsole } from 'vite-plugin-vconsole';
 import * as path from 'path';
 
 export const base =
-  process.env.NODE_ENV === 'development'
-    ? undefined
-    : '/the-agile-code-review-manifesto/';
+  process.env.NODE_ENV === 'development' ? undefined : '/master-canvas/';
 
 // https://vitejs.dev/config/
 export default defineConfig({

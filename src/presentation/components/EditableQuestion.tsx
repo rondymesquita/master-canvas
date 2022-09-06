@@ -20,13 +20,14 @@ function Question({ text, onChange }: any) {
       <Flex pl={2} flexGrow={1}>
         <Editable defaultValue={text} onChange={onChange} width="full">
           <EditablePreview
+            minHeight={8}
             borderWidth={1}
             borderColor={'gray.300'}
             width={'full'}
             // shadow={'md'}
             px={2}
           />
-          <EditableTextarea borderWidth={1} px={2} />
+          <EditableTextarea borderWidth={1} px={2} minHeight={24} />
         </Editable>
       </Flex>
     </Flex>
@@ -42,12 +43,13 @@ function Response({ text, onChange }: any) {
       <Flex pl={2} flexGrow={1}>
         <Editable defaultValue={text} onChange={onChange} width="full">
           <EditablePreview
+            minHeight={8}
             borderWidth={1}
             borderColor={'gray.300'}
             width={'full'}
             px={2}
           />
-          <EditableTextarea borderWidth={1} px={2} />
+          <EditableTextarea borderWidth={1} px={2} minHeight={24} />
         </Editable>
       </Flex>
     </Flex>

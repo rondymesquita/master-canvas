@@ -1,4 +1,10 @@
-import { AddIcon, DeleteIcon, EditIcon, InfoIcon } from '@chakra-ui/icons';
+import {
+  AddIcon,
+  CheckIcon,
+  DeleteIcon,
+  EditIcon,
+  InfoIcon,
+} from '@chakra-ui/icons';
 import {
   Box,
   Button,
@@ -6,14 +12,9 @@ import {
   Flex,
   Heading,
   Spacer,
-  Stack,
   Text,
-  Editable,
-  EditableInput,
-  EditableTextarea,
-  EditablePreview,
-  VStack,
   IconButton,
+  Stack,
 } from '@chakra-ui/react';
 import React from 'react';
 import { QuestionModel } from '../../domain/template';
@@ -89,14 +90,22 @@ export default function Template({
                   }
                 ></EditableQuestion>
                 <Spacer />
-                <Center pl={2}>
+                <Stack pl={2} direction="column">
                   <IconButton
                     variant="outline"
                     aria-label=""
                     icon={<DeleteIcon />}
                     onClick={() => deleteQuestionClick(index)}
                   ></IconButton>
-                </Center>
+                  <Spacer />
+                  <IconButton
+                    variant="solid"
+                    colorScheme={'green'}
+                    aria-label=""
+                    icon={<CheckIcon />}
+                    onClick={() => onSave(index)}
+                  ></IconButton>
+                </Stack>
               </Flex>
               {!hideAddButon(index) ? (
                 <Button

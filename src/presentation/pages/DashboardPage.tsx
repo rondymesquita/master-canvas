@@ -179,26 +179,24 @@ export default function DashboardPage() {
           </Flex>
 
           <Flex width={'full'}>
-            <Stack>
-              {filteredCards.map((card, index) => (
-                <Card
-                  title={card.title}
-                  key={card.id}
-                  description={card.description}
-                  questions={card.questions}
-                  onDelete={() => onCardDelete(card.id)}
-                  onQuestionChange={(newQuestion: any, questionId: string) =>
-                    onQuestionChange(newQuestion, questionId, card.id)
-                  }
-                  addQuestionClick={(questionIndex: number) =>
-                    onAddQuestionClick(questionIndex, card.id)
-                  }
-                  deleteQuestionClick={(questionIndex: number) =>
-                    onDeleteQuestionClick(questionIndex, card.id)
-                  }
-                ></Card>
-              ))}
-            </Stack>
+            {filteredCards.map((card, index) => (
+              <Card
+                title={card.title}
+                key={card.id}
+                description={card.description}
+                questions={card.questions}
+                onDelete={() => onCardDelete(card.id)}
+                onQuestionChange={(newQuestion: any, questionId: string) =>
+                  onQuestionChange(newQuestion, questionId, card.id)
+                }
+                addQuestionClick={(questionIndex: number) =>
+                  onAddQuestionClick(questionIndex, card.id)
+                }
+                deleteQuestionClick={(questionIndex: number) =>
+                  onDeleteQuestionClick(questionIndex, card.id)
+                }
+              ></Card>
+            ))}
           </Flex>
         </Flex>
       </Flex>

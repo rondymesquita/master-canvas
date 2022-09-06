@@ -98,70 +98,9 @@ export default function DashboardPage() {
     });
   };
 
-  const onQuestionChange = (
-    newQuestion: any,
-    questionId: string,
-    cardId: string
-  ) => {
-    const newCards = cards.map((card) => {
-      if (card.id === cardId) {
-        const newQuestions = card.questions.map((q: any) => {
-          if (q.id === questionId) {
-            return { ...q, ...newQuestion };
-          }
-          return q;
-        });
-        card.questions = newQuestions;
-        return card;
-      }
-      return card;
-    });
-
-    setCards(newCards);
-  };
-
   const onClickMenuItem = (clickedMenu: string) => {
     console.log({ clickedMenu });
     setCategory(clickedMenu);
-  };
-
-  const onAddQuestionClick = async (questionIndex: number, cardId: string) => {
-    console.log({ questionIndex, cardId });
-    const uc = new GetNewEmptyQuestionUseCase();
-    const emptyCard = await uc.execute();
-
-    const copy = [...cards];
-
-    const cardToUpdateIndex = copy.findIndex((card) => card.id === cardId)!;
-    const cardToUpdate = copy[cardToUpdateIndex];
-
-    // const copyQuestions = [...cardToUpdate.questions];
-    // copyQuestions.splice(questionIndex + 1, 0, emptyCard);
-    console.log({ cardToUpdate });
-
-    const newCard = {
-      ...cardToUpdate,
-      questions: copyQuestions,
-    };
-    copy.splice(cardToUpdateIndex, 1, newCard);
-
-    setCards(copy);
-  };
-
-  const onDeleteQuestionClick = (questionIndex: number, cardId: string) => {
-    const copy = [...cards];
-    const cardToUpdateIndex = copy.findIndex((card) => card.id === cardId)!;
-    const cardToUpdate = copy[cardToUpdateIndex];
-
-    const copyQuestions = [...cardToUpdate.questions];
-    copyQuestions.splice(questionIndex, 1);
-
-    const newCard = {
-      ...cardToUpdate,
-      questions: copyQuestions,
-    };
-    copy.splice(cardToUpdateIndex, 1, newCard);
-    setCards(copy);
   };
 
   const onAreaAddClick = (category: string) => {

@@ -7,7 +7,7 @@ export interface IGetNewEmptyQuestionUseCase {
 }
 
 export class GetNewEmptyQuestionUseCase implements IGetNewEmptyQuestionUseCase {
-  async execute(): QuestionModel {
+  execute(): QuestionModel {
     console.log('GetNewEmptyQuestionUseCase use case called');
     const data: QuestionModel = {
       id: v4(),

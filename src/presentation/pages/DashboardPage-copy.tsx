@@ -54,7 +54,7 @@ export default function DashboardPage() {
       setAreas(areasData);
 
       const templatesData = await getTemplatesUseCase.execute();
-      console.log(Object.fromEntries(templatesData));
+      // console.log(Object.fromEntries(templatesData));
       // console.log(Object.assign({}, ...templatesData));
 
       setTemplates(templatesData);
@@ -95,7 +95,7 @@ export default function DashboardPage() {
   ) => {
     const newCards = cards.map((card) => {
       if (card.id === cardId) {
-        const newQuestions = card.questions.map((q: any) => {
+        const newQuestions = card?.questions?.map((q: any) => {
           if (q.id === questionId) {
             return { ...q, ...newQuestion };
           }
@@ -125,13 +125,13 @@ export default function DashboardPage() {
     const cardToUpdateIndex = copy.findIndex((card) => card.id === cardId)!;
     const cardToUpdate = copy[cardToUpdateIndex];
 
-    const copyQuestions = [...cardToUpdate.questions];
-    copyQuestions.splice(questionIndex + 1, 0, emptyCard);
-    console.log({ cardToUpdate });
+    // const copyQuestions = [...cardToUpdate.questions];
+    // copyQuestions.splice(questionIndex + 1, 0, emptyCard);
+    // console.log({ cardToUpdate });
 
     const newCard = {
       ...cardToUpdate,
-      questions: copyQuestions,
+      // questions: copyQuestions,
     };
     copy.splice(cardToUpdateIndex, 1, newCard);
 
@@ -143,12 +143,12 @@ export default function DashboardPage() {
     const cardToUpdateIndex = copy.findIndex((card) => card.id === cardId)!;
     const cardToUpdate = copy[cardToUpdateIndex];
 
-    const copyQuestions = [...cardToUpdate.questions];
-    copyQuestions.splice(questionIndex, 1);
+    // const copyQuestions = [...cardToUpdate.questions];
+    // copyQuestions.splice(questionIndex, 1);
 
     const newCard = {
       ...cardToUpdate,
-      questions: copyQuestions,
+      // questions: copyQuestions,
     };
     copy.splice(cardToUpdateIndex, 1, newCard);
     setCards(copy);

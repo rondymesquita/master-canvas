@@ -36,6 +36,7 @@ export default function Template({
   onQuestionChange,
   addQuestionClick,
   deleteQuestionClick,
+  onSave,
 }: any) {
   const hideAddButon = (index: number) => {
     return questions.length === index + 1;

@@ -9,5 +9,6 @@ export class TemplateModel {
   title: string;
   description: string;
   category: string;
-  questions: QuestionModel[];
+  content: string;
+  questions?: QuestionModel[];
 }

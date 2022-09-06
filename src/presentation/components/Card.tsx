@@ -15,6 +15,9 @@ import {
   Text,
   IconButton,
   Stack,
+  EditableTextarea,
+  Editable,
+  EditablePreview,
 } from '@chakra-ui/react';
 import React from 'react';
 import { QuestionModel } from '../../domain/template';
@@ -31,111 +34,59 @@ export type TemplateProps = {
 export default function Template({
   title,
   description,
-  questions,
+  content,
   onDelete,
   onQuestionChange,
   addQuestionClick,
   deleteQuestionClick,
+  onClick,
 }: any) {
-  const hideAddButon = (index: number) => {
-    return questions.length === index + 1;
-  };
-
   return (
-    <Box
-      bg="white"
-      shadow={'sm'}
-      width="full"
+    <Flex
+      fontSize={'sm'}
+      direction={'column'}
+      bg={'yellow.100'}
+      shadow={'md'}
+      width={100}
+      height={150}
       flexGrow={1}
       borderWidth="1px"
-      borderRadius="lg"
+      padding={2}
+      cursor={'pointer'}
       overflow="hidden"
-      padding={4}
+      onClick={onClick}
     >
       <Flex>
         <Center>
           <InfoIcon />
         </Center>
         <Box paddingLeft={2}>
-          <Heading as="h4" size="sm">
+          <Heading as="h4" size="xs">
             {title}
           </Heading>
         </Box>
       </Flex>
-      <Flex>
-        <Text>{description}</Text>
+      <Flex
+        mt="4"
+        alignItems={'start'}
+        direction={'column'}
+        overflow="hidden"
+        flexGrow={1}
+      >
+        {content}
       </Flex>
-      <Flex mt="4" alignItems={'start'} direction={'column'}>
-        {questions.map((question: QuestionModel, index: number) => {
-          return (
-            <Flex direction={'column'} width={'full'} key={question.id}>
-              <Flex
-                width={'full'}
-                direction={'row'}
-                key={question.id}
-                shadow={'md'}
-                borderWidth={1}
-                padding={4}
-                mt={6}
-                mb={2}
-              >
-                <EditableQuestion
-                  input={question.input}
-                  output={question.output}
-                  onChange={(input: string) =>
-                    onQuestionChange(
-                      { input, output: question.output },
-                      question.id
-                    )
-                  }
-                ></EditableQuestion>
-                <Spacer />
-                <Stack pl={2} direction="column">
-                  <IconButton
-                    variant="outline"
-                    aria-label=""
-                    icon={<DeleteIcon />}
-                    onClick={() => deleteQuestionClick(index)}
-                  ></IconButton>
-                  <Spacer />
-                  <IconButton
-                    variant="solid"
-                    colorScheme={'green'}
-                    aria-label=""
-                    icon={<CheckIcon />}
-                    onClick={() => onSave(index)}
-                  ></IconButton>
-                </Stack>
-              </Flex>
-              {!hideAddButon(index) ? (
-                <Button
-                  leftIcon={<AddIcon />}
-                  size={'xs'}
-                  shadow={'md'}
-                  onClick={() => addQuestionClick(index)}
-                ></Button>
-              ) : (
-                ''
-              )}
-            </Flex>
-          );
-        })}
-      </Flex>
-      <Flex>
-        <Button
-          width={'full'}
-          leftIcon={<AddIcon />}
-          size={'xs'}
-          shadow={'md'}
-          onClick={() => addQuestionClick(questions.length - 1)}
-        ></Button>
-      </Flex>
-      <Flex pt={4}>
+      <Flex mt="4">
         <Spacer />
-        <Button colorScheme="primary" onClick={() => onDelete()}>
-          Remover
-        </Button>
+        <IconButton
+          onClick={(e) => {
+            e.stopPropagation();
+            onDelete();
+          }}
+          size={'sm'}
+          aria-label=""
+          icon={<DeleteIcon />}
+        />
       </Flex>
-    </Box>
+    </Flex>
   );
 }

@@ -10,10 +10,6 @@ import {
   Heading,
   Center,
   useDisclosure,
-  SimpleGrid,
-  Spacer,
-  Grid,
-  GridItem,
 } from '@chakra-ui/react';
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import Area from '../components/Area';
@@ -30,18 +26,12 @@ import { TemplateModel } from '../../domain/template';
 import Sidebar from '../components/Sidebar';
 import Toolbar from '../components/Toolbar';
 import { GetNewEmptyQuestionUseCase } from '../../application/usecases/GetNewEmptyQuestion';
-import CardEdit from '../components/CardEdit';
 
 const getAreasUseCase = new GetAreasUseCase();
 const getTemplatesUseCase = new GetTemplatesUseCase();
 
 export default function DashboardPage() {
   const { isOpen, onOpen, onClose } = useDisclosure();
-  const {
-    isOpen: isModalOpen,
-    onOpen: onModalOpen,
-    onClose: onModalClose,
-  } = useDisclosure();
 
   const [category, setCategory] = useState<String>('');
 
@@ -49,9 +39,7 @@ export default function DashboardPage() {
   const [templates, setTemplates] = useState<TemplateModel[]>([]);
   const [cards, setCards] = useState<TemplateModel[]>([]);
 
-  const [currentCard, setCurrentCard] = useState<TemplateModel>();
-
-  // const filteredCards = cards.filter((cards) => cards.category === category);
+  const filteredCards = cards.filter((cards) => cards.category === category);
   const filteredTemplates = templates.filter(
     (template) => template.category === category
   );
@@ -66,7 +54,7 @@ export default function DashboardPage() {
       setAreas(areasData);
 
       const templatesData = await getTemplatesUseCase.execute();
-      // console.log(Object.fromEntries(templatesData));
+      console.log(Object.fromEntries(templatesData));
       // console.log(Object.assign({}, ...templatesData));
 
       setTemplates(templatesData);
@@ -85,6 +73,8 @@ export default function DashboardPage() {
   };
 
   const onSelectTemplate = (template: TemplateModel) => {
+    // console.log({ template });
+
     setCards((oldCards: TemplateModel[]) => {
       return [...oldCards, ...[{ ...template }]];
     });
@@ -135,8 +125,8 @@ export default function DashboardPage() {
     const cardToUpdateIndex = copy.findIndex((card) => card.id === cardId)!;
     const cardToUpdate = copy[cardToUpdateIndex];
 
-    // const copyQuestions = [...cardToUpdate.questions];
-    // copyQuestions.splice(questionIndex + 1, 0, emptyCard);
+    const copyQuestions = [...cardToUpdate.questions];
+    copyQuestions.splice(questionIndex + 1, 0, emptyCard);
     console.log({ cardToUpdate });
 
     const newCard = {
@@ -164,56 +154,9 @@ export default function DashboardPage() {
     setCards(copy);
   };
 
-  const onAreaAddClick = (category: string) => {
-    console.log({ category });
-    setCategory(category);
-    onOpen();
-  };
-
-  const onCardClick = (cardId: string) => {
-    console.log(cardId);
-    setCurrentCard(cards.find((card) => card.id === cardId));
-    onModalOpen();
-  };
-
-  const onCardSave = (newContent: string) => {
-    console.log(currentCard);
-
-    const copy = [...cards];
-
-    const cardToUpdateIndex = copy.findIndex(
-      (card) => card.id === currentCard!.id
-    )!;
-    const cardToUpdate = copy[cardToUpdateIndex];
-
-    const newCard = {
-      ...cardToUpdate,
-      content: newContent,
-    };
-    copy.splice(cardToUpdateIndex, 1, newCard);
-    setCards(copy);
-
-    onModalClose();
-  };
-
-  const getRowSpanRules = (area: AreaModel) => {
-    const { category } = area;
-    const colSpans: any = {
-      negocios: 3,
-      escrever: 3,
-    };
-    return colSpans[category] || 1;
-  };
-  const getColSpanRules = (area: AreaModel) => {
-    const { category } = area;
-    const colSpans: any = {
-      riscos: 6,
-    };
-    return colSpans[category] || 1;
-  };
-
   return (
     <>
+      {/* {JSON.stringify(cards)} */}
       <Drawer
         isOpen={isOpen}
         onOpen={onOpen}
@@ -223,55 +166,40 @@ export default function DashboardPage() {
         selectedCardIds={selectedCardIds}
         category={category}
       ></Drawer>
-      <CardEdit
-        isOpen={isModalOpen}
-        onOpen={onModalOpen}
-        onClose={onModalClose}
-        onSave={onCardSave}
-        card={currentCard}
-      ></CardEdit>
-      <Flex
-        borderWidth={1}
-        borderColor={'gray.200'}
-        borderRadius={'lg'}
-        bg={'gray.50'}
-        width={'full'}
-        direction={'column'}
-      >
-        <Toolbar onNewClick={() => onOpen()} />
-        <Spacer />
-        <Grid templateColumns="repeat(6, 1fr)" templateRows="repeat(4, 1fr)">
-          {areas.map((area: AreaModel, index: number) => (
-            <GridItem
-              rowSpan={getRowSpanRules(area)}
-              colSpan={getColSpanRules(area)}
-            >
-              <Area
-                key={index}
-                title={area.title}
-                onAddClick={() => onAreaAddClick(area.category)}
-              >
-                {cards
-                  .filter(
-                    (card: TemplateModel) => card.category === area.category
-                  )
-                  .map((card: TemplateModel, index: number) => (
-                    <Card
-                      title={card.title}
-                      key={card.id}
-                      description={card.description}
-                      content={card.content}
-                      // questions={card.questions}
-                      onDelete={() => onCardDelete(card.id)}
-                      onClick={() => onCardClick(card.id)}
-                    ></Card>
-                  ))}
-              </Area>
-            </GridItem>
-          ))}
-        </Grid>
+      <Flex borderWidth={1} borderColor={'gray.200'} borderRadius={'lg'}>
+        <Sidebar
+          borderRightWidth={1}
+          p={2}
+          category={category}
+          onClickMenuItem={onClickMenuItem}
+        />
+        <Flex bg={'gray.50'} width={'full'} p={4} direction={'column'}>
+          <Flex mb={4}>
+            <Toolbar onNewClick={onAddAreaClick}></Toolbar>
+          </Flex>
+
+          <Flex width={'full'}>
+            {filteredCards.map((card, index) => (
+              <Card
+                title={card.title}
+                key={card.id}
+                description={card.description}
+                questions={card.questions}
+                onDelete={() => onCardDelete(card.id)}
+                onQuestionChange={(newQuestion: any, questionId: string) =>
+                  onQuestionChange(newQuestion, questionId, card.id)
+                }
+                addQuestionClick={(questionIndex: number) =>
+                  onAddQuestionClick(questionIndex, card.id)
+                }
+                deleteQuestionClick={(questionIndex: number) =>
+                  onDeleteQuestionClick(questionIndex, card.id)
+                }
+              ></Card>
+            ))}
+          </Flex>
+        </Flex>
       </Flex>
-      s
     </>
   );
 }

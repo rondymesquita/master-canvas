@@ -60,7 +60,7 @@ function App() {
       <CommanderProvider>
         <ModalProvider>
           <Header />
-          <Container maxWidth={'container.lg'} marginTop={'4'}>
+          <Container maxWidth={'container.xl'} marginTop={'4'}>
             <BrowserRouter>
               <Routes>
                 <Route path="/" element={<DashboardPage />}></Route>

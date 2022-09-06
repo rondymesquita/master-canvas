@@ -11,6 +11,7 @@ import {
   DrawerHeader,
   DrawerOverlay,
   Heading,
+  Stack,
 } from '@chakra-ui/react';
 import Template from './Template';
 import { TemplateModel } from '../../domain/template';
@@ -26,7 +27,7 @@ export default function Drawer({
   selectedCardIds,
 }: any) {
   const isTemplateEnabled = (templateId: string) => {
-    console.log({ templateId });
+    // console.log({ templateId });
 
     return !selectedCardIds.includes(templateId);
   };
@@ -46,25 +47,28 @@ export default function Drawer({
           </DrawerHeader>
 
           <DrawerBody>
-            {templates.length > 0 ? (
-              templates.map((template: TemplateModel) => {
-                return (
-                  <Template
-                    key={template.title}
-                    onSelect={() => onSelectTemplate(template)}
-                    title={template.title}
-                    description={template.description}
-                    questions={template.questions}
-                    isEnabled={isTemplateEnabled(template.id)}
-                  />
-                );
-              })
-            ) : (
-              <Alert status="warning" borderWidth={1} boxShadow={'md'}>
-                <AlertIcon />
-                Vazio
-              </Alert>
-            )}
+            <Stack gap={2}>
+              {templates.length > 0 ? (
+                templates.map((template: TemplateModel) => {
+                  return (
+                    <Template
+                      key={template.id}
+                      onSelect={() => onSelectTemplate(template)}
+                      title={template.title}
+                      description={template.description}
+                      content={template.content}
+                      // questions={template.questions}
+                      isEnabled={isTemplateEnabled(template.id)}
+                    />
+                  );
+                })
+              ) : (
+                <Alert status="warning" borderWidth={1} boxShadow={'md'}>
+                  <AlertIcon />
+                  Vazio
+                </Alert>
+              )}
+            </Stack>
           </DrawerBody>
 
           <DrawerFooter hidden></DrawerFooter>

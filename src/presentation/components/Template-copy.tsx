@@ -23,18 +23,19 @@ function Response({ text }: any) {
 export default function Template({
   title,
   description,
-  content,
+  questions,
   onSelect,
   isEnabled = true,
 }: any) {
-  // console.log({ isEnabled });
+  console.log({ isEnabled });
 
   return (
     <Box
-      bg="yellow.100"
-      shadow={'md'}
+      bg="white"
+      shadow={'sm'}
       maxW="sm"
       borderWidth="1px"
+      borderRadius="lg"
       overflow="hidden"
       padding={4}
     >
@@ -51,11 +52,19 @@ export default function Template({
       <Flex>
         <Text>{description}</Text>
       </Flex>
-      <Flex mt="4">{content}</Flex>
+      <Stack spacing="2" mt="4">
+        {questions.map((q: QuestionModel) => {
+          return (
+            <Box key={q.id}>
+              <Question text={q.input}></Question>
+              <Response text={q.output}></Response>
+            </Box>
+          );
+        })}
+      </Stack>
       <Flex pt={4}>
         <Spacer />
         <Button
-          size={'sm'}
           disabled={!isEnabled}
           colorScheme="primary"
           onClick={() => onSelect()}

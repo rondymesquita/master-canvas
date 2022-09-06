@@ -17,20 +17,42 @@ export class GetTemplatesUseCase implements IGetTemplatesUseCase {
       {
         id: v4(),
         title: 'Descritivo Básico',
-        category: 'cursos',
+        category: 'viabilidade',
         description: 'Descrição do curso o qual se deseja criar ou ajustar',
-        questions: [
-          {
-            id: v4(),
-            input: 'Qual area de atuação?',
-            output: 'Ex: Engenharia de Software',
-          },
-          {
-            id: v4(),
-            input: 'Pergunta',
-            output: 'Ex: Resposta',
-          },
-        ],
+        content: `Qual area de atuação?
+          Ex: Engenharia de Software',
+          Pergunta
+          Ex: Resposta`,
+      },
+      {
+        id: v4(),
+        title: 'Descritivo Básico',
+        category: 'viabilidade',
+        description: 'Descrição do curso o qual se deseja criar ou ajustar',
+        content: `Qual area de atuação?
+          Ex: Engenharia de Software',
+          Pergunta
+          Ex: Resposta`,
+      },
+      {
+        id: v4(),
+        title: 'Descritivo Básico',
+        category: 'viabilidade',
+        description: 'Descrição do curso o qual se deseja criar ou ajustar',
+        content: `Qual area de atuação?
+          Ex: Engenharia de Software',
+          Pergunta
+          Ex: Resposta`,
+      },
+      {
+        id: v4(),
+        title: 'Descritivo Básico',
+        category: 'viabilidade',
+        description: 'Descrição do curso o qual se deseja criar ou ajustar',
+        content: `Qual area de atuação?
+          Ex: Engenharia de Software',
+          Pergunta
+          Ex: Resposta`,
       },
     ];
     return data;

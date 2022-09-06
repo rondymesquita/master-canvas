@@ -49,7 +49,13 @@ export default function DashboardPage() {
   const [templates, setTemplates] = useState<TemplateModel[]>([]);
   const [cards, setCards] = useState<TemplateModel[]>([]);
 
-  const [currentCard, setCurrentCard] = useState<TemplateModel>();
+  const [currentCard, setCurrentCard] = useState<TemplateModel>({
+    id: '',
+    description: '',
+    category: '',
+    title: '',
+    content: '',
+  });
 
   // const filteredCards = cards.filter((cards) => cards.category === category);
   const filteredTemplates = templates.filter(
@@ -111,7 +117,8 @@ export default function DashboardPage() {
 
   const onCardClick = (cardId: string) => {
     console.log(cardId);
-    setCurrentCard(cards.find((card) => card.id === cardId));
+    const card = cards.find((card) => card.id === cardId);
+    setCurrentCard(card ? card : ({} as TemplateModel));
     onModalOpen();
   };
 
@@ -167,7 +174,8 @@ export default function DashboardPage() {
         onOpen={onModalOpen}
         onClose={onModalClose}
         onSave={onCardSave}
-        card={currentCard}
+        title={currentCard.title}
+        content={currentCard.content}
       ></CardEdit>
       <Flex
         borderWidth={1}
@@ -182,6 +190,7 @@ export default function DashboardPage() {
         <Grid templateColumns="repeat(6, 1fr)" templateRows="repeat(4, 1fr)">
           {areas.map((area: AreaModel, index: number) => (
             <GridItem
+              key={index}
               rowSpan={getRowSpanRules(area)}
               colSpan={getColSpanRules(area)}
             >

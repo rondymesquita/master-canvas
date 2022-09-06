@@ -19,17 +19,18 @@ export default function CardEdit({
   onOpen,
   onClose,
   onSave,
-  card,
+  content,
+  title,
 }: any) {
-  const [content, setContent] = useState(card.content);
+  const [editContent, setEditContent] = useState(content);
 
   const onContentChange = (newContent: string) => {
     console.log({ newContent });
-    setContent(newContent);
+    setEditContent(newContent);
   };
 
   const onSaveButtonClick = () => {
-    onSave(content);
+    onSave(editContent);
   };
 
   return (
@@ -39,13 +40,13 @@ export default function CardEdit({
       <Modal isOpen={isOpen} onClose={onClose} size={'md'}>
         <ModalOverlay />
         <ModalContent>
-          <ModalHeader>{card.title}</ModalHeader>
+          <ModalHeader>{title}</ModalHeader>
           <ModalCloseButton />
           <ModalBody>
             <Editable
               startWithEditView
               selectAllOnFocus={false}
-              defaultValue={card.content}
+              defaultValue={content}
               onChange={onContentChange}
             >
               <EditablePreview minHeight={100} />

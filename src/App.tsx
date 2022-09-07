@@ -53,7 +53,7 @@ const theme = extendTheme({
 // console.log(theme);
 
 function App() {
-  const [count, setCount] = useState(0);
+  const basename = import.meta.env.DEV ? '/' : '/master-canvas/';
 
   return (
     <ChakraProvider theme={theme}>
@@ -61,7 +61,7 @@ function App() {
         <ModalProvider>
           <Header />
           <Container maxWidth={'container.xl'} marginTop={'4'}>
-            <BrowserRouter>
+            <BrowserRouter basename={basename}>
               <Routes>
                 <Route path="/" element={<DashboardPage />}></Route>
               </Routes>

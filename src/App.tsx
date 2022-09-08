@@ -18,6 +18,8 @@ import { CommanderProvider } from './presentation/contexts/CommanderContext';
 import Modal from './presentation/components/Modal';
 import { extendTheme } from '@chakra-ui/react';
 import Header from './presentation/components/Header';
+import { TransformWrapper, TransformComponent } from 'react-zoom-pan-pinch';
+
 const fontFamily = 'Roboto';
 const theme = extendTheme({
   styles: {
@@ -50,7 +52,24 @@ const theme = extendTheme({
   },
 });
 
-// console.log(theme);
+function Transformer({ children }: any) {
+  return (
+    <TransformWrapper
+      initialScale={1}
+      minScale={0.1}
+      centerOnInit={false}
+      limitToBounds={false}
+      centerZoomedOut={false}
+      panning={{ velocityDisabled: false }}
+      // initialPositionX={0}
+      // initialPositionY={0}
+    >
+      <TransformComponent>
+        <div>{children}</div>
+      </TransformComponent>
+    </TransformWrapper>
+  );
+}
 
 function App() {
   const basename = import.meta.env.DEV ? '/' : '/master-canvas/';
@@ -60,13 +79,20 @@ function App() {
       <CommanderProvider>
         <ModalProvider>
           <Header />
-          <Container maxWidth={'container.xl'} marginTop={'4'}>
-            <BrowserRouter basename={basename}>
-              <Routes>
-                <Route path="/" element={<DashboardPage />}></Route>
-              </Routes>
-            </BrowserRouter>
-          </Container>
+          {/* <Container maxWidth={'full'} marginTop={'4'}> */}
+          <BrowserRouter basename={basename}>
+            <Routes>
+              <Route
+                path="/"
+                element={
+                  <Transformer>
+                    <DashboardPage />
+                  </Transformer>
+                }
+              ></Route>
+            </Routes>
+          </BrowserRouter>
+          {/* </Container> */}
         </ModalProvider>
       </CommanderProvider>
     </ChakraProvider>

@@ -5,6 +5,7 @@ import {
   Heading,
   IconButton,
   Select,
+  SimpleGrid,
   Spacer,
   Text,
 } from '@chakra-ui/react';
@@ -33,7 +34,6 @@ export default function Area({
       minH="300px"
       borderWidth="1px"
       p="2"
-      // overflow="hidden"
     >
       <Flex>
         <Center>
@@ -56,8 +56,17 @@ export default function Area({
           ></IconButton>
         </Center>
       </Flex>
-      <Flex p={0} flexWrap="wrap">
-        {children}
+      {/* <Flex p={0} flexWrap="wrap"> */}
+      <Flex p={0}>
+        <SimpleGrid
+          // width={'full'}d
+          columns={2}
+          rowGap={4}
+          columnGap={3}
+          justifyContent={'space-evenly'}
+        >
+          {children}
+        </SimpleGrid>
       </Flex>
     </Box>
   );

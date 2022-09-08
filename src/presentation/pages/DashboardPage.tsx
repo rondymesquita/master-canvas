@@ -57,7 +57,6 @@ export default function DashboardPage() {
     content: '',
   });
 
-  // const filteredCards = cards.filter((cards) => cards.category === category);
   const filteredTemplates = templates.filter(
     (template) => template.category === category
   );
@@ -72,9 +71,6 @@ export default function DashboardPage() {
       setAreas(areasData);
 
       const templatesData = await getTemplatesUseCase.execute();
-      // console.log(Object.fromEntries(templatesData));
-      // console.log(Object.assign({}, ...templatesData));
-
       setTemplates(templatesData);
     }
     fetchData();
@@ -82,7 +78,6 @@ export default function DashboardPage() {
   }, []);
 
   const categories = useMemo(() => {
-    // console.log(areas);
     return areas.map((template) => template.category).join();
   }, [areas]);
 
@@ -187,12 +182,16 @@ export default function DashboardPage() {
       >
         <Toolbar onNewClick={() => onOpen()} />
         <Spacer />
-        <Grid templateColumns="repeat(6, 1fr)" templateRows="repeat(4, 1fr)">
+        <Grid
+          // width="1440px"
+          templateColumns="repeat(3, 1fr)"
+          // templateRows="repeat(4, 1fr)"
+        >
           {areas.map((area: AreaModel, index: number) => (
             <GridItem
               key={index}
-              rowSpan={getRowSpanRules(area)}
-              colSpan={getColSpanRules(area)}
+              // rowSpan={getRowSpanRules(area)}
+              // colSpan={getColSpanRules(area)}
             >
               <Area
                 key={index}

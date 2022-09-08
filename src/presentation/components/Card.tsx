@@ -47,8 +47,9 @@ export default function Template({
       direction={'column'}
       bg={'yellow.100'}
       shadow={'md'}
-      width={100}
-      height={150}
+      // width={100}
+      // height={150}
+      height={'fit-content'}
       flexGrow={1}
       borderWidth="1px"
       padding={2}

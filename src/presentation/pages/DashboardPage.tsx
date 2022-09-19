@@ -32,16 +32,22 @@ import Toolbar from '../components/Toolbar';
 import { GetNewEmptyQuestionUseCase } from '../../application/usecases/GetNewEmptyQuestion';
 import CardEdit from '../components/CardEdit';
 
+import { TransformWrapper, TransformComponent } from 'react-zoom-pan-pinch';
+import { useZoom, ZoomProvider } from '../contexts/ZoomContext';
+
 const getAreasUseCase = new GetAreasUseCase();
 const getTemplatesUseCase = new GetTemplatesUseCase();
 
-export default function DashboardPage() {
+export default function DashboardPage({ transformerRef }) {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const {
     isOpen: isModalOpen,
     onOpen: onModalOpen,
     onClose: onModalClose,
   } = useDisclosure();
+
+  // const { transformerRef } = useZoom();
+  console.log({ transformerRef });
 
   const [category, setCategory] = useState<String>('');
 
@@ -81,9 +87,9 @@ export default function DashboardPage() {
     return areas.map((template) => template.category).join();
   }, [areas]);
 
-  const onAddAreaClick = (category: string) => {
-    onOpen();
-  };
+  // const onAddAreaClick = (category: string) => {
+  //   onOpen();
+  // };
 
   const onSelectTemplate = (template: TemplateModel) => {
     setCards((oldCards: TemplateModel[]) => {
@@ -99,10 +105,10 @@ export default function DashboardPage() {
     });
   };
 
-  const onClickMenuItem = (clickedMenu: string) => {
-    console.log({ clickedMenu });
-    setCategory(clickedMenu);
-  };
+  // const onClickMenuItem = (clickedMenu: string) => {
+  //   console.log({ clickedMenu });
+  //   setCategory(clickedMenu);
+  // };
 
   const onAreaAddClick = (category: string) => {
     console.log({ category });
@@ -139,23 +145,23 @@ export default function DashboardPage() {
 
   const getRowSpanRules = (area: AreaModel) => {
     const { category } = area;
-    const colSpans: any = {
+    const rowSpans: any = {
       negocios: 3,
       escrever: 3,
     };
-    return colSpans[category] || 1;
+    return rowSpans[category] || 1;
   };
   const getColSpanRules = (area: AreaModel) => {
     const { category } = area;
     const colSpans: any = {
-      riscos: 6,
+      riscos: 3,
     };
     return colSpans[category] || 1;
   };
 
   return (
     <>
-      <Drawer
+      {/* <Drawer
         isOpen={isOpen}
         onOpen={onOpen}
         onClose={onClose}
@@ -163,7 +169,7 @@ export default function DashboardPage() {
         templates={filteredTemplates}
         selectedCardIds={selectedCardIds}
         category={category}
-      ></Drawer>
+      ></Drawer> */}
       <CardEdit
         isOpen={isModalOpen}
         onOpen={onModalOpen}
@@ -180,18 +186,19 @@ export default function DashboardPage() {
         width={'full'}
         direction={'column'}
       >
-        <Toolbar onNewClick={() => onOpen()} />
+        <Toolbar
+          zoomIn={() => transformerRef.current.zoomIn()}
+          zoomOut={() => transformerRef.current.zoomOut()}
+          zoomReset={() => transformerRef.current.resetTransform()}
+        />
         <Spacer />
-        <Grid
-          // width="1440px"
-          templateColumns="repeat(3, 1fr)"
-          // templateRows="repeat(4, 1fr)"
-        >
+
+        <Grid width={2200} templateColumns="repeat(3, 1fr)">
           {areas.map((area: AreaModel, index: number) => (
             <GridItem
               key={index}
-              // rowSpan={getRowSpanRules(area)}
-              // colSpan={getColSpanRules(area)}
+              rowSpan={getRowSpanRules(area)}
+              colSpan={getColSpanRules(area)}
             >
               <Area
                 key={index}
@@ -218,7 +225,6 @@ export default function DashboardPage() {
           ))}
         </Grid>
       </Flex>
-      s
     </>
   );
 }

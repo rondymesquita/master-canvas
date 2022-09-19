@@ -18,7 +18,8 @@ import { CommanderProvider } from './presentation/contexts/CommanderContext';
 import Modal from './presentation/components/Modal';
 import { extendTheme } from '@chakra-ui/react';
 import Header from './presentation/components/Header';
-import { TransformWrapper, TransformComponent } from 'react-zoom-pan-pinch';
+import { ZoomProvider } from './presentation/contexts/ZoomContext';
+import Zoom from './presentation/components/Zoom';
 
 const fontFamily = 'Roboto';
 const theme = extendTheme({
@@ -52,25 +53,6 @@ const theme = extendTheme({
   },
 });
 
-function Transformer({ children }: any) {
-  return (
-    <TransformWrapper
-      initialScale={1}
-      minScale={0.1}
-      centerOnInit={false}
-      limitToBounds={false}
-      centerZoomedOut={false}
-      panning={{ velocityDisabled: false }}
-      // initialPositionX={0}
-      // initialPositionY={0}
-    >
-      <TransformComponent>
-        <div>{children}</div>
-      </TransformComponent>
-    </TransformWrapper>
-  );
-}
-
 function App() {
   const basename = import.meta.env.DEV ? '/' : '/master-canvas/';
 
@@ -85,9 +67,13 @@ function App() {
               <Route
                 path="/"
                 element={
-                  <Transformer>
+                  // <Transformer>
+                  // <ZoomProvider>
+                  <Zoom>
                     <DashboardPage />
-                  </Transformer>
+                  </Zoom>
+                  // </ZoomProvider>
+                  // </Transformer>
                 }
               ></Route>
             </Routes>

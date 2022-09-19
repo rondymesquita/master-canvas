@@ -31,8 +31,9 @@ export default function Area({
       data-testid="area"
       w="full"
       h={'full'}
-      minH="300px"
+      minH={600}
       borderWidth="1px"
+      borderColor={'gray.800'}
       p="2"
     >
       <Flex>

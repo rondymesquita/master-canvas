@@ -11,10 +11,15 @@ import {
 } from '@chakra-ui/react';
 import React from 'react';
 
-export default function Toolbar({ onNewClick }: any) {
+export default function Toolbar({
+  onNewClick,
+  zoomIn,
+  zoomOut,
+  zoomReset,
+}: any) {
   return (
-    <Flex>
-      <Center px={4}>
+    <Flex p={4}>
+      <Center px={4} hidden>
         <FormControl display="flex" alignItems="center">
           <FormLabel htmlFor="email-alerts" m="0">
             Compacto
@@ -24,6 +29,17 @@ export default function Toolbar({ onNewClick }: any) {
             Completo
           </FormLabel>
         </FormControl>
+      </Center>
+      <Center>
+        <Button colorScheme={'primary'} onClick={zoomOut}>
+          -
+        </Button>
+        <Button colorScheme={'primary'} onClick={zoomReset}>
+          Reset
+        </Button>
+        <Button colorScheme={'primary'} onClick={zoomIn}>
+          +
+        </Button>
       </Center>
       <Spacer />
       <Button

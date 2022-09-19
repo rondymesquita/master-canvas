@@ -69,9 +69,9 @@ function App() {
                 element={
                   // <Transformer>
                   // <ZoomProvider>
-                  <Zoom>
-                    <DashboardPage />
-                  </Zoom>
+                  // <Zoom>
+                  <DashboardPage />
+                  // </Zoom>
                   // </ZoomProvider>
                   // </Transformer>
                 }

@@ -1,17 +1,28 @@
 import { DownloadIcon, SettingsIcon } from '@chakra-ui/icons';
 import { Box, Flex, Heading, IconButton, Spacer } from '@chakra-ui/react';
-import React from 'react';
+import React, { forwardRef } from 'react';
+import { TransformComponent, TransformWrapper } from 'react-zoom-pan-pinch';
 import { Command, useCommander } from '../contexts/CommanderContext';
 import { useZoom, ZoomProvider } from '../contexts/ZoomContext';
 
-function ZoomInternalComponent({ children }) {
-  const { transformerRef } = useZoom();
-  return <>{React.cloneElement(children, { transformerRef })}</>;
-}
-export default function Zoom({ children }) {
+function Zoom({ children }, ref) {
   return (
-    <ZoomProvider>
-      <ZoomInternalComponent>{children}</ZoomInternalComponent>
-    </ZoomProvider>
+    <>
+      <TransformWrapper
+        ref={ref}
+        initialScale={1}
+        minScale={0.1}
+        centerOnInit={false}
+        limitToBounds={false}
+        centerZoomedOut={false}
+        panning={{ velocityDisabled: false }}
+      >
+        <TransformComponent>
+          <div>{children}</div>
+        </TransformComponent>
+      </TransformWrapper>
+    </>
   );
 }
+
+export default forwardRef(Zoom);

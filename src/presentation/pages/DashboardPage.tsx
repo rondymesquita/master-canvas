@@ -34,11 +34,12 @@ import CardEdit from '../components/CardEdit';
 
 import { TransformWrapper, TransformComponent } from 'react-zoom-pan-pinch';
 import { useZoom, ZoomProvider } from '../contexts/ZoomContext';
+import Zoom from '../components/Zoom';
 
 const getAreasUseCase = new GetAreasUseCase();
 const getTemplatesUseCase = new GetTemplatesUseCase();
 
-export default function DashboardPage({ transformerRef }) {
+export default function DashboardPage() {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const {
     isOpen: isModalOpen,
@@ -46,8 +47,10 @@ export default function DashboardPage({ transformerRef }) {
     onClose: onModalClose,
   } = useDisclosure();
 
+  const zoomRef = useRef();
+
   // const { transformerRef } = useZoom();
-  console.log({ transformerRef });
+  // console.log({ transformerRef });
 
   const [category, setCategory] = useState<String>('');
 
@@ -113,7 +116,7 @@ export default function DashboardPage({ transformerRef }) {
   const onAreaAddClick = (category: string) => {
     console.log({ category });
     setCategory(category);
-    onOpen();
+    // onOpen();
   };
 
   const onCardClick = (cardId: string) => {
@@ -187,43 +190,45 @@ export default function DashboardPage({ transformerRef }) {
         direction={'column'}
       >
         <Toolbar
-          zoomIn={() => transformerRef.current.zoomIn()}
-          zoomOut={() => transformerRef.current.zoomOut()}
-          zoomReset={() => transformerRef.current.resetTransform()}
+          zoomIn={() => zoomRef.current.zoomIn()}
+          zoomOut={() => zoomRef.current.zoomOut()}
+          zoomReset={() => zoomRef.current.resetTransform()}
         />
         <Spacer />
 
-        <Grid width={2200} templateColumns="repeat(3, 1fr)">
-          {areas.map((area: AreaModel, index: number) => (
-            <GridItem
-              key={index}
-              rowSpan={getRowSpanRules(area)}
-              colSpan={getColSpanRules(area)}
-            >
-              <Area
+        <Zoom ref={zoomRef}>
+          <Grid width={2200} templateColumns="repeat(3, 1fr)">
+            {areas.map((area: AreaModel, index: number) => (
+              <GridItem
                 key={index}
-                title={area.title}
-                onAddClick={() => onAreaAddClick(area.category)}
+                rowSpan={getRowSpanRules(area)}
+                colSpan={getColSpanRules(area)}
               >
-                {cards
-                  .filter(
-                    (card: TemplateModel) => card.category === area.category
-                  )
-                  .map((card: TemplateModel, index: number) => (
-                    <Card
-                      title={card.title}
-                      key={card.id}
-                      description={card.description}
-                      content={card.content}
-                      // questions={card.questions}
-                      onDelete={() => onCardDelete(card.id)}
-                      onClick={() => onCardClick(card.id)}
-                    ></Card>
-                  ))}
-              </Area>
-            </GridItem>
-          ))}
-        </Grid>
+                <Area
+                  key={index}
+                  title={area.title}
+                  onAddClick={() => onAreaAddClick(area.category)}
+                >
+                  {cards
+                    .filter(
+                      (card: TemplateModel) => card.category === area.category
+                    )
+                    .map((card: TemplateModel, index: number) => (
+                      <Card
+                        title={card.title}
+                        key={card.id}
+                        description={card.description}
+                        content={card.content}
+                        // questions={card.questions}
+                        onDelete={() => onCardDelete(card.id)}
+                        onClick={() => onCardClick(card.id)}
+                      ></Card>
+                    ))}
+                </Area>
+              </GridItem>
+            ))}
+          </Grid>
+        </Zoom>
       </Flex>
     </>
   );

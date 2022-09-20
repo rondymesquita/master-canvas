@@ -58,15 +58,7 @@ export default function Area({
         </Center>
       </Flex>
       <Flex p={0} flexWrap="wrap" gap={2}>
-        {/* <Flex p={0}> */}
-        {/* <SimpleGrid
-          columns={2}
-          rowGap={4}
-          columnGap={3}
-          justifyContent={'space-evenly'}
-        > */}
         {children}
-        {/* </SimpleGrid> */}
       </Flex>
     </Box>
   );

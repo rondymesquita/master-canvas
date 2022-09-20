@@ -8,17 +8,16 @@ export default function EditableText({
 }: any) {
   return (
     <Editable
+      // width={'100%'}
       // startWithEditView
       selectAllOnFocus={true}
       defaultValue={value}
       onChange={onChange}
-      borderWidth={1}
-      px={2}
-      // borderStyle="dotted"
-      borderColor={'primary'}
+      // borderBottomWidth={4}
+      // borderColor={'primary.500'}
     >
-      <EditablePreview />
-      <EditableInput />
+      <EditablePreview px={2} shadow={'inner'} width="full" bg={'gray.200'} />
+      <EditableInput px={2} />
     </Editable>
   );
 }

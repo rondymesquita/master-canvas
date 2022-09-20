@@ -10,6 +10,8 @@ import {
   Button,
   useDisclosure,
   Flex,
+  Box,
+  Spacer,
 } from '@chakra-ui/react';
 
 // import { Editor, EditorState } from 'draft-js';
@@ -52,12 +54,18 @@ export default function CardEdit({
         <ModalOverlay />
         <ModalContent>
           <ModalHeader>
-            <EditableText
-              value={title}
-              onChange={(newTitle: string) => setTitle(newTitle)}
-            />
+            <Flex>
+              <Box flexGrow={1}>
+                <EditableText
+                  value={title}
+                  onChange={(newTitle: string) => setTitle(newTitle)}
+                />
+              </Box>
+              <Box pl="4">
+                <ModalCloseButton position={'relative'} />
+              </Box>
+            </Flex>
           </ModalHeader>
-          <ModalCloseButton />
           <ModalBody>
             {/* <Editable
               startWithEditView

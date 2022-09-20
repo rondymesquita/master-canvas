@@ -77,14 +77,6 @@ export default function DashboardPage() {
     setCategory('cursos');
   }, []);
 
-  // const onSelectTemplate = (template: CardModel) => {
-  //   setCards((oldCards: CardModel[]) => {
-  //     return [...oldCards, ...[{ ...template }]];
-  //   });
-
-  //   onClose();
-  // };
-
   const onCardDelete = (cardId: string) => {
     setCards((oldCards: any[]) => {
       return oldCards.filter((card) => card.id !== cardId);
@@ -155,15 +147,6 @@ export default function DashboardPage() {
 
   return (
     <>
-      {/* <Drawer
-        isOpen={isOpen}
-        onOpen={onOpen}
-        onClose={onClose}
-        onSelectTemplate={onSelectTemplate}
-        templates={filteredTemplates}
-        selectedCardIds={selectedCardIds}
-        category={category}
-      ></Drawer> */}
       <CardEdit
         key={currentCard.id + new Date().toISOString()}
         isOpen={isModalOpen}

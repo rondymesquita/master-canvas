@@ -1,5 +1,19 @@
 body,
 html {
-  /* border: 1px solid red; */
   font-family: Chivo, Inter, Avenir, Helvetica, Arial, sans-serif;
+}
+
+.DraftEditor-root h1 {
+  font-weight: 900;
+  font-size: 1.7em !important;
+}
+
+.DraftEditor-root h2 {
+  font-weight: 900;
+  font-size: 1.5em !important;
+}
+
+.DraftEditor-root h3 {
+  font-weight: 900;
+  font-size: 1.1em !important;
 }

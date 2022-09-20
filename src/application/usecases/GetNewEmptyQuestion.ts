@@ -1,6 +1,6 @@
 import { Bus } from '../../util/Bus';
 import { v4 } from 'uuid';
-import { QuestionModel, TemplateModel } from '../../domain/template';
+import { QuestionModel, CardModel } from '../../domain/template';
 
 export interface IGetNewEmptyQuestionUseCase {
   execute: () => QuestionModel;

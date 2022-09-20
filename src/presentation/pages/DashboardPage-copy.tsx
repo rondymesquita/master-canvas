@@ -22,7 +22,7 @@ import { v4 } from 'uuid';
 import { GetAreasUseCase } from '../../application/usecases/GetAreas';
 import { GetTemplatesUseCase } from '../../application/usecases/GetTemplates';
 import { AreaModel } from '../../domain/area';
-import { TemplateModel } from '../../domain/template';
+import { CardModel } from '../../domain/template';
 import Sidebar from '../components/Sidebar';
 import Toolbar from '../components/Toolbar';
 import { GetNewEmptyQuestionUseCase } from '../../application/usecases/GetNewEmptyQuestion';
@@ -36,8 +36,8 @@ export default function DashboardPage() {
   const [category, setCategory] = useState<String>('');
 
   const [areas, setAreas] = useState<AreaModel[]>([]);
-  const [templates, setTemplates] = useState<TemplateModel[]>([]);
-  const [cards, setCards] = useState<TemplateModel[]>([]);
+  const [templates, setTemplates] = useState<CardModel[]>([]);
+  const [cards, setCards] = useState<CardModel[]>([]);
 
   const filteredCards = cards.filter((cards) => cards.category === category);
   const filteredTemplates = templates.filter(
@@ -72,10 +72,10 @@ export default function DashboardPage() {
     onOpen();
   };
 
-  const onSelectTemplate = (template: TemplateModel) => {
+  const onSelectTemplate = (template: CardModel) => {
     // console.log({ template });
 
-    setCards((oldCards: TemplateModel[]) => {
+    setCards((oldCards: CardModel[]) => {
       return [...oldCards, ...[{ ...template }]];
     });
 

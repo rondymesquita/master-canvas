@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   Modal,
   ModalOverlay,
@@ -9,40 +9,57 @@ import {
   ModalCloseButton,
   Button,
   useDisclosure,
-  Editable,
-  EditablePreview,
-  EditableTextarea,
   Flex,
 } from '@chakra-ui/react';
+
+// import { Editor, EditorState } from 'draft-js';
+// import 'draft-js/dist/Draft.css';
+
+import RichTextEditor from 'react-rte';
+import EditableText from './EditableText';
 
 export default function CardEdit({
   isOpen,
   onOpen,
   onClose,
   onSave,
-  content,
-  title,
+  content: inputContent,
+  title: inputTitle,
 }: any) {
-  const [editContent, setEditContent] = useState(content);
+  console.log('created');
 
-  const onContentChange = (newContent: string) => {
-    console.log({ newContent });
-    setEditContent(newContent);
+  const [content, setContent] = useState(
+    RichTextEditor.createValueFromString(inputContent, 'markdown')
+  );
+
+  const [title, setTitle] = useState(inputTitle);
+
+  const onContentChange = (newContent: any) => {
+    setContent(newContent);
   };
 
   const onSaveButtonClick = () => {
-    onSave(editContent);
+    onSave({ content: content.toString('markdown'), title });
   };
 
+  const destroyAndClose = () => {
+    setContent(RichTextEditor.createEmptyValue('', 'markdown'));
+    onClose();
+  };
   return (
     <>
-      <Modal isOpen={isOpen} onClose={onClose} size={'md'}>
+      <Modal isOpen={isOpen} onClose={destroyAndClose} size={'lg'}>
         <ModalOverlay />
         <ModalContent>
-          <ModalHeader>{title}</ModalHeader>
+          <ModalHeader>
+            <EditableText
+              value={title}
+              onChange={(newTitle: string) => setTitle(newTitle)}
+            />
+          </ModalHeader>
           <ModalCloseButton />
           <ModalBody>
-            <Editable
+            {/* <Editable
               startWithEditView
               selectAllOnFocus={false}
               defaultValue={content}
@@ -50,12 +67,19 @@ export default function CardEdit({
             >
               <EditablePreview minHeight={100} />
               <EditableTextarea minHeight={100} />
-            </Editable>
+            </Editable> */}
+
+            <RichTextEditor
+              variant="filled"
+              value={content}
+              onChange={(newContent: any) => setContent(newContent)}
+            />
+            {/* <Editor editorState={editorState} onChange={setEditorState} /> */}
           </ModalBody>
 
           <ModalFooter>
             <Flex gap={4}>
-              <Button variant="outline" onClick={onClose}>
+              <Button variant="outline" onClick={destroyAndClose}>
                 Cancelar
               </Button>
               <Button colorScheme="primary" onClick={onSaveButtonClick}>

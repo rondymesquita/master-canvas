@@ -48,7 +48,7 @@ export default function Template({
       direction={'column'}
       bg={'yellow.100'}
       shadow={'md'}
-      width={100}
+      width={150}
       height={'fit-content'}
       borderWidth="1px"
       padding={2}
@@ -59,15 +59,14 @@ export default function Template({
         <Center>
           <InfoIcon />
         </Center>
-        <Box paddingLeft={2}>
-          <Heading as="h4" size="xs">
+        <Flex paddingLeft={2} overflow={'hidden'}>
+          <Heading maxWidth={'100%'} as="h4" size="xs" noOfLines={1}>
             {title}
           </Heading>
-        </Box>
+        </Flex>
       </Flex>
       <Text noOfLines={5} my="4">
-        {/* {content} */}
-        <LoremIpsum />
+        {content}
       </Text>
       <Flex mt="4">
         <Spacer />

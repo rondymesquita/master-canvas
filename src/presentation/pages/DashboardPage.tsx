@@ -26,18 +26,20 @@ import { v4 } from 'uuid';
 import { GetAreasUseCase } from '../../application/usecases/GetAreas';
 import { GetTemplatesUseCase } from '../../application/usecases/GetTemplates';
 import { AreaModel } from '../../domain/area';
-import { TemplateModel } from '../../domain/template';
+import { CardModel } from '../../domain/template';
 import Sidebar from '../components/Sidebar';
 import Toolbar from '../components/Toolbar';
 import { GetNewEmptyQuestionUseCase } from '../../application/usecases/GetNewEmptyQuestion';
 import CardEdit from '../components/CardEdit';
+import { GetEmptyCardUseCase } from '../../application/usecases/GetEmptyCard';
 
-import { TransformWrapper, TransformComponent } from 'react-zoom-pan-pinch';
-import { useZoom, ZoomProvider } from '../contexts/ZoomContext';
-import Zoom from '../components/Zoom';
+// import { TransformWrapper, TransformComponent } from 'react-zoom-pan-pinch';
+// import { useZoom, ZoomProvider } from '../contexts/ZoomContext';
+// import Zoom from '../components/Zoom';
 
 const getAreasUseCase = new GetAreasUseCase();
 const getTemplatesUseCase = new GetTemplatesUseCase();
+const getEmptyCardUseCase = new GetEmptyCardUseCase();
 
 export default function DashboardPage() {
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -52,10 +54,10 @@ export default function DashboardPage() {
   const [category, setCategory] = useState<String>('');
 
   const [areas, setAreas] = useState<AreaModel[]>([]);
-  const [templates, setTemplates] = useState<TemplateModel[]>([]);
-  const [cards, setCards] = useState<TemplateModel[]>([]);
+  const [templates, setTemplates] = useState<CardModel[]>([]);
+  const [cards, setCards] = useState<CardModel[]>([]);
 
-  const [currentCard, setCurrentCard] = useState<TemplateModel>({
+  const [currentCard, setCurrentCard] = useState<CardModel>({
     id: '',
     description: '',
     category: '',
@@ -75,8 +77,8 @@ export default function DashboardPage() {
     setCategory('cursos');
   }, []);
 
-  // const onSelectTemplate = (template: TemplateModel) => {
-  //   setCards((oldCards: TemplateModel[]) => {
+  // const onSelectTemplate = (template: CardModel) => {
+  //   setCards((oldCards: CardModel[]) => {
   //     return [...oldCards, ...[{ ...template }]];
   //   });
 
@@ -93,14 +95,10 @@ export default function DashboardPage() {
     console.log({ category });
     setCategory(category);
 
-    const emptyCard: TemplateModel = {
-      id: v4(),
-      title: 'string',
-      description: 'string',
-      category,
-      content: 'string',
-    };
-    setCards((oldCards: TemplateModel[]) => {
+    const emptyCard: CardModel = getEmptyCardUseCase.execute({ category });
+    console.log(emptyCard);
+
+    setCards((oldCards: CardModel[]) => {
       return [...oldCards, ...[{ ...emptyCard }]];
     });
   };
@@ -108,11 +106,17 @@ export default function DashboardPage() {
   const openCardEditModal = (cardId: string) => {
     console.log(cardId);
     const card = cards.find((card) => card.id === cardId);
-    setCurrentCard(card ? card : ({} as TemplateModel));
+    setCurrentCard(card ? card : ({} as CardModel));
     onModalOpen();
   };
 
-  const onCardSave = (newContent: string) => {
+  const onCardSave = ({
+    title,
+    content,
+  }: {
+    title: string;
+    content: string;
+  }) => {
     console.log(currentCard);
 
     const copy = [...cards];
@@ -124,7 +128,8 @@ export default function DashboardPage() {
 
     const newCard = {
       ...cardToUpdate,
-      content: newContent,
+      content,
+      title,
     };
     copy.splice(cardToUpdateIndex, 1, newCard);
     setCards(copy);
@@ -160,6 +165,7 @@ export default function DashboardPage() {
         category={category}
       ></Drawer> */}
       <CardEdit
+        key={currentCard.id + new Date().toISOString()}
         isOpen={isModalOpen}
         onOpen={onModalOpen}
         onClose={onModalClose}
@@ -196,10 +202,8 @@ export default function DashboardPage() {
                 onAddClick={() => onAreaAddClick(area.category)}
               >
                 {cards
-                  .filter(
-                    (card: TemplateModel) => card.category === area.category
-                  )
-                  .map((card: TemplateModel, index: number) => (
+                  .filter((card: CardModel) => card.category === area.category)
+                  .map((card: CardModel, index: number) => (
                     <Card
                       title={card.title}
                       key={card.id}

@@ -2,18 +2,18 @@ import { ModalEvent } from '../../domain/events';
 import { AreaModel } from '../../domain/area';
 import { Bus } from '../../util/Bus';
 import { v4 } from 'uuid';
-import { TemplateModel } from '../../domain/template';
+import { CardModel } from '../../domain/template';
 
 export interface IGetTemplatesUseCase {
-  execute: () => Promise<TemplateModel[]>;
+  execute: () => Promise<CardModel[]>;
 }
 
 export class GetTemplatesUseCase implements IGetTemplatesUseCase {
   private bus = Bus.getInstance();
 
-  async execute(): Promise<TemplateModel[]> {
+  async execute(): Promise<CardModel[]> {
     console.log('GetTemplatesUseCase use case called');
-    const data: TemplateModel[] = [
+    const data: CardModel[] = [
       {
         id: v4(),
         title: 'Descritivo Básico',

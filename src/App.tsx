@@ -59,7 +59,7 @@ function App() {
   const basename = import.meta.env.DEV ? '/' : '/master-canvas/';
 
   return (
-    <ChakraProvider theme={theme}>
+    <ChakraProvider theme={theme} resetCSS={true}>
       <CommanderProvider>
         <ModalProvider>
           <Header />

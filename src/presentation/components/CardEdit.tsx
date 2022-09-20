@@ -12,6 +12,8 @@ import {
   Flex,
   Box,
   Spacer,
+  Heading,
+  Center,
 } from '@chakra-ui/react';
 
 // import { Editor, EditorState } from 'draft-js';
@@ -19,6 +21,36 @@ import {
 
 import RichTextEditor from 'react-rte';
 import EditableText from './EditableText';
+import { SunIcon } from '@chakra-ui/icons';
+
+function Block({ children }) {
+  return (
+    <Box
+      p="2"
+      mb="4"
+      borderWidth={1}
+      borderColor={'primary.500'}
+      borderRadius="md"
+    >
+      {children}
+    </Box>
+  );
+}
+
+function BlockHeading({ children }) {
+  return (
+    <Flex>
+      <Center p="2">
+        <SunIcon fontSize={'4xl'} />
+      </Center>
+      <Center p="2">
+        <Heading textAlign={'center'} size="lg">
+          {children}
+        </Heading>
+      </Center>
+    </Flex>
+  );
+}
 
 export default function CardEdit({
   isOpen,
@@ -50,7 +82,7 @@ export default function CardEdit({
   };
   return (
     <>
-      <Modal isOpen={isOpen} onClose={destroyAndClose} size={'lg'}>
+      <Modal isOpen={isOpen} onClose={destroyAndClose} size={'4xl'}>
         <ModalOverlay />
         <ModalContent>
           <ModalHeader>
@@ -67,22 +99,15 @@ export default function CardEdit({
             </Flex>
           </ModalHeader>
           <ModalBody>
-            {/* <Editable
-              startWithEditView
-              selectAllOnFocus={false}
-              defaultValue={content}
-              onChange={onContentChange}
-            >
-              <EditablePreview minHeight={100} />
-              <EditableTextarea minHeight={100} />
-            </Editable> */}
-
-            <RichTextEditor
-              variant="filled"
-              value={content}
-              onChange={(newContent: any) => setContent(newContent)}
-            />
-            {/* <Editor editorState={editorState} onChange={setEditorState} /> */}
+            <Block>
+              <BlockHeading>
+                Visão de Persona - Experiência do Usuário
+              </BlockHeading>
+              <RichTextEditor
+                value={content}
+                onChange={(newContent: any) => setContent(newContent)}
+              />
+            </Block>
           </ModalBody>
 
           <ModalFooter>

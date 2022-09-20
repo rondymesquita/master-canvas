@@ -49,9 +49,6 @@ export default function DashboardPage() {
 
   const zoomRef = useRef();
 
-  // const { transformerRef } = useZoom();
-  // console.log({ transformerRef });
-
   const [category, setCategory] = useState<String>('');
 
   const [areas, setAreas] = useState<AreaModel[]>([]);
@@ -66,14 +63,6 @@ export default function DashboardPage() {
     content: '',
   });
 
-  const filteredTemplates = templates.filter(
-    (template) => template.category === category
-  );
-
-  const selectedCardIds = useMemo(() => {
-    return cards.map((card) => card.id);
-  }, [cards]);
-
   useEffect(() => {
     async function fetchData() {
       const areasData = await getAreasUseCase.execute();
@@ -86,21 +75,13 @@ export default function DashboardPage() {
     setCategory('cursos');
   }, []);
 
-  const categories = useMemo(() => {
-    return areas.map((template) => template.category).join();
-  }, [areas]);
+  // const onSelectTemplate = (template: TemplateModel) => {
+  //   setCards((oldCards: TemplateModel[]) => {
+  //     return [...oldCards, ...[{ ...template }]];
+  //   });
 
-  // const onAddAreaClick = (category: string) => {
-  //   onOpen();
+  //   onClose();
   // };
-
-  const onSelectTemplate = (template: TemplateModel) => {
-    setCards((oldCards: TemplateModel[]) => {
-      return [...oldCards, ...[{ ...template }]];
-    });
-
-    onClose();
-  };
 
   const onCardDelete = (cardId: string) => {
     setCards((oldCards: any[]) => {
@@ -108,18 +89,23 @@ export default function DashboardPage() {
     });
   };
 
-  // const onClickMenuItem = (clickedMenu: string) => {
-  //   console.log({ clickedMenu });
-  //   setCategory(clickedMenu);
-  // };
-
   const onAreaAddClick = (category: string) => {
     console.log({ category });
     setCategory(category);
-    // onOpen();
+
+    const emptyCard: TemplateModel = {
+      id: v4(),
+      title: 'string',
+      description: 'string',
+      category,
+      content: 'string',
+    };
+    setCards((oldCards: TemplateModel[]) => {
+      return [...oldCards, ...[{ ...emptyCard }]];
+    });
   };
 
-  const onCardClick = (cardId: string) => {
+  const openCardEditModal = (cardId: string) => {
     console.log(cardId);
     const card = cards.find((card) => card.id === cardId);
     setCurrentCard(card ? card : ({} as TemplateModel));
@@ -196,39 +182,38 @@ export default function DashboardPage() {
         />
         <Spacer />
 
-        <Zoom ref={zoomRef}>
-          <Grid width={2200} templateColumns="repeat(3, 1fr)">
-            {areas.map((area: AreaModel, index: number) => (
-              <GridItem
+        {/* <Zoom ref={zoomRef}> */}
+        <Grid templateColumns="repeat(3, 1fr)">
+          {areas.map((area: AreaModel, index: number) => (
+            <GridItem
+              key={index}
+              rowSpan={getRowSpanRules(area)}
+              colSpan={getColSpanRules(area)}
+            >
+              <Area
                 key={index}
-                rowSpan={getRowSpanRules(area)}
-                colSpan={getColSpanRules(area)}
+                title={area.title}
+                onAddClick={() => onAreaAddClick(area.category)}
               >
-                <Area
-                  key={index}
-                  title={area.title}
-                  onAddClick={() => onAreaAddClick(area.category)}
-                >
-                  {cards
-                    .filter(
-                      (card: TemplateModel) => card.category === area.category
-                    )
-                    .map((card: TemplateModel, index: number) => (
-                      <Card
-                        title={card.title}
-                        key={card.id}
-                        description={card.description}
-                        content={card.content}
-                        // questions={card.questions}
-                        onDelete={() => onCardDelete(card.id)}
-                        onClick={() => onCardClick(card.id)}
-                      ></Card>
-                    ))}
-                </Area>
-              </GridItem>
-            ))}
-          </Grid>
-        </Zoom>
+                {cards
+                  .filter(
+                    (card: TemplateModel) => card.category === area.category
+                  )
+                  .map((card: TemplateModel, index: number) => (
+                    <Card
+                      title={card.title}
+                      key={card.id}
+                      description={card.description}
+                      content={card.content}
+                      onDelete={() => onCardDelete(card.id)}
+                      onClick={() => openCardEditModal(card.id)}
+                    ></Card>
+                  ))}
+              </Area>
+            </GridItem>
+          ))}
+        </Grid>
+        {/* </Zoom> */}
       </Flex>
     </>
   );

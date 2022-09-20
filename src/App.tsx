@@ -1,7 +1,6 @@
 import { useState } from 'react';
 import { ChakraProvider, Container } from '@chakra-ui/react';
 import reactLogo from './assets/react.svg';
-import './App.css';
 
 import {
   Alert,
@@ -21,7 +20,9 @@ import Header from './presentation/components/Header';
 import { ZoomProvider } from './presentation/contexts/ZoomContext';
 import Zoom from './presentation/components/Zoom';
 
-const fontFamily = 'Roboto';
+const fontFamily = 'Chivo';
+const defaultTheme = extendTheme();
+
 const theme = extendTheme({
   styles: {
     global: {
@@ -38,7 +39,8 @@ const theme = extendTheme({
     },
   },
   colors: {
-    primary: {
+    primary: defaultTheme.colors.purple,
+    secondary: {
       50: '#ebf8ff',
       100: '#bee3f8',
       200: '#90cdf4',
@@ -61,24 +63,24 @@ function App() {
       <CommanderProvider>
         <ModalProvider>
           <Header />
-          {/* <Container maxWidth={'full'} marginTop={'4'}> */}
-          <BrowserRouter basename={basename}>
-            <Routes>
-              <Route
-                path="/"
-                element={
-                  // <Transformer>
-                  // <ZoomProvider>
-                  // <Zoom>
-                  <DashboardPage />
-                  // </Zoom>
-                  // </ZoomProvider>
-                  // </Transformer>
-                }
-              ></Route>
-            </Routes>
-          </BrowserRouter>
-          {/* </Container> */}
+          <Container maxWidth={'full'} marginTop={'4'} px={4}>
+            <BrowserRouter basename={basename}>
+              <Routes>
+                <Route
+                  path="/"
+                  element={
+                    // <Transformer>
+                    // <ZoomProvider>
+                    // <Zoom>
+                    <DashboardPage />
+                    // </Zoom>
+                    // </ZoomProvider>
+                    // </Transformer>
+                  }
+                ></Route>
+              </Routes>
+            </BrowserRouter>
+          </Container>
         </ModalProvider>
       </CommanderProvider>
     </ChakraProvider>

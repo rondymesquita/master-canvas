@@ -12,6 +12,7 @@ import {
   Editable,
   EditablePreview,
   EditableTextarea,
+  Flex,
 } from '@chakra-ui/react';
 
 export default function CardEdit({
@@ -35,8 +36,6 @@ export default function CardEdit({
 
   return (
     <>
-      {/* <Button onClick={onOpen}>Open Modal</Button> */}
-
       <Modal isOpen={isOpen} onClose={onClose} size={'md'}>
         <ModalOverlay />
         <ModalContent>
@@ -55,10 +54,14 @@ export default function CardEdit({
           </ModalBody>
 
           <ModalFooter>
-            <Button colorScheme="primary" onClick={onSaveButtonClick}>
-              Salvar
-            </Button>
-            {/* <Button variant="ghost">Secondary Action</Button> */}
+            <Flex gap={4}>
+              <Button variant="outline" onClick={onClose}>
+                Cancelar
+              </Button>
+              <Button colorScheme="primary" onClick={onSaveButtonClick}>
+                Salvar
+              </Button>
+            </Flex>
           </ModalFooter>
         </ModalContent>
       </Modal>

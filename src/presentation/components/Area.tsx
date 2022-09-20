@@ -57,17 +57,16 @@ export default function Area({
           ></IconButton>
         </Center>
       </Flex>
-      {/* <Flex p={0} flexWrap="wrap"> */}
-      <Flex p={0}>
-        <SimpleGrid
-          // width={'full'}d
+      <Flex p={0} flexWrap="wrap">
+        {/* <Flex p={0}> */}
+        {/* <SimpleGrid
           columns={2}
           rowGap={4}
           columnGap={3}
           justifyContent={'space-evenly'}
-        >
-          {children}
-        </SimpleGrid>
+        > */}
+        {children}
+        {/* </SimpleGrid> */}
       </Flex>
     </Box>
   );

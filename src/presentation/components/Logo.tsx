@@ -1,7 +1,7 @@
 import { Text } from '@chakra-ui/react';
 import React from 'react';
 
-export default function Logo({ color, size }: white) {
+export default function Logo({ color, size }: any) {
   return (
     <Text
       fontFamily={'Russo One'}

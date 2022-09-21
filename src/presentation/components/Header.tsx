@@ -23,7 +23,7 @@ export default function Header({ isLogged = true, user }: any) {
 
   return (
     <header>
-      <Flex bg={'primary.500'} px={4} py={2}>
+      <Flex bg={'primary.500'} px={4} py={2} shadow={'base'}>
         {/* <Spacer /> */}
         <Center>
           <Box>

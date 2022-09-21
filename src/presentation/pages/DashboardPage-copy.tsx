@@ -22,10 +22,9 @@ import { v4 } from 'uuid';
 import { GetAreasUseCase } from '../../application/usecases/GetAreas';
 import { GetTemplatesUseCase } from '../../application/usecases/GetTemplates';
 import { AreaModel } from '../../domain/area';
-import { CardModel } from '../../domain/template';
+import { CardModel } from '../../domain/card';
 import Sidebar from '../components/Sidebar';
 import Toolbar from '../components/Toolbar';
-import { GetNewEmptyQuestionUseCase } from '../../application/usecases/GetNewEmptyQuestion';
 
 const getAreasUseCase = new GetAreasUseCase();
 const getTemplatesUseCase = new GetTemplatesUseCase();
@@ -54,8 +53,6 @@ export default function DashboardPage() {
       setAreas(areasData);
 
       const templatesData = await getTemplatesUseCase.execute();
-      // console.log(Object.fromEntries(templatesData));
-      // console.log(Object.assign({}, ...templatesData));
 
       setTemplates(templatesData);
     }
@@ -64,7 +61,6 @@ export default function DashboardPage() {
   }, []);
 
   const categories = useMemo(() => {
-    // console.log(areas);
     return areas.map((template) => template.category).join();
   }, [areas]);
 
@@ -73,8 +69,6 @@ export default function DashboardPage() {
   };
 
   const onSelectTemplate = (template: CardModel) => {
-    // console.log({ template });
-
     setCards((oldCards: CardModel[]) => {
       return [...oldCards, ...[{ ...template }]];
     });
@@ -117,8 +111,8 @@ export default function DashboardPage() {
 
   const onAddQuestionClick = async (questionIndex: number, cardId: string) => {
     console.log({ questionIndex, cardId });
-    const uc = new GetNewEmptyQuestionUseCase();
-    const emptyCard = await uc.execute();
+    // const uc = new GetNewEmptyQuestionUseCase();
+    // const emptyCard = await uc.execute();
 
     const copy = [...cards];
 

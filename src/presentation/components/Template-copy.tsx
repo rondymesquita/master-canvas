@@ -10,7 +10,7 @@ import {
   Text,
 } from '@chakra-ui/react';
 import React from 'react';
-import { QuestionModel } from '../../domain/template';
+import { QuestionModel } from '../../domain/card';
 
 function Question({ text }: any) {
   return <Text color="primary.500">{text}</Text>;

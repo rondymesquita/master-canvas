@@ -16,7 +16,12 @@ export default function EditableText({
       // borderBottomWidth={4}
       // borderColor={'primary.500'}
     >
-      <EditablePreview px={2} shadow={'inner'} width="full" bg={'gray.200'} />
+      <EditablePreview
+        px={2}
+        width="full"
+        borderWidth={1}
+        borderColor={'primary.500'}
+      />
       <EditableInput px={2} />
     </Editable>
   );

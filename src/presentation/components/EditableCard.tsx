@@ -17,7 +17,7 @@ import {
   Stack,
 } from '@chakra-ui/react';
 import React from 'react';
-import { QuestionModel } from '../../domain/template';
+import { QuestionModel } from '../../domain/card';
 import EditableQuestion from './EditableQuestion';
 
 export type TemplateProps = {

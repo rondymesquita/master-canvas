@@ -26,7 +26,7 @@ import { v4 } from 'uuid';
 import { GetAreasUseCase } from '../../application/usecases/GetAreas';
 import { GetTemplatesUseCase } from '../../application/usecases/GetTemplates';
 import { AreaModel } from '../../domain/area';
-import { CardModel } from '../../domain/template';
+import { CardModel } from '../../domain/card';
 import Sidebar from '../components/Sidebar';
 import Toolbar from '../components/Toolbar';
 import { GetNewEmptyQuestionUseCase } from '../../application/usecases/GetNewEmptyQuestion';
@@ -62,7 +62,14 @@ export default function DashboardPage() {
     description: '',
     category: '',
     title: '',
-    content: '',
+    content: {
+      persona: ``,
+      business: ``,
+      acceptance: ``,
+      data: ``,
+      infra: ``,
+      risk: ``,
+    },
   });
 
   useEffect(() => {

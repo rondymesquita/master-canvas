@@ -2,7 +2,7 @@ import { ModalEvent } from '../../domain/events';
 import { AreaModel } from '../../domain/area';
 import { Bus } from '../../util/Bus';
 import { v4 } from 'uuid';
-import { CardModel } from '../../domain/template';
+import { CardModel } from '../../domain/card';
 
 export interface IGetTemplatesUseCase {
   execute: () => Promise<CardModel[]>;

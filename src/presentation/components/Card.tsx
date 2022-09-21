@@ -20,19 +20,11 @@ import {
   EditablePreview,
 } from '@chakra-ui/react';
 import React from 'react';
-import { QuestionModel } from '../../domain/template';
+import { QuestionModel } from '../../domain/card';
 import EditableQuestion from './EditableQuestion';
 import LoremIpsum from './LoremIpsum';
 
-export type TemplateProps = {
-  title: string;
-  description: string;
-  questions: QuestionModel[];
-  onDelete: Function;
-  onQuestionChange: Function;
-};
-
-export default function Template({
+export default function Card({
   title,
   description,
   content,
@@ -42,6 +34,9 @@ export default function Template({
   deleteQuestionClick,
   onClick,
 }: any) {
+  function createHTMLfromContent() {
+    return { __html: `${content.persona} ${content.business}` };
+  }
   return (
     <Flex
       fontSize={'sm'}
@@ -65,9 +60,11 @@ export default function Template({
           </Heading>
         </Flex>
       </Flex>
-      <Text noOfLines={5} my="4">
-        {content}
-      </Text>
+      <Text
+        noOfLines={5}
+        my="4"
+        dangerouslySetInnerHTML={createHTMLfromContent()}
+      ></Text>
       <Flex mt="4">
         <Spacer />
         <IconButton

@@ -14,7 +14,7 @@ import {
   Stack,
 } from '@chakra-ui/react';
 import Template from './Template';
-import { CardModel } from '../../domain/template';
+import { CardModel } from '../../domain/card';
 
 export default function Drawer({
   title,

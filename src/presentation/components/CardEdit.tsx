@@ -19,7 +19,13 @@ import {
 // import { Editor, EditorState } from 'draft-js';
 // import 'draft-js/dist/Draft.css';
 
-import RichTextEditor from 'react-rte';
+// import RichTextEditor from 'react-rte';
+// import { createEditor } from 'slate';
+// import { Slate, Editable, withReact } from 'slate-react';
+
+import ReactQuill from 'react-quill';
+import 'react-quill/dist/quill.snow.css';
+
 import EditableText from './EditableText';
 import { SunIcon } from '@chakra-ui/icons';
 
@@ -52,32 +58,56 @@ function BlockHeading({ children }: any) {
   );
 }
 
+function Actions({ cancel, ok }: any) {
+  return (
+    <Flex gap={4}>
+      <Button variant="outline" onClick={cancel}>
+        Cancelar
+      </Button>
+      <Button colorScheme="primary" onClick={ok}>
+        Salvar
+      </Button>
+    </Flex>
+  );
+}
+
 export default function CardEdit({
   isOpen,
   onOpen,
   onClose,
   onSave,
-  content: inputContent,
+  content,
   title: inputTitle,
 }: any) {
-  console.log('created');
-
-  const [content, setContent] = useState(
-    RichTextEditor.createValueFromString(inputContent, 'markdown')
-  );
-
+  const [persona, setPersona] = useState(content.persona);
+  const [business, setBusiness] = useState(content.business);
+  const [acceptance, setAcceptance] = useState(content.acceptance);
+  const [data, setData] = useState(content.data);
+  const [infra, setInfra] = useState(content.infra);
+  const [risk, setRisk] = useState(content.risk);
   const [title, setTitle] = useState(inputTitle);
 
-  const onContentChange = (newContent: any) => {
-    setContent(newContent);
-  };
-
   const onSaveButtonClick = () => {
-    onSave({ content: content.toString('markdown'), title });
+    onSave({
+      title,
+      content: {
+        persona,
+        business,
+        acceptance,
+        data,
+        infra,
+        risk,
+      },
+    });
   };
 
   const destroyAndClose = () => {
-    setContent(RichTextEditor.createEmptyValue());
+    setPersona('');
+    setBusiness('');
+    setAcceptance('');
+    setData('');
+    setInfra('');
+    setRisk('');
     onClose();
   };
   return (
@@ -93,32 +123,55 @@ export default function CardEdit({
                   onChange={(newTitle: string) => setTitle(newTitle)}
                 />
               </Box>
-              <Box pl="4">
-                <ModalCloseButton position={'relative'} />
-              </Box>
+              <Center pl="4">
+                <ModalCloseButton position={'relative'} top={0} right={0} />
+              </Center>
             </Flex>
           </ModalHeader>
           <ModalBody>
+            <Flex mb={4} justifyContent={'flex-end'}>
+              <Actions cancel={destroyAndClose} ok={onSaveButtonClick} />
+            </Flex>
             <Block>
               <BlockHeading>
                 Visão de Persona - Experiência do Usuário
               </BlockHeading>
-              <RichTextEditor
-                value={content}
-                onChange={(newContent: any) => setContent(newContent)}
+              <ReactQuill theme="snow" value={persona} onChange={setPersona} />
+            </Block>
+            <Block>
+              <BlockHeading>Visão de Negócio</BlockHeading>
+              <ReactQuill
+                theme="snow"
+                value={business}
+                onChange={setBusiness}
               />
+            </Block>
+            <Block>
+              <BlockHeading>Visão de Critério de Aceitação</BlockHeading>
+              <ReactQuill
+                theme="snow"
+                value={acceptance}
+                onChange={setAcceptance}
+              />
+            </Block>
+            <Block>
+              <BlockHeading>Visão de Dados</BlockHeading>
+              <ReactQuill theme="snow" value={data} onChange={setData} />
+            </Block>
+            <Block>
+              <BlockHeading>Visão de Infraestrutura</BlockHeading>
+              <ReactQuill theme="snow" value={infra} onChange={setInfra} />
+            </Block>
+            <Block>
+              <BlockHeading>
+                Visão de Risco de Produto - Literatura de Teste
+              </BlockHeading>
+              <ReactQuill theme="snow" value={risk} onChange={setRisk} />
             </Block>
           </ModalBody>
 
           <ModalFooter>
-            <Flex gap={4}>
-              <Button variant="outline" onClick={destroyAndClose}>
-                Cancelar
-              </Button>
-              <Button colorScheme="primary" onClick={onSaveButtonClick}>
-                Salvar
-              </Button>
-            </Flex>
+            <Actions cancel={destroyAndClose} ok={onSaveButtonClick} />
           </ModalFooter>
         </ModalContent>
       </Modal>

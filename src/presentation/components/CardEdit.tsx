@@ -23,7 +23,7 @@ import RichTextEditor from 'react-rte';
 import EditableText from './EditableText';
 import { SunIcon } from '@chakra-ui/icons';
 
-function Block({ children }) {
+function Block({ children }: any) {
   return (
     <Box
       p="2"
@@ -37,7 +37,7 @@ function Block({ children }) {
   );
 }
 
-function BlockHeading({ children }) {
+function BlockHeading({ children }: any) {
   return (
     <Flex>
       <Center p="2">
@@ -77,7 +77,7 @@ export default function CardEdit({
   };
 
   const destroyAndClose = () => {
-    setContent(RichTextEditor.createEmptyValue('', 'markdown'));
+    setContent(RichTextEditor.createEmptyValue());
     onClose();
   };
   return (

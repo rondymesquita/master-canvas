@@ -1,14 +1,15 @@
 import { DownloadIcon, SettingsIcon } from '@chakra-ui/icons';
 import { Box, Flex, Heading, IconButton, Spacer } from '@chakra-ui/react';
 import React, { forwardRef } from 'react';
-import { TransformComponent, TransformWrapper } from 'react-zoom-pan-pinch';
+// import { TransformComponent, TransformWrapper } from 'react-zoom-pan-pinch';
 import { Command, useCommander } from '../contexts/CommanderContext';
 import { useZoom, ZoomProvider } from '../contexts/ZoomContext';
 
-function Zoom({ children }, ref) {
+function Zoom({ children }: any, ref: any) {
   return (
     <>
-      <TransformWrapper
+      <div>{children}</div>
+      {/* <TransformWrapper
         ref={ref}
         initialScale={1}
         minScale={0.1}
@@ -20,7 +21,7 @@ function Zoom({ children }, ref) {
         <TransformComponent>
           <div>{children}</div>
         </TransformComponent>
-      </TransformWrapper>
+      </TransformWrapper> */}
     </>
   );
 }

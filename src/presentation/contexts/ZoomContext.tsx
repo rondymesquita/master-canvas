@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useRef } from 'react';
-import { TransformComponent, TransformWrapper } from 'react-zoom-pan-pinch';
+// import { TransformComponent, TransformWrapper } from 'react-zoom-pan-pinch';
 export const ZoomContext = React.createContext({} as any);
 
 export const useZoom = () => useContext(ZoomContext);
@@ -15,8 +15,9 @@ export function ZoomProvider({ children }: any) {
 
   return (
     <ZoomContext.Provider value={value}>
+      <div>{children}</div>
       {/* {children} */}
-      <TransformWrapper
+      {/* <TransformWrapper
         ref={transformerRef}
         initialScale={1}
         minScale={0.1}
@@ -28,7 +29,7 @@ export function ZoomProvider({ children }: any) {
         <TransformComponent>
           <div>{children}</div>
         </TransformComponent>
-      </TransformWrapper>
+      </TransformWrapper> */}
     </ZoomContext.Provider>
   );
 }

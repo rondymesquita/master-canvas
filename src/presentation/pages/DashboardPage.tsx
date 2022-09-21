@@ -164,11 +164,11 @@ export default function DashboardPage() {
         width={'full'}
         direction={'column'}
       >
-        <Toolbar
+        {/* <Toolbar
           zoomIn={() => zoomRef.current.zoomIn()}
           zoomOut={() => zoomRef.current.zoomOut()}
           zoomReset={() => zoomRef.current.resetTransform()}
-        />
+        /> */}
         <Spacer />
 
         {/* <Zoom ref={zoomRef}> */}

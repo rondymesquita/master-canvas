@@ -13,48 +13,7 @@ export class GetTemplatesUseCase implements IGetTemplatesUseCase {
 
   async execute(): Promise<CardModel[]> {
     console.log('GetTemplatesUseCase use case called');
-    const data: CardModel[] = [
-      {
-        id: v4(),
-        title: 'Descritivo Básico',
-        category: 'viabilidade',
-        description: 'Descrição do curso o qual se deseja criar ou ajustar',
-        content: `Qual area de atuação?
-          Ex: Engenharia de Software',
-          Pergunta
-          Ex: Resposta`,
-      },
-      {
-        id: v4(),
-        title: 'Descritivo Básico',
-        category: 'viabilidade',
-        description: 'Descrição do curso o qual se deseja criar ou ajustar',
-        content: `Qual area de atuação?
-          Ex: Engenharia de Software',
-          Pergunta
-          Ex: Resposta`,
-      },
-      {
-        id: v4(),
-        title: 'Descritivo Básico',
-        category: 'viabilidade',
-        description: 'Descrição do curso o qual se deseja criar ou ajustar',
-        content: `Qual area de atuação?
-          Ex: Engenharia de Software',
-          Pergunta
-          Ex: Resposta`,
-      },
-      {
-        id: v4(),
-        title: 'Descritivo Básico',
-        category: 'viabilidade',
-        description: 'Descrição do curso o qual se deseja criar ou ajustar',
-        content: `Qual area de atuação?
-          Ex: Engenharia de Software',
-          Pergunta
-          Ex: Resposta`,
-      },
-    ];
+    const data: CardModel[] = [];
     return data;
   }
 }

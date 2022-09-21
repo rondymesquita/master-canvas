@@ -29,7 +29,6 @@ import { AreaModel } from '../../domain/area';
 import { CardModel } from '../../domain/card';
 import Sidebar from '../components/Sidebar';
 import Toolbar from '../components/Toolbar';
-import { GetNewEmptyQuestionUseCase } from '../../application/usecases/GetNewEmptyQuestion';
 import CardEdit from '../components/CardEdit';
 import { GetEmptyCardUseCase } from '../../application/usecases/GetEmptyCard';
 
@@ -109,13 +108,7 @@ export default function DashboardPage() {
     onModalOpen();
   };
 
-  const onCardSave = ({
-    title,
-    content,
-  }: {
-    title: string;
-    content: string;
-  }) => {
+  const onCardSave = ({ title, content }: { title: string; content: any }) => {
     console.log(currentCard);
 
     const copy = [...cards];

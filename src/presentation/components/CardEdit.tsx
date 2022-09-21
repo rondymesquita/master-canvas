@@ -112,7 +112,7 @@ export default function CardEdit({
   };
   return (
     <>
-      <Modal isOpen={isOpen} onClose={destroyAndClose} size={'4xl'}>
+      <Modal isOpen={isOpen} onClose={destroyAndClose} size={'6xl'}>
         <ModalOverlay />
         <ModalContent>
           <ModalHeader>

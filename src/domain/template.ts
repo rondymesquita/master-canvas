@@ -4,7 +4,7 @@ export interface QuestionModel {
   output: string;
 }
 
-export class TemplateModel {
+export class CardModel {
   id: string;
   title: string;
   description: string;

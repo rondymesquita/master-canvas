@@ -5,6 +5,7 @@ import {
   Heading,
   IconButton,
   Select,
+  SimpleGrid,
   Spacer,
   Text,
 } from '@chakra-ui/react';
@@ -30,10 +31,10 @@ export default function Area({
       data-testid="area"
       w="full"
       h={'full'}
-      minH="300px"
+      minH={600}
       borderWidth="1px"
+      borderColor={'gray.800'}
       p="2"
-      // overflow="hidden"
     >
       <Flex>
         <Center>
@@ -56,7 +57,7 @@ export default function Area({
           ></IconButton>
         </Center>
       </Flex>
-      <Flex p={0} flexWrap="wrap">
+      <Flex p={0} flexWrap="wrap" gap={2}>
         {children}
       </Flex>
     </Box>

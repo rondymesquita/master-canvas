@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   Modal,
   ModalOverlay,
@@ -9,56 +9,116 @@ import {
   ModalCloseButton,
   Button,
   useDisclosure,
-  Editable,
-  EditablePreview,
-  EditableTextarea,
+  Flex,
+  Box,
+  Spacer,
+  Heading,
+  Center,
 } from '@chakra-ui/react';
+
+// import { Editor, EditorState } from 'draft-js';
+// import 'draft-js/dist/Draft.css';
+
+import RichTextEditor from 'react-rte';
+import EditableText from './EditableText';
+import { SunIcon } from '@chakra-ui/icons';
+
+function Block({ children }: any) {
+  return (
+    <Box
+      p="2"
+      mb="4"
+      borderWidth={1}
+      borderColor={'primary.500'}
+      borderRadius="md"
+    >
+      {children}
+    </Box>
+  );
+}
+
+function BlockHeading({ children }: any) {
+  return (
+    <Flex>
+      <Center p="2">
+        <SunIcon fontSize={'4xl'} />
+      </Center>
+      <Center p="2">
+        <Heading textAlign={'center'} size="lg">
+          {children}
+        </Heading>
+      </Center>
+    </Flex>
+  );
+}
 
 export default function CardEdit({
   isOpen,
   onOpen,
   onClose,
   onSave,
-  content,
-  title,
+  content: inputContent,
+  title: inputTitle,
 }: any) {
-  const [editContent, setEditContent] = useState(content);
+  console.log('created');
 
-  const onContentChange = (newContent: string) => {
-    console.log({ newContent });
-    setEditContent(newContent);
+  const [content, setContent] = useState(
+    RichTextEditor.createValueFromString(inputContent, 'markdown')
+  );
+
+  const [title, setTitle] = useState(inputTitle);
+
+  const onContentChange = (newContent: any) => {
+    setContent(newContent);
   };
 
   const onSaveButtonClick = () => {
-    onSave(editContent);
+    onSave({ content: content.toString('markdown'), title });
   };
 
+  const destroyAndClose = () => {
+    setContent(RichTextEditor.createEmptyValue());
+    onClose();
+  };
   return (
     <>
-      {/* <Button onClick={onOpen}>Open Modal</Button> */}
-
-      <Modal isOpen={isOpen} onClose={onClose} size={'md'}>
+      <Modal isOpen={isOpen} onClose={destroyAndClose} size={'4xl'}>
         <ModalOverlay />
         <ModalContent>
-          <ModalHeader>{title}</ModalHeader>
-          <ModalCloseButton />
+          <ModalHeader>
+            <Flex>
+              <Box flexGrow={1}>
+                <EditableText
+                  value={title}
+                  onChange={(newTitle: string) => setTitle(newTitle)}
+                />
+              </Box>
+              <Box pl="4">
+                <ModalCloseButton position={'relative'} />
+              </Box>
+            </Flex>
+          </ModalHeader>
           <ModalBody>
-            <Editable
-              startWithEditView
-              selectAllOnFocus={false}
-              defaultValue={content}
-              onChange={onContentChange}
-            >
-              <EditablePreview minHeight={100} />
-              <EditableTextarea minHeight={100} />
-            </Editable>
+            <Block>
+              <BlockHeading>
+                Visão de Persona - Experiência do Usuário
+              </BlockHeading>
+              <RichTextEditor
+                value={content}
+                onChange={(newContent: any) => setContent(newContent)}
+              />
+            </Block>
           </ModalBody>
 
           <ModalFooter>
-            <Button colorScheme="primary" onClick={onSaveButtonClick}>
-              Salvar
-            </Button>
-            {/* <Button variant="ghost">Secondary Action</Button> */}
+            <Flex gap={4}>
+              <Button variant="outline" onClick={destroyAndClose}>
+                Cancelar
+              </Button>
+              <Button colorScheme="primary" onClick={onSaveButtonClick}>
+                Salvar
+              </Button>
+            </Flex>
           </ModalFooter>
         </ModalContent>
       </Modal>

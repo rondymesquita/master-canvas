@@ -22,6 +22,7 @@ import {
 import React from 'react';
 import { QuestionModel } from '../../domain/template';
 import EditableQuestion from './EditableQuestion';
+import LoremIpsum from './LoremIpsum';
 
 export type TemplateProps = {
   title: string;
@@ -47,34 +48,26 @@ export default function Template({
       direction={'column'}
       bg={'yellow.100'}
       shadow={'md'}
-      width={100}
-      height={150}
-      flexGrow={1}
+      width={150}
+      height={'fit-content'}
       borderWidth="1px"
       padding={2}
       cursor={'pointer'}
-      overflow="hidden"
       onClick={onClick}
     >
       <Flex>
         <Center>
           <InfoIcon />
         </Center>
-        <Box paddingLeft={2}>
-          <Heading as="h4" size="xs">
+        <Flex paddingLeft={2} overflow={'hidden'}>
+          <Heading maxWidth={'100%'} as="h4" size="xs" noOfLines={1}>
             {title}
           </Heading>
-        </Box>
+        </Flex>
       </Flex>
-      <Flex
-        mt="4"
-        alignItems={'start'}
-        direction={'column'}
-        overflow="hidden"
-        flexGrow={1}
-      >
+      <Text noOfLines={5} my="4">
         {content}
-      </Flex>
+      </Text>
       <Flex mt="4">
         <Spacer />
         <IconButton

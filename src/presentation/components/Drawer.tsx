@@ -14,7 +14,7 @@ import {
   Stack,
 } from '@chakra-ui/react';
 import Template from './Template';
-import { TemplateModel } from '../../domain/template';
+import { CardModel } from '../../domain/template';
 
 export default function Drawer({
   title,
@@ -49,7 +49,7 @@ export default function Drawer({
           <DrawerBody>
             <Stack gap={2}>
               {templates.length > 0 ? (
-                templates.map((template: TemplateModel) => {
+                templates.map((template: CardModel) => {
                   return (
                     <Template
                       key={template.id}

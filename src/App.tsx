@@ -1,7 +1,6 @@
 import { useState } from 'react';
 import { ChakraProvider, Container } from '@chakra-ui/react';
 import reactLogo from './assets/react.svg';
-import './App.css';
 
 import {
   Alert,
@@ -18,7 +17,12 @@ import { CommanderProvider } from './presentation/contexts/CommanderContext';
 import Modal from './presentation/components/Modal';
 import { extendTheme } from '@chakra-ui/react';
 import Header from './presentation/components/Header';
-const fontFamily = 'Roboto';
+import { ZoomProvider } from './presentation/contexts/ZoomContext';
+import Zoom from './presentation/components/Zoom';
+
+const fontFamily = 'Chivo';
+const defaultTheme = extendTheme();
+
 const theme = extendTheme({
   styles: {
     global: {
@@ -35,7 +39,8 @@ const theme = extendTheme({
     },
   },
   colors: {
-    primary: {
+    primary: defaultTheme.colors.purple,
+    secondary: {
       50: '#ebf8ff',
       100: '#bee3f8',
       200: '#90cdf4',
@@ -50,20 +55,29 @@ const theme = extendTheme({
   },
 });
 
-// console.log(theme);
-
 function App() {
   const basename = import.meta.env.DEV ? '/' : '/master-canvas/';
 
   return (
-    <ChakraProvider theme={theme}>
+    <ChakraProvider theme={theme} resetCSS={true}>
       <CommanderProvider>
         <ModalProvider>
           <Header />
-          <Container maxWidth={'container.xl'} marginTop={'4'}>
+          <Container maxWidth={'full'} marginTop={'4'} px={4}>
             <BrowserRouter basename={basename}>
               <Routes>
-                <Route path="/" element={<DashboardPage />}></Route>
+                <Route
+                  path="/"
+                  element={
+                    // <Transformer>
+                    // <ZoomProvider>
+                    // <Zoom>
+                    <DashboardPage />
+                    // </Zoom>
+                    // </ZoomProvider>
+                    // </Transformer>
+                  }
+                ></Route>
               </Routes>
             </BrowserRouter>
           </Container>

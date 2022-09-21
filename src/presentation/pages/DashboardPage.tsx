@@ -26,14 +26,20 @@ import { v4 } from 'uuid';
 import { GetAreasUseCase } from '../../application/usecases/GetAreas';
 import { GetTemplatesUseCase } from '../../application/usecases/GetTemplates';
 import { AreaModel } from '../../domain/area';
-import { TemplateModel } from '../../domain/template';
+import { CardModel } from '../../domain/template';
 import Sidebar from '../components/Sidebar';
 import Toolbar from '../components/Toolbar';
 import { GetNewEmptyQuestionUseCase } from '../../application/usecases/GetNewEmptyQuestion';
 import CardEdit from '../components/CardEdit';
+import { GetEmptyCardUseCase } from '../../application/usecases/GetEmptyCard';
+
+// import { TransformWrapper, TransformComponent } from 'react-zoom-pan-pinch';
+// import { useZoom, ZoomProvider } from '../contexts/ZoomContext';
+// import Zoom from '../components/Zoom';
 
 const getAreasUseCase = new GetAreasUseCase();
 const getTemplatesUseCase = new GetTemplatesUseCase();
+const getEmptyCardUseCase = new GetEmptyCardUseCase();
 
 export default function DashboardPage() {
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -43,13 +49,15 @@ export default function DashboardPage() {
     onClose: onModalClose,
   } = useDisclosure();
 
+  const zoomRef = useRef();
+
   const [category, setCategory] = useState<String>('');
 
   const [areas, setAreas] = useState<AreaModel[]>([]);
-  const [templates, setTemplates] = useState<TemplateModel[]>([]);
-  const [cards, setCards] = useState<TemplateModel[]>([]);
+  const [templates, setTemplates] = useState<CardModel[]>([]);
+  const [cards, setCards] = useState<CardModel[]>([]);
 
-  const [currentCard, setCurrentCard] = useState<TemplateModel>({
+  const [currentCard, setCurrentCard] = useState<CardModel>({
     id: '',
     description: '',
     category: '',
@@ -57,46 +65,17 @@ export default function DashboardPage() {
     content: '',
   });
 
-  // const filteredCards = cards.filter((cards) => cards.category === category);
-  const filteredTemplates = templates.filter(
-    (template) => template.category === category
-  );
-
-  const selectedCardIds = useMemo(() => {
-    return cards.map((card) => card.id);
-  }, [cards]);
-
   useEffect(() => {
     async function fetchData() {
       const areasData = await getAreasUseCase.execute();
       setAreas(areasData);
 
       const templatesData = await getTemplatesUseCase.execute();
-      // console.log(Object.fromEntries(templatesData));
-      // console.log(Object.assign({}, ...templatesData));
-
       setTemplates(templatesData);
     }
     fetchData();
     setCategory('cursos');
   }, []);
-
-  const categories = useMemo(() => {
-    // console.log(areas);
-    return areas.map((template) => template.category).join();
-  }, [areas]);
-
-  const onAddAreaClick = (category: string) => {
-    onOpen();
-  };
-
-  const onSelectTemplate = (template: TemplateModel) => {
-    setCards((oldCards: TemplateModel[]) => {
-      return [...oldCards, ...[{ ...template }]];
-    });
-
-    onClose();
-  };
 
   const onCardDelete = (cardId: string) => {
     setCards((oldCards: any[]) => {
@@ -104,25 +83,32 @@ export default function DashboardPage() {
     });
   };
 
-  const onClickMenuItem = (clickedMenu: string) => {
-    console.log({ clickedMenu });
-    setCategory(clickedMenu);
-  };
-
   const onAreaAddClick = (category: string) => {
     console.log({ category });
     setCategory(category);
-    onOpen();
+
+    const emptyCard: CardModel = getEmptyCardUseCase.execute({ category });
+    console.log(emptyCard);
+
+    setCards((oldCards: CardModel[]) => {
+      return [...oldCards, ...[{ ...emptyCard }]];
+    });
   };
 
-  const onCardClick = (cardId: string) => {
+  const openCardEditModal = (cardId: string) => {
     console.log(cardId);
     const card = cards.find((card) => card.id === cardId);
-    setCurrentCard(card ? card : ({} as TemplateModel));
+    setCurrentCard(card ? card : ({} as CardModel));
     onModalOpen();
   };
 
-  const onCardSave = (newContent: string) => {
+  const onCardSave = ({
+    title,
+    content,
+  }: {
+    title: string;
+    content: string;
+  }) => {
     console.log(currentCard);
 
     const copy = [...cards];
@@ -134,7 +120,8 @@ export default function DashboardPage() {
 
     const newCard = {
       ...cardToUpdate,
-      content: newContent,
+      content,
+      title,
     };
     copy.splice(cardToUpdateIndex, 1, newCard);
     setCards(copy);
@@ -144,32 +131,24 @@ export default function DashboardPage() {
 
   const getRowSpanRules = (area: AreaModel) => {
     const { category } = area;
-    const colSpans: any = {
+    const rowSpans: any = {
       negocios: 3,
       escrever: 3,
     };
-    return colSpans[category] || 1;
+    return rowSpans[category] || 1;
   };
   const getColSpanRules = (area: AreaModel) => {
     const { category } = area;
     const colSpans: any = {
-      riscos: 6,
+      riscos: 3,
     };
     return colSpans[category] || 1;
   };
 
   return (
     <>
-      <Drawer
-        isOpen={isOpen}
-        onOpen={onOpen}
-        onClose={onClose}
-        onSelectTemplate={onSelectTemplate}
-        templates={filteredTemplates}
-        selectedCardIds={selectedCardIds}
-        category={category}
-      ></Drawer>
       <CardEdit
+        key={currentCard.id + new Date().toISOString()}
         isOpen={isModalOpen}
         onOpen={onModalOpen}
         onClose={onModalClose}
@@ -185,9 +164,15 @@ export default function DashboardPage() {
         width={'full'}
         direction={'column'}
       >
-        <Toolbar onNewClick={() => onOpen()} />
+        {/* <Toolbar
+          zoomIn={() => zoomRef.current.zoomIn()}
+          zoomOut={() => zoomRef.current.zoomOut()}
+          zoomReset={() => zoomRef.current.resetTransform()}
+        /> */}
         <Spacer />
-        <Grid templateColumns="repeat(6, 1fr)" templateRows="repeat(4, 1fr)">
+
+        {/* <Zoom ref={zoomRef}> */}
+        <Grid templateColumns="repeat(3, 1fr)">
           {areas.map((area: AreaModel, index: number) => (
             <GridItem
               key={index}
@@ -200,26 +185,23 @@ export default function DashboardPage() {
                 onAddClick={() => onAreaAddClick(area.category)}
               >
                 {cards
-                  .filter(
-                    (card: TemplateModel) => card.category === area.category
-                  )
-                  .map((card: TemplateModel, index: number) => (
+                  .filter((card: CardModel) => card.category === area.category)
+                  .map((card: CardModel, index: number) => (
                     <Card
                       title={card.title}
                       key={card.id}
                       description={card.description}
                       content={card.content}
-                      // questions={card.questions}
                       onDelete={() => onCardDelete(card.id)}
-                      onClick={() => onCardClick(card.id)}
+                      onClick={() => openCardEditModal(card.id)}
                     ></Card>
                   ))}
               </Area>
             </GridItem>
           ))}
         </Grid>
+        {/* </Zoom> */}
       </Flex>
-      s
     </>
   );
 }

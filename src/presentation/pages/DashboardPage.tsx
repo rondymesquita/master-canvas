@@ -31,6 +31,7 @@ import Sidebar from '../components/Sidebar';
 import Toolbar from '../components/Toolbar';
 import CardEdit from '../components/CardEdit';
 import { GetEmptyCardUseCase } from '../../application/usecases/GetEmptyCard';
+import Header from '../components/Header';
 
 // import { TransformWrapper, TransformComponent } from 'react-zoom-pan-pinch';
 // import { useZoom, ZoomProvider } from '../contexts/ZoomContext';
@@ -157,13 +158,15 @@ export default function DashboardPage() {
         content={currentCard.content}
       ></CardEdit>
       <Flex
-        borderWidth={1}
-        borderColor={'gray.200'}
-        borderRadius={'lg'}
-        bg={'gray.50'}
+        // borderWidth={1}
+        // borderColor={'gray.200'}
+        // borderRadius={'lg'}
+        // bg={'gray.50'}
         width={'full'}
         direction={'column'}
+        // px={4}
       >
+        <Header />
         {/* <Toolbar
           zoomIn={() => zoomRef.current.zoomIn()}
           zoomOut={() => zoomRef.current.zoomOut()}
@@ -172,34 +175,38 @@ export default function DashboardPage() {
         <Spacer />
 
         {/* <Zoom ref={zoomRef}> */}
-        <Grid templateColumns="repeat(3, 1fr)">
-          {areas.map((area: AreaModel, index: number) => (
-            <GridItem
-              key={index}
-              rowSpan={getRowSpanRules(area)}
-              colSpan={getColSpanRules(area)}
-            >
-              <Area
+        <Container maxWidth={'full'} pt={4}>
+          <Grid templateColumns="repeat(3, 1fr)">
+            {areas.map((area: AreaModel, index: number) => (
+              <GridItem
                 key={index}
-                title={area.title}
-                onAddClick={() => onAreaAddClick(area.category)}
+                rowSpan={getRowSpanRules(area)}
+                colSpan={getColSpanRules(area)}
               >
-                {cards
-                  .filter((card: CardModel) => card.category === area.category)
-                  .map((card: CardModel, index: number) => (
-                    <Card
-                      title={card.title}
-                      key={card.id}
-                      description={card.description}
-                      content={card.content}
-                      onDelete={() => onCardDelete(card.id)}
-                      onClick={() => openCardEditModal(card.id)}
-                    ></Card>
-                  ))}
-              </Area>
-            </GridItem>
-          ))}
-        </Grid>
+                <Area
+                  key={index}
+                  title={area.title}
+                  onAddClick={() => onAreaAddClick(area.category)}
+                >
+                  {cards
+                    .filter(
+                      (card: CardModel) => card.category === area.category
+                    )
+                    .map((card: CardModel, index: number) => (
+                      <Card
+                        title={card.title}
+                        key={card.id}
+                        description={card.description}
+                        content={card.content}
+                        onDelete={() => onCardDelete(card.id)}
+                        onClick={() => openCardEditModal(card.id)}
+                      ></Card>
+                    ))}
+                </Area>
+              </GridItem>
+            ))}
+          </Grid>
+        </Container>
         {/* </Zoom> */}
       </Flex>
     </>

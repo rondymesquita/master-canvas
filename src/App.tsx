@@ -19,6 +19,7 @@ import { extendTheme } from '@chakra-ui/react';
 import Header from './presentation/components/Header';
 import { ZoomProvider } from './presentation/contexts/ZoomContext';
 import Zoom from './presentation/components/Zoom';
+import LoginPage from './presentation/pages/LoginPage';
 
 const fontFamily = 'Chivo';
 const defaultTheme = extendTheme();
@@ -62,9 +63,10 @@ function App() {
     <ChakraProvider theme={theme} resetCSS={true}>
       <CommanderProvider>
         <ModalProvider>
-          <Header />
-          <Container maxWidth={'full'} marginTop={'4'} px={4}>
-            <BrowserRouter basename={basename}>
+          {/* <Header /> */}
+          <BrowserRouter basename={basename}>
+            {/* <Header /> */}
+            <Container maxWidth={'full'} p={0}>
               <Routes>
                 <Route
                   path="/"
@@ -78,9 +80,10 @@ function App() {
                     // </Transformer>
                   }
                 ></Route>
+                <Route path="/login" element={<LoginPage />} />
               </Routes>
-            </BrowserRouter>
-          </Container>
+            </Container>
+          </BrowserRouter>
         </ModalProvider>
       </CommanderProvider>
     </ChakraProvider>

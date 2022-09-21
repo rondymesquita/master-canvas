@@ -12,6 +12,7 @@ import {
 import React from 'react';
 import { Command, useCommander } from '../contexts/CommanderContext';
 import { FaUser } from 'react-icons/fa';
+import { Link as ReactLink } from 'react-router-dom';
 export default function Header({ isLogged = true, user }: any) {
   const { execute } = useCommander();
 
@@ -49,8 +50,14 @@ export default function Header({ isLogged = true, user }: any) {
               >
                 Virginia
               </Button>
-              <Button background={'primary.400'} colorScheme={'primary'}>
+              <Button
+                as={ReactLink}
+                to={'/login'}
+                background={'primary.400'}
+                colorScheme={'primary'}
+              >
                 Logout
+                {/* <Link to={'/login'}>Logout</Link> */}
               </Button>
             </>
           ) : (

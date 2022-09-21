@@ -1,15 +1,13 @@
 import { Editable, EditablePreview, EditableInput } from '@chakra-ui/react';
 import React from 'react';
 
-export default function EditableText({
-  value,
-  onChange,
-  selectAllOnFocus,
-}: any) {
+export default function EditableText({ value, onChange }: any) {
   return (
     <Editable
+      // startWithEditView={false}
+      // isPreviewFocusable={false}
       // width={'100%'}
-      startWithEditView
+      // startWithEditView
       // selectAllOnFocus={true}
       defaultValue={value}
       onChange={onChange}

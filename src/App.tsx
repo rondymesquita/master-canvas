@@ -63,23 +63,10 @@ function App() {
     <ChakraProvider theme={theme} resetCSS={true}>
       <CommanderProvider>
         <ModalProvider>
-          {/* <Header /> */}
           <BrowserRouter basename={basename}>
-            {/* <Header /> */}
             <Container maxWidth={'full'} p={0}>
               <Routes>
-                <Route
-                  path="/"
-                  element={
-                    // <Transformer>
-                    // <ZoomProvider>
-                    // <Zoom>
-                    <DashboardPage />
-                    // </Zoom>
-                    // </ZoomProvider>
-                    // </Transformer>
-                  }
-                ></Route>
+                <Route path="/" element={<DashboardPage />}></Route>
                 <Route path="/login" element={<LoginPage />} />
               </Routes>
             </Container>

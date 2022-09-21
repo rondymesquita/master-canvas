@@ -33,14 +33,14 @@ export default function Header({ isLogged = true, user }: any) {
         <Flex color={'white'} gap={2}>
           {isLogged ? (
             <>
-              <IconButton
+              {/* <IconButton
                 aria-label=""
                 background={'primary.400'}
                 colorScheme={'primary'}
                 onClick={onDownload}
               >
                 <DownloadIcon />
-              </IconButton>
+              </IconButton> */}
               <Button
                 aria-label=""
                 background={'primary.400'}
@@ -57,7 +57,6 @@ export default function Header({ isLogged = true, user }: any) {
                 colorScheme={'primary'}
               >
                 Logout
-                {/* <Link to={'/login'}>Logout</Link> */}
               </Button>
             </>
           ) : (

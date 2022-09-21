@@ -5,12 +5,12 @@ export interface QuestionModel {
 }
 
 export interface ContentModel {
-  persona: string,
-  business: string,
-  acceptance: string,
-  data: string,
-  infra: string,
-  risk: string,
+  persona: string;
+  business: string;
+  acceptance: string;
+  data: string;
+  infra: string;
+  risk: string;
 }
 
 export class CardModel {
@@ -18,6 +18,6 @@ export class CardModel {
   title: string;
   description: string;
   category: string;
-  content: ContentModel,
+  content: ContentModel;
   questions?: QuestionModel[];
 }

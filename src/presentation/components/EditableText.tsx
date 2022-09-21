@@ -9,20 +9,31 @@ export default function EditableText({
   return (
     <Editable
       // width={'100%'}
-      // startWithEditView
-      selectAllOnFocus={true}
+      startWithEditView
+      // selectAllOnFocus={true}
       defaultValue={value}
       onChange={onChange}
+      boxShadow={'none'}
       // borderBottomWidth={4}
       // borderColor={'primary.500'}
     >
       <EditablePreview
-        px={2}
         width="full"
         borderWidth={1}
         borderColor={'primary.500'}
+        px={2}
       />
-      <EditableInput px={2} />
+      <EditableInput
+        sx={{
+          '&:focus': {
+            boxShadow: 'xl',
+          },
+        }}
+        px={2}
+        width="full"
+        borderWidth={3}
+        borderColor={'primary.500'}
+      />
     </Editable>
   );
 }

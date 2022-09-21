@@ -15,25 +15,25 @@ export class GetAreasUseCase implements IGetAreasUseCase {
     const data = [
       {
         id: v4(),
-        title: 'Escrever os requisitos funcionais',
+        title: 'Requisitos funcionais',
         category: 'funcionais',
         icon: '',
       },
       {
         id: v4(),
-        title: 'Escrever os requisitos não funcionais',
+        title: 'Requisitos não funcionais',
         category: 'nao-funcionais',
         icon: '',
       },
       {
         id: v4(),
-        title: 'Escrever os requisitos das necessidades e coleta do dados',
+        title: 'Requisitos das necessidades e coleta do dados',
         category: 'dados',
         icon: '',
       },
       {
         id: v4(),
-        title: 'Riscos do produto',
+        title: 'Riscos',
         category: 'riscos',
         icon: '',
       },

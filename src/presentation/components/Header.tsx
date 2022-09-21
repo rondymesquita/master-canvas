@@ -13,6 +13,7 @@ import React from 'react';
 import { Command, useCommander } from '../contexts/CommanderContext';
 import { FaUser } from 'react-icons/fa';
 import { Link as ReactLink } from 'react-router-dom';
+import Logo from './Logo';
 export default function Header({ isLogged = true, user }: any) {
   const { execute } = useCommander();
 
@@ -23,11 +24,11 @@ export default function Header({ isLogged = true, user }: any) {
   return (
     <header>
       <Flex bg={'primary.500'} px={4} py={2}>
-        <Spacer />
+        {/* <Spacer /> */}
         <Center>
-          <Heading as={'h1'} size={'md'} color={'white'}>
-            Canvas
-          </Heading>
+          <Box>
+            <Logo size="2xl" />
+          </Box>
         </Center>
         <Spacer />
         <Flex color={'white'} gap={2}>

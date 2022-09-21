@@ -24,6 +24,7 @@ import Card from '../components/Card';
 
 import { FaGoogle } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
+import Logo from '../components/Logo';
 
 // const getEmptyCardUseCase = new GetEmptyCardUseCase();
 
@@ -36,10 +37,16 @@ export default function LoginPage() {
       width={'full'}
       height={'100vh'}
     >
-      <Center borderRadius={'md'} px={'36'} height={400} bg={'primary.100'}>
+      <Center
+        borderRadius={'md'}
+        px={'36'}
+        height={400}
+        bg={'primary.500'}
+        shadow="2xl"
+      >
         <Flex flexDirection={'column'}>
           <Center pb="6">
-            <Heading>Canvas</Heading>
+            <Logo />
           </Center>
           {/* <Button
             colorScheme="primary"
@@ -48,9 +55,12 @@ export default function LoginPage() {
             Login com Google
           </Button> */}
           <Button
+            // variant={}
             as={Link}
             to={'/'}
-            colorScheme={'primary'}
+            colorScheme={'white'}
+            bg={'white'}
+            color="black"
             leftIcon={<Icon as={FaGoogle} />}
           >
             Login com Google

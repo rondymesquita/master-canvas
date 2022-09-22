@@ -157,21 +157,8 @@ export default function DashboardPage() {
         title={currentCard.title}
         content={currentCard.content}
       ></CardEdit>
-      <Flex
-        // borderWidth={1}
-        // borderColor={'gray.200'}
-        // borderRadius={'lg'}
-        // bg={'gray.50'}
-        width={'full'}
-        direction={'column'}
-        // px={4}
-      >
+      <Flex width={'full'} direction={'column'}>
         <Header />
-        {/* <Toolbar
-          zoomIn={() => zoomRef.current.zoomIn()}
-          zoomOut={() => zoomRef.current.zoomOut()}
-          zoomReset={() => zoomRef.current.resetTransform()}
-        /> */}
         <Spacer />
 
         {/* <Zoom ref={zoomRef}> */}

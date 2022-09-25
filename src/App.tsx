@@ -5,7 +5,8 @@ import { ModalProvider } from './presentation/contexts/ModalContext';
 import { CommanderProvider } from './presentation/contexts/CommanderContext';
 import LoginPage from './presentation/modules/auth/LoginPage';
 import { theme } from './presentation/theme/theme';
-import ProjectsPage from './presentation/modules/project/ProjectsPage';
+import ListProjectsPage from './presentation/modules/project/ListProjectsPage';
+import ListCanvasPage from './presentation/modules/canvas/ListCanvasPage';
 
 function App() {
   const basename = import.meta.env.DEV ? '/' : '/master-canvas/';
@@ -17,9 +18,10 @@ function App() {
           <BrowserRouter basename={basename}>
             <Container maxWidth={'full'} p={0}>
               <Routes>
-                <Route path="/canvas" element={<DashboardPage />}></Route>
-                <Route path="/" element={<ProjectsPage />}></Route>
+                {/* <Route path="/" element={<ListProjectsPage />}></Route> */}
+                <Route path="/" element={<ListCanvasPage />}></Route>
                 <Route path="/login" element={<LoginPage />} />
+                <Route path="/canvas" element={<DashboardPage />}></Route>
               </Routes>
             </Container>
           </BrowserRouter>

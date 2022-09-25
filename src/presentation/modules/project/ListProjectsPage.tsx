@@ -22,7 +22,7 @@ import Project from './components/Project';
 import EditProjectModal from './components/EditProjectModal';
 import useDisclosure from '../../hooks/useDisclosure';
 
-export default function ProjectsPage() {
+export default function ListProjectsPage() {
   const [projects, setProjects] = useState<any>([]);
   const [currentProject, setCurrentProject] = useState<any>([]);
 

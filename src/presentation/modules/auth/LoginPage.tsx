@@ -19,12 +19,12 @@ import {
   Icon,
 } from '@chakra-ui/react';
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
-import Area from '../components/Area';
-import Card from '../components/Card';
+import Area from '../../components/Area';
+import Card from '../../components/Card';
 
 import { FaGoogle } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
-import Logo from '../components/Logo';
+import Logo from '../../components/Logo';
 
 // const getEmptyCardUseCase = new GetEmptyCardUseCase();
 

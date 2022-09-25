@@ -3,7 +3,7 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import DashboardPage from './presentation/pages/DashboardPage';
 import { ModalProvider } from './presentation/contexts/ModalContext';
 import { CommanderProvider } from './presentation/contexts/CommanderContext';
-import LoginPage from './presentation/pages/LoginPage';
+import LoginPage from './presentation/modules/auth/LoginPage';
 import { theme } from './presentation/theme/theme';
 import ProjectsPage from './presentation/modules/project/ProjectsPage';
 

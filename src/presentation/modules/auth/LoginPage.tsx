@@ -57,7 +57,7 @@ export default function LoginPage() {
           <Button
             // variant={}
             as={Link}
-            to={'/'}
+            to={'/canvas'}
             colorScheme={'white'}
             bg={'white'}
             color="black"

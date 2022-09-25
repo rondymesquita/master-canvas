@@ -1,6 +1,6 @@
 import { ChakraProvider, Container } from '@chakra-ui/react';
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import DashboardPage from './presentation/pages/DashboardPage';
+import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
+import CanvasPage from './presentation/modules/canvas/CanvasPage';
 import { ModalProvider } from './presentation/contexts/ModalContext';
 import { CommanderProvider } from './presentation/contexts/CommanderContext';
 import LoginPage from './presentation/modules/auth/LoginPage';
@@ -19,9 +19,12 @@ function App() {
             <Container maxWidth={'full'} p={0}>
               <Routes>
                 {/* <Route path="/" element={<ListProjectsPage />}></Route> */}
-                <Route path="/" element={<ListCanvasPage />}></Route>
+                <Route path="/canvas" element={<ListCanvasPage />}></Route>
                 <Route path="/login" element={<LoginPage />} />
-                <Route path="/canvas" element={<DashboardPage />}></Route>
+                <Route
+                  path="/canvas/:canvasId"
+                  element={<CanvasPage />}
+                ></Route>
               </Routes>
             </Container>
           </BrowserRouter>

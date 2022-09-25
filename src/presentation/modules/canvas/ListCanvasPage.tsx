@@ -8,12 +8,15 @@ import { CanvasModel } from '../../../domain/canvas';
 import Canvas from './components/Canvas';
 import useDisclosure from '../../hooks/useDisclosure';
 import NewCanvasModal from './components/NewCanvasModal';
+import { useNavigate } from 'react-router-dom';
 
 export default function ListCanvasPage() {
   const [canvases, setCanvases] = useState<CanvasModel[]>([]);
 
   const [isNewOpen, onNewOpen, onNewClose] = useDisclosure();
   const [isEditOpen, onEditOpen, onEditClose] = useDisclosure();
+
+  const navigate = useNavigate();
 
   useEffect(() => {
     setCanvases([
@@ -29,8 +32,12 @@ export default function ListCanvasPage() {
 
   const onSave = (data: any) => {
     console.log('data', { data });
-    // submit form data
     onNewClose();
+  };
+
+  const onClickCanvas = (canvas: CanvasModel) => {
+    // console.log(canvas);
+    navigate(`/canvas/${canvas.id}`);
   };
 
   return (
@@ -80,7 +87,9 @@ export default function ListCanvasPage() {
         }}
       >
         {canvases.map((canvas: CanvasModel) => {
-          return <Canvas key={canvas.id} canvas={canvas} />;
+          return (
+            <Canvas key={canvas.id} canvas={canvas} onClick={onClickCanvas} />
+          );
         })}
       </Grid>
     </PageTemplate>

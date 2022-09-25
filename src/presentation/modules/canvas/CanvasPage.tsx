@@ -16,22 +16,22 @@ import {
   GridItem,
 } from '@chakra-ui/react';
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
-import Area from '../components/Area';
-import Card from '../components/Card';
-import Drawer from '../components/Drawer';
-import Template from '../components/Template';
-import { Command, useCommander } from '../contexts/CommanderContext';
-import { AddCardModal } from './dashboard/AddCardModal';
+import Area from '../../components/Area';
+import Card from '../../components/Card';
+import Drawer from '../../components/Drawer';
+import Template from '../../components/Template';
+import { Command, useCommander } from '../../contexts/CommanderContext';
+import { AddCardModal } from '../../pages/dashboard/AddCardModal';
 import { v4 } from 'uuid';
-import { GetAreasUseCase } from '../../application/usecases/GetAreas';
-import { GetTemplatesUseCase } from '../../application/usecases/GetTemplates';
-import { AreaModel } from '../../domain/area';
-import { CardModel } from '../../domain/card';
-import Sidebar from '../components/Sidebar';
-import Toolbar from '../components/Toolbar';
-import CardEdit from '../components/CardEdit';
-import { GetEmptyCardUseCase } from '../../application/usecases/GetEmptyCard';
-import Header from '../components/Header';
+import { GetAreasUseCase } from '../../../application/usecases/GetAreas';
+import { GetTemplatesUseCase } from '../../../application/usecases/GetTemplates';
+import { AreaModel } from '../../../domain/area';
+import { CardModel } from '../../../domain/card';
+import Sidebar from '../../components/Sidebar';
+import Toolbar from '../../components/Toolbar';
+import CardEdit from '../../components/CardEdit';
+import { GetEmptyCardUseCase } from '../../../application/usecases/GetEmptyCard';
+import Header from '../../components/Header';
 
 // import { TransformWrapper, TransformComponent } from 'react-zoom-pan-pinch';
 // import { useZoom, ZoomProvider } from '../contexts/ZoomContext';
@@ -41,7 +41,7 @@ const getAreasUseCase = new GetAreasUseCase();
 const getTemplatesUseCase = new GetTemplatesUseCase();
 const getEmptyCardUseCase = new GetEmptyCardUseCase();
 
-export default function DashboardPage() {
+export default function CanvasPage() {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const {
     isOpen: isModalOpen,

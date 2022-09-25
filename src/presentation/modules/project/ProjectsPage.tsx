@@ -19,9 +19,11 @@ import PageTemplate from '../../templates/PageTemplate';
 import { FaTrash, FaSearch, FaPlus } from 'react-icons/fa';
 import NewProjectModal from './components/NewProjectModal';
 import { v4 } from 'uuid';
+import Project from './components/Project';
 
 export default function ProjectsPage() {
   const [projects, setProjects] = useState<any>([]);
+  const [curretProject, setCurrentProject] = useState<any>([]);
 
   const { isOpen, onOpen, onClose } = useDisclosure();
 
@@ -30,6 +32,11 @@ export default function ProjectsPage() {
     // submit form data
     // close modal
     onClose();
+  };
+
+  const onProjectClick = (project: any) => {
+    setCurrentProject(project);
+    console.log(project);
   };
 
   useEffect(() => {
@@ -123,39 +130,13 @@ export default function ProjectsPage() {
           md: 'repeat(3, 1fr)',
         }}
       >
-        {projects.map((project) => {
+        {projects.map((project: any) => {
           return (
-            <Box
+            <Project
               key={project.id}
-              borderWidth={1}
-              p={3}
-              borderRadius="md"
-              boxShadow={'md'}
-              boxSizing={'border-box'}
-            >
-              <Center flexDirection={'column'}>
-                <Heading size="md">{project.name}</Heading>
-                <Avatar name={project.name} />
-              </Center>
-              <Flex justifyContent={'start'} flexDirection={'column'}>
-                <Text color="gray.500" fontStyle="italic" fontSize={'sm'}>
-                  Criado: {project.created_at}
-                </Text>
-                <Text color="gray.500" fontStyle="italic" fontSize={'sm'}>
-                  Atualizado: {project.updated_at}
-                </Text>
-              </Flex>
-              <Flex mt="4" justifyContent={'end'}>
-                <Button
-                  colorScheme={'accent'}
-                  variant={'outline'}
-                  size={'sm'}
-                  leftIcon={<Icon as={FaTrash} />}
-                >
-                  Apagar
-                </Button>
-              </Flex>
-            </Box>
+              project={project}
+              onClick={onProjectClick}
+            />
           );
         })}
       </Grid>

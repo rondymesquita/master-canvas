@@ -15,11 +15,11 @@ export default function EditProjectModal({
   isOpen,
   onOpen,
   onClose,
-  inEdit,
+  onEdit,
 }: any) {
   const onFormData = (data: any) => {
     console.log({ data });
-    inEdit(data);
+    onEdit(data);
   };
   const { ref, submit, onSubmit } = useFormSubmit({ onFormData });
 

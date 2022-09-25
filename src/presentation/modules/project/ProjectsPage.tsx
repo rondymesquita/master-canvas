@@ -11,7 +11,6 @@ import {
   Input,
   Spacer,
   Text,
-  useDisclosure,
 } from '@chakra-ui/react';
 import React, { useEffect, useState } from 'react';
 import PageTemplate from '../../templates/PageTemplate';
@@ -20,23 +19,33 @@ import { FaTrash, FaSearch, FaPlus } from 'react-icons/fa';
 import NewProjectModal from './components/NewProjectModal';
 import { v4 } from 'uuid';
 import Project from './components/Project';
+import EditProjectModal from './components/EditProjectModal';
+import useDisclosure from '../../hooks/useDisclosure';
 
 export default function ProjectsPage() {
   const [projects, setProjects] = useState<any>([]);
-  const [curretProject, setCurrentProject] = useState<any>([]);
+  const [currentProject, setCurrentProject] = useState<any>([]);
 
-  const { isOpen, onOpen, onClose } = useDisclosure();
+  const [isNewOpen, onNewOpen, onNewClose] = useDisclosure();
+  const [isEditOpen, onEditOpen, onEditClose] = useDisclosure();
 
   const onSave = (data: any) => {
     console.log('data', { data });
     // submit form data
     // close modal
-    onClose();
+    onNewClose();
+  };
+
+  const onEdit = (data: any) => {
+    console.log('data', { data });
+    // submit form data
+    // close modal
+    onEditClose();
   };
 
   const onProjectClick = (project: any) => {
     setCurrentProject(project);
-    console.log(project);
+    onEditOpen();
   };
 
   useEffect(() => {
@@ -93,7 +102,24 @@ export default function ProjectsPage() {
   }, []);
   return (
     <PageTemplate>
-      <NewProjectModal {...{ isOpen, onOpen, onClose, onSave }} />
+      <NewProjectModal
+        {...{
+          isOpen: isNewOpen,
+          onOpen: onNewOpen,
+          onClose: onNewClose,
+          onSave,
+        }}
+      />
+
+      <EditProjectModal
+        {...{
+          project: currentProject,
+          isOpen: isEditOpen,
+          onOpen: onEditOpen,
+          onClose: onEditClose,
+          onEdit,
+        }}
+      />
       {/* Search */}
       <Flex borderWidth="1" p={2}>
         <Flex width={'full'} gap="4">
@@ -114,7 +140,7 @@ export default function ProjectsPage() {
         <Button
           colorScheme={'primary'}
           leftIcon={<Icon as={FaPlus} />}
-          onClick={onOpen}
+          onClick={onNewOpen}
         >
           Novo Projeto
         </Button>

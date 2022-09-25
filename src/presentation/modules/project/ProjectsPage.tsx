@@ -32,20 +32,29 @@ export default function ProjectsPage() {
   const onSave = (data: any) => {
     console.log('data', { data });
     // submit form data
-    // close modal
     onNewClose();
   };
 
   const onEdit = (data: any) => {
     console.log('data', { data });
     // submit form data
-    // close modal
     onEditClose();
   };
 
-  const onProjectClick = (project: any) => {
+  const onClickProject = (project: any) => {
+    //navigate to list all canvas of project
+    console.log('navegando....');
+  };
+
+  const onEditClickProject = (project: any) => {
     setCurrentProject(project);
     onEditOpen();
+  };
+  const onDeleteClickProject = (project: any) => {
+    //modal ask confirmation;
+    //delete
+    // alert();
+    console.log('deleting');
   };
 
   useEffect(() => {
@@ -114,7 +123,7 @@ export default function ProjectsPage() {
         <Button
           colorScheme={'primary'}
           leftIcon={<Icon as={FaPlus} />}
-          onClick={onNewOpen}
+          onClick={() => onNewOpen}
         >
           Novo Projeto
         </Button>
@@ -135,7 +144,9 @@ export default function ProjectsPage() {
             <Project
               key={project.id}
               project={project}
-              onClick={onProjectClick}
+              onClick={onClickProject}
+              onEditClick={onEditClickProject}
+              onDeleteClick={onDeleteClickProject}
             />
           );
         })}

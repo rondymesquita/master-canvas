@@ -9,9 +9,14 @@ import {
   Text,
 } from '@chakra-ui/react';
 import React from 'react';
-import { FaTrash } from 'react-icons/fa';
+import { FaEdit, FaTrash } from 'react-icons/fa';
 
-export default function Project({ project, onClick }: any) {
+export default function Project({
+  project,
+  onClick,
+  onEditClick,
+  onDeleteClick,
+}: any) {
   return (
     <Box
       borderWidth={1}
@@ -34,12 +39,26 @@ export default function Project({ project, onClick }: any) {
           Atualizado: {project.updated_at}
         </Text>
       </Flex>
-      <Flex mt="4" justifyContent={'end'}>
+      <Flex mt="4" justifyContent={'end'} gap={2}>
+        <Button
+          colorScheme={'primary'}
+          size={'sm'}
+          leftIcon={<Icon as={FaEdit} />}
+          onClick={(e) => {
+            e.stopPropagation();
+            onEditClick(project);
+          }}
+        >
+          Editar
+        </Button>
         <Button
           colorScheme={'accent'}
-          // variant={'ghost'}
           size={'sm'}
           leftIcon={<Icon as={FaTrash} />}
+          onClick={(e) => {
+            e.stopPropagation();
+            onDeleteClick(project);
+          }}
         >
           Apagar
         </Button>

@@ -37,7 +37,7 @@ export default function Project({ project, onClick }: any) {
       <Flex mt="4" justifyContent={'end'}>
         <Button
           colorScheme={'accent'}
-          variant={'outline'}
+          // variant={'ghost'}
           size={'sm'}
           leftIcon={<Icon as={FaTrash} />}
         >

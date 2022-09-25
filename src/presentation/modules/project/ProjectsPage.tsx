@@ -65,44 +65,17 @@ export default function ProjectsPage() {
       },
       {
         id: v4(),
-        name: 'Meu Projeto 1',
+        name: 'Meu Projeto 2',
         created_at: new Date().toLocaleTimeString('pt-BR', options),
         updated_at: new Date().toLocaleTimeString('pt-BR', options),
-        owner: 'Virginia',
-      },
-      {
-        id: v4(),
-        name: 'Meu Projeto 1',
-        created_at: new Date().toLocaleTimeString('pt-BR', options),
-        updated_at: new Date().toLocaleTimeString('pt-BR', options),
-        owner: 'Virginia',
-      },
-      {
-        id: v4(),
-        name: 'Meu Projeto 1',
-        created_at: new Date().toLocaleTimeString('pt-BR', options),
-        updated_at: new Date().toLocaleTimeString('pt-BR', options),
-        owner: 'Virginia',
-      },
-      {
-        id: v4(),
-        name: 'Meu Projeto 1',
-        created_at: new Date().toLocaleTimeString('pt-BR', options),
-        updated_at: new Date().toLocaleTimeString('pt-BR', options),
-        owner: 'Virginia',
-      },
-      {
-        id: v4(),
-        name: 'Meu Projeto 1',
-        created_at: new Date().toLocaleTimeString('pt-BR', options),
-        updated_at: new Date().toLocaleTimeString('pt-BR', options),
-        owner: 'Virginia',
+        owner: 'Rondy',
       },
     ]);
   }, []);
   return (
     <PageTemplate>
       <NewProjectModal
+        key={new Date().toISOString()}
         {...{
           isOpen: isNewOpen,
           onOpen: onNewOpen,
@@ -112,6 +85,7 @@ export default function ProjectsPage() {
       />
 
       <EditProjectModal
+        key={currentProject.id + new Date().toISOString()}
         {...{
           project: currentProject,
           isOpen: isEditOpen,

@@ -1,4 +1,4 @@
-import React, { forwardRef, useImperativeHandle } from "react";
+import React, { forwardRef, useImperativeHandle } from 'react';
 
 import {
   Modal as CModal,
@@ -10,29 +10,41 @@ import {
   ModalCloseButton,
   useDisclosure,
   Button,
-} from "@chakra-ui/react";
-import { Bus } from "../../util/Bus";
-import { ModalEvent } from "../../domain/events";
+} from '@chakra-ui/react';
+import { Bus } from '../../util/Bus';
+import { ModalEvent } from '../../domain/events';
 const bus = Bus.getInstance();
 
-function Modal({ children, onCloseComplete }: any, ref: any) {
-  const { isOpen, onOpen, onClose } = useDisclosure();
+function Modal(
+  {
+    children,
+    title,
+    isOpen,
+    onOpen,
+    onClose,
+    onCloseComplete,
+    size,
+    onPrimaryClick,
+  }: any,
+  ref: any
+) {
+  // const { isOpen, onOpen, onClose } = useDisclosure();
 
   // bus.on(ModalEvent.ShowModal, () => {
   //   console.log("Show called");
   //   onOpen();
   // });
 
-  useImperativeHandle(ref, () => {
-    return {
-      show: () => {
-        onOpen();
-      },
-      hide: () => {
-        onClose();
-      },
-    };
-  });
+  // useImperativeHandle(ref, () => {
+  //   return {
+  //     show: () => {
+  //       onOpen();
+  //     },
+  //     hide: () => {
+  //       onClose();
+  //     },
+  //   };
+  // });
 
   return (
     <>
@@ -40,18 +52,35 @@ function Modal({ children, onCloseComplete }: any, ref: any) {
         isOpen={isOpen}
         onClose={onClose}
         onCloseComplete={onCloseComplete}
+        size={size}
       >
         <ModalOverlay />
         <ModalContent>
-          <ModalHeader>Modal Title</ModalHeader>
+          <ModalHeader>{title}</ModalHeader>
           <ModalCloseButton />
           <ModalBody>{children}</ModalBody>
 
           <ModalFooter>
-            <Button colorScheme="blue" mr={3} onClick={onClose}>
-              Close
+            <Button
+              variant="ghost"
+              colorScheme="primary"
+              mr={3}
+              onClick={onClose}
+            >
+              Cancelar
             </Button>
-            <Button variant="ghost">Secondary Action</Button>
+            <Button
+              onClick={
+                onPrimaryClick
+                  ? () => {
+                      onPrimaryClick();
+                    }
+                  : () => {}
+              }
+              colorScheme="primary"
+            >
+              Salvar
+            </Button>
           </ModalFooter>
         </ModalContent>
       </CModal>

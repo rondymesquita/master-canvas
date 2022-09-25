@@ -11,17 +11,29 @@ import {
   Input,
   Spacer,
   Text,
+  useDisclosure,
 } from '@chakra-ui/react';
 import React, { useEffect, useState } from 'react';
-import PageTemplate from '../templates/PageTemplate';
+import PageTemplate from '../../templates/PageTemplate';
 
-import { FaTrash, FaSearch } from 'react-icons/fa';
+import { FaTrash, FaSearch, FaPlus } from 'react-icons/fa';
+import NewProjectModal from './components/NewProjectModal';
+import { v4 } from 'uuid';
 
 export default function ProjectsPage() {
   const [projects, setProjects] = useState<any>([]);
 
+  const { isOpen, onOpen, onClose } = useDisclosure();
+
+  const onSave = (data: any) => {
+    console.log('data', { data });
+    // submit form data
+    // close modal
+    onClose();
+  };
+
   useEffect(() => {
-    const options = {
+    const options: Intl.DateTimeFormatOptions = {
       year: 'numeric',
       month: 'short',
       day: 'numeric',
@@ -29,42 +41,42 @@ export default function ProjectsPage() {
 
     setProjects([
       {
-        code: '1',
+        id: v4(),
         name: 'Meu Projeto 1',
         created_at: new Date().toLocaleTimeString('pt-BR', options),
         updated_at: new Date().toLocaleTimeString('pt-BR', options),
         owner: 'Virginia',
       },
       {
-        code: '1',
+        id: v4(),
         name: 'Meu Projeto 1',
         created_at: new Date().toLocaleTimeString('pt-BR', options),
         updated_at: new Date().toLocaleTimeString('pt-BR', options),
         owner: 'Virginia',
       },
       {
-        code: '1',
+        id: v4(),
         name: 'Meu Projeto 1',
         created_at: new Date().toLocaleTimeString('pt-BR', options),
         updated_at: new Date().toLocaleTimeString('pt-BR', options),
         owner: 'Virginia',
       },
       {
-        code: '1',
+        id: v4(),
         name: 'Meu Projeto 1',
         created_at: new Date().toLocaleTimeString('pt-BR', options),
         updated_at: new Date().toLocaleTimeString('pt-BR', options),
         owner: 'Virginia',
       },
       {
-        code: '1',
+        id: v4(),
         name: 'Meu Projeto 1',
         created_at: new Date().toLocaleTimeString('pt-BR', options),
         updated_at: new Date().toLocaleTimeString('pt-BR', options),
         owner: 'Virginia',
       },
       {
-        code: '1',
+        id: v4(),
         name: 'Meu Projeto 1',
         created_at: new Date().toLocaleTimeString('pt-BR', options),
         updated_at: new Date().toLocaleTimeString('pt-BR', options),
@@ -74,6 +86,7 @@ export default function ProjectsPage() {
   }, []);
   return (
     <PageTemplate>
+      <NewProjectModal {...{ isOpen, onOpen, onClose, onSave }} />
       {/* Search */}
       <Flex borderWidth="1" p={2}>
         <Flex width={'full'} gap="4">
@@ -90,6 +103,15 @@ export default function ProjectsPage() {
       </Flex>
 
       {/* Tollbar */}
+      <Flex p={2}>
+        <Button
+          colorScheme={'primary'}
+          leftIcon={<Icon as={FaPlus} />}
+          onClick={onOpen}
+        >
+          Novo Projeto
+        </Button>
+      </Flex>
 
       {/* Results */}
       <Grid
@@ -104,7 +126,7 @@ export default function ProjectsPage() {
         {projects.map((project) => {
           return (
             <Box
-              key={project.code}
+              key={project.id}
               borderWidth={1}
               p={3}
               borderRadius="md"

@@ -5,7 +5,7 @@ import { ModalProvider } from './presentation/contexts/ModalContext';
 import { CommanderProvider } from './presentation/contexts/CommanderContext';
 import LoginPage from './presentation/pages/LoginPage';
 import { theme } from './presentation/theme/theme';
-import ProjectsPage from './presentation/pages/ProjectsPage';
+import ProjectsPage from './presentation/modules/project/ProjectsPage';
 
 function App() {
   const basename = import.meta.env.DEV ? '/' : '/master-canvas/';

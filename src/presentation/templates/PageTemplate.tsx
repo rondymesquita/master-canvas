@@ -7,7 +7,7 @@ export default function PageTemplate({ children }: any) {
     <Flex width={'full'} direction={'column'}>
       <Spacer />
       <Header />
-      <Container maxWidth={'full'} pt={4}>
+      <Container maxWidth={'container.lg'} pt={4}>
         {children}
       </Container>
     </Flex>

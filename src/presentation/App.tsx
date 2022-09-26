@@ -1,12 +1,12 @@
 import { ChakraProvider, Container } from '@chakra-ui/react';
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
-import CanvasPage from './presentation/modules/canvas/CanvasPage';
-import { ModalProvider } from './presentation/contexts/ModalContext';
-import { CommanderProvider } from './presentation/contexts/CommanderContext';
-import LoginPage from './presentation/modules/auth/LoginPage';
-import { theme } from './presentation/theme/theme';
-import ListProjectsPage from './presentation/modules/project/ListProjectsPage';
-import ListCanvasPage from './presentation/modules/canvas/ListCanvasPage';
+import CanvasPage from './modules/canvas/CanvasPage';
+import { ModalProvider } from './contexts/ModalContext';
+import { CommanderProvider } from './contexts/CommanderContext';
+import LoginPage from './modules/auth/LoginPage';
+import { theme } from './theme/theme';
+import ListProjectsPage from './modules/project/ListProjectsPage';
+import ListCanvasPage from './modules/canvas/ListCanvasPage';
 
 function App() {
   const basename = import.meta.env.DEV ? '/' : '/master-canvas/';

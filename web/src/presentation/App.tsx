@@ -18,7 +18,7 @@ function App() {
           <BrowserRouter basename={basename}>
             <Container maxWidth={'full'} p={0}>
               <Routes>
-                {/* <Route path="/" element={<ListProjectsPage />}></Route> */}
+                <Route path="/" element={<Navigate to="/login" />}></Route>
                 <Route path="/canvas" element={<ListCanvasPage />}></Route>
                 <Route path="/login" element={<LoginPage />} />
                 <Route

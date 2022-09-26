@@ -1,30 +1,9 @@
-import {
-  addPrefix,
-  Container,
-  Flex,
-  Box,
-  Text,
-  Stack,
-  Wrap,
-  WrapItem,
-  Heading,
-  Center,
-  useDisclosure,
-  SimpleGrid,
-  Spacer,
-  Grid,
-  GridItem,
-  Input,
-  Button,
-  Icon,
-} from '@chakra-ui/react';
-import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
-import Area from '../../components/Area';
-import Card from '../../components/Card';
+import { Button, Center, Flex, Icon } from '@chakra-ui/react';
 
 import { FaGoogle } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
 import Logo from '../../components/Logo';
+import { name, version } from '../../../../package.json';
 
 // const getEmptyCardUseCase = new GetEmptyCardUseCase();
 
@@ -44,8 +23,8 @@ export default function LoginPage() {
         bg={'primary.500'}
         shadow="2xl"
       >
-        <Flex flexDirection={'column'}>
-          <Center pb="6">
+        <Flex flexDirection={'column'} gap={8}>
+          <Center>
             <Logo />
           </Center>
           {/* <Button
@@ -65,6 +44,7 @@ export default function LoginPage() {
           >
             Login com Google
           </Button>
+          <Center color="primary.800">{name} - {version}</Center>
         </Flex>
       </Center>
     </Flex>

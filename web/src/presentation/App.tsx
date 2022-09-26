@@ -1,5 +1,5 @@
 import { ChakraProvider, Container } from '@chakra-ui/react';
-import { HashRouter, Routes, Route, Navigate } from 'react-router-dom';
+import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import CanvasPage from './modules/canvas/CanvasPage';
 import { ModalProvider } from './contexts/ModalContext';
 import { CommanderProvider } from './contexts/CommanderContext';
@@ -7,16 +7,15 @@ import LoginPage from './modules/auth/LoginPage';
 import { theme } from './theme/theme';
 import ListProjectsPage from './modules/project/ListProjectsPage';
 import ListCanvasPage from './modules/canvas/ListCanvasPage';
-import { BASE_HOST } from './config';
 
 function App() {
-  const basename = import.meta.env.DEV ? '/' : BASE_HOST;
+  const basename = import.meta.env.DEV ? '/' : '/master-canvas/';
 
   return (
     <ChakraProvider theme={theme} resetCSS={true}>
       <CommanderProvider>
         <ModalProvider>
-          <HashRouter basename={basename}>
+          <BrowserRouter basename={basename}>
             <Container maxWidth={'full'} p={0}>
               <Routes>
                 <Route path="/" element={<Navigate to="/login" />}></Route>
@@ -28,7 +27,7 @@ function App() {
                 ></Route>
               </Routes>
             </Container>
-          </HashRouter>
+          </BrowserRouter>
         </ModalProvider>
       </CommanderProvider>
     </ChakraProvider>

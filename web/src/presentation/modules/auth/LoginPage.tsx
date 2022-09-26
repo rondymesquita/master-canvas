@@ -44,7 +44,9 @@ export default function LoginPage() {
           >
             Login com Google
           </Button>
-          <Center color="primary.800">{name} - {version}</Center>
+          <Center color="primary.800">
+            {name} - {version}
+          </Center>
         </Flex>
       </Center>
     </Flex>

@@ -19,8 +19,8 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
           cache: 'npm'
-      - run: npm install --force --prefix web
-      - run: npm run build --prefix web
+      - run: npm install -w web
+      - run: npm run build -w web
       - name: Deploy 🚀
         uses: JamesIves/github-pages-deploy-action@4.1.5
         with:

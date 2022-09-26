@@ -37,5 +37,17 @@
     "typescript": "^4.6.4",
     "vite": "^3.0.7",
     "vite-plugin-vconsole": "^1.2.2"
-  }
+  },
+  "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/rondymesquita/master-canvas.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/rondymesquita/master-canvas/issues"
+  },
+  "homepage": "https://github.com/rondymesquita/master-canvas#readme",
+  "description": ""
 }

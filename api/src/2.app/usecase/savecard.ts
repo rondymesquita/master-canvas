@@ -4,7 +4,7 @@ import {
   SaveCardInput,
   SaveCardOutput,
 } from 'src/1.domain/usecase/isavecard';
-import { ICardRepo } from './service/repo/icard.repo';
+import { ICardRepo } from '../service/repo/icard.repo';
 
 @Injectable()
 export class SaveCard implements ISaveCard {

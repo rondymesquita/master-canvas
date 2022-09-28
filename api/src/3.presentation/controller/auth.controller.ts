@@ -23,9 +23,8 @@ export class AuthController {
     passport.use(
       new GoogleStrategy(
         {
-          clientID:
-            '379745623793-kobbcm209l1fdu6gfqj9emi7gc1oqcnj.apps.googleusercontent.com',
-          clientSecret: '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',
+          clientID: '',
+          clientSecret: '',
           callbackURL: 'http://localhost:3001/auth/google/success',
         },
         function (accessToken, refreshToken, profile, cb) {

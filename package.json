@@ -22,7 +22,10 @@
     "web"
   ],
   "dependencies": {
+    "@nestjs/passport": "^9.0.0",
     "lerna": "^5.5.2",
+    "passport": "^0.6.0",
+    "passport-google-oauth20": "^2.0.0",
     "pm2": "^5.2.0"
   }
 }

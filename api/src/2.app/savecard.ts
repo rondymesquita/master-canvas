@@ -3,7 +3,7 @@ import {
   ISaveCard,
   SaveCardInput,
   SaveCardOutput,
-} from 'src/domain/usecase/isavecard';
+} from 'src/1.domain/usecase/isavecard';
 import { ICardRepo } from './service/repo/icard.repo';
 
 @Injectable()

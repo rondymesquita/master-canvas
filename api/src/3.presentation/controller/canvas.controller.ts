@@ -7,7 +7,7 @@ import {
   Post,
 } from '@nestjs/common';
 import { ApiResponse, ApiTags } from '@nestjs/swagger';
-import { CardCategory, ISaveCard } from 'src/domain/usecase/isavecard';
+import { CardCategory, ISaveCard } from 'src/1.domain/usecase/isavecard';
 
 @Controller('card')
 @ApiTags('card')

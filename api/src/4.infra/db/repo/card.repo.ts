@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { ICardRepo } from 'src/app/service/repo/icard.repo';
+import { ICardRepo } from 'src/2.app/service/repo/icard.repo';
 import { CardModel, Card } from '../model/card.model';
 
 @Injectable()

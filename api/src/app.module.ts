@@ -1,8 +1,8 @@
-import { CardModule } from './main/canvas.module';
 import { Module } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
-import { AuthModule } from './main/auth.module';
+import { AuthModule } from './main/ioc/auth.module';
+import { CardModule } from './main/ioc/canvas.module';
 
 @Module({
   imports: [AuthModule, CardModule],

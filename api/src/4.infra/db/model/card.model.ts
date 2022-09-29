@@ -1,16 +1,17 @@
-import mongoose from 'mongoose';
-const { Schema } = mongoose;
+import mongoose, { Schema, Types } from 'mongoose';
 
-export interface Card {
-  // id: string;
+export interface CardSchema {
+  _id: Types.ObjectId;
   title: string;
   category: string;
   content: any;
+  createdAt: Date;
+  updatedAt: Date;
 }
 
-export const CardModel = mongoose.model<Card>(
+export const CardModel = mongoose.model<CardSchema>(
   'Card',
-  new Schema<Card>(
+  new Schema<CardSchema>(
     {
       title: { type: String, required: true },
       category: { type: String, required: true },
@@ -20,31 +21,3 @@ export const CardModel = mongoose.model<Card>(
     { timestamps: true },
   ),
 );
-
-// async function main() {
-// await mongoose.connect('mongodb://localhost:27017', {
-//     user: 'root',
-//     pass: 'root',
-//     dbName: 'canvas',
-//   });
-
-//   const Card = mongoose.model(
-//     'Card',
-//     new Schema(
-//       {
-//         title: { type: String, required: true },
-//         content: Object,
-//         // created_at: { type: Date, default: Date.now },
-//       },
-//       { timestamps: true },
-//     ),
-//   );
-
-//   const card = new Card({ title: 'small', content: { fulano: 'sicrano' } });
-//   card.save(function (err) {
-//     if (err) console.log(err);
-//     console.log('saved');
-//   });
-// }
-
-// main();

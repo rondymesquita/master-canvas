@@ -1,17 +1,7 @@
-export enum CardCategory {
-  REQUIREMENT = 'REQUIREMENT',
-  RISK = 'RISK',
-  DATA = 'DATA',
-}
+import { Card } from '../model/card';
 
-export interface SaveCardInput {
-  title: string;
-  category: CardCategory;
-  content: any;
-  description: string;
-}
 export interface SaveCardOutput {}
 
 export interface ISaveCard {
-  handle(input: SaveCardInput): SaveCardOutput;
+  handle(input: Card): SaveCardOutput;
 }

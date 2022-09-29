@@ -10,6 +10,7 @@ export class CardAdapter {
     const card: Card = {
       id: record._id.toString(),
       title: record.title,
+      active: record.active,
       category: CardCategory[record.category],
       createdAt: record.createdAt,
       updatedAt: record.updatedAt,

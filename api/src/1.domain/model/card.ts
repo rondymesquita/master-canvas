@@ -15,6 +15,7 @@ export interface CardRequirementContent {
 export interface Card {
   id?: string;
   title: string;
+  active?: boolean;
   category: CardCategory;
   content: CardRequirementContent | string;
   createdAt?: Date;

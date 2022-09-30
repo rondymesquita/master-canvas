@@ -1,0 +1,25 @@
+import axios, { AxiosInstance } from 'axios';
+import { Env } from '../../config/env';
+import { CanvasModel } from '../../domain/canvas';
+
+export class CanvasService {
+  private client: AxiosInstance;
+  constructor() {
+    this.client = axios.create({
+      baseURL: `${Env.getEnv().API_HOST}/canvas`,
+    });
+  }
+  async save(card: CanvasModel) {
+    const res = await this.client.post('/', card);
+    console.log({ res });
+  }
+
+  async remove(id: string) {
+    const res = await this.client.delete(`/${id}`);
+    console.log({ res });
+  }
+
+  async list() {
+    return await this.client.get('/');
+  }
+}

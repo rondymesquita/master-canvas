@@ -28,15 +28,15 @@ export default function Canvas({
       onClick={() => onClick(canvas)}
     >
       <Center flexDirection={'column'}>
-        <Heading size="md">{canvas.name}</Heading>
-        <Avatar name={canvas.name} />
+        <Heading size="md">{canvas.title}</Heading>
+        <Avatar name={canvas.title} />
       </Center>
       <Flex justifyContent={'start'} flexDirection={'column'}>
         <Text color="gray.500" fontStyle="italic" fontSize={'sm'}>
-          Criado: {canvas.created_at}
+          Criado: {canvas.createdAt}
         </Text>
         <Text color="gray.500" fontStyle="italic" fontSize={'sm'}>
-          Atualizado: {canvas.updated_at}
+          Atualizado: {canvas.updatedAt}
         </Text>
       </Flex>
       <Flex mt="4" justifyContent={'end'} gap={2}>

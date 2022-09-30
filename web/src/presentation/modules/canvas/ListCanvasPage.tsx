@@ -9,6 +9,7 @@ import Canvas from './components/Canvas';
 import useDisclosure from '../../hooks/useDisclosure';
 import NewCanvasModal from './components/NewCanvasModal';
 import { useNavigate } from 'react-router-dom';
+import useListCanvas from '../../../app/usecase/useListCanvas';
 
 export default function ListCanvasPage() {
   const [canvases, setCanvases] = useState<CanvasModel[]>([]);
@@ -16,18 +17,15 @@ export default function ListCanvasPage() {
   const [isNewOpen, onNewOpen, onNewClose] = useDisclosure();
   const [isEditOpen, onEditOpen, onEditClose] = useDisclosure();
 
+  const [list, listError] = useListCanvas();
+
   const navigate = useNavigate();
 
   useEffect(() => {
-    setCanvases([
-      {
-        id: v4(),
-        name: 'Meu Canvas',
-        cards: [],
-        created_at: new Date().toISOString(),
-        updated_at: new Date().toISOString(),
-      },
-    ]);
+    async function fetchData() {
+      setCanvases(await list());
+    }
+    fetchData()
   }, []);
 
   const onSave = (data: any) => {
@@ -36,7 +34,6 @@ export default function ListCanvasPage() {
   };
 
   const onClickCanvas = (canvas: CanvasModel) => {
-    // console.log(canvas);
     navigate(`/canvas/${canvas.id}`);
   };
 

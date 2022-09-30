@@ -8,13 +8,13 @@ import {
 } from '@chakra-ui/react';
 import { useEffect, useRef, useState } from 'react';
 import { GetAreasUseCase } from '../../../app/usecase/GetAreas';
-import { GetEmptyCardUseCase } from '../../../app/usecase/GetEmptyCard';
 import { GetTemplatesUseCase } from '../../../app/usecase/GetTemplates';
+import useGetEmptyCard from '../../../app/usecase/useGetEmptyCard';
 import useListCard from '../../../app/usecase/useListCard';
 import useRemoveCard from '../../../app/usecase/useRemoveCard';
 import useSaveCard from '../../../app/usecase/useSaveCard';
 import { AreaModel } from '../../../domain/area';
-import { CardModel } from '../../../domain/card';
+import { CardCategory, CardModel } from '../../../domain/card';
 import Area from '../../components/Area';
 import Card from '../../components/Card';
 import CardEdit from '../../components/CardEdit';
@@ -26,7 +26,7 @@ import Header from '../../components/Header';
 
 const getAreasUseCase = new GetAreasUseCase();
 const getTemplatesUseCase = new GetTemplatesUseCase();
-const getEmptyCardUseCase = new GetEmptyCardUseCase();
+// const getEmptyCardUseCase = new GetEmptyCardUseCase();
 
 export default function CanvasPage() {
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -44,8 +44,7 @@ export default function CanvasPage() {
 
   const [currentCard, setCurrentCard] = useState<CardModel>({
     id: '',
-    description: '',
-    category: '',
+    category: CardCategory.DATA,
     title: '',
     content: {
       persona: ``,
@@ -60,6 +59,7 @@ export default function CanvasPage() {
   const [save, saveError] = useSaveCard();
   const [remove, removeError] = useRemoveCard();
   const [list, listError] = useListCard();
+  const [get] = useGetEmptyCard();
 
   useEffect(() => {
     async function fetchData() {
@@ -69,30 +69,27 @@ export default function CanvasPage() {
       const templatesData = await getTemplatesUseCase.execute();
       setTemplates(templatesData);
 
-      // const x = await list();
-      // console.log(x);
-
       setCards(await list());
-      // setCards([]);
     }
     fetchData();
   }, []);
 
-  const onCardDelete = (cardId: string) => {
+  const onCardDelete = async (cardId: string) => {
+    console.log({ cardId });
+    await remove(cardId);
+    setCards(await list());
     // setCards((oldCards: any[]) => {
     //   return oldCards.filter((card) => card.id !== cardId);
     // });
   };
 
-  const onAreaAddClick = (category: string) => {
-    // setCategory(category);
+  const onAddCard = async (categoryAsString: string) => {
+    const emptyCard: CardModel = get(
+      CardCategory[categoryAsString as CardCategory]
+    );
 
-    const emptyCard: CardModel = getEmptyCardUseCase.execute({ category });
-
-    save(emptyCard);
-    // setCards((oldCards: CardModel[]) => {
-    //   return [...oldCards, ...[{ ...emptyCard }]];
-    // });
+    await save(emptyCard);
+    setCards(await list());
   };
 
   const openCardEditModal = (cardId: string) => {
@@ -166,7 +163,7 @@ export default function CanvasPage() {
                 <Area
                   key={index}
                   title={area.title}
-                  onAddClick={() => onAreaAddClick(area.category)}
+                  onAddClick={() => onAddCard(area.category)}
                 >
                   {cards
                     .map((c: CardModel) => c)

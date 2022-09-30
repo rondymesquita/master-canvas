@@ -3,7 +3,7 @@ import { CardModel } from '../../domain/card';
 import { CardService } from '../../infra/rest/card.service';
 import { waitPromise } from '../../util/waitpromise';
 
-export default function useRemoveCard(): any {
+export default function useRemoveCard() {
   let service: CardService;
   service = new CardService();
 

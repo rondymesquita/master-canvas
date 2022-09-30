@@ -1,10 +1,11 @@
-export interface QuestionModel {
-  id: string;
-  input: string;
-  output: string;
+export enum CardCategory {
+  FUNCTIONAL = 'FUNCTIONAL',
+  NON_FUNCTIONAL = 'NON_FUNCTIONAL',
+  RISK = 'RISK',
+  DATA = 'DATA',
 }
 
-export interface ContentModel {
+export interface CardRequirementContent {
   persona: string;
   business: string;
   acceptance: string;
@@ -12,12 +13,12 @@ export interface ContentModel {
   infra: string;
   risk: string;
 }
-
 export class CardModel {
-  id: string;
+  id?: string;
   title: string;
-  description: string;
-  category: string;
-  content: ContentModel;
-  questions?: QuestionModel[];
+  active?: boolean;
+  category: CardCategory;
+  content: CardRequirementContent | string;
+  createdAt?: Date;
+  updatedAt?: Date;
 }

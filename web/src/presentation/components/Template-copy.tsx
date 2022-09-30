@@ -10,7 +10,6 @@ import {
   Text,
 } from '@chakra-ui/react';
 import React from 'react';
-import { QuestionModel } from '../../domain/card';
 
 function Question({ text }: any) {
   return <Text color="primary.500">{text}</Text>;
@@ -53,7 +52,7 @@ export default function Template({
         <Text>{description}</Text>
       </Flex>
       <Stack spacing="2" mt="4">
-        {questions.map((q: QuestionModel) => {
+        {questions.map((q: any) => {
           return (
             <Box key={q.id}>
               <Question text={q.input}></Question>

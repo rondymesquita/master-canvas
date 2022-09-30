@@ -55,7 +55,6 @@ export default function Drawer({
                       key={template.id}
                       onSelect={() => onSelectTemplate(template)}
                       title={template.title}
-                      description={template.description}
                       content={template.content}
                       // questions={template.questions}
                       isEnabled={isTemplateEnabled(template.id)}

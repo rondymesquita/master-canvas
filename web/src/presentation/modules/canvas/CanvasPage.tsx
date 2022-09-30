@@ -8,7 +8,6 @@ import {
 } from '@chakra-ui/react';
 import { useEffect, useRef, useState } from 'react';
 import { GetAreasUseCase } from '../../../app/usecase/GetAreas';
-import { GetTemplatesUseCase } from '../../../app/usecase/GetTemplates';
 import useGetEmptyCard from '../../../app/usecase/useGetEmptyCard';
 import useListCard from '../../../app/usecase/useListCard';
 import useRemoveCard from '../../../app/usecase/useRemoveCard';
@@ -25,8 +24,6 @@ import Header from '../../components/Header';
 // import Zoom from '../components/Zoom';
 
 const getAreasUseCase = new GetAreasUseCase();
-const getTemplatesUseCase = new GetTemplatesUseCase();
-// const getEmptyCardUseCase = new GetEmptyCardUseCase();
 
 export default function CanvasPage() {
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -66,9 +63,6 @@ export default function CanvasPage() {
       const areasData = await getAreasUseCase.execute();
       setAreas(areasData);
 
-      const templatesData = await getTemplatesUseCase.execute();
-      setTemplates(templatesData);
-
       setCards(await list());
     }
     fetchData();
@@ -76,11 +70,8 @@ export default function CanvasPage() {
 
   const onCardDelete = async (cardId: string) => {
     console.log({ cardId });
-    await remove(cardId);
+    await remove!(cardId);
     setCards(await list());
-    // setCards((oldCards: any[]) => {
-    //   return oldCards.filter((card) => card.id !== cardId);
-    // });
   };
 
   const onAddCard = async (categoryAsString: string) => {
@@ -174,7 +165,6 @@ export default function CanvasPage() {
                       <Card
                         title={card.title}
                         key={card.id}
-                        description={card.description}
                         content={card.content}
                         onDelete={() => onCardDelete(card.id)}
                         onClick={() => openCardEditModal(card.id)}

@@ -14,7 +14,7 @@ export interface CardRequirementContent {
   risk: string;
 }
 export class CardModel {
-  id?: string;
+  id: string;
   title: string;
   active?: boolean;
   category: CardCategory;

@@ -9,10 +9,10 @@ export default function useRemoveCard() {
 
   const [error, setError] = useState(null);
 
-  const remove = async (id: string) => {
+  const sadsa = async (id: string) => {
     const [response, err] = await waitPromise(() => service.remove(id));
     err && setError(err);
   };
 
-  return [remove, error];
+  return [sadsa, error];
 }

@@ -18,6 +18,7 @@ export default function useGetEmptyCard() {
           }
         : '';
     const data: CardModel = {
+      id: '',
       title: 'Título do Card',
       category,
       content,

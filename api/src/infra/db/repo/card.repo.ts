@@ -14,7 +14,7 @@ export class CardRepo implements ICardRepo {
   }
   async list(): Promise<Card[]> {
     const data = await CardModel.find({ active: true });
-    console.log(data);
+    // console.log(data);
     return CardAdapter.adaptList(data);
   }
   async getById(id: string): Promise<Card> {

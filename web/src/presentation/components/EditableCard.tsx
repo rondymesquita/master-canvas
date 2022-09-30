@@ -17,13 +17,11 @@ import {
   Stack,
 } from '@chakra-ui/react';
 import React from 'react';
-import { QuestionModel } from '../../domain/card';
 import EditableQuestion from './EditableQuestion';
 
 export type TemplateProps = {
   title: string;
   description: string;
-  questions: QuestionModel[];
   onDelete: Function;
   onQuestionChange: Function;
 };
@@ -67,7 +65,7 @@ export default function Template({
         <Text>{description}</Text>
       </Flex>
       <Flex mt="4" alignItems={'start'} direction={'column'}>
-        {questions.map((question: QuestionModel, index: number) => {
+        {questions.map((question: any, index: number) => {
           return (
             <Flex direction={'column'} width={'full'} key={question.id}>
               <Flex

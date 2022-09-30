@@ -1,6 +1,3 @@
-import { Environment } from './env';
-import { API_HOST } from './config';
-
 export interface Environment {
   API_HOST: string;
 }

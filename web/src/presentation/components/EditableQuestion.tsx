@@ -8,7 +8,6 @@ import {
   Flex,
 } from '@chakra-ui/react';
 import React from 'react';
-import { QuestionModel } from '../../domain/card';
 
 function Question({ text, onChange }: any) {
   // return <Text color="primary.500">{text}</Text>;
@@ -55,10 +54,6 @@ function Response({ text, onChange }: any) {
     </Flex>
   );
 }
-
-type EditableQuestionType = {
-  question: QuestionModel;
-};
 
 export default function EditableQuestion({
   id,

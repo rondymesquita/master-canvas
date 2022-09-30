@@ -1,5 +1,5 @@
-import { CardSchema } from './../model/card.model';
-import { Card, CardCategory } from '../../../1.domain/model/card';
+import { CardSchema } from '../model/card.model';
+import { Card, CardCategory } from '../../../domain/model/card';
 export class CardAdapter {
   static adaptList(data: CardSchema[]): Card[] {
     return data.map((record: CardSchema) => {

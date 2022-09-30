@@ -1,3 +1,3 @@
-import { Card } from 'src/1.domain/model/card';
+import { Card } from 'src/domain/model/card';
 
 export type CardCreateInputDTO = Pick<Card, 'title' | 'content' | 'category'>;

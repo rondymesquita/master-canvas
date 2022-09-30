@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
-import { Card } from 'src/1.domain/model/card';
-import { ICardRepo } from 'src/2.app/service/repo/icard.repo';
+import { Card } from 'src/domain/model/card';
+import { ICardRepo } from 'src/app/service/repo/icard.repo';
 import { CardAdapter } from '../adapter/card.adapter';
 import { CardModel } from '../model/card.model';
 
@@ -24,7 +24,7 @@ export class CardRepo implements ICardRepo {
     console.log(data);
     return CardAdapter.adapt(data);
   }
-  async delete(id: string): Promise<boolean> {
+  async remove(id: string): Promise<boolean> {
     const data = await CardModel.findByIdAndUpdate(id, { active: false });
     console.log(data);
     return Promise.resolve(true);

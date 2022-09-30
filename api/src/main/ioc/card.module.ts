@@ -1,8 +1,8 @@
-import { IListCard } from './../../1.domain/usecase/isavecard';
-import { CardRepo } from '../../4.infra/db/repo/card.repo';
+import { IListCard } from '../../domain/usecase/card';
+import { CardRepo } from '../../infra/db/repo/card.repo';
 import { Module } from '@nestjs/common';
-import { CardController } from 'src/3.presentation/controller/card.controller';
-import { ListCard, SaveCard } from 'src/2.app/usecase/savecard';
+import { CardController } from 'src/presentation/controller/card.controller';
+import { ListCard, SaveCard } from 'src/app/usecase/card';
 
 @Module({
   imports: [],

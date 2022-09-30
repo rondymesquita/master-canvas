@@ -1,36 +1,21 @@
 import {
-  addPrefix,
   Container,
   Flex,
-  Box,
-  Text,
-  Stack,
-  Wrap,
-  WrapItem,
-  Heading,
-  Center,
-  useDisclosure,
-  SimpleGrid,
-  Spacer,
   Grid,
   GridItem,
+  Spacer,
+  useDisclosure,
 } from '@chakra-ui/react';
-import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
-import Area from '../../components/Area';
-import Card from '../../components/Card';
-import Drawer from '../../components/Drawer';
-import Template from '../../components/Template';
-import { Command, useCommander } from '../../contexts/CommanderContext';
-import { AddCardModal } from '../../pages/dashboard/AddCardModal';
-import { v4 } from 'uuid';
-import { GetAreasUseCase } from '../../../application/usecases/GetAreas';
-import { GetTemplatesUseCase } from '../../../application/usecases/GetTemplates';
+import { useEffect, useRef, useState } from 'react';
+import { GetAreasUseCase } from '../../../app/usecase/GetAreas';
+import { GetEmptyCardUseCase } from '../../../app/usecase/GetEmptyCard';
+import { GetTemplatesUseCase } from '../../../app/usecase/GetTemplates';
+import useSaveCard from '../../../app/usecase/useSaveCard';
 import { AreaModel } from '../../../domain/area';
 import { CardModel } from '../../../domain/card';
-import Sidebar from '../../components/Sidebar';
-import Toolbar from '../../components/Toolbar';
+import Area from '../../components/Area';
+import Card from '../../components/Card';
 import CardEdit from '../../components/CardEdit';
-import { GetEmptyCardUseCase } from '../../../application/usecases/GetEmptyCard';
 import Header from '../../components/Header';
 
 // import { TransformWrapper, TransformComponent } from 'react-zoom-pan-pinch';
@@ -72,6 +57,9 @@ export default function CanvasPage() {
     },
   });
 
+  const [save, saveError] = useSaveCard();
+  const [delete, deleteError] =
+
   useEffect(() => {
     async function fetchData() {
       const areasData = await getAreasUseCase.execute();
@@ -91,12 +79,11 @@ export default function CanvasPage() {
   };
 
   const onAreaAddClick = (category: string) => {
-    console.log({ category });
     setCategory(category);
 
     const emptyCard: CardModel = getEmptyCardUseCase.execute({ category });
-    console.log(emptyCard);
 
+    save(emptyCard);
     setCards((oldCards: CardModel[]) => {
       return [...oldCards, ...[{ ...emptyCard }]];
     });
@@ -124,9 +111,9 @@ export default function CanvasPage() {
       content,
       title,
     };
+    console.log({ newCard });
     copy.splice(cardToUpdateIndex, 1, newCard);
     setCards(copy);
-
     onModalClose();
   };
 
@@ -148,6 +135,7 @@ export default function CanvasPage() {
 
   return (
     <>
+      {JSON.stringify(saveError)}
       <CardEdit
         key={currentCard.id + new Date().toISOString()}
         isOpen={isModalOpen}

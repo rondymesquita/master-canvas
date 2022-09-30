@@ -1,16 +1,13 @@
+import { IRemoveCard } from './../../domain/usecase/card';
 import { Inject, Injectable } from '@nestjs/common';
-import { Card } from 'src/1.domain/model/card';
-import {
-  IListCard,
-  ISaveCard,
-  SaveCardOutput,
-} from 'src/1.domain/usecase/isavecard';
+import { Card } from 'src/domain/model/card';
+import { IListCard, ISaveCard, SaveCardOutput } from 'src/domain/usecase/card';
 import { ICardRepo } from '../service/repo/icard.repo';
 
 @Injectable()
 export class SaveCard implements ISaveCard {
   constructor(@Inject('ICardRepo') private cardRepo: ICardRepo) {}
-  async handle(input: Card): Promise<SaveCardOutput> {
+  async handle(input: Card): Promise<Card> {
     return await this.cardRepo.save(input);
   }
 }
@@ -19,5 +16,12 @@ export class ListCard implements IListCard {
   constructor(@Inject('ICardRepo') private cardRepo: ICardRepo) {}
   async handle(): Promise<Card[]> {
     return await this.cardRepo.list();
+  }
+}
+
+export class RemoveCard implements IRemoveCard {
+  constructor(@Inject('ICardRepo') private cardRepo: ICardRepo) {}
+  async handle(id: string): Promise<boolean> {
+    return await this.cardRepo.remove(id);
   }
 }

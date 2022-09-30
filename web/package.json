@@ -4,7 +4,7 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "dev": "cross-env NODE_ENV=development vite --host --port 5000",
+    "dev": "cross-env NODE_ENV=development vite --host --port 5005",
     "build": "tsc && cross-env NODE_ENV=production vite build",
     "build:dev": "tsc && cross-env NODE_ENV=development vite build --mode development --sourcemap",
     "preview": "vite preview"

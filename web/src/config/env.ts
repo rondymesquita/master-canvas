@@ -4,10 +4,10 @@ export interface Environment {
 
 const environments: Record<string, Environment> = {
   dev: {
-    API_HOST: 'http://localhost:3001',
+    API_HOST: 'http://localhost:5006',
   },
   prod: {
-    API_HOST: 'http://localhost:3001',
+    API_HOST: 'http://localhost:5006',
   },
 };
 

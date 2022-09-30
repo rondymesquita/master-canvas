@@ -16,25 +16,25 @@ export class GetAreasUseCase implements IGetAreasUseCase {
       {
         id: v4(),
         title: 'Requisitos funcionais',
-        category: 'funcionais',
+        category: 'FUNCTIONAL',
         icon: '',
       },
       {
         id: v4(),
         title: 'Requisitos não funcionais',
-        category: 'nao-funcionais',
+        category: 'NON_FUNCTIONAL',
         icon: '',
       },
       {
         id: v4(),
         title: 'Requisitos das necessidades e coleta do dados',
-        category: 'dados',
+        category: 'DATA',
         icon: '',
       },
       {
         id: v4(),
         title: 'Riscos',
-        category: 'riscos',
+        category: 'RISK',
         icon: '',
       },
     ];

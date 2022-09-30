@@ -18,4 +18,8 @@ export class CardService {
     const res = await this.client.delete(`/${id}`);
     console.log({ res });
   }
+
+  async list() {
+    return await this.client.get('/');
+  }
 }

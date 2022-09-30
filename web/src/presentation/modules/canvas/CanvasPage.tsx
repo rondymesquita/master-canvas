@@ -10,6 +10,7 @@ import { useEffect, useRef, useState } from 'react';
 import { GetAreasUseCase } from '../../../app/usecase/GetAreas';
 import { GetEmptyCardUseCase } from '../../../app/usecase/GetEmptyCard';
 import { GetTemplatesUseCase } from '../../../app/usecase/GetTemplates';
+import useListCard from '../../../app/usecase/useListCard';
 import useRemoveCard from '../../../app/usecase/useRemoveCard';
 import useSaveCard from '../../../app/usecase/useSaveCard';
 import { AreaModel } from '../../../domain/area';
@@ -37,8 +38,6 @@ export default function CanvasPage() {
 
   const zoomRef = useRef();
 
-  const [category, setCategory] = useState<String>('');
-
   const [areas, setAreas] = useState<AreaModel[]>([]);
   const [templates, setTemplates] = useState<CardModel[]>([]);
   const [cards, setCards] = useState<CardModel[]>([]);
@@ -60,6 +59,7 @@ export default function CanvasPage() {
 
   const [save, saveError] = useSaveCard();
   const [remove, removeError] = useRemoveCard();
+  const [list, listError] = useListCard();
 
   useEffect(() => {
     async function fetchData() {
@@ -68,26 +68,31 @@ export default function CanvasPage() {
 
       const templatesData = await getTemplatesUseCase.execute();
       setTemplates(templatesData);
+
+      // const x = await list();
+      // console.log(x);
+
+      setCards(await list());
+      // setCards([]);
     }
     fetchData();
-    setCategory('cursos');
   }, []);
 
   const onCardDelete = (cardId: string) => {
-    setCards((oldCards: any[]) => {
-      return oldCards.filter((card) => card.id !== cardId);
-    });
+    // setCards((oldCards: any[]) => {
+    //   return oldCards.filter((card) => card.id !== cardId);
+    // });
   };
 
   const onAreaAddClick = (category: string) => {
-    setCategory(category);
+    // setCategory(category);
 
     const emptyCard: CardModel = getEmptyCardUseCase.execute({ category });
 
     save(emptyCard);
-    setCards((oldCards: CardModel[]) => {
-      return [...oldCards, ...[{ ...emptyCard }]];
-    });
+    // setCards((oldCards: CardModel[]) => {
+    //   return [...oldCards, ...[{ ...emptyCard }]];
+    // });
   };
 
   const openCardEditModal = (cardId: string) => {
@@ -114,7 +119,7 @@ export default function CanvasPage() {
     };
     console.log({ newCard });
     copy.splice(cardToUpdateIndex, 1, newCard);
-    setCards(copy);
+    // setCards(copy);
     onModalClose();
   };
 
@@ -136,7 +141,6 @@ export default function CanvasPage() {
 
   return (
     <>
-      {JSON.stringify(saveError)}
       <CardEdit
         key={currentCard.id + new Date().toISOString()}
         isOpen={isModalOpen}
@@ -165,6 +169,7 @@ export default function CanvasPage() {
                   onAddClick={() => onAreaAddClick(area.category)}
                 >
                   {cards
+                    .map((c: CardModel) => c)
                     .filter(
                       (card: CardModel) => card.category === area.category
                     )

@@ -1,5 +1,6 @@
 export enum CardCategory {
-  REQUIREMENT = 'REQUIREMENT',
+  FUNCTIONAL = 'FUNCTIONAL',
+  NON_FUNCTIONAL = 'NON_FUNCTIONAL',
   RISK = 'RISK',
   DATA = 'DATA',
 }

@@ -9,7 +9,7 @@ export interface CanvasSchema {
 }
 
 export const CanvasModel = mongoose.model<CanvasSchema>(
-  'Card',
+  'Canvas',
   new Schema<CanvasSchema>(
     {
       active: { type: Boolean, required: true, default: true },

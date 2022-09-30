@@ -12,6 +12,7 @@ export class SaveCard implements ISaveCard {
   }
 }
 
+@Injectable()
 export class ListCard implements IListCard {
   constructor(@Inject('ICardRepo') private cardRepo: ICardRepo) {}
   async handle(): Promise<Card[]> {
@@ -19,6 +20,7 @@ export class ListCard implements IListCard {
   }
 }
 
+@Injectable()
 export class RemoveCard implements IRemoveCard {
   constructor(@Inject('ICardRepo') private cardRepo: ICardRepo) {}
   async handle(id: string): Promise<boolean> {

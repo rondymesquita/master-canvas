@@ -1,5 +1,5 @@
 import { CanvasListOutputDTO } from './../dto/canvas.list.output.dto';
-import { IRemoveCanvas } from './../../domain/usecase/canvas';
+import { IRemoveCanvas, IUpdateCanvas } from './../../domain/usecase/canvas';
 import { IListCanvas } from '../../domain/usecase/canvas';
 import {
   Body,
@@ -10,6 +10,7 @@ import {
   Inject,
   Post,
   Param,
+  Put,
 } from '@nestjs/common';
 import { ApiProduces, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { Canvas } from 'src/domain/model/canvas';
@@ -23,6 +24,7 @@ export class CanvasController {
     @Inject('ISaveCanvas') private readonly saveCanvas: ISaveCanvas,
     @Inject('IListCanvas') private readonly listCanvas: IListCanvas,
     @Inject('IRemoveCanvas') private readonly removeCanvas: IRemoveCanvas,
+    @Inject('IUpdateCanvas') private readonly updateCanvas: IUpdateCanvas,
   ) {}
 
   @Post('/')
@@ -39,6 +41,15 @@ export class CanvasController {
   })
   async list(): Promise<Canvas[]> {
     return await this.listCanvas.handle();
+  }
+
+  @Put('/')
+  @ApiResponse({
+    status: 200,
+  })
+  async update(@Body() input: CanvasCreateInputDTO): Promise<Canvas> {
+    console.log({ input });
+    return await this.updateCanvas.handle(input);
   }
 
   @Delete('/:id')

@@ -4,10 +4,12 @@ export default function useFormSubmit({ onFormData }: any): any {
 
   const onSubmit = (e: any) => {
     e.preventDefault();
-    const data = new FormData(e.target);
+    const formaData = new FormData(e.target);
 
-    for (var [key, value] of data.entries()) {
+    const data: Record<string, any> = {};
+    for (let [key, value] of formaData.entries()) {
       // console.log(key, value);
+      data[key] = value;
     }
 
     onFormData(data);

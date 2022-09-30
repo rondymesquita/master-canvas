@@ -3,8 +3,7 @@ import {
   Flex,
   Grid,
   GridItem,
-  Spacer,
-  useDisclosure,
+  Spacer
 } from '@chakra-ui/react';
 import { useEffect, useRef, useState } from 'react';
 import { GetAreasUseCase } from '../../../app/usecase/GetAreas';
@@ -18,6 +17,7 @@ import Area from '../../components/Area';
 import Card from '../../components/Card';
 import CardEdit from '../../components/CardEdit';
 import Header from '../../components/Header';
+import useDisclosure from '../../hooks/useDisclosure';
 
 // import { TransformWrapper, TransformComponent } from 'react-zoom-pan-pinch';
 // import { useZoom, ZoomProvider } from '../contexts/ZoomContext';
@@ -26,12 +26,11 @@ import Header from '../../components/Header';
 const getAreasUseCase = new GetAreasUseCase();
 
 export default function CanvasPage() {
-  const { isOpen, onOpen, onClose } = useDisclosure();
-  const {
-    isOpen: isModalOpen,
-    onOpen: onModalOpen,
-    onClose: onModalClose,
-  } = useDisclosure();
+  const [ isOpen, onOpen, onClose ] = useDisclosure();
+  const [isModalOpen,
+    onModalOpen,
+    onModalClose,
+   ] = useDisclosure();
 
   const zoomRef = useRef();
 
@@ -54,9 +53,9 @@ export default function CanvasPage() {
   });
 
   const [save, saveError] = useSaveCard();
-  const [remove, removeError] = useRemoveCard();
   const [list, listError] = useListCard();
   const [get] = useGetEmptyCard();
+  const [remove, removeError] = useRemoveCard();
 
   useEffect(() => {
     async function fetchData() {

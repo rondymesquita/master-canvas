@@ -1,4 +1,4 @@
-import { IRemoveCanvas } from './../../domain/usecase/canvas';
+import { IRemoveCanvas, IUpdateCanvas } from './../../domain/usecase/canvas';
 import { Inject, Injectable } from '@nestjs/common';
 import { Canvas } from 'src/domain/model/canvas';
 import { IListCanvas, ISaveCanvas } from 'src/domain/usecase/canvas';
@@ -9,6 +9,14 @@ export class SaveCanvas implements ISaveCanvas {
   constructor(@Inject('ICanvasRepo') private canvasRepo: ICanvasRepo) {}
   async handle(input: Canvas): Promise<Canvas> {
     return await this.canvasRepo.save(input);
+  }
+}
+
+@Injectable()
+export class UpdateCanvas implements IUpdateCanvas {
+  constructor(@Inject('ICanvasRepo') private canvasRepo: ICanvasRepo) {}
+  async handle(input: Canvas): Promise<Canvas> {
+    return await this.canvasRepo.update(input);
   }
 }
 

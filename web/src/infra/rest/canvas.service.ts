@@ -14,6 +14,11 @@ export class CanvasService {
     console.log({ res });
   }
 
+  async update(card: CanvasModel) {
+    const res = await this.client.put('/', card);
+    console.log({ res });
+  }
+
   async remove(id: string) {
     const res = await this.client.delete(`/${id}`);
     console.log({ res });

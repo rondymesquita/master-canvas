@@ -31,7 +31,7 @@ export default function NewCanvasModal({
         <form ref={ref} onSubmit={onSubmit} style={{ width: '100%' }}>
           <FormControl>
             <FormLabel>Nome</FormLabel>
-            <Input name="name" />
+            <Input name="title" />
           </FormControl>
         </form>
       </Flex>

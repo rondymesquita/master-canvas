@@ -46,7 +46,7 @@ export default function Canvas({
           leftIcon={<Icon as={FaEdit} />}
           onClick={(e) => {
             e.stopPropagation();
-            onEditClick(canvas);
+            onEditClick && onEditClick(canvas);
           }}
         >
           Editar
@@ -57,7 +57,7 @@ export default function Canvas({
           leftIcon={<Icon as={FaTrash} />}
           onClick={(e) => {
             e.stopPropagation();
-            onDeleteClick(canvas);
+            onDeleteClick && onDeleteClick(canvas);
           }}
         >
           Apagar

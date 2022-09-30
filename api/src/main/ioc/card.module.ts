@@ -1,8 +1,7 @@
-import { IListCard } from '../../domain/usecase/card';
 import { CardRepo } from '../../infra/db/repo/card.repo';
 import { Module } from '@nestjs/common';
 import { CardController } from 'src/presentation/controller/card.controller';
-import { ListCard, SaveCard } from 'src/app/usecase/card';
+import { ListCard, RemoveCard, SaveCard } from 'src/app/usecase/card';
 
 @Module({
   imports: [],
@@ -19,6 +18,10 @@ import { ListCard, SaveCard } from 'src/app/usecase/card';
     {
       provide: 'IListCard',
       useClass: ListCard,
+    },
+    {
+      provide: 'IRemoveCard',
+      useClass: RemoveCard,
     },
   ],
 })

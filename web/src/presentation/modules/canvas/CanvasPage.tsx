@@ -10,6 +10,7 @@ import { useEffect, useRef, useState } from 'react';
 import { GetAreasUseCase } from '../../../app/usecase/GetAreas';
 import { GetEmptyCardUseCase } from '../../../app/usecase/GetEmptyCard';
 import { GetTemplatesUseCase } from '../../../app/usecase/GetTemplates';
+import useRemoveCard from '../../../app/usecase/useRemoveCard';
 import useSaveCard from '../../../app/usecase/useSaveCard';
 import { AreaModel } from '../../../domain/area';
 import { CardModel } from '../../../domain/card';
@@ -58,7 +59,7 @@ export default function CanvasPage() {
   });
 
   const [save, saveError] = useSaveCard();
-  const [delete, deleteError] =
+  const [remove, removeError] = useRemoveCard();
 
   useEffect(() => {
     async function fetchData() {

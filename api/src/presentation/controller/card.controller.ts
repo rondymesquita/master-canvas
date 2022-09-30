@@ -8,6 +8,7 @@ import {
   Get,
   Inject,
   Post,
+  Param,
 } from '@nestjs/common';
 import { ApiResponse, ApiTags } from '@nestjs/swagger';
 import { Card, CardCategory } from 'src/domain/model/card';

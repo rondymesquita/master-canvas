@@ -2,6 +2,7 @@ import { NestFactory } from '@nestjs/core';
 import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
 import { AppModule } from './app.module';
 import { initDB } from './main/db/init.mongo';
+import * as cookieParser from 'cookie-parser';
 
 async function bootstrap() {
   await initDB();
@@ -18,6 +19,7 @@ async function bootstrap() {
   SwaggerModule.setup('docs', app, document);
 
   app.enableCors();
+  app.use(cookieParser());
   await app.listen(5006);
 }
 bootstrap();

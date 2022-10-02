@@ -5,4 +5,7 @@ import { ApiProperty } from '@nestjs/swagger';
 export class CanvasCreateInputDTO {
   @ApiProperty()
   title: string;
+
+  @ApiProperty()
+  canvasId: string;
 }

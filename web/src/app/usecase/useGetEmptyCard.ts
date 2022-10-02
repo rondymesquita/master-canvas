@@ -4,7 +4,7 @@ import { CardService } from '../../infra/rest/card.service';
 import { waitPromise } from '../../util/waitpromise';
 
 export default function useGetEmptyCard() {
-  const get = (category: CardCategory) => {
+  const get = (category: CardCategory, canvas: string) => {
     const content =
       category === CardCategory.FUNCTIONAL ||
       category === CardCategory.NON_FUNCTIONAL
@@ -22,6 +22,7 @@ export default function useGetEmptyCard() {
       title: 'Título do Card',
       category,
       content,
+      canvas,
     };
     return data;
   };

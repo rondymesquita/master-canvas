@@ -19,6 +19,7 @@ export class CardModel {
   active?: boolean;
   category: CardCategory;
   content: CardRequirementContent | string;
+  canvas: string;
   createdAt?: Date;
   updatedAt?: Date;
 }

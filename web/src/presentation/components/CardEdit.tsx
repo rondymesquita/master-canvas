@@ -79,12 +79,12 @@ export default function CardEdit({
   content,
   title: inputTitle,
 }: any) {
-  const [persona, setPersona] = useState(content.persona);
-  const [business, setBusiness] = useState(content.business);
-  const [acceptance, setAcceptance] = useState(content.acceptance);
-  const [data, setData] = useState(content.data);
-  const [infra, setInfra] = useState(content.infra);
-  const [risk, setRisk] = useState(content.risk);
+  const [persona, setPersona] = useState(content?.persona);
+  const [business, setBusiness] = useState(content?.business);
+  const [acceptance, setAcceptance] = useState(content?.acceptance);
+  const [data, setData] = useState(content?.data);
+  const [infra, setInfra] = useState(content?.infra);
+  const [risk, setRisk] = useState(content?.risk);
   const [title, setTitle] = useState(inputTitle);
 
   const onSaveButtonClick = () => {

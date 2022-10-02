@@ -9,7 +9,7 @@ export class CardRepo implements ICardRepo {
   async save(input: Card): Promise<Card> {
     const model = new CardModel(input);
     const data = await model.save();
-    console.log(data);
+    console.log('save', data);
     return CardAdapter.adapt(data);
   }
   async list(): Promise<Card[]> {

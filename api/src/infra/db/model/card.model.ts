@@ -6,6 +6,7 @@ export interface CardSchema {
   title: string;
   category: string;
   content: any;
+  canvas: Types.ObjectId;
   createdAt: Date;
   updatedAt: Date;
 }
@@ -18,6 +19,7 @@ export const CardModel = mongoose.model<CardSchema>(
       title: { type: String, required: true },
       category: { type: String, required: true },
       content: { type: Object, required: true },
+      canvas: { type: Schema.Types.ObjectId, required: true },
       // created_at: { type: Date, default: Date.now },
     },
     { timestamps: true },

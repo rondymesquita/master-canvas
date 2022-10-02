@@ -1,11 +1,6 @@
-import {
-  Container,
-  Flex,
-  Grid,
-  GridItem,
-  Spacer
-} from '@chakra-ui/react';
+import { Container, Flex, Grid, GridItem, Spacer } from '@chakra-ui/react';
 import { useEffect, useRef, useState } from 'react';
+import { useParams } from 'react-router-dom';
 import { GetAreasUseCase } from '../../../app/usecase/GetAreas';
 import useGetEmptyCard from '../../../app/usecase/useGetEmptyCard';
 import useListCard from '../../../app/usecase/useListCard';
@@ -26,32 +21,22 @@ import useDisclosure from '../../hooks/useDisclosure';
 const getAreasUseCase = new GetAreasUseCase();
 
 export default function CanvasPage() {
-  const [ isOpen, onOpen, onClose ] = useDisclosure();
-  const [isModalOpen,
-    onModalOpen,
-    onModalClose,
-   ] = useDisclosure();
+  let { canvasId } = useParams();
+
+  const [isOpen, onOpen, onClose] = useDisclosure();
+  const [isModalOpen, onModalOpen, onModalClose] = useDisclosure();
 
   const zoomRef = useRef();
 
   const [areas, setAreas] = useState<AreaModel[]>([]);
   const [templates, setTemplates] = useState<CardModel[]>([]);
   const [cards, setCards] = useState<CardModel[]>([]);
+  const [currentCard, setCurrentCard] = useState<CardModel>();
+  const [currentCanvasId, setCurrentCanvasId] = useState(canvasId);
 
-  const [currentCard, setCurrentCard] = useState<CardModel>({
-    id: '',
-    category: CardCategory.DATA,
-    title: '',
-    content: {
-      persona: ``,
-      business: ``,
-      acceptance: ``,
-      data: ``,
-      infra: ``,
-      risk: ``,
-    },
-  });
-
+  /**
+   *
+   */
   const [save, saveError] = useSaveCard();
   const [list, listError] = useListCard();
   const [get] = useGetEmptyCard();
@@ -75,8 +60,10 @@ export default function CanvasPage() {
 
   const onAddCard = async (categoryAsString: string) => {
     const emptyCard: CardModel = get(
-      CardCategory[categoryAsString as CardCategory]
+      CardCategory[categoryAsString as CardCategory],
+      canvasId!
     );
+    console.log({ emptyCard });
 
     await save(emptyCard);
     setCards(await list());
@@ -128,14 +115,15 @@ export default function CanvasPage() {
 
   return (
     <>
+      {canvasId}
       <CardEdit
-        key={currentCard.id + new Date().toISOString()}
+        key={currentCard?.id + new Date().toISOString()}
         isOpen={isModalOpen}
         onOpen={onModalOpen}
         onClose={onModalClose}
         onSave={onCardSave}
-        title={currentCard.title}
-        content={currentCard.content}
+        title={currentCard?.title}
+        content={currentCard?.content}
       ></CardEdit>
       <Flex width={'full'} direction={'column'}>
         <Header />

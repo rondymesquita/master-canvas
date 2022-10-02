@@ -9,7 +9,7 @@ export default function Logo({ color, size }: any) {
       color={color ? color : 'white'}
       textShadow="1px 2px var(--chakra-colors-gray-700)"
     >
-      Canvaspace
+      Canvas
     </Text>
   );
 }

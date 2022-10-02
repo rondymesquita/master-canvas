@@ -1,7 +1,7 @@
 import { CardRepo } from '../../infra/db/repo/card.repo';
 import { Module } from '@nestjs/common';
-import { CardController } from 'src/presentation/controller/card.controller';
-import { ListCard, RemoveCard, SaveCard } from 'src/app/usecase/card';
+import { CardController } from '../../presentation/controller/card.controller';
+import { ListCard, RemoveCard, SaveCard } from '../../app/usecase/card';
 
 @Module({
   imports: [],

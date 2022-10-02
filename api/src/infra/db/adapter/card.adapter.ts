@@ -15,6 +15,7 @@ export class CardAdapter {
       createdAt: record.createdAt,
       updatedAt: record.updatedAt,
       content: record.content,
+      canvas: record.canvas.toString(),
     };
 
     return card;

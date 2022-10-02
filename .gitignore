@@ -64,3 +64,4 @@ lerna-debug.log*
 mongodb/
 api/env.ts
 !./api/src/config/env.ts
+.env

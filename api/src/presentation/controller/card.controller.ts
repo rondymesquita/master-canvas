@@ -14,6 +14,7 @@ import { ApiResponse, ApiTags } from '@nestjs/swagger';
 import { Card, CardCategory } from 'src/domain/model/card';
 import { ISaveCard } from 'src/domain/usecase/card';
 import { CardCreateInputDTO } from '../dto/card.create.input.dto';
+import { Env } from 'src/config/env';
 
 @Controller('cards')
 @ApiTags('cards')

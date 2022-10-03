@@ -6,8 +6,9 @@ export interface GlobalStore {
 }
 
 export const useGlobalStore = create<GlobalStore>(
-  (set): GlobalStore => ({
-    user: { name: 'rondy' },
+  (set, get): GlobalStore => ({
+    user: null,
     setUser: (user: any) => set(() => user),
+    // isLogged: () => get().user !
   })
 );

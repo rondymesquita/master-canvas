@@ -7,10 +7,9 @@ import LoginPage from './modules/auth/LoginPage';
 import { theme } from './theme/theme';
 import ListProjectsPage from './modules/project/ListProjectsPage';
 import ListCanvasPage from './modules/canvas/ListCanvasPage';
-import {
-  QueryClient,
-  QueryClientProvider,
-} from '@tanstack/react-query';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import { LOGIN_PAGE } from './route/routes';
+import PrivateRoute from './route/components/private.route';
 
 const queryClient = new QueryClient();
 
@@ -25,9 +24,19 @@ function App() {
             <HashRouter basename={basename}>
               <Container maxWidth={'full'} p={0}>
                 <Routes>
-                  <Route path="/" element={<Navigate to="/login" />}></Route>
-                  <Route path="/canvas" element={<ListCanvasPage />}></Route>
-                  <Route path="/login" element={<LoginPage />} />
+                  <Route
+                    path="/"
+                    element={<Navigate to={LOGIN_PAGE} />}
+                  ></Route>
+                  <Route
+                    path="/canvas"
+                    element={
+                      <PrivateRoute>
+                        <ListCanvasPage />
+                      </PrivateRoute>
+                    }
+                  ></Route>
+                  <Route path={LOGIN_PAGE} element={<LoginPage />} />
                   <Route
                     path="/canvas/:canvasId"
                     element={<CanvasPage />}

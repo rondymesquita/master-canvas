@@ -4,12 +4,12 @@ import { FaGoogle } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
 import Logo from '../../components/Logo';
 import { name, version } from '../../../../package.json';
-import useLocalUser from '../../../app/usecase/user/useLocalUser';
+import useUser from '../../../app/usecase/user/useUser';
 
 // const getEmptyCardUseCase = new GetEmptyCardUseCase();
 
 export default function LoginPage() {
-  const { user, setUser } = useLocalUser();
+  const { user, setUser } = useUser();
   return (
     <Flex
       justifyContent={'center'}

@@ -9,17 +9,19 @@ import {
   Req,
   Res,
   UseGuards,
+  Injectable,
 } from '@nestjs/common';
 import { ApiResponse, ApiTags } from '@nestjs/swagger';
 import { AuthGuard } from '@nestjs/passport';
 import { Request, Response } from 'express';
 import { Observable } from 'rxjs';
 
+@Injectable()
 export class MyAuthGuard extends AuthGuard('google') {
   canActivate(context: ExecutionContext) {
     const ctx = context.switchToHttp();
-    const request = ctx.getRequest<Request>();
-
+    const request = ctx.getRequest();
+    // super.logIn(request);
     console.log(Object.keys(request));
     // request.logout(function (err) {
     //   console.log('done');
@@ -31,8 +33,8 @@ export class MyAuthGuard extends AuthGuard('google') {
 
     // Add your custom authentication logic here
     // for example, call super.logIn(request) to establish a session.
-    return null;
-    // return super.canActivate(context);
+    // return null;
+    return super.canActivate(context);
   }
 
   handleRequest(err, user, info) {
@@ -57,7 +59,7 @@ export class AuthController {
   }
 
   @Get('/logout')
-  @UseGuards(MyAuthGuard)
+  @UseGuards(AuthGuard('google'))
   logout(@Req() req): string {
     console.log('>>>>>logout');
     // console.log(Object.keys(req));

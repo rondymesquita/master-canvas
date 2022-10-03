@@ -4,10 +4,12 @@ import { FaGoogle } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
 import Logo from '../../components/Logo';
 import { name, version } from '../../../../package.json';
+import useLocalUser from '../../../app/usecase/user/useLocalUser';
 
 // const getEmptyCardUseCase = new GetEmptyCardUseCase();
 
 export default function LoginPage() {
+  const { user, setUser } = useLocalUser();
   return (
     <Flex
       justifyContent={'center'}
@@ -23,6 +25,7 @@ export default function LoginPage() {
         bg={'primary.500'}
         shadow="2xl"
       >
+        {JSON.stringify(user)}
         <Flex flexDirection={'column'} gap={8}>
           <Center>
             <Logo />

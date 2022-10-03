@@ -1,17 +1,7 @@
-import { DownloadIcon, SettingsIcon } from '@chakra-ui/icons';
-import {
-  Box,
-  Button,
-  Center,
-  Flex,
-  Heading,
-  Icon,
-  IconButton,
-  Spacer,
-} from '@chakra-ui/react';
-import React from 'react';
+import { Box, Button, Center, Flex, Icon, Spacer } from '@chakra-ui/react';
 import { FaUser } from 'react-icons/fa';
-import { Link as ReactLink } from 'react-router-dom';
+import { Link } from 'react-router-dom';
+import { HOME_PAGE } from '../route/routes';
 import Logo from './Logo';
 export default function Header({
   isLogged = true,
@@ -24,7 +14,9 @@ export default function Header({
         {/* <Spacer /> */}
         <Center>
           <Box>
-            <Logo size="2xl" />
+            <Link to={HOME_PAGE}>
+              <Logo size="2xl" />
+            </Link>
           </Box>
         </Center>
         <Spacer />

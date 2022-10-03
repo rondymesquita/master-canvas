@@ -109,7 +109,7 @@ export default function CanvasPage() {
   const getColSpanRules = (area: AreaModel) => {
     const { category } = area;
     const colSpans: any = {
-      RISKS: 3,
+      RISK: 3,
     };
     return colSpans[category] || 1;
   };

@@ -13,6 +13,7 @@ import Card from '../../components/Card';
 import CardEdit from '../../components/CardEdit';
 import Header from '../../components/Header';
 import useDisclosure from '../../hooks/useDisclosure';
+import PageTemplate from '../../templates/PageTemplate';
 
 // import { TransformWrapper, TransformComponent } from 'react-zoom-pan-pinch';
 // import { useZoom, ZoomProvider } from '../contexts/ZoomContext';
@@ -115,55 +116,45 @@ export default function CanvasPage() {
 
   return (
     <>
-      {canvasId}
-      <CardEdit
-        key={currentCard?.id + new Date().toISOString()}
-        isOpen={isModalOpen}
-        onOpen={onModalOpen}
-        onClose={onModalClose}
-        onSave={onCardSave}
-        title={currentCard?.title}
-        content={currentCard?.content}
-      ></CardEdit>
-      <Flex width={'full'} direction={'column'}>
-        <Header />
-        <Spacer />
-
-        {/* <Zoom ref={zoomRef}> */}
-        <Container maxWidth={'full'} pt={4}>
-          <Grid templateColumns="repeat(3, 1fr)">
-            {areas.map((area: AreaModel, index: number) => (
-              <GridItem
+      <PageTemplate>
+        <CardEdit
+          key={currentCard?.id + new Date().toISOString()}
+          isOpen={isModalOpen}
+          onOpen={onModalOpen}
+          onClose={onModalClose}
+          onSave={onCardSave}
+          title={currentCard?.title}
+          content={currentCard?.content}
+        ></CardEdit>
+        <Grid templateColumns="repeat(3, 1fr)">
+          {areas.map((area: AreaModel, index: number) => (
+            <GridItem
+              key={index}
+              rowSpan={getRowSpanRules(area)}
+              colSpan={getColSpanRules(area)}
+            >
+              <Area
                 key={index}
-                rowSpan={getRowSpanRules(area)}
-                colSpan={getColSpanRules(area)}
+                title={area.title}
+                onAddClick={() => onAddCard(area.category)}
               >
-                <Area
-                  key={index}
-                  title={area.title}
-                  onAddClick={() => onAddCard(area.category)}
-                >
-                  {cards
-                    .map((c: CardModel) => c)
-                    .filter(
-                      (card: CardModel) => card.category === area.category
-                    )
-                    .map((card: CardModel, index: number) => (
-                      <Card
-                        title={card.title}
-                        key={card.id}
-                        content={card.content}
-                        onDelete={() => onCardDelete(card.id)}
-                        onClick={() => openCardEditModal(card.id)}
-                      ></Card>
-                    ))}
-                </Area>
-              </GridItem>
-            ))}
-          </Grid>
-        </Container>
-        {/* </Zoom> */}
-      </Flex>
+                {cards
+                  .map((c: CardModel) => c)
+                  .filter((card: CardModel) => card.category === area.category)
+                  .map((card: CardModel, index: number) => (
+                    <Card
+                      title={card.title}
+                      key={card.id}
+                      content={card.content}
+                      onDelete={() => onCardDelete(card.id)}
+                      onClick={() => openCardEditModal(card.id)}
+                    ></Card>
+                  ))}
+              </Area>
+            </GridItem>
+          ))}
+        </Grid>
+      </PageTemplate>
     </>
   );
 }

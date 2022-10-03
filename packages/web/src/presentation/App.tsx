@@ -17,7 +17,7 @@ import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { HOME_PAGE, LOGIN_PAGE } from './route/routes';
 import PrivateRoute from './route/components/private.route';
 import useUser from '../app/usecase/user/useUser';
-import useCookies from './hooks/useAuthCookie';
+import useAuthCookie from './hooks/useAuthCookie';
 import { useEffect } from 'react';
 import RedirectWhenLoggedRoute from './route/components/redirect.when.logged.route';
 import { Env } from '../config/env';
@@ -30,11 +30,13 @@ function App() {
   Env.init(import.meta.env.DEV ? 'dev' : 'prod');
 
   const { user, setUser } = useUser();
-  const { cookie } = useCookies();
+  const { cookie } = useAuthCookie();
   // const navigate = useNavigate();
 
   useEffect(() => {
-    // setUser(cookie);
+    console.log('>>> called');
+
+    setUser(cookie);
     // navigate('/');
   }, []);
 
@@ -45,6 +47,7 @@ function App() {
       <QueryClientProvider client={queryClient}>
         <CommanderProvider>
           <ModalProvider>
+            {/* <>{JSON.stringify(user?.firstName)}</> */}
             <HashRouter basename={basename}>
               <Container maxWidth={'full'} p={0}>
                 <Routes>

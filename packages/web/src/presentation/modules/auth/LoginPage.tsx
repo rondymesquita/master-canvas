@@ -5,11 +5,12 @@ import { Link } from 'react-router-dom';
 import Logo from '../../components/Logo';
 import { name, version } from '../../../../package.json';
 import useUser from '../../../app/usecase/user/useUser';
+import { Env } from '../../../config/env';
 
 // const getEmptyCardUseCase = new GetEmptyCardUseCase();
 
 export default function LoginPage() {
-  const { user, setUser } = useUser();
+  // const { user, setUser } = useUser();
   return (
     <Flex
       justifyContent={'center'}
@@ -25,7 +26,7 @@ export default function LoginPage() {
         bg={'primary.500'}
         shadow="2xl"
       >
-        {JSON.stringify(user)}
+        {/* {JSON.stringify(user)} */}
         <Flex flexDirection={'column'} gap={8}>
           <Center>
             <Logo />
@@ -38,8 +39,11 @@ export default function LoginPage() {
           </Button> */}
           <Button
             // variant={}
-            as={Link}
-            to={'/canvas'}
+            // as={Link}
+            onClick={() => {
+              window.location = `${Env.getEnv().API_HOST}/auth/google`;
+            }}
+            // to={{ pathname: `${Env.getEnv().API_HOST}/auth/google` }}
             colorScheme={'white'}
             bg={'white'}
             color="black"

@@ -19,6 +19,7 @@ export class Env {
     if (!Env.instance) {
       Env.instance = new Env();
       Env.environment = environment;
+      console.log('Env init', { environment });
     }
     return Env.instance;
   }

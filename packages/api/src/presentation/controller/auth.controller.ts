@@ -55,6 +55,7 @@ export class AuthController {
   @Get('/google')
   @UseGuards(AuthGuard('google'))
   google(@Req() req): string {
+    console.log('coolies', req.cookies);
     return 'ok';
   }
 
@@ -70,10 +71,13 @@ export class AuthController {
 
   @Get('/google/redirect')
   @UseGuards(AuthGuard('google'))
-  googleSuccess(@Req() req: Request, @Res() res: Response): string {
-    // console.log(Object.keys(req));
-    res.cookie('canvas-auth', JSON.stringify(req.user));
-    res.redirect('http://localhost:5005/#/canvas');
+  googleSuccess(
+    @Req() req: Request,
+    @Res({ passthrough: false }) res: Response,
+  ): string {
+    console.log(req.user);
+    res.cookie('canvasauth', JSON.stringify(req.user));
+    res.redirect('http://localhost:5005/#/');
     return 'ok';
   }
 }

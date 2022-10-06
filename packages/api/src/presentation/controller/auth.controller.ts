@@ -1,4 +1,4 @@
-import { Env } from 'src/config/env';
+import { Env } from '../../config/env';
 import {
   Body,
   CanActivate,
@@ -16,9 +16,9 @@ import {
 import { ApiResponse, ApiTags } from '@nestjs/swagger';
 import { AuthGuard } from '@nestjs/passport';
 import { Request, Response } from 'express';
-import { COOKIE_NAME } from 'src/config/constants';
-import { LoginGuard } from 'src/infra/guard/login.guard';
-import { LogoutGuard } from 'src/infra/guard/logout.guard';
+import { COOKIE_NAME } from '../../config/constants';
+import { LoginGuard } from '../../infra/guard/login.guard';
+import { LogoutGuard } from '../../infra/guard/logout.guard';
 
 @Controller('auth')
 @ApiTags('auth')

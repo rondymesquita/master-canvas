@@ -1,6 +1,6 @@
 import { AuthController } from '../../presentation/controller/auth.controller';
 import { Module } from '@nestjs/common';
-import { GoogleStrategy } from 'src/infra/service/auth/google.strategy';
+import { GoogleStrategy } from '../../infra/service/auth/google.strategy';
 
 @Module({
   imports: [],

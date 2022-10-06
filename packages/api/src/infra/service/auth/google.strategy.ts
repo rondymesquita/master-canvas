@@ -4,7 +4,7 @@ import { config } from 'dotenv';
 
 import { Injectable } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
-import { Env } from 'src/config/env';
+import { Env } from '../../../config/env';
 
 config();
 
@@ -14,7 +14,7 @@ export class GoogleStrategy extends PassportStrategy(Strategy, 'google') {
     super({
       clientID: Env().GOOGLE_CLIENT_ID,
       clientSecret: Env().GOOGLE_SECRET,
-      callbackURL: 'http://localhost:5006/auth/google/redirect',
+      callbackURL: `${Env().HOST}/auth/google/redirect`,
       scope: ['email', 'profile'],
     });
   }

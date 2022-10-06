@@ -1,13 +1,13 @@
 import { IUpdateCanvas } from './../../domain/usecase/canvas';
 import { CanvasRepo } from '../../infra/db/repo/Canvas.repo';
 import { Module } from '@nestjs/common';
-import { CanvasController } from 'src/presentation/controller/Canvas.controller';
+import { CanvasController } from '../../presentation/controller/Canvas.controller';
 import {
   ListCanvas,
   RemoveCanvas,
   SaveCanvas,
   UpdateCanvas,
-} from 'src/app/usecase/Canvas';
+} from '../../app/usecase/Canvas';
 
 @Module({
   imports: [],

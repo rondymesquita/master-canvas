@@ -16,10 +16,10 @@ import {
   UseGuards,
 } from '@nestjs/common';
 import { ApiProduces, ApiResponse, ApiTags } from '@nestjs/swagger';
-import { Canvas } from 'src/domain/model/canvas';
-import { ISaveCanvas } from 'src/domain/usecase/canvas';
+import { Canvas } from '../../domain/model/canvas';
+import { ISaveCanvas } from '../../domain/usecase/canvas';
 import { CanvasCreateInputDTO } from '../dto/canvas.create.input.dto';
-import { AuthGuard } from 'src/infra/guard/auth.guard';
+import { AuthGuard } from '../../infra/guard/auth.guard';
 
 @Controller('canvas')
 @ApiTags('canvas')

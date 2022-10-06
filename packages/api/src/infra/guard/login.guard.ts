@@ -1,7 +1,7 @@
 import { ExecutionContext, Injectable } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
 import { Request, Response } from 'express';
-import { Env } from 'src/config/env';
+import { Env } from '../../config/env';
 
 @Injectable()
 export class LoginGuard extends AuthGuard('google') {

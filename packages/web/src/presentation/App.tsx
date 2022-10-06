@@ -29,18 +29,15 @@ function App() {
 
   Env.init(import.meta.env.DEV ? 'dev' : 'prod');
 
-  const { user, setUser } = useUser();
+  const { setUser } = useUser();
   const { cookie } = useAuthCookie();
-  // const navigate = useNavigate();
 
   useEffect(() => {
-    console.log('>>> called', { cookie });
-
-    setUser(cookie);
-    // navigate('/');
-  }, []);
-
-  // console.log(cookie);
+    if (cookie) {
+      console.log('>>> called', cookie);
+      setUser(cookie);
+    }
+  }, [cookie]);
 
   return (
     <ChakraProvider theme={theme} resetCSS={true}>

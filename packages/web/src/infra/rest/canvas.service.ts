@@ -26,9 +26,6 @@ export class CanvasService {
   }
 
   async list() {
-    console.log('aqui');
-    const data = await this.client.get('/');
-    console.log({ data });
-    return data;
+    return await this.client.get('/');
   }
 }

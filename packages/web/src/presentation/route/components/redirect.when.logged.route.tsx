@@ -5,10 +5,8 @@ import { HOME_PAGE, LOGIN_PAGE } from '../routes';
 import { useEffect } from 'react';
 
 export default function ({ children, ...rest }: any) {
-  const { user, setUser } = useUser();
-  const { cookie } = useAuthCookie();
+  const { user } = useUser();
 
-  const navigate = useNavigate();
   const location = useLocation();
 
   if (!user && location.pathname !== LOGIN_PAGE) {

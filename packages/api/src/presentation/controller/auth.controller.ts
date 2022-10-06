@@ -26,10 +26,11 @@ export class LoginGuard extends AuthGuard('google') {
     const request = ctx.getRequest<Request>();
     const response = ctx.getResponse<Response>();
     console.log('LoginGuard', request.session);
-    if (request.session) {
-      // response.redirect('http://localhost:5005/#/');
+    const session: any = request.session;
+    if (session.user) {
+      response.redirect('http://localhost:5005/#/');
       // response.redirect('/auth/google/redirect');
-      // return;
+      return;
     }
     return super.canActivate(context);
   }
@@ -40,7 +41,7 @@ export class LogoutGuard {
     const ctx = context.switchToHttp();
     const request = ctx.getRequest<Request>();
     const response = ctx.getResponse<Response>();
-    console.log(request.session);
+    // console.log(request.session);
     if (request.session) {
       return true;
     }
@@ -51,7 +52,7 @@ export class LogoutGuard {
 @ApiTags('auth')
 export class AuthController {
   @Get('/google')
-  @UseGuards(AuthGuard('google'))
+  @UseGuards(LoginGuard)
   google(): string {
     return 'ok';
   }
@@ -77,7 +78,7 @@ export class AuthController {
     @Req() req: Request,
     @Res({ passthrough: false }) res: Response,
   ): Promise<string> {
-    console.log(req.user);
+    // console.log(req.user);
     const { user } = req;
     const session: any = req.session as unknown;
 

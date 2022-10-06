@@ -5,8 +5,8 @@ export class AuthGuard {
     const ctx = context.switchToHttp();
     const request = ctx.getRequest();
     const response = ctx.getResponse();
-    console.log(Object.keys(request));
-    console.log(request.session);
+    // console.log(Object.keys(request));
+    // console.log(request.session);
 
     if (request.session) {
       return true;

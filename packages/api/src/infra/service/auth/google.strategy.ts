@@ -1,3 +1,4 @@
+import { User } from './../../../domain/model/user';
 import { PassportStrategy } from '@nestjs/passport';
 import { Strategy, VerifyCallback } from 'passport-google-oauth20';
 import { config } from 'dotenv';
@@ -25,16 +26,22 @@ export class GoogleStrategy extends PassportStrategy(Strategy, 'google') {
     profile: any,
     done: VerifyCallback,
   ): Promise<any> {
-    console.log({ profile, accessToken });
+    // console.log({ profile, accessToken });
     const { id, name, emails, photos, provider } = profile;
-    const user = {
-      id,
+    // const user = {
+    //   id,
+    //   email: emails[0].value,
+    //   firstName: name.givenName,
+    //   lastName: name.familyName,
+    //   picture: photos[0].value,
+    //   accessToken,
+    //   provider,
+    // };
+    const user: User = {
       email: emails[0].value,
-      firstName: name.givenName,
-      lastName: name.familyName,
+      name: `${name.givenName} ${name.familyName}`,
       picture: photos[0].value,
       accessToken,
-      provider,
     };
     done(null, user);
   }

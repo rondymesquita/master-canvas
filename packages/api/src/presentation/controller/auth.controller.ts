@@ -1,3 +1,5 @@
+import { User } from './../../domain/model/user';
+import { IFindOrSaveUser } from './../../domain/usecase/user';
 import { Env } from '../../config/env';
 import {
   Body,
@@ -11,6 +13,7 @@ import {
   Res,
   UseGuards,
   Injectable,
+  Inject,
   Session,
 } from '@nestjs/common';
 import { ApiResponse, ApiTags } from '@nestjs/swagger';
@@ -23,6 +26,10 @@ import { LogoutGuard } from '../../infra/guard/logout.guard';
 @Controller('auth')
 @ApiTags('auth')
 export class AuthController {
+  constructor(
+    @Inject('IFindOrSaveUser') private readonly findUseOrSave: IFindOrSaveUser,
+  ) {}
+
   @Get('/google')
   @UseGuards(LoginGuard)
   google(): string {
@@ -53,8 +60,11 @@ export class AuthController {
     const { user } = req;
     const session: any = req.session as unknown;
 
-    session.user = user;
+    const savedUser = await this.findUseOrSave.handle(user as User);
+
+    session.user = savedUser;
     session.save();
+
     res.redirect(Env().CLIENT_HOST);
     return 'ok';
   }

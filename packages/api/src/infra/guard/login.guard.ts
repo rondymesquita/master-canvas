@@ -9,7 +9,7 @@ export class LoginGuard extends AuthGuard('google') {
     const ctx = context.switchToHttp();
     const request = ctx.getRequest<Request>();
     const response = ctx.getResponse<Response>();
-    console.log('LoginGuard', request.session);
+    // console.log('LoginGuard', request.session);
     const session: any = request.session;
     if (session.user) {
       response.redirect(Env().CLIENT_HOST);

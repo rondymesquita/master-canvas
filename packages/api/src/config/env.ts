@@ -23,7 +23,7 @@ export const Env = (): EnvType => {
     GOOGLE_CLIENT_ID: process.env.GOOGLE_CLIENT_ID,
     GOOGLE_SECRET: process.env.GOOGLE_SECRET,
     CLIENT_HOST: process.env.CLIENT_HOST,
-    HOST: process.env.CLIENT_HOST,
+    HOST: process.env.HOST,
   };
 
   validate(env);

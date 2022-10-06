@@ -29,7 +29,6 @@ export class LoginGuard extends AuthGuard('google') {
     const session: any = request.session;
     if (session.user) {
       response.redirect('http://localhost:5005/#/');
-      // response.redirect('/auth/google/redirect');
       return;
     }
     return super.canActivate(context);
@@ -84,7 +83,6 @@ export class AuthController {
 
     session.user = user;
     session.save();
-    // res.cookie('test', JSON.stringify(req.user));
     res.redirect('http://localhost:5005/#/login');
     return 'ok';
   }

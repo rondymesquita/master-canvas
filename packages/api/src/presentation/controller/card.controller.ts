@@ -35,9 +35,11 @@ export class CardController {
     // return [];
   }
 
-  @Get('/')
-  async list(): Promise<Card[]> {
-    return await this.listCard.handle();
+  @Get('/:canvasId')
+  async list(@Param('canvasId') canvasId: string): Promise<Card[]> {
+    console.log({ canvasId });
+
+    return await this.listCard.handle({ canvas: canvasId });
   }
 
   @Delete('/:id')

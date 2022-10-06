@@ -7,6 +7,7 @@ export class CardService {
   constructor() {
     this.client = axios.create({
       baseURL: `${Env.getEnv().API_HOST}/cards`,
+      withCredentials: true,
     });
   }
   async save(card: CardModel) {
@@ -19,7 +20,9 @@ export class CardService {
     console.log({ res });
   }
 
-  async list() {
-    return await this.client.get('/');
+  async list(canvasId: string) {
+    console.log({ canvasId });
+
+    return (await this.client.get(`/${canvasId}`)).data;
   }
 }

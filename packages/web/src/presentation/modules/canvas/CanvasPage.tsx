@@ -33,13 +33,13 @@ export default function CanvasPage() {
   const [templates, setTemplates] = useState<CardModel[]>([]);
   const [cards, setCards] = useState<CardModel[]>([]);
   const [currentCard, setCurrentCard] = useState<CardModel>();
-  const [currentCanvasId, setCurrentCanvasId] = useState(canvasId);
+  const [currentCanvasId, setCurrentCanvasId] = useState<string>(canvasId);
 
   /**
    *
    */
   const [save, saveError] = useSaveCard();
-  const [list, listError] = useListCard();
+  const [list] = useListCard();
   const [get] = useGetEmptyCard();
   const [remove, removeError] = useRemoveCard();
 
@@ -48,7 +48,7 @@ export default function CanvasPage() {
       const areasData = await getAreasUseCase.execute();
       setAreas(areasData);
 
-      setCards(await list());
+      setCards(await list(currentCanvasId));
     }
     fetchData();
   }, []);
@@ -56,18 +56,18 @@ export default function CanvasPage() {
   const onCardDelete = async (cardId: string) => {
     console.log({ cardId });
     await remove!(cardId);
-    setCards(await list());
+    setCards(await list(currentCanvasId));
   };
 
   const onAddCard = async (categoryAsString: string) => {
     const emptyCard: CardModel = get(
       CardCategory[categoryAsString as CardCategory],
-      canvasId!
+      currentCanvasId!
     );
     console.log({ emptyCard });
 
     await save(emptyCard);
-    setCards(await list());
+    setCards(await list(currentCanvasId));
   };
 
   const openCardEditModal = (cardId: string) => {
@@ -116,6 +116,7 @@ export default function CanvasPage() {
 
   return (
     <>
+      {/* {currentCanvasId} */}
       <PageTemplate>
         <CardEdit
           key={currentCard?.id + new Date().toISOString()}

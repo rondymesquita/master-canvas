@@ -13,7 +13,7 @@ export default function useListCanvas(): any {
 
   const list = async (canvas: CanvasModel) => {
     const [response, err] = await waitPromise(() => service.list());
-    console.log({ response });
+    // console.log({ response });
 
     err && setError(err);
     return response?.data;

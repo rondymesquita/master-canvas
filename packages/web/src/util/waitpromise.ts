@@ -1,12 +1,11 @@
-export type dataType = any;
 export type errorType = Error | any | unknown;
-export const waitPromise = async (
+export const waitPromise = async <T extends unknown>(
   promise: () => Promise<any>
-): Promise<[dataType, errorType]> => {
+): Promise<[T, errorType]> => {
   try {
-    const response = await promise();
+    const response: T = await promise();
     return [response, null];
   } catch (err) {
-    return [null, err];
+    return [null as T, err];
   }
 };

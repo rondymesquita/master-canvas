@@ -10,8 +10,11 @@ export interface IGetByIdCard {
   handle(id: string): SaveCardOutput;
 }
 
+export interface IListCardInput {
+  canvas: string;
+}
 export interface IListCard {
-  handle(): Promise<Card[]>;
+  handle(input: IListCardInput): Promise<Card[]>;
 }
 
 export interface IRemoveCard {

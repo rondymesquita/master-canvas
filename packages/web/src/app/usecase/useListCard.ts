@@ -5,20 +5,23 @@ import { CardService } from '../../infra/rest/card.service';
 import { waitPromise } from '../../util/waitpromise';
 import { QueryClient, useQuery } from '@tanstack/react-query';
 
-export default function useListCard(): any {
+export default function useListCard() {
   // const { data, isError } = useQuery<CardModel[]>(['/cards'], () =>
   //   service.list()
   // );
 
-  let service: CardService;
-  service = new CardService();
+  const service: CardService = new CardService();
 
   const [error, setError] = useState(null);
 
-  const list = async (card: CardModel) => {
-    const [response, err] = await waitPromise(() => service.list());
+  const list = async (canvasId: string) => {
+    console.log({ canvasId });
+
+    const [response, err] = await waitPromise<CardModel[]>(() =>
+      service.list(canvasId)
+    );
     err && setError(err);
-    return response?.data;
+    return response;
   };
 
   return [list, error];

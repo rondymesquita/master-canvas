@@ -6,6 +6,7 @@ import { useEffect } from 'react';
 
 export default function PrivateRoute({ children, ...rest }: any) {
   const { user } = useUser();
+  // console.warn({ user });
 
   return <>{user ? children : <Navigate to={LOGIN_PAGE}></Navigate>}</>;
 }

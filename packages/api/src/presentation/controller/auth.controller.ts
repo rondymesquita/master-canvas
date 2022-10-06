@@ -22,6 +22,7 @@ import { Request, Response } from 'express';
 import { COOKIE_NAME } from '../../config/constants';
 import { LoginGuard } from '../../infra/guard/login.guard';
 import { LogoutGuard } from '../../infra/guard/logout.guard';
+import * as session from 'express-session';
 
 @Controller('auth')
 @ApiTags('auth')
@@ -61,8 +62,7 @@ export class AuthController {
     const session: any = req.session as unknown;
 
     const savedUser = await this.findUseOrSave.handle(user as User);
-
-    console.log({ savedUser });
+    console.log({ user, savedUser });
 
     session.user = savedUser;
     session.save();

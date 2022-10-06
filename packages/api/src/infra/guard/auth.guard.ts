@@ -9,7 +9,7 @@ export class AuthGuard extends PassportAuthGuard('google') {
     // const response = ctx.getResponse();
     // console.log(Object.keys(request));
     const session: any = request.session;
-    console.log('user auth guard', session);
+    // console.log('user auth guard', session);
     if (session.user) {
       return true;
     } else {

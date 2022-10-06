@@ -7,6 +7,18 @@ import * as session from 'express-session';
 import * as passport from 'passport';
 import { COOKIE_NAME } from './config/constants';
 import { Env } from './config/env';
+import * as express from 'express';
+
+import { PassportSerializer, PassportModule } from '@nestjs/passport';
+
+class CustomPassportSerializer extends PassportSerializer {
+  serializeUser(user: any, done: Function) {
+    throw new Error('Method not implemented.');
+  }
+  deserializeUser(payload: any, done: Function) {
+    throw new Error('Method not implemented.');
+  }
+}
 
 async function bootstrap() {
   await initDB();
@@ -31,6 +43,7 @@ async function bootstrap() {
     session({
       secret: 'secret',
       name: COOKIE_NAME,
+      saveUninitialized: false,
       cookie: {
         httpOnly: false,
         // domain: 'localhost:5005',
@@ -38,6 +51,18 @@ async function bootstrap() {
     }),
   );
   app.use(passport.session());
+
+  // PassportModule.register({});
+
+  // app.use(
+  //   passport.serializeUser(
+  //     (user: Express.User, done: (err: any, id?: any) => void) => {
+  //       console.log('serializer', { user });
+  //       return done(null, {});
+  //     },
+  //   ),
+  // );
+
   await app.listen(5006);
 }
 bootstrap();

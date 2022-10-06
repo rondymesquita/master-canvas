@@ -34,7 +34,7 @@ function App() {
   // const navigate = useNavigate();
 
   useEffect(() => {
-    console.log('>>> called');
+    console.log('>>> called', { cookie });
 
     setUser(cookie);
     // navigate('/');
@@ -74,7 +74,11 @@ function App() {
                   />
                   <Route
                     path="/canvas/:canvasId"
-                    element={<CanvasPage />}
+                    element={
+                      <PrivateRoute>
+                        <CanvasPage />
+                      </PrivateRoute>
+                    }
                   ></Route>
                 </Routes>
               </Container>

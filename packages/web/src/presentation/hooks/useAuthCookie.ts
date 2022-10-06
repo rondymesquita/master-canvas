@@ -1,13 +1,13 @@
 import { useState, useEffect } from 'react';
 export default function () {
-  const COOKIE_NAME = 'canvasauth';
+  const COOKIE_NAME = 'canvassessionid';
   // const [cookies, setCookies] = useState<any>(null);
   const cookiesArray = document.cookie.split('; ');
   const cookieRegex = new RegExp(/(.*)=(.*)/);
   const record: Record<string, string> = {};
   cookiesArray.forEach((cookie: string) => {
-    const key = cookieRegex.exec(cookie)![1];
-    const value = cookieRegex.exec(cookie)![2];
+    const key = cookieRegex.exec(cookie) ? cookieRegex.exec(cookie)![1] : '';
+    const value = cookieRegex.exec(cookie) ? cookieRegex.exec(cookie)![2] : '';
     record[key] = value;
   });
 
@@ -19,7 +19,7 @@ export default function () {
   // setCookies(record);
   let cookie;
   if (authCookie) {
-    cookie = JSON.parse(decodeURIComponent(authCookie));
+    cookie = decodeURIComponent(authCookie);
   }
   return { cookie, deleteCookie };
 }

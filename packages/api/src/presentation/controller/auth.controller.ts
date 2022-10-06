@@ -10,74 +10,81 @@ import {
   Res,
   UseGuards,
   Injectable,
+  Session,
 } from '@nestjs/common';
 import { ApiResponse, ApiTags } from '@nestjs/swagger';
 import { AuthGuard } from '@nestjs/passport';
 import { Request, Response } from 'express';
 import { Observable } from 'rxjs';
+import * as expressSession from 'express-session';
+// import { Session } from 'inspector';
 
 @Injectable()
-export class MyAuthGuard extends AuthGuard('google') {
+export class LoginGuard extends AuthGuard('google') {
   canActivate(context: ExecutionContext) {
     const ctx = context.switchToHttp();
-    const request = ctx.getRequest();
-    // super.logIn(request);
-    console.log(Object.keys(request));
-    // request.logout(function (err) {
-    //   console.log('done');
-    //   console.log({ err });
-
-    //   // if (err) { return next(err); }
-    //   // res.redirect('/');
-    // });
-
-    // Add your custom authentication logic here
-    // for example, call super.logIn(request) to establish a session.
-    // return null;
+    const request = ctx.getRequest<Request>();
+    const response = ctx.getResponse<Response>();
+    console.log('LoginGuard', request.session);
+    if (request.session) {
+      // response.redirect('http://localhost:5005/#/');
+      // response.redirect('/auth/google/redirect');
+      // return;
+    }
     return super.canActivate(context);
   }
+}
 
-  handleRequest(err, user, info) {
-    console.log({ err, user, info });
-
-    // You can throw an exception based on either "info" or "err" arguments
-    if (err || !user) {
-      throw err || new Error();
+export class LogoutGuard {
+  canActivate(context: ExecutionContext) {
+    const ctx = context.switchToHttp();
+    const request = ctx.getRequest<Request>();
+    const response = ctx.getResponse<Response>();
+    console.log(request.session);
+    if (request.session) {
+      return true;
     }
-    return user;
+    // return super.canActivate(context);
   }
 }
 @Controller('auth')
 @ApiTags('auth')
 export class AuthController {
-  // constructor(private readonly appService: AppService) {}
-
   @Get('/google')
   @UseGuards(AuthGuard('google'))
-  google(@Req() req): string {
-    console.log('coolies', req.cookies);
+  google(): string {
     return 'ok';
   }
 
   @Get('/logout')
-  @UseGuards(AuthGuard('google'))
-  logout(@Req() req): string {
-    console.log('>>>>>logout');
-    // console.log(Object.keys(req));
-    console.log('>>>>>logout');
-
-    return 'ok';
+  @UseGuards(LogoutGuard)
+  logout(@Req() req: Request, @Res() res: Response): Promise<string> {
+    return new Promise((resolve) => {
+      req.logOut({ keepSessionInfo: false }, () => {
+        req.session.destroy((err) => {
+          if (err) throw err;
+          res.clearCookie('canvassessionid');
+          resolve('ok');
+          res.redirect('http://localhost:5005/#/');
+        });
+      });
+    });
   }
 
   @Get('/google/redirect')
   @UseGuards(AuthGuard('google'))
-  googleSuccess(
+  async googleSuccess(
     @Req() req: Request,
     @Res({ passthrough: false }) res: Response,
-  ): string {
+  ): Promise<string> {
     console.log(req.user);
-    res.cookie('canvasauth', JSON.stringify(req.user));
-    res.redirect('http://localhost:5005/#/');
+    const { user } = req;
+    const session: any = req.session as unknown;
+
+    session.user = user;
+    session.save();
+    // res.cookie('test', JSON.stringify(req.user));
+    res.redirect('http://localhost:5005/#/login');
     return 'ok';
   }
 }

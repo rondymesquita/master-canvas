@@ -11,14 +11,19 @@ import {
   Post,
   Param,
   Put,
+  ExecutionContext,
+  Injectable,
+  UseGuards,
 } from '@nestjs/common';
 import { ApiProduces, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { Canvas } from 'src/domain/model/canvas';
 import { ISaveCanvas } from 'src/domain/usecase/canvas';
 import { CanvasCreateInputDTO } from '../dto/canvas.create.input.dto';
+import { AuthGuard } from 'src/infra/guard/auth.guard';
 
 @Controller('canvas')
 @ApiTags('canvas')
+@UseGuards(AuthGuard)
 export class CanvasController {
   constructor(
     @Inject('ISaveCanvas') private readonly saveCanvas: ISaveCanvas,
@@ -27,20 +32,20 @@ export class CanvasController {
     @Inject('IUpdateCanvas') private readonly updateCanvas: IUpdateCanvas,
   ) {}
 
-  @Post('/')
-  @ApiResponse({
-    status: 201,
-  })
-  async save(@Body() input: CanvasCreateInputDTO): Promise<Canvas> {
-    return await this.saveCanvas.handle(input);
-  }
-
   @Get('/')
   @ApiResponse({
     status: 201,
   })
   async list(): Promise<Canvas[]> {
     return await this.listCanvas.handle();
+  }
+
+  @Post('/')
+  @ApiResponse({
+    status: 201,
+  })
+  async save(@Body() input: CanvasCreateInputDTO): Promise<Canvas> {
+    return await this.saveCanvas.handle(input);
   }
 
   @Put('/')

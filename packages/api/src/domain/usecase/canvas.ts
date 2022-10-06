@@ -12,8 +12,11 @@ export interface IGetByIdCanvas {
   handle(id: string): Promise<Canvas>;
 }
 
+export interface IListCanvasInput {
+  user: string;
+}
 export interface IListCanvas {
-  handle(): Promise<Canvas[]>;
+  handle(input: IListCanvasInput): Promise<Canvas[]>;
 }
 
 export interface IRemoveCanvas {

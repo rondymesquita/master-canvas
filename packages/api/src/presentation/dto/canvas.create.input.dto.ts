@@ -7,5 +7,5 @@ export class CanvasCreateInputDTO {
   title: string;
 
   @ApiProperty()
-  canvasId: string;
+  canvasId?: string;
 }

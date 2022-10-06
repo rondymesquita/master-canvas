@@ -62,6 +62,8 @@ export class AuthController {
 
     const savedUser = await this.findUseOrSave.handle(user as User);
 
+    console.log({ savedUser });
+
     session.user = savedUser;
     session.save();
 

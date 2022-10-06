@@ -6,6 +6,7 @@ import * as cookieParser from 'cookie-parser';
 import * as session from 'express-session';
 import * as passport from 'passport';
 import { COOKIE_NAME } from './config/constants';
+import { Env } from './config/env';
 
 async function bootstrap() {
   await initDB();
@@ -21,7 +22,10 @@ async function bootstrap() {
   const document = SwaggerModule.createDocument(app, config);
   SwaggerModule.setup('docs', app, document);
 
-  app.enableCors();
+  app.enableCors({
+    credentials: true,
+    origin: Env().CLIENT_HOST.replace('/#/', ''),
+  });
   app.use(cookieParser());
   app.use(
     session({

@@ -1,3 +1,4 @@
+import { IListCanvasInput } from './../../../app/service/repo/icanvas.repo';
 import { Injectable } from '@nestjs/common';
 import { Canvas } from 'src/domain/model/canvas';
 import { ICanvasRepo } from 'src/app/service/repo/icanvas.repo';
@@ -16,9 +17,9 @@ export class CanvasRepo implements ICanvasRepo {
     console.log(data);
     return this.adapter.adapt(data);
   }
-  async list(): Promise<Canvas[]> {
-    const data = await CanvasModel.find({ active: true });
-    // console.log(data);
+  async list(input: IListCanvasInput): Promise<Canvas[]> {
+    const data = await CanvasModel.find({ active: true, user: input.user });
+    console.log(data);
     return this.adapter.adaptList(data);
   }
   async getById(id: string): Promise<Canvas> {

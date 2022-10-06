@@ -17,7 +17,7 @@ import EditCanvasModal from './components/EditCanvasModal';
 
 export default function ListCanvasPage() {
   const [canvases, setCanvases] = useState<CanvasModel[]>([]);
-  const [currentCanvasId, setCurrentCanvasId] = useState<string>("")
+  const [currentCanvasId, setCurrentCanvasId] = useState<string>('');
 
   const [isNewOpen, onNewOpen, onNewClose] = useDisclosure();
   const [isEditOpen, onEditOpen, onEditClose] = useDisclosure();
@@ -33,20 +33,20 @@ export default function ListCanvasPage() {
     async function fetchData() {
       setCanvases(await list());
     }
-    fetchData()
+    fetchData();
   }, []);
 
   const onSave = async (data: CanvasModel) => {
-    await save(data)
-    setCanvases(await list())
+    await save(data);
+    setCanvases(await list());
     onNewClose();
   };
 
   const onEdit = async (canvas: CanvasModel) => {
-    console.log({canvas});
+    console.log({ canvas });
 
-    await update!(canvas)
-    setCanvases(await list())
+    await update!(canvas);
+    setCanvases(await list());
     onEditClose();
   };
 
@@ -55,15 +55,14 @@ export default function ListCanvasPage() {
   };
 
   const onDeleteCanvasClick = async (canvas: CanvasModel) => {
-    await remove!(canvas.id)
-    setCanvases(await list())
-  }
+    await remove!(canvas.id);
+    setCanvases(await list());
+  };
 
-  const onEditCanvasClick = async(canvas: CanvasModel) => {
-    setCurrentCanvasId(canvas.id)
-    onEditOpen()
-
-  }
+  const onEditCanvasClick = async (canvas: CanvasModel) => {
+    setCurrentCanvasId(canvas.id);
+    onEditOpen();
+  };
 
   return (
     <PageTemplate>
@@ -79,7 +78,7 @@ export default function ListCanvasPage() {
 
       <EditCanvasModal
         key={`EditCanvasModal${new Date().toISOString()}`}
-        canvas={canvases.find(c => c.id === currentCanvasId)}
+        canvas={canvases.map((c) => c).find((c) => c.id === currentCanvasId)}
         {...{
           isOpen: isEditOpen,
           onOpen: onEditOpen,
@@ -124,7 +123,13 @@ export default function ListCanvasPage() {
       >
         {canvases.map((canvas: CanvasModel) => {
           return (
-            <Canvas key={canvas.id} canvas={canvas} onClick={onClickCanvas} onEditClick={onEditCanvasClick} onDeleteClick={onDeleteCanvasClick}/>
+            <Canvas
+              key={canvas.id}
+              canvas={canvas}
+              onClick={onClickCanvas}
+              onEditClick={onEditCanvasClick}
+              onDeleteClick={onDeleteCanvasClick}
+            />
           );
         })}
       </Grid>

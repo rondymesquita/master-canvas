@@ -5,6 +5,7 @@ import { initDB } from './main/db/init.mongo';
 import * as cookieParser from 'cookie-parser';
 import * as session from 'express-session';
 import * as passport from 'passport';
+import { COOKIE_NAME } from './config/constants';
 
 async function bootstrap() {
   await initDB();
@@ -25,7 +26,7 @@ async function bootstrap() {
   app.use(
     session({
       secret: 'secret',
-      name: 'canvassessionid',
+      name: COOKIE_NAME,
       cookie: {
         httpOnly: false,
         // domain: 'localhost:5005',

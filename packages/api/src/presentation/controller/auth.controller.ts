@@ -1,3 +1,4 @@
+import { Env } from 'src/config/env';
 import {
   Body,
   CanActivate,
@@ -15,38 +16,10 @@ import {
 import { ApiResponse, ApiTags } from '@nestjs/swagger';
 import { AuthGuard } from '@nestjs/passport';
 import { Request, Response } from 'express';
-import { Observable } from 'rxjs';
-import * as expressSession from 'express-session';
-// import { Session } from 'inspector';
+import { COOKIE_NAME } from 'src/config/constants';
+import { LoginGuard } from 'src/infra/guard/login.guard';
+import { LogoutGuard } from 'src/infra/guard/logout.guard';
 
-@Injectable()
-export class LoginGuard extends AuthGuard('google') {
-  canActivate(context: ExecutionContext) {
-    const ctx = context.switchToHttp();
-    const request = ctx.getRequest<Request>();
-    const response = ctx.getResponse<Response>();
-    console.log('LoginGuard', request.session);
-    const session: any = request.session;
-    if (session.user) {
-      response.redirect('http://localhost:5005/#/');
-      return;
-    }
-    return super.canActivate(context);
-  }
-}
-
-export class LogoutGuard {
-  canActivate(context: ExecutionContext) {
-    const ctx = context.switchToHttp();
-    const request = ctx.getRequest<Request>();
-    const response = ctx.getResponse<Response>();
-    // console.log(request.session);
-    if (request.session) {
-      return true;
-    }
-    // return super.canActivate(context);
-  }
-}
 @Controller('auth')
 @ApiTags('auth')
 export class AuthController {
@@ -63,9 +36,9 @@ export class AuthController {
       req.logOut({ keepSessionInfo: false }, () => {
         req.session.destroy((err) => {
           if (err) throw err;
-          res.clearCookie('canvassessionid');
+          res.clearCookie(COOKIE_NAME);
           resolve('ok');
-          res.redirect('http://localhost:5005/#/');
+          res.redirect(Env().CLIENT_HOST);
         });
       });
     });
@@ -77,13 +50,12 @@ export class AuthController {
     @Req() req: Request,
     @Res({ passthrough: false }) res: Response,
   ): Promise<string> {
-    // console.log(req.user);
     const { user } = req;
     const session: any = req.session as unknown;
 
     session.user = user;
     session.save();
-    res.redirect('http://localhost:5005/#/login');
+    res.redirect(Env().CLIENT_HOST);
     return 'ok';
   }
 }

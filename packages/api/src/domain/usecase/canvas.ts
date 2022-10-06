@@ -5,7 +5,7 @@ export interface ISaveCanvas {
 }
 
 export interface IUpdateCanvas {
-  handle(input: Canvas): Promise<Canvas>;
+  handle(input: Pick<Canvas, 'title'>): Promise<Canvas>;
 }
 
 export interface IGetByIdCanvas {

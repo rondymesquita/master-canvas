@@ -13,7 +13,12 @@ import LoginPage from './modules/auth/LoginPage';
 import { theme } from './theme/theme';
 import ListProjectsPage from './modules/project/ListProjectsPage';
 import ListCanvasPage from './modules/canvas/ListCanvasPage';
-import { HOME_PAGE, LOGIN_PAGE } from './route/routes';
+import {
+  CANVAS_PAGE,
+  CANVAS_VIEW_PAGE,
+  HOME_PAGE,
+  LOGIN_PAGE,
+} from './route/routes';
 import PrivateRoute from './route/components/private.route';
 import useUser from '../app/usecase/user/useUser';
 import useAuthCookie from './hooks/useAuthCookie';
@@ -45,6 +50,10 @@ function App() {
               <Routes>
                 <Route
                   path={HOME_PAGE}
+                  element={<Navigate to={CANVAS_PAGE} />}
+                ></Route>
+                <Route
+                  path={CANVAS_PAGE}
                   element={
                     <PrivateRoute>
                       <ListCanvasPage />
@@ -60,7 +69,7 @@ function App() {
                   }
                 />
                 <Route
-                  path="/canvas/:canvasId"
+                  path={CANVAS_VIEW_PAGE}
                   element={
                     <PrivateRoute>
                       <CanvasPage />

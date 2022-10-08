@@ -9,6 +9,7 @@ import {
 } from '@chakra-ui/react';
 import { FaHome } from 'react-icons/fa';
 import { BreadcrumbLinkModel } from '../../domain/breadcrumblink';
+import { Link } from 'react-router-dom';
 
 export default function Breadcrumb({
   links = [],
@@ -24,7 +25,7 @@ export default function Breadcrumb({
       >
         {links.map((link: BreadcrumbLinkModel) => (
           <BreadcrumbItem key={link.href}>
-            <CharkaBreadcrumbLink href={`${link.href}`}>
+            <CharkaBreadcrumbLink as={Link} to={`${link.href}`}>
               <Center>
                 <Icon as={link.icon ? link.icon : FaHome} />
                 <Text pl={2}>{link.title}</Text>

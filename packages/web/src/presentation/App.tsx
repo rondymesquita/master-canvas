@@ -43,11 +43,6 @@ function App() {
           <HashRouter basename={basename}>
             <Container maxWidth={'full'} p={0}>
               <Routes>
-                {/* <div></div> */}
-                {/* <Route
-                    path="/"
-                    element={<Navigate to={LOGIN_PAGE} />}
-                  ></Route> */}
                 <Route
                   path={HOME_PAGE}
                   element={

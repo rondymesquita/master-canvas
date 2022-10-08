@@ -109,7 +109,7 @@ export default function ListCanvasPage() {
       </Flex> */}
 
       {/* Tollbar */}
-      <Flex p={2} flexDirection={'column'}>
+      <Flex py={2} flexDirection={'column'}>
         <Heading size={'lg'} mb={4}>
           Meus Canvas
         </Heading>
@@ -125,12 +125,18 @@ export default function ListCanvasPage() {
 
       {/* Results */}
       <Grid
-        p={2}
-        flexWrap="wrap"
-        gap={8}
+        py={2}
+        // flexWrap="wrap"
+        gap={{
+          base: 8,
+          sm: 4,
+          md: 8,
+        }}
         templateColumns={{
           base: 'repeat(1, 1fr)',
-          md: 'repeat(4, 1fr)',
+          sm: 'repeat(2, 1fr)',
+          md: 'repeat(3, 1fr)',
+          // lg: 'repeat(4, 1fr)',
         }}
       >
         {canvases.map((canvas: CanvasModel) => {

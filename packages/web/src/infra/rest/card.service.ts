@@ -20,6 +20,11 @@ export class CardService {
     console.log({ res });
   }
 
+  async update(card: CardModel) {
+    const res = await this.client.put('/', card);
+    console.log({ res });
+  }
+
   async list(canvasId: string) {
     console.log({ canvasId });
 

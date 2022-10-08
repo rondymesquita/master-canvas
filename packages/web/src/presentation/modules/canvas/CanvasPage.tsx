@@ -14,6 +14,7 @@ import CardEdit from '../card/components/CardEdit';
 import Header from '../../components/Header';
 import useDisclosure from '../../hooks/useDisclosure';
 import PageTemplate from '../../templates/PageTemplate';
+import useUpdateCard from '../../../app/usecase/useUpdateCard';
 
 // import { TransformWrapper, TransformComponent } from 'react-zoom-pan-pinch';
 // import { useZoom, ZoomProvider } from '../contexts/ZoomContext';
@@ -39,6 +40,7 @@ export default function CanvasPage() {
    *
    */
   const [save, saveError] = useSaveCard();
+  const [update, updateError] = useUpdateCard();
   const [list] = useListCard();
   const [get] = useGetEmptyCard();
   const [remove, removeError] = useRemoveCard();
@@ -77,7 +79,13 @@ export default function CanvasPage() {
     onModalOpen();
   };
 
-  const onCardSave = ({ title, content }: { title: string; content: any }) => {
+  const onCardSave = async ({
+    title,
+    content,
+  }: {
+    title: string;
+    content: any;
+  }) => {
     console.log(currentCard);
 
     const copy = [...cards];
@@ -92,9 +100,12 @@ export default function CanvasPage() {
       content,
       title,
     };
-    console.log({ newCard });
+    console.log(newCard);
     copy.splice(cardToUpdateIndex, 1, newCard);
     // setCards(copy);
+
+    await update(newCard);
+    setCards(await list(currentCanvasId));
     onModalClose();
   };
 

@@ -55,8 +55,8 @@ export class CardController {
   ): Promise<Card> {
     console.log({ input });
 
-    // return await this.updateCard.handle(input);
-    return {} as Card;
+    return await this.updateCard.handle(input);
+    // return {} as Card;
   }
 
   @Delete('/:id')

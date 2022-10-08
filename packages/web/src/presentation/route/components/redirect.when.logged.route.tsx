@@ -6,6 +6,7 @@ import { useEffect } from 'react';
 
 export default function ({ children, ...rest }: any) {
   const { user } = useUser();
+  console.log({ user });
 
   const location = useLocation();
 

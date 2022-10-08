@@ -6,10 +6,11 @@ import { LOGIN_PAGE } from '../route/routes';
 
 export default function HeaderContainer() {
   const { deleteCookie } = useAuthCookie();
-  const { user } = useUser();
+  const { user, setUser } = useUser();
   const navigate = useNavigate();
   const onActionClick = () => {
     deleteCookie();
+    setUser(null);
     navigate(LOGIN_PAGE);
   };
 

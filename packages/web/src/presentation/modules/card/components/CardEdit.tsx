@@ -12,6 +12,7 @@ import {
   Box,
   Heading,
   Center,
+  Spacer,
 } from '@chakra-ui/react';
 
 import EditableText from '../../../components/EditableText';
@@ -21,15 +22,21 @@ import RequirementContent from './RequirementContent';
 import DataContent from './DataContent';
 import RiskContent from './RiskContent';
 
-function Actions({ cancel, ok }: any) {
+function Actions({ children, cancel, ok }: any) {
   return (
-    <Flex gap={4}>
-      <Button variant="outline" onClick={cancel}>
-        Cancelar
-      </Button>
-      <Button colorScheme="primary" onClick={ok}>
-        Salvar
-      </Button>
+    <Flex gap={2}>
+      <Box>
+        <Button variant="outline" onClick={cancel}>
+          Cancelar
+        </Button>
+      </Box>
+      {/* <Spacer /> */}
+      <Box flexGrow={1}>{children}</Box>
+      <Box>
+        <Button colorScheme="primary" onClick={ok}>
+          Salvar
+        </Button>
+      </Box>
     </Flex>
   );
 }
@@ -74,29 +81,27 @@ export default function CardEdit({
       >
         <div></div>
         <ModalOverlay />
-        <ModalContent>
+        <ModalContent py={4}>
           <ModalHeader>
-            <Flex>
-              <Box flexGrow={1}>
-                <EditableText
-                  value={title}
-                  onChange={(newTitle: string) => setTitle(newTitle)}
-                />
-              </Box>
-              <Center pl="4">
+            <Actions cancel={destroyAndClose} ok={onSaveButtonClick}>
+              <EditableText
+                flexGrow={1}
+                value={title}
+                onChange={(newTitle: string) => setTitle(newTitle)}
+              />
+            </Actions>
+
+            {/* <Center pl="4">
                 <ModalCloseButton
                   ref={focusRef}
                   position={'relative'}
                   top={0}
                   right={0}
                 />
-              </Center>
-            </Flex>
+              </Center> */}
           </ModalHeader>
           <ModalBody>
-            <Flex mb={4} justifyContent={'flex-end'}>
-              <Actions cancel={destroyAndClose} ok={onSaveButtonClick} />
-            </Flex>
+            <Flex mb={4} justifyContent={'flex-end'}></Flex>
             {(category === CardCategory.FUNCTIONAL ||
               category === CardCategory.NON_FUNCTIONAL) && (
               <RequirementContent
@@ -112,11 +117,10 @@ export default function CardEdit({
             {category === CardCategory.RISK && (
               <RiskContent content={content} onContentChange={setContent} />
             )}
+            <Actions cancel={destroyAndClose} ok={onSaveButtonClick}></Actions>
           </ModalBody>
 
-          <ModalFooter>
-            <Actions cancel={destroyAndClose} ok={onSaveButtonClick} />
-          </ModalFooter>
+          {/* <ModalFooter justifyContent={'center'}></ModalFooter> */}
         </ModalContent>
       </Modal>
     </>

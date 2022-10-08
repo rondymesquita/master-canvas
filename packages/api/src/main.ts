@@ -38,7 +38,7 @@ async function bootstrap() {
     credentials: true,
     origin: Env().CLIENT_HOST.replace('/#/', ''),
   });
-  app.use(cookieParser());
+
   app.use(
     session({
       secret: 'secret',
@@ -50,18 +50,9 @@ async function bootstrap() {
       },
     }),
   );
+  app.use(cookieParser());
+  app.use(passport.initialize());
   app.use(passport.session());
-
-  // PassportModule.register({});
-
-  // app.use(
-  //   passport.serializeUser(
-  //     (user: Express.User, done: (err: any, id?: any) => void) => {
-  //       console.log('serializer', { user });
-  //       return done(null, {});
-  //     },
-  //   ),
-  // );
 
   await app.listen(5006);
 }

@@ -39,17 +39,15 @@ export class AuthController {
 
   @Get('/logout')
   @UseGuards(LogoutGuard)
-  logout(@Req() req: Request, @Res() res: Response): Promise<string> {
-    return new Promise((resolve) => {
-      req.logOut({ keepSessionInfo: false }, () => {
-        req.session.destroy((err) => {
-          if (err) throw err;
-          res.clearCookie(COOKIE_NAME);
-          resolve('ok');
-          res.redirect(Env().CLIENT_HOST);
-        });
-      });
-    });
+  logout(@Req() req: Request, @Res() res: Response): string {
+    // return new Promise((resolve) => {
+    // req.logOut({ keepSessionInfo: false }, () => {
+    // req.session.destroy((err) => {
+    // if (err) throw err;
+    res.clearCookie(COOKIE_NAME);
+    res.redirect(Env().CLIENT_HOST);
+
+    return 'ok';
   }
 
   @Get('/google/redirect')
@@ -62,12 +60,23 @@ export class AuthController {
     const session: any = req.session as unknown;
 
     const savedUser = await this.findUseOrSave.handle(user as User);
-    console.log({ user, savedUser });
+    // console.log('googleSuccesscontroller', { user, savedUser });
 
-    session.user = savedUser;
-    session.save();
-
+    res.cookie(COOKIE_NAME, JSON.stringify(savedUser));
     res.redirect(Env().CLIENT_HOST);
     return 'ok';
+
+    // return new Promise((resolve, reject) => {
+    //   req.login(JSON.stringify(savedUser), (err) => {
+    //     if (err) reject(err);
+
+    //     session.user = savedUser;
+    //     session.save();
+    //     console.log('Okay!');
+    //     resolve('ok');
+
+    //     res.redirect(Env().CLIENT_HOST);
+    //   });
+    // });
   }
 }

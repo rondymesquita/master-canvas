@@ -6,6 +6,12 @@ import { CanvasModule } from './main/ioc/canvas.module';
 
 import { ConfigModule } from '@nestjs/config';
 import { Env } from './config/env';
+import { PassportModule } from '@nestjs/passport';
+import { GoogleStrategy } from './infra/service/auth/google.strategy';
+import { GoogleSerializer } from './infra/service/auth/passport.serializer';
+import { AuthGuard } from './infra/guard/auth.guard';
+import { LogoutGuard } from './infra/guard/logout.guard';
+import { LoginGuard } from './infra/guard/login.guard';
 
 @Module({
   imports: [
@@ -13,8 +19,18 @@ import { Env } from './config/env';
     AuthModule,
     CardModule,
     CanvasModule,
+    PassportModule.register({
+      defaultStrategy: 'local',
+      session: true,
+    }),
   ],
   controllers: [AppController],
-  providers: [],
+  providers: [
+    GoogleStrategy,
+    GoogleSerializer,
+    // LoginGuard,
+    LogoutGuard,
+    AuthGuard,
+  ],
 })
 export class AppModule {}

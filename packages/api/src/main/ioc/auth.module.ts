@@ -8,7 +8,7 @@ import { GoogleStrategy } from '../../infra/service/auth/google.strategy';
   imports: [],
   controllers: [AuthController],
   providers: [
-    GoogleStrategy,
+    // GoogleStrategy,
     {
       provide: 'IUserRepo',
       useClass: UserRepo,

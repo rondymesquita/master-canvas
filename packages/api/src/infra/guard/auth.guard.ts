@@ -1,20 +1,28 @@
+import { COOKIE_NAME } from './../../config/constants';
 import { ExecutionContext, Injectable } from '@nestjs/common';
 import { AuthGuard as PassportAuthGuard } from '@nestjs/passport';
 
 @Injectable()
 export class AuthGuard extends PassportAuthGuard('google') {
-  canActivate(context: ExecutionContext) {
+  async canActivate(context: ExecutionContext) {
     const ctx = context.switchToHttp();
     const request = ctx.getRequest();
-    // const response = ctx.getResponse();
-    // console.log(Object.keys(request));
-    const session: any = request.session;
-    // console.log('user auth guard', session);
-    if (session.user) {
+    const cookie = request.cookies[COOKIE_NAME];
+    if (cookie) {
       return true;
     } else {
       // response.redirect('http://localhost:5005/#/login');
       return false;
     }
+
+    // const can = await super.canActivate(context);
+    // console.log({ can });
+
+    // if (can) {
+    //   const request = context.switchToHttp().getRequest();
+    //   super.logIn(request);
+    // }
+
+    // return true;
   }
 }

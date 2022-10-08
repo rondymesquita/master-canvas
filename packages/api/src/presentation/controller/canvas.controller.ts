@@ -1,3 +1,5 @@
+import { UserModel } from './../../infra/db/model/user.model';
+import { COOKIE_NAME } from './../../config/constants';
 import { User } from './../../domain/model/user';
 import { CanvasListOutputDTO } from './../dto/canvas.list.output.dto';
 import { IRemoveCanvas, IUpdateCanvas } from './../../domain/usecase/canvas';
@@ -13,6 +15,7 @@ import {
   Post,
   Param,
   Put,
+  Req,
   ExecutionContext,
   Injectable,
   UseGuards,
@@ -23,6 +26,7 @@ import { ISaveCanvas } from '../../domain/usecase/canvas';
 import { CanvasCreateInputDTO } from '../dto/canvas.create.input.dto';
 import { AuthGuard } from '../../infra/guard/auth.guard';
 import * as session from 'express-session';
+import { Request } from 'express';
 
 @Controller('canvas')
 @ApiTags('canvas')
@@ -39,8 +43,11 @@ export class CanvasController {
   @ApiResponse({
     status: 201,
   })
-  async list(@Session() session: session.Session): Promise<Canvas[]> {
-    const user = (session as any).user as User;
+  async list(@Req() req: Request): Promise<Canvas[]> {
+    // const user = (session as any).user as User;
+    const cookie = req.cookies[COOKIE_NAME];
+    const user: User = JSON.parse(cookie);
+
     return await this.listCanvas.handle({ user: user.id });
   }
 

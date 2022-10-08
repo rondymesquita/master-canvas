@@ -22,7 +22,7 @@ export default function () {
     });
     const rawCookie = record[COOKIE_NAME];
     if (rawCookie) {
-      return decodeURIComponent(rawCookie);
+      return JSON.parse(decodeURIComponent(rawCookie));
     }
     return null;
   };

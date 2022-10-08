@@ -49,7 +49,7 @@ export class CanvasController {
     status: 201,
   })
   async list(@UserCookie() user: User): Promise<Canvas[]> {
-    return await this.listCanvas.handle({ userId: user.id });
+    return await this.listCanvas.handle({ user: user.id });
   }
 
   @Post('/')
@@ -60,7 +60,7 @@ export class CanvasController {
     @Body() input: CanvasCreateInputDTO,
     @UserCookie() user: User,
   ): Promise<Canvas> {
-    return await this.saveCanvas.handle({ ...input, userId: user.id });
+    return await this.saveCanvas.handle({ ...input, user: user.id });
   }
 
   @Put('/')
@@ -71,7 +71,7 @@ export class CanvasController {
     @Body() input: CanvasUpdateInputDTO,
     @UserCookie() user: User,
   ): Promise<Canvas> {
-    return await this.updateCanvas.handle({ ...input, userId: user.id });
+    return await this.updateCanvas.handle({ ...input, user: user.id });
   }
 
   @Delete('/:id')

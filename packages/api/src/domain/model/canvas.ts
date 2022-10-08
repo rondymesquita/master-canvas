@@ -4,7 +4,7 @@ import { BaseModel } from './_base';
 export interface Canvas {
   id?: string;
   active?: boolean;
-  userId?: string;
+  user?: string;
   title: string;
   createdAt?: Date;
   updatedAt?: Date;

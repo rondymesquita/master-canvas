@@ -2,7 +2,7 @@ import mongoose, { Schema, Types } from 'mongoose';
 
 export interface CanvasSchema {
   _id: Types.ObjectId;
-  userId: Types.ObjectId;
+  user: Types.ObjectId;
   active: boolean;
   title: string;
   createdAt: Date;
@@ -15,7 +15,7 @@ export const CanvasModel = mongoose.model<CanvasSchema>(
     {
       active: { type: Boolean, required: true, default: true },
       title: { type: String, required: true },
-      userId: { type: Schema.Types.ObjectId, required: true },
+      user: { type: Schema.Types.ObjectId, required: true },
     },
     { timestamps: true },
   ),

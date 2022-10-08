@@ -2,7 +2,7 @@
 import { Canvas } from 'src/domain/model/canvas';
 
 export interface IListCanvasInput {
-  userId: string;
+  user: string;
 }
 export interface ICanvasRepo {
   save(input: Canvas): Promise<Canvas>;

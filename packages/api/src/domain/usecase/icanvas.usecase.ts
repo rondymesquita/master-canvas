@@ -5,7 +5,7 @@ export interface ISaveCanvas {
 }
 
 export type IUpdateCanvasInput = Required<
-  Pick<Canvas, 'id' | 'title' | 'userId'>
+  Pick<Canvas, 'id' | 'title' | 'user'>
 >;
 export interface IUpdateCanvas {
   handle(input: IUpdateCanvasInput): Promise<Canvas>;
@@ -15,7 +15,7 @@ export interface IGetByIdCanvas {
   handle(id: string): Promise<Canvas>;
 }
 
-export type IListCanvasInput = Required<Pick<Canvas, 'userId'>>;
+export type IListCanvasInput = Required<Pick<Canvas, 'user'>>;
 export interface IListCanvas {
   handle(input: IListCanvasInput): Promise<Canvas[]>;
 }

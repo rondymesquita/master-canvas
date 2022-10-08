@@ -20,7 +20,6 @@ export const CardModel = mongoose.model<CardSchema>(
       category: { type: String, required: true },
       content: { type: Object, required: true },
       canvas: { type: Schema.Types.ObjectId, required: true },
-      // created_at: { type: Date, default: Date.now },
     },
     { timestamps: true },
   ),

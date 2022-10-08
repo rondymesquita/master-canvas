@@ -18,7 +18,7 @@ export class CanvasRepo implements ICanvasRepo {
     return this.adapter.adapt(data);
   }
   async list(input: IListCanvasInput): Promise<Canvas[]> {
-    const data = await CanvasModel.find({ active: true, user: input.userId });
+    const data = await CanvasModel.find({ active: true, user: input.user });
     console.log(data);
     return this.adapter.adaptList(data);
   }

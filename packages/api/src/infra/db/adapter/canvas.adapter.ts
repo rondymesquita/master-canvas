@@ -16,7 +16,7 @@ export class CanvasAdapter {
       title: record.title,
       createdAt: record.createdAt,
       updatedAt: record.updatedAt,
-      userId: record.userId.toString(),
+      user: record.user.toString(),
     };
 
     return canvas;

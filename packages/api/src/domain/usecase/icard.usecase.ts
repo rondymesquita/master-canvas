@@ -6,6 +6,11 @@ export interface ISaveCard {
   handle(input: Card): Promise<Card>;
 }
 
+export type IUpdateCardInput = Required<Pick<Card, 'id' | 'title' | 'content'>>;
+export interface IUpdateCard {
+  handle(input: IUpdateCardInput): Promise<Card>;
+}
+
 export interface IGetByIdCard {
   handle(id: string): SaveCardOutput;
 }

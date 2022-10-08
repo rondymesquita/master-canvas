@@ -1,4 +1,4 @@
 import { Canvas } from '../../domain/model/canvas';
 export type CanvasUpdateInputDTO = Required<
-  Pick<Canvas, 'id' | 'title' | 'userId'>
+  Pick<Canvas, 'id' | 'title' | 'user'>
 >;

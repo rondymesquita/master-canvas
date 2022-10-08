@@ -17,9 +17,9 @@ export interface Card {
   id?: string;
   title: string;
   active?: boolean;
-  category: CardCategory;
+  category?: CardCategory;
   content: CardRequirementContent | string;
-  canvas: string;
+  canvas?: string;
   createdAt?: Date;
   updatedAt?: Date;
 }

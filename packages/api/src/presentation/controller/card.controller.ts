@@ -1,4 +1,5 @@
-import { IRemoveCard } from '../../domain/usecase/icard.usecase';
+import { CardUpdateInputDTO } from './../dto/card.update.input.dto';
+import { IRemoveCard, IUpdateCard } from '../../domain/usecase/icard.usecase';
 import { IListCard } from '../../domain/usecase/icard.usecase';
 import {
   Body,
@@ -9,12 +10,15 @@ import {
   Inject,
   Post,
   Param,
+  Put,
 } from '@nestjs/common';
 import { ApiResponse, ApiTags } from '@nestjs/swagger';
 import { Card, CardCategory } from 'src/domain/model/card';
 import { ISaveCard } from 'src/domain/usecase/icard.usecase';
 import { CardCreateInputDTO } from '../dto/card.create.input.dto';
 import { Env } from 'src/config/env';
+import { UserCookie } from '../../infra/decorator/user.cookie.decorator';
+import { User } from '../../domain/model/user';
 
 @Controller('cards')
 @ApiTags('cards')
@@ -23,16 +27,15 @@ export class CardController {
     @Inject('ISaveCard') private readonly saveCard: ISaveCard,
     @Inject('IListCard') private readonly listCard: IListCard,
     @Inject('IRemoveCard') private readonly removeCard: IRemoveCard,
+    @Inject('IUpdateCard') private readonly updateCard: IUpdateCard,
   ) {}
 
   @Post('/')
   @ApiResponse({
     status: 201,
-    // type: CanvasOutputDTO,
   })
   async save(@Body() input: CardCreateInputDTO): Promise<Card> {
     return await this.saveCard.handle(input);
-    // return [];
   }
 
   @Get('/:canvasId')
@@ -40,6 +43,20 @@ export class CardController {
     console.log({ canvasId });
 
     return await this.listCard.handle({ canvas: canvasId });
+  }
+
+  @Put('/')
+  @ApiResponse({
+    status: 200,
+  })
+  async update(
+    @Body() input: CardUpdateInputDTO,
+    @UserCookie() user: User,
+  ): Promise<Card> {
+    console.log({ input });
+
+    // return await this.updateCard.handle(input);
+    return {} as Card;
   }
 
   @Delete('/:id')

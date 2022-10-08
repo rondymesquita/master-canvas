@@ -18,6 +18,13 @@ export default function Canvas({
   onEditClick,
   onDeleteClick,
 }: any) {
+  const formatDate = (date: string) => {
+    return new Intl.DateTimeFormat('pt-BR', {
+      dateStyle: 'full',
+      timeStyle: 'long',
+    }).format(new Date(date));
+  };
+
   return (
     <Box
       // borderWidth={1}
@@ -28,32 +35,22 @@ export default function Canvas({
       _hover={{ cursor: 'pointer' }}
       onClick={() => onClick(canvas)}
     >
-      <Center flexDirection={'column'}>
+      <Center flexDirection={'column'} gap={4} my={4}>
         <Heading size="md">{canvas.title}</Heading>
         <Avatar name={canvas.title} />
       </Center>
       <Flex justifyContent={'start'} flexDirection={'column'}>
-        <Text color="gray.500" fontStyle="italic" fontSize={'sm'}>
-          Criado: {canvas.createdAt}
+        <Text color="foreground.500" fontSize={'md'} mb={4}>
+          Criado: {formatDate(canvas.createdAt)}
         </Text>
-        <Text color="gray.500" fontStyle="italic" fontSize={'sm'}>
-          Atualizado: {canvas.updatedAt}
+        <Text color="foreground.500" fontSize={'md'}>
+          Atualizado: {formatDate(canvas.updatedAt)}
         </Text>
       </Flex>
-      <Flex mt="4" justifyContent={'end'} gap={2}>
+      <Flex mt="4" justifyContent={'space-between'} gap={2}>
         <Button
-          colorScheme={'primary'}
-          size={'sm'}
-          leftIcon={<Icon as={FaEdit} />}
-          onClick={(e) => {
-            e.stopPropagation();
-            onEditClick && onEditClick(canvas);
-          }}
-        >
-          Editar
-        </Button>
-        <Button
-          colorScheme={'accent'}
+          colorScheme={'destructive'}
+          variant={'ghost'}
           size={'sm'}
           leftIcon={<Icon as={FaTrash} />}
           onClick={(e) => {
@@ -62,6 +59,18 @@ export default function Canvas({
           }}
         >
           Apagar
+        </Button>
+        <Button
+          colorScheme={'primary'}
+          variant={'ghost'}
+          size={'sm'}
+          leftIcon={<Icon as={FaEdit} />}
+          onClick={(e) => {
+            e.stopPropagation();
+            onEditClick && onEditClick(canvas);
+          }}
+        >
+          Editar
         </Button>
       </Flex>
     </Box>

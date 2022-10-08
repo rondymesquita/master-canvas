@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import {
   Modal,
   ModalOverlay,
@@ -8,25 +8,16 @@ import {
   ModalBody,
   ModalCloseButton,
   Button,
-  useDisclosure,
   Flex,
   Box,
-  Spacer,
   Heading,
   Center,
 } from '@chakra-ui/react';
 
-// import { Editor, EditorState } from 'draft-js';
-// import 'draft-js/dist/Draft.css';
-
-// import RichTextEditor from 'react-rte';
-// import { createEditor } from 'slate';
-// import { Slate, Editable, withReact } from 'slate-react';
-
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
 
-import EditableText from './EditableText';
+import EditableText from '../../../components/EditableText';
 import { SunIcon } from '@chakra-ui/icons';
 
 function Block({ children }: any) {
@@ -87,6 +78,8 @@ export default function CardEdit({
   const [risk, setRisk] = useState(content?.risk);
   const [title, setTitle] = useState(inputTitle);
 
+  const focusRef = useRef(null);
+
   const onSaveButtonClick = () => {
     onSave({
       title,
@@ -112,7 +105,13 @@ export default function CardEdit({
   };
   return (
     <>
-      <Modal isOpen={isOpen} onClose={destroyAndClose} size={'6xl'}>
+      <Modal
+        isOpen={isOpen}
+        onClose={destroyAndClose}
+        size={'6xl'}
+        initialFocusRef={focusRef}
+      >
+        <div></div>
         <ModalOverlay />
         <ModalContent>
           <ModalHeader>
@@ -124,7 +123,12 @@ export default function CardEdit({
                 />
               </Box>
               <Center pl="4">
-                <ModalCloseButton position={'relative'} top={0} right={0} />
+                <ModalCloseButton
+                  ref={focusRef}
+                  position={'relative'}
+                  top={0}
+                  right={0}
+                />
               </Center>
             </Flex>
           </ModalHeader>

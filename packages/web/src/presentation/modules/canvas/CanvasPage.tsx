@@ -10,7 +10,7 @@ import { AreaModel } from '../../../domain/area';
 import { CardCategory, CardModel } from '../../../domain/card';
 import Area from '../../components/Area';
 import Card from '../../components/Card';
-import CardEdit from '../../components/CardEdit';
+import CardEdit from '../card/components/CardEdit';
 import Header from '../../components/Header';
 import useDisclosure from '../../hooks/useDisclosure';
 import PageTemplate from '../../templates/PageTemplate';

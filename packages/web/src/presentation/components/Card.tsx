@@ -34,7 +34,23 @@ export default function Card({
   onClick,
 }: any) {
   function createHTMLfromContent() {
-    return { __html: `${content.persona} ${content.business}` };
+    if (typeof content === 'string') {
+      return { __html: `${content}` };
+    }
+
+    let cardDisplayContent = '';
+    const values = Object.values(content);
+
+    for (let index = 0; index < 1; index++) {
+      console.log(values[index]);
+      if (values[index]) {
+        cardDisplayContent += values[index] + '</br>';
+        continue;
+      }
+      break;
+    }
+
+    return { __html: `${cardDisplayContent}` };
   }
   return (
     <Flex

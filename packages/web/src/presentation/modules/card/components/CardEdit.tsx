@@ -68,12 +68,14 @@ export default function CardEdit({
   };
 
   useEffect(() => {
-    console.log(content);
+    // console.log(content);
   }, [content]);
 
   return (
     <>
       <Modal
+        closeOnOverlayClick={false}
+        closeOnEsc={false}
         isOpen={isOpen}
         onClose={destroyAndClose}
         size={'6xl'}

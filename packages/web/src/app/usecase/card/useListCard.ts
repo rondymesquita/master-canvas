@@ -1,8 +1,8 @@
 import axios from 'axios';
 import { useEffect, useState } from 'react';
-import { CardModel } from '../../domain/card';
-import { CardService } from '../../infra/rest/card.service';
-import { waitPromise } from '../../util/waitpromise';
+import { CardModel } from '../../../domain/card';
+import { CardService } from '../../../infra/rest/card.service';
+import { waitPromise } from '../../../util/waitpromise';
 import { QueryClient, useQuery } from '@tanstack/react-query';
 
 export default function useListCard() {

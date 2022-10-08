@@ -1,7 +1,7 @@
-import { CardModel } from '../../domain/card';
+import { CardModel } from '../../../domain/card';
 import { useState } from 'react';
-import { CardService } from '../../infra/rest/card.service';
-import { waitPromise } from '../../util/waitpromise';
+import { CardService } from '../../../infra/rest/card.service';
+import { waitPromise } from '../../../util/waitpromise';
 
 export default function useUpdateCard() {
   let service: CardService;

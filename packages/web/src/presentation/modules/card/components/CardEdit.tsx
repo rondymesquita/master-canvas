@@ -14,40 +14,12 @@ import {
   Center,
 } from '@chakra-ui/react';
 
-import ReactQuill from 'react-quill';
-import 'react-quill/dist/quill.snow.css';
-
 import EditableText from '../../../components/EditableText';
 import { SunIcon } from '@chakra-ui/icons';
-
-function Block({ children }: any) {
-  return (
-    <Box
-      p="2"
-      mb="4"
-      borderWidth={1}
-      borderColor={'primary.500'}
-      borderRadius="md"
-    >
-      {children}
-    </Box>
-  );
-}
-
-function BlockHeading({ children }: any) {
-  return (
-    <Flex>
-      <Center p="2">
-        <SunIcon fontSize={'4xl'} />
-      </Center>
-      <Center p="2">
-        <Heading textAlign={'center'} size="lg">
-          {children}
-        </Heading>
-      </Center>
-    </Flex>
-  );
-}
+import { CardCategory } from '../../../../domain/card';
+import RequirementContent from './RequirementContent';
+import DataContent from './DataContent';
+import RiskContent from './RiskContent';
 
 function Actions({ cancel, ok }: any) {
   return (
@@ -67,42 +39,31 @@ export default function CardEdit({
   onOpen,
   onClose,
   onSave,
-  content,
+  category,
   title: inputTitle,
+  content: inputContent,
 }: any) {
-  const [persona, setPersona] = useState(content?.persona);
-  const [business, setBusiness] = useState(content?.business);
-  const [acceptance, setAcceptance] = useState(content?.acceptance);
-  const [data, setData] = useState(content?.data);
-  const [infra, setInfra] = useState(content?.infra);
-  const [risk, setRisk] = useState(content?.risk);
   const [title, setTitle] = useState(inputTitle);
+  const [content, setContent] = useState(inputContent);
 
   const focusRef = useRef(null);
 
   const onSaveButtonClick = () => {
     onSave({
       title,
-      content: {
-        persona,
-        business,
-        acceptance,
-        data,
-        infra,
-        risk,
-      },
+      content,
     });
   };
 
   const destroyAndClose = () => {
-    setPersona('');
-    setBusiness('');
-    setAcceptance('');
-    setData('');
-    setInfra('');
-    setRisk('');
+    setContent({});
     onClose();
   };
+
+  useEffect(() => {
+    console.log(content);
+  }, [content]);
+
   return (
     <>
       <Modal
@@ -136,42 +97,21 @@ export default function CardEdit({
             <Flex mb={4} justifyContent={'flex-end'}>
               <Actions cancel={destroyAndClose} ok={onSaveButtonClick} />
             </Flex>
-            <Block>
-              <BlockHeading>
-                Visão de Persona - Experiência do Usuário
-              </BlockHeading>
-              <ReactQuill theme="snow" value={persona} onChange={setPersona} />
-            </Block>
-            <Block>
-              <BlockHeading>Visão de Negócio</BlockHeading>
-              <ReactQuill
-                theme="snow"
-                value={business}
-                onChange={setBusiness}
+            {(category === CardCategory.FUNCTIONAL ||
+              category === CardCategory.NON_FUNCTIONAL) && (
+              <RequirementContent
+                content={content}
+                onContentChange={setContent}
               />
-            </Block>
-            <Block>
-              <BlockHeading>Visão de Critério de Aceitação</BlockHeading>
-              <ReactQuill
-                theme="snow"
-                value={acceptance}
-                onChange={setAcceptance}
-              />
-            </Block>
-            <Block>
-              <BlockHeading>Visão de Dados</BlockHeading>
-              <ReactQuill theme="snow" value={data} onChange={setData} />
-            </Block>
-            <Block>
-              <BlockHeading>Visão de Infraestrutura</BlockHeading>
-              <ReactQuill theme="snow" value={infra} onChange={setInfra} />
-            </Block>
-            <Block>
-              <BlockHeading>
-                Visão de Risco de Produto - Literatura de Teste
-              </BlockHeading>
-              <ReactQuill theme="snow" value={risk} onChange={setRisk} />
-            </Block>
+            )}
+
+            {category === CardCategory.DATA && (
+              <DataContent content={content} onContentChange={setContent} />
+            )}
+
+            {category === CardCategory.RISK && (
+              <RiskContent content={content} onContentChange={setContent} />
+            )}
           </ModalBody>
 
           <ModalFooter>

@@ -2,10 +2,10 @@ import { Container, Flex, Grid, GridItem, Spacer } from '@chakra-ui/react';
 import { useEffect, useRef, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { GetAreasUseCase } from '../../../app/usecase/GetAreas';
-import useGetEmptyCard from '../../../app/usecase/useGetEmptyCard';
-import useListCard from '../../../app/usecase/useListCard';
-import useRemoveCard from '../../../app/usecase/useRemoveCard';
-import useSaveCard from '../../../app/usecase/useSaveCard';
+import useGetEmptyCard from '../../../app/usecase/card/useGetEmptyCard';
+import useListCard from '../../../app/usecase/card/useListCard';
+import useRemoveCard from '../../../app/usecase/card/useRemoveCard';
+import useSaveCard from '../../../app/usecase/card/useSaveCard';
 import { AreaModel } from '../../../domain/area';
 import { CardCategory, CardModel } from '../../../domain/card';
 import Area from '../../components/Area';
@@ -14,7 +14,7 @@ import CardEdit from '../card/components/CardEdit';
 import Header from '../../components/Header';
 import useDisclosure from '../../hooks/useDisclosure';
 import PageTemplate from '../../templates/PageTemplate';
-import useUpdateCard from '../../../app/usecase/useUpdateCard';
+import useUpdateCard from '../../../app/usecase/card/useUpdateCard';
 
 // import { TransformWrapper, TransformComponent } from 'react-zoom-pan-pinch';
 // import { useZoom, ZoomProvider } from '../contexts/ZoomContext';
@@ -137,6 +137,7 @@ export default function CanvasPage() {
           onSave={onCardSave}
           title={currentCard?.title}
           content={currentCard?.content}
+          category={currentCard?.category}
         ></CardEdit>
         <Grid templateColumns="repeat(3, 1fr)">
           {areas.map((area: AreaModel, index: number) => (

@@ -1,4 +1,4 @@
-export interface BreadcrumbLink {
+export interface BreadcrumbLinkModel {
   title: string;
   href: string;
 }

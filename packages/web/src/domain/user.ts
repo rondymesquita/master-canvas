@@ -1,6 +1,6 @@
 export type Provider = 'google';
 
-export interface User {
+export interface UserModel {
   id: string;
   email: string;
   name: string;

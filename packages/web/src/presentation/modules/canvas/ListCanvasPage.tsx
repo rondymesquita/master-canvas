@@ -1,4 +1,12 @@
-import { Box, Button, Flex, Grid, Icon, Input } from '@chakra-ui/react';
+import {
+  Box,
+  Button,
+  Flex,
+  Grid,
+  Heading,
+  Icon,
+  Input,
+} from '@chakra-ui/react';
 import { useEffect, useState } from 'react';
 import PageTemplate from '../../templates/PageTemplate';
 
@@ -101,8 +109,12 @@ export default function ListCanvasPage() {
       </Flex> */}
 
       {/* Tollbar */}
-      <Flex p={2}>
+      <Flex p={2} flexDirection={'column'}>
+        <Heading size={'lg'} mb={4}>
+          Meus Canvas
+        </Heading>
         <Button
+          width={'fit-content'}
           colorScheme={'primary'}
           leftIcon={<Icon as={FaPlus} />}
           onClick={() => onNewOpen()}
@@ -115,10 +127,10 @@ export default function ListCanvasPage() {
       <Grid
         p={2}
         flexWrap="wrap"
-        gap={16}
+        gap={8}
         templateColumns={{
           base: 'repeat(1, 1fr)',
-          md: 'repeat(3, 1fr)',
+          md: 'repeat(4, 1fr)',
         }}
       >
         {canvases.map((canvas: CanvasModel) => {

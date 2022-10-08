@@ -18,23 +18,23 @@ export class CanvasRepo implements ICanvasRepo {
     return this.adapter.adapt(data);
   }
   async list(input: IListCanvasInput): Promise<Canvas[]> {
-    const data = await CanvasModel.find({ active: true, user: input.user });
-    console.log(data);
+    const data = await CanvasModel.find(
+      { active: true, user: input.user },
+      null,
+      { sort: { updatedAt: -1 } },
+    );
     return this.adapter.adaptList(data);
   }
   async getById(id: string, userId: string): Promise<Canvas> {
     const data = await CanvasModel.find({ id, user: userId });
-    console.log(data);
     return this.adapter.adapt(data);
   }
   async update(input: Canvas): Promise<Canvas> {
     const data = await CanvasModel.findByIdAndUpdate(input.id, input);
-    console.log(data);
     return this.adapter.adapt(data);
   }
   async remove(id: string): Promise<boolean> {
     const data = await CanvasModel.findByIdAndUpdate(id, { active: false });
-    console.log(data);
     return Promise.resolve(true);
   }
 }

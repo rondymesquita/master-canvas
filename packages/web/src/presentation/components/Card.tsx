@@ -83,6 +83,7 @@ export default function Card({
       <Flex mt="4">
         <Spacer />
         <IconButton
+          colorScheme={'yellow'}
           onClick={(e) => {
             e.stopPropagation();
             onDelete();

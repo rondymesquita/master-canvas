@@ -9,10 +9,25 @@ export default function PageTemplate({ children }: any) {
     <Flex width={'full'} direction={'column'}>
       <Spacer />
       <HeaderContainer />
-      <Container maxWidth={'container.lg'} pt={4}>
-        <BreadcrumbContainer />
-        <Flex flexDirection={'column'}>{children}</Flex>
-      </Container>
+      <Flex
+        px={4}
+        borderRadius={'2xl'}
+        bg={'background.100'}
+        zIndex={999}
+        top={'-4'}
+        position={'relative'}
+        boxShadow={'inner'}
+      >
+        <Container
+          maxWidth={'container.lg'}
+          p={4}
+          // background={'white'}
+          // shadow={'base'}
+        >
+          <BreadcrumbContainer />
+          <Flex flexDirection={'column'}>{children}</Flex>
+        </Container>
+      </Flex>
     </Flex>
   );
 }

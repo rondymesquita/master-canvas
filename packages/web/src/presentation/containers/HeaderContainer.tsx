@@ -14,5 +14,5 @@ export default function HeaderContainer() {
     navigate(LOGIN_PAGE);
   };
 
-  return <Header username={user?.name} onActionClick={onActionClick} />;
+  return <Header user={user} onActionClick={onActionClick} />;
 }

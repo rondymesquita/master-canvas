@@ -1,4 +1,11 @@
-import { Container, Flex, Grid, GridItem, Spacer } from '@chakra-ui/react';
+import {
+  Container,
+  Flex,
+  Grid,
+  GridItem,
+  Heading,
+  Spacer,
+} from '@chakra-ui/react';
 import { useEffect, useRef, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { GetAreasUseCase } from '../../../app/usecase/GetAreas';

@@ -27,7 +27,7 @@ export default function useGetTemplateCard() {
       [CardCategory.FUNCTIONAL]: requirementContent,
       [CardCategory.NON_FUNCTIONAL]: requirementContent,
       [CardCategory.DATA]: dataContent,
-      [CardCategory.RISK]: 'risk content',
+      [CardCategory.RISK]: '',
     };
 
     const template = templates[category];

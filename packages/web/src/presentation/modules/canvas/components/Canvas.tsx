@@ -1,5 +1,6 @@
 import {
   Avatar,
+  background,
   Box,
   Button,
   Center,
@@ -19,11 +20,11 @@ export default function Canvas({
 }: any) {
   return (
     <Box
-      borderWidth={1}
+      // borderWidth={1}
       p={3}
-      borderRadius="md"
-      boxShadow={'md'}
-      boxSizing={'border-box'}
+      bg={'background.0'}
+      borderRadius="lg"
+      boxShadow={'xl'}
       _hover={{ cursor: 'pointer' }}
       onClick={() => onClick(canvas)}
     >

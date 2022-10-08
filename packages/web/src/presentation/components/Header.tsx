@@ -1,57 +1,49 @@
-import { Box, Button, Center, Flex, Icon, Spacer } from '@chakra-ui/react';
+import {
+  Avatar,
+  Box,
+  Button,
+  Center,
+  Flex,
+  Heading,
+  Icon,
+  Spacer,
+} from '@chakra-ui/react';
 import { FaUser } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
 import { HOME_PAGE } from '../route/routes';
 import Logo from './Logo';
-export default function Header({
-  isLogged = true,
-  username,
-  onActionClick,
-}: any) {
+export default function Header({ isLogged = true, user, onActionClick }: any) {
   return (
     <header>
-      <Flex bg={'primary.500'} px={4} py={2} shadow={'base'}>
+      <Flex px={4} pt={4} pb={8} bg={'background.0'}>
         {/* <Spacer /> */}
         <Center>
           <Box>
             <Link to={HOME_PAGE}>
-              <Logo size="2xl" />
+              <Logo color={'primary.500'} light size="2xl" />
             </Link>
           </Box>
         </Center>
         <Spacer />
-        <Flex color={'white'} gap={2}>
-          {isLogged ? (
+        <Flex gap={2}>
+          {isLogged && (
             <>
-              {/* <IconButton
-                aria-label=""
-                background={'primary.400'}
-                colorScheme={'primary'}
-                onClick={onDownload}
-              >
-                <DownloadIcon />
-              </IconButton> */}
-              <Button
-                aria-label=""
-                shadow={'none'}
-                background={'primary.500'}
-                colorScheme={'primary'}
-                leftIcon={<Icon as={FaUser} />}
-              >
-                {username}
-              </Button>
-              <Button
-                // as={ReactLink}
-                onClick={onActionClick ? onActionClick : () => {}}
-                // to={'/login'}
-                background={'primary.400'}
-                colorScheme={'primary'}
-              >
-                Sair
-              </Button>
+              {/* {user.picture} */}
+              <Center gap={2}>
+                <Avatar size={'sm'} src={user.picture} />
+                <Heading size={'sm'}>{user.name}</Heading>
+                <Button
+                  ml={8}
+                  onClick={onActionClick ? onActionClick : () => {}}
+                  // background={'primary.400'}
+                  colorScheme={'destructive'}
+                  variant={'ghost'}
+                  size={'sm'}
+                >
+                  Sair
+                </Button>
+              </Center>
             </>
-          ) : (
-            <></>
           )}
         </Flex>
       </Flex>

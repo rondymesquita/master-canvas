@@ -1,5 +1,5 @@
-import { IRemoveCard } from './../../domain/usecase/card';
-import { IListCard } from '../../domain/usecase/card';
+import { IRemoveCard } from '../../domain/usecase/icard.usecase';
+import { IListCard } from '../../domain/usecase/icard.usecase';
 import {
   Body,
   ConsoleLogger,
@@ -12,7 +12,7 @@ import {
 } from '@nestjs/common';
 import { ApiResponse, ApiTags } from '@nestjs/swagger';
 import { Card, CardCategory } from 'src/domain/model/card';
-import { ISaveCard } from 'src/domain/usecase/card';
+import { ISaveCard } from 'src/domain/usecase/icard.usecase';
 import { CardCreateInputDTO } from '../dto/card.create.input.dto';
 import { Env } from 'src/config/env';
 

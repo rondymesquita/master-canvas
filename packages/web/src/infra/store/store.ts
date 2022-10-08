@@ -1,9 +1,10 @@
 import create from 'zustand';
 import { BreadcrumbLink } from '../../domain/breadcrumblink';
+import { User } from '../../domain/user';
 
 // export intef
 export interface GlobalStore {
-  user: string | null;
+  user: User | null;
   setUser: Function;
 
   // breadcrumbs: Array<BreadcrumbLink>;
@@ -14,7 +15,7 @@ export interface GlobalStore {
 export const useGlobalStore = create<GlobalStore>(
   (set, get): GlobalStore => ({
     user: null,
-    setUser: (user: string) => set((state) => ({ ...state, user })),
+    setUser: (user: User) => set((state) => ({ ...state, user })),
 
     // breadcrumbs: [],
     // setBreacrumbPath: (path: string) => set((state) => ({ ...state, breadcrumbs: })),

@@ -8,12 +8,15 @@ export class CanvasAdapter {
     });
   }
   adapt(record: CanvasSchema) {
+    console.log({ record });
+
     const canvas: Canvas = {
       id: record._id.toString(),
       active: record.active,
       title: record.title,
       createdAt: record.createdAt,
       updatedAt: record.updatedAt,
+      userId: record.userId.toString(),
     };
 
     return canvas;

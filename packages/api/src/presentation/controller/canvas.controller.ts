@@ -2,8 +2,11 @@ import { UserModel } from './../../infra/db/model/user.model';
 import { COOKIE_NAME } from './../../config/constants';
 import { User } from './../../domain/model/user';
 import { CanvasListOutputDTO } from './../dto/canvas.list.output.dto';
-import { IRemoveCanvas, IUpdateCanvas } from './../../domain/usecase/canvas';
-import { IListCanvas } from '../../domain/usecase/canvas';
+import {
+  IRemoveCanvas,
+  IUpdateCanvas,
+} from '../../domain/usecase/icanvas.usecase';
+import { IListCanvas } from '../../domain/usecase/icanvas.usecase';
 import {
   Session,
   Body,
@@ -22,11 +25,13 @@ import {
 } from '@nestjs/common';
 import { ApiProduces, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { Canvas } from '../../domain/model/canvas';
-import { ISaveCanvas } from '../../domain/usecase/canvas';
+import { ISaveCanvas } from '../../domain/usecase/icanvas.usecase';
 import { CanvasCreateInputDTO } from '../dto/canvas.create.input.dto';
 import { AuthGuard } from '../../infra/guard/auth.guard';
 import * as session from 'express-session';
 import { Request } from 'express';
+import { UserCookie } from '../../infra/decorator/user.cookie.decorator';
+import { CanvasUpdateInputDTO } from '../dto/canvas.update.input.dto';
 
 @Controller('canvas')
 @ApiTags('canvas')
@@ -43,12 +48,8 @@ export class CanvasController {
   @ApiResponse({
     status: 201,
   })
-  async list(@Req() req: Request): Promise<Canvas[]> {
-    // const user = (session as any).user as User;
-    const cookie = req.cookies[COOKIE_NAME];
-    const user: User = JSON.parse(cookie);
-
-    return await this.listCanvas.handle({ user: user.id });
+  async list(@UserCookie() user: User): Promise<Canvas[]> {
+    return await this.listCanvas.handle({ userId: user.id });
   }
 
   @Post('/')
@@ -57,28 +58,27 @@ export class CanvasController {
   })
   async save(
     @Body() input: CanvasCreateInputDTO,
-    @Session() session: session.Session,
+    @UserCookie() user: User,
   ): Promise<Canvas> {
-    const user = (session as any).user as User;
-
-    const canvas: Canvas = {
-      ...input,
-      user: user.id,
-    };
-    return await this.saveCanvas.handle(canvas);
+    return await this.saveCanvas.handle({ ...input, userId: user.id });
   }
 
   @Put('/')
   @ApiResponse({
     status: 200,
   })
-  async update(@Body() input: CanvasCreateInputDTO): Promise<Canvas> {
-    console.log({ input });
-    return await this.updateCanvas.handle(input);
+  async update(
+    @Body() input: CanvasUpdateInputDTO,
+    @UserCookie() user: User,
+  ): Promise<Canvas> {
+    return await this.updateCanvas.handle({ ...input, userId: user.id });
   }
 
   @Delete('/:id')
-  async remove(@Param('id') id: string): Promise<any> {
+  async remove(
+    @Param('id') id: string,
+    @UserCookie() user: User,
+  ): Promise<any> {
     return await this.removeCanvas.handle(id);
   }
 }

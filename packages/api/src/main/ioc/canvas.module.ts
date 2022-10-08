@@ -1,4 +1,4 @@
-import { IUpdateCanvas } from './../../domain/usecase/canvas';
+import { IUpdateCanvas } from '../../domain/usecase/icanvas.usecase';
 import { CanvasRepo } from '../../infra/db/repo/Canvas.repo';
 import { Module } from '@nestjs/common';
 import { CanvasController } from '../../presentation/controller/Canvas.controller';
@@ -7,7 +7,7 @@ import {
   RemoveCanvas,
   SaveCanvas,
   UpdateCanvas,
-} from '../../app/usecase/Canvas';
+} from '../../app/usecase/canvas.usecase';
 
 @Module({
   imports: [],

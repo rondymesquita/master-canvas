@@ -1,11 +1,13 @@
+import { Unauthorized } from './../../domain/error/unauthorized';
 import {
   IRemoveCanvas,
   IUpdateCanvas,
   IListCanvasInput,
-} from './../../domain/usecase/canvas';
+  IUpdateCanvasInput,
+} from '../../domain/usecase/icanvas.usecase';
 import { Inject, Injectable } from '@nestjs/common';
 import { Canvas } from '../../domain/model/canvas';
-import { IListCanvas, ISaveCanvas } from '../../domain/usecase/canvas';
+import { IListCanvas, ISaveCanvas } from '../../domain/usecase/icanvas.usecase';
 import { ICanvasRepo } from '../service/repo/icanvas.repo';
 
 @Injectable()
@@ -19,7 +21,17 @@ export class SaveCanvas implements ISaveCanvas {
 @Injectable()
 export class UpdateCanvas implements IUpdateCanvas {
   constructor(@Inject('ICanvasRepo') private canvasRepo: ICanvasRepo) {}
-  async handle(input: Canvas): Promise<Canvas> {
+  async handle(input: IUpdateCanvasInput): Promise<Canvas> {
+    console.log({ input });
+
+    // if (input != userId) {
+    // throw new Unauthorized();
+    // }
+    // const canvas: Canvas = await this.canvasRepo.getById(
+    //   input.id,
+    //   input.userId,
+    // );
+    // if (!canvas) throw Error('not found');
     return await this.canvasRepo.update(input);
   }
 }

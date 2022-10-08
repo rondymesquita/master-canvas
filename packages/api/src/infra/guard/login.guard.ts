@@ -11,7 +11,7 @@ export class LoginGuard extends AuthGuard('google') {
     const request = ctx.getRequest<Request>();
     const response = ctx.getResponse<Response>();
     const cookie = request.cookies[COOKIE_NAME];
-    console.log(cookie);
+    // console.log(cookie);
     // console.log('LoginGuard', request.session);
     // const session: any = request.session;
     if (cookie) {

@@ -34,7 +34,7 @@ function App() {
 
   useEffect(() => {
     if (cookie) {
-      // console.log('>>> called', cookie);
+      console.log('>>> called', cookie);
       setUser(cookie);
     }
   }, [cookie]);

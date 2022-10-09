@@ -5,6 +5,7 @@ import {
   Grid,
   GridItem,
   Heading,
+  Icon,
   Spacer,
 } from '@chakra-ui/react';
 import { useEffect, useRef, useState } from 'react';
@@ -34,6 +35,7 @@ import {
   PDFDownloadLink,
 } from '@react-pdf/renderer';
 import CardExportPDF from '../card/components/CardExportPDF';
+import { FaDownload, FaFileExport } from 'react-icons/fa';
 
 // import { TransformWrapper, TransformComponent } from 'react-zoom-pan-pinch';
 // import { useZoom, ZoomProvider } from '../contexts/ZoomContext';
@@ -68,7 +70,7 @@ export default function ViewCanvasPage() {
    *
    */
 
-  const [exportPDF, DownloadLinkComponent] = useExportPDF();
+  const [exportPDF] = useExportPDF();
 
   useEffect(() => {
     async function fetchData() {
@@ -81,7 +83,6 @@ export default function ViewCanvasPage() {
   }, []);
 
   const onCardDelete = async (cardId: string) => {
-    console.log({ cardId });
     await remove!(cardId);
     setCards(await list(currentCanvasId));
   };
@@ -91,14 +92,12 @@ export default function ViewCanvasPage() {
       CardCategory[categoryAsString as CardCategory],
       currentCanvasId!
     );
-    console.log({ emptyCard });
 
     await save(emptyCard);
     setCards(await list(currentCanvasId));
   };
 
   const openCardEditModal = (cardId: string) => {
-    console.log(cardId);
     const card = cards.find((card) => card.id === cardId);
     setCurrentCard(card ? card : ({} as CardModel));
     onModalOpen();
@@ -111,8 +110,6 @@ export default function ViewCanvasPage() {
     title: string;
     content: any;
   }) => {
-    console.log(currentCard);
-
     const copy = [...cards];
 
     const cardToUpdateIndex = copy.findIndex(
@@ -125,7 +122,6 @@ export default function ViewCanvasPage() {
       content,
       title,
     };
-    console.log(newCard);
     copy.splice(cardToUpdateIndex, 1, newCard);
     // setCards(copy);
 
@@ -134,8 +130,9 @@ export default function ViewCanvasPage() {
     onModalClose();
   };
 
-  const onCanvasExportPDF = () => {
-    exportPDF(cards);
+  const onClickExportPDF = async () => {
+    console.log('>>>>called');
+    await exportPDF(cards);
   };
 
   const getRowSpanRules = (area: AreaModel) => {
@@ -170,7 +167,17 @@ export default function ViewCanvasPage() {
         ></CardEdit>
 
         <Flex py={4}>
-          {cards.length > 0 && <DownloadLinkComponent cards={cards} />}
+          {/* <DownloadLinkComponent
+            ref={downloadLinkComponentRef}
+            cards={cardsToExportPDF}
+          /> */}
+          <Button
+            leftIcon={<Icon as={FaDownload} />}
+            colorScheme={'primary'}
+            onClick={onClickExportPDF}
+          >
+            Exportar PDF
+          </Button>
         </Flex>
 
         <Grid templateColumns="repeat(3, 1fr)" shadow={'xl'}>

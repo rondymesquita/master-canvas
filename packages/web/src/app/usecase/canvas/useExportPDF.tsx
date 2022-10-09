@@ -1,17 +1,8 @@
-import { useEffect, useState } from 'react';
 import { CardModel } from '../../../domain/card';
 
-import React from 'react';
-import {
-  Document,
-  Page,
-  Text,
-  View,
-  StyleSheet,
-  PDFDownloadLink,
-} from '@react-pdf/renderer';
+import { Document, Page, StyleSheet, pdf } from '@react-pdf/renderer';
 import CardExportPDF from '../../../presentation/modules/card/components/CardExportPDF';
-import { Button } from '@chakra-ui/react';
+import { saveAs } from 'file-saver';
 
 // Create styles
 const styles = StyleSheet.create({
@@ -45,8 +36,9 @@ const MyDocument = ({ cards }: any) => {
   return (
     <Document>
       <Page size="A4" style={styles.page}>
-        {cards.map((card: any) => (
+        {cards.map((card: any, index: number) => (
           <CardExportPDF
+            key={index}
             title={card.title}
             category={card.category}
             content={getContentInPlainText(card)}
@@ -58,19 +50,11 @@ const MyDocument = ({ cards }: any) => {
 };
 
 export default function useExportPDF(): any {
-  const handle = (cards: CardModel[]) => {
-    console.log(cards);
+  const exportPDF = async (cards: CardModel[]) => {
+    const doc = pdf(<MyDocument cards={cards} />);
+    const blob = await doc.toBlob();
+    saveAs(blob, 'document.pdf');
   };
 
-  const DownloadLinkComponent = ({ cards }: any) => {
-    console.log({ cards });
-
-    return (
-      <PDFDownloadLink document={<MyDocument cards={cards} />}>
-        <Button colorScheme={'primary'}>Exportar PDF</Button>
-      </PDFDownloadLink>
-    );
-  };
-
-  return [handle, DownloadLinkComponent];
+  return [exportPDF];
 }

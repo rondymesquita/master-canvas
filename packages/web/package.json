@@ -18,6 +18,7 @@
     "@tanstack/react-query": "^4.8.0",
     "axios": "^0.27.2",
     "draft-js": "^0.11.7",
+    "file-saver": "^2.0.5",
     "framer-motion": "^7.2.1",
     "js-event-bus": "^1.1.1",
     "react": "^18.2.0",
@@ -31,6 +32,7 @@
     "zustand": "^4.1.1"
   },
   "devDependencies": {
+    "@types/file-saver": "^2.0.5",
     "@types/react": "^18.0.21",
     "@types/react-dom": "^18.0.6",
     "@types/react-rte": "^0.16.3",

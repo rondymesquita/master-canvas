@@ -26,7 +26,7 @@ function Actions({ children, cancel, ok }: any) {
   return (
     <Flex gap={2}>
       <Box>
-        <Button variant="outline" onClick={cancel}>
+        <Button colorScheme="secondary" variant="outline" onClick={cancel}>
           Cancelar
         </Button>
       </Box>
@@ -81,10 +81,12 @@ export default function EditCardModal({
         size={'full'}
         initialFocusRef={focusRef}
       >
-        <div></div>
         <ModalOverlay />
-        <ModalContent py={4}>
-          <ModalHeader>
+        <ModalContent bg={'background.100'}>
+          <ModalHeader
+            borderBottomWidth={1}
+            borderBottomColor={'background.300'}
+          >
             <Actions cancel={destroyAndClose} ok={onSaveButtonClick}>
               <EditableText
                 flexGrow={1}
@@ -102,7 +104,7 @@ export default function EditCardModal({
                 />
               </Center> */}
           </ModalHeader>
-          <ModalBody>
+          <ModalBody bg={'white'}>
             <Flex mb={4} justifyContent={'flex-end'}></Flex>
             {(category === CardCategory.FUNCTIONAL ||
               category === CardCategory.NON_FUNCTIONAL) && (

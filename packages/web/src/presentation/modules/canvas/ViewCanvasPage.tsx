@@ -19,7 +19,7 @@ import { AreaModel } from '../../../domain/area';
 import { CardCategory, CardModel } from '../../../domain/card';
 import Area from '../../components/Area';
 import Card from '../../components/Card';
-import CardEdit from '../card/components/CardEdit';
+import EditCardModal from '../card/components/EditCardModal';
 import Header from '../../components/Header';
 import useDisclosure from '../../hooks/useDisclosure';
 import PageTemplate from '../../templates/PageTemplate';
@@ -155,7 +155,7 @@ export default function ViewCanvasPage() {
     <>
       {/* {currentCanvasId} */}
       <PageTemplate>
-        <CardEdit
+        <EditCardModal
           key={currentCard?.id + new Date().toISOString()}
           isOpen={isModalOpen}
           onOpen={onModalOpen}
@@ -164,7 +164,7 @@ export default function ViewCanvasPage() {
           title={currentCard?.title}
           content={currentCard?.content}
           category={currentCard?.category}
-        ></CardEdit>
+        ></EditCardModal>
 
         <Flex py={4}>
           {/* <DownloadLinkComponent

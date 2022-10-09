@@ -7,7 +7,7 @@ import 'react-quill/dist/quill.snow.css';
 
 type RiskContentType = {
   content: string;
-  onContentChange: (payload: string) => void;
+  onContentChange?: (payload: string) => void;
 };
 export default function RiskContent({
   content,
@@ -16,7 +16,7 @@ export default function RiskContent({
   const [state, setState] = useState(content);
 
   useEffect(() => {
-    onContentChange(state);
+    onContentChange && onContentChange(state);
   }, [state]);
 
   return (

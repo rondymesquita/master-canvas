@@ -8,7 +8,7 @@ import { DataContentModel } from '../../../../domain/card';
 
 type DataContentType = {
   content: DataContentModel;
-  onContentChange: (payload: DataContentModel) => void;
+  onContentChange?: (payload: DataContentModel) => void;
 };
 export default function DataContent({
   content,
@@ -24,7 +24,7 @@ export default function DataContent({
   };
 
   useEffect(() => {
-    onContentChange(state);
+    onContentChange && onContentChange(state);
   }, [state]);
 
   return (

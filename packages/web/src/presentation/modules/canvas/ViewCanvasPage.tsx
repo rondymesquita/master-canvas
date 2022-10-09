@@ -1,4 +1,5 @@
 import {
+  Button,
   Container,
   Flex,
   Grid,
@@ -22,6 +23,17 @@ import Header from '../../components/Header';
 import useDisclosure from '../../hooks/useDisclosure';
 import PageTemplate from '../../templates/PageTemplate';
 import useUpdateCard from '../../../app/usecase/card/useUpdateCard';
+import useExportPDF from '../../../app/usecase/canvas/useExportPDF';
+
+import {
+  Document,
+  Page,
+  Text,
+  View,
+  StyleSheet,
+  PDFDownloadLink,
+} from '@react-pdf/renderer';
+import CardExportPDF from '../card/components/CardExportPDF';
 
 // import { TransformWrapper, TransformComponent } from 'react-zoom-pan-pinch';
 // import { useZoom, ZoomProvider } from '../contexts/ZoomContext';
@@ -29,7 +41,7 @@ import useUpdateCard from '../../../app/usecase/card/useUpdateCard';
 
 const getAreasUseCase = new GetAreasUseCase();
 
-export default function CanvasPage() {
+export default function ViewCanvasPage() {
   let { canvasId } = useParams();
 
   const [isOpen, onOpen, onClose] = useDisclosure();
@@ -51,6 +63,12 @@ export default function CanvasPage() {
   const [list] = useListCard();
   const [get] = useGetEmptyCard();
   const [remove, removeError] = useRemoveCard();
+
+  /**
+   *
+   */
+
+  const [exportPDF, DownloadLinkComponent] = useExportPDF();
 
   useEffect(() => {
     async function fetchData() {
@@ -116,6 +134,11 @@ export default function CanvasPage() {
     onModalClose();
   };
 
+  const onCanvasExportPDF = () => {
+    console.log('>>');
+    exportPDF(cards);
+  };
+
   const getRowSpanRules = (area: AreaModel) => {
     const { category } = area;
     const rowSpans: any = {
@@ -146,6 +169,15 @@ export default function CanvasPage() {
           content={currentCard?.content}
           category={currentCard?.category}
         ></CardEdit>
+
+        <Flex>
+          <Button colorScheme={'primary'} onClick={onCanvasExportPDF}>
+            Exportar PDF
+          </Button>
+          {/* {cards.length > 0 ? 'true' : 'false'} */}
+          {cards.length > 0 && <DownloadLinkComponent cards={cards} />}
+        </Flex>
+
         <Grid templateColumns="repeat(3, 1fr)" shadow={'xl'}>
           {areas.map((area: AreaModel, index: number) => (
             <GridItem

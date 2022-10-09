@@ -11,7 +11,7 @@ export class GetAreasUseCase implements IGetAreasUseCase {
   private bus = Bus.getInstance();
 
   async execute(): Promise<AreaModel[]> {
-    console.log('GetAreasUseCase use case called');
+    // console.log('GetAreasUseCase use case called');
     const data = [
       {
         id: v4(),

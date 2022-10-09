@@ -15,7 +15,7 @@ export default function useListCard() {
   const [error, setError] = useState(null);
 
   const list = async (canvasId: string) => {
-    console.log({ canvasId });
+    // console.log({ canvasId });
 
     const [response, err] = await waitPromise<CardModel[]>(() =>
       service.list(canvasId)

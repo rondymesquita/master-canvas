@@ -42,7 +42,7 @@ export default function Card({
     const values = Object.values(content);
 
     for (let index = 0; index < 1; index++) {
-      console.log(values[index]);
+      // console.log(values[index]);
       if (values[index]) {
         cardDisplayContent += values[index] + '</br>';
         continue;

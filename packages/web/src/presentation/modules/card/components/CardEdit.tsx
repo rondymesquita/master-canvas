@@ -78,7 +78,7 @@ export default function CardEdit({
         closeOnEsc={false}
         isOpen={isOpen}
         onClose={destroyAndClose}
-        size={'6xl'}
+        size={'full'}
         initialFocusRef={focusRef}
       >
         <div></div>

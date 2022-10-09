@@ -6,7 +6,7 @@ import {
   Navigate,
   useNavigate,
 } from 'react-router-dom';
-import CanvasPage from './modules/canvas/CanvasPage';
+import ViewCanvasPage from './modules/canvas/ViewCanvasPage';
 import { ModalProvider } from './contexts/ModalContext';
 import { CommanderProvider } from './contexts/CommanderContext';
 import LoginPage from './modules/auth/LoginPage';
@@ -72,7 +72,7 @@ function App() {
                   path={CANVAS_VIEW_PAGE}
                   element={
                     <PrivateRoute>
-                      <CanvasPage />
+                      <ViewCanvasPage />
                     </PrivateRoute>
                   }
                 ></Route>

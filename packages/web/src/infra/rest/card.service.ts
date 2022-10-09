@@ -12,21 +12,21 @@ export class CardService {
   }
   async save(card: CardModel) {
     const res = await this.client.post('/', card);
-    console.log({ res });
+    // console.log({ res });
   }
 
   async remove(id: string) {
     const res = await this.client.delete(`/${id}`);
-    console.log({ res });
+    // console.log({ res });
   }
 
   async update(card: CardModel) {
     const res = await this.client.put('/', card);
-    console.log({ res });
+    // console.log({ res });
   }
 
   async list(canvasId: string) {
-    console.log({ canvasId });
+    // console.log({ canvasId });
 
     return (await this.client.get(`/${canvasId}`)).data;
   }

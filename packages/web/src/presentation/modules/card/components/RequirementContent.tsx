@@ -7,24 +7,7 @@ import 'react-quill/dist/quill.snow.css';
 // import { ContentModel } from '../../../../domain/card';
 
 export default function RequirementContent({ content, onContentChange }: any) {
-  // const [persona, setPersona] = useState(content?.persona);
-  // const [business, setBusiness] = useState(content?.business);
-  // const [acceptance, setAcceptance] = useState(content?.acceptance);
-  // const [data, setData] = useState(content?.data);
-  // const [infra, setInfra] = useState(content?.infra);
-  // const [risk, setRisk] = useState(content?.risk);
-
   const [state, setState] = useState(content);
-
-  // const destroyAndClose = () => {
-  //   setPersona('');
-  //   setBusiness('');
-  //   setAcceptance('');
-  //   setData('');
-  //   setInfra('');
-  //   setRisk('');
-  //   // onClose();
-  // };
 
   const onChange = (property: string, value: string) => {
     setState((prevState: any) => ({
@@ -34,7 +17,7 @@ export default function RequirementContent({ content, onContentChange }: any) {
   };
 
   useEffect(() => {
-    onContentChange(state);
+    onContentChange && onContentChange(state);
   }, [state]);
 
   return (

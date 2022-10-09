@@ -1,7 +1,7 @@
 import { extendTheme } from '@chakra-ui/react';
 import { colors } from './colors';
 
-const fontFamily = 'Chivo';
+const fontFamily = 'Chivo, Inter, Avenir, Helvetica, Arial, sans-serif';
 const defaultTheme = extendTheme();
 
 console.log(defaultTheme);
@@ -13,6 +13,12 @@ export const theme = extendTheme({
         fontFamily,
         color: 'background.900',
         background: 'background.100',
+      },
+      '.quill .ql-editor': {
+        fontSize: '1.1em',
+      },
+      'input:focus': {
+        outline: 'none !important',
       },
     },
   },

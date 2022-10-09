@@ -27,13 +27,12 @@ export default function Area({
 
   return (
     <Box
-      bg={'white'}
-      data-testid="area"
+      bg={'background.0'}
       w="full"
       h={'full'}
       minH={600}
       borderWidth="1px"
-      borderColor={'gray.800'}
+      borderColor={'background.500'}
       p="2"
     >
       <Flex>

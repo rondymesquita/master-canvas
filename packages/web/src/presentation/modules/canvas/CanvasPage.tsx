@@ -146,7 +146,7 @@ export default function CanvasPage() {
           content={currentCard?.content}
           category={currentCard?.category}
         ></CardEdit>
-        <Grid templateColumns="repeat(3, 1fr)">
+        <Grid templateColumns="repeat(3, 1fr)" shadow={'xl'}>
           {areas.map((area: AreaModel, index: number) => (
             <GridItem
               key={index}

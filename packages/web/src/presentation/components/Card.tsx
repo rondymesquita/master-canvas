@@ -57,10 +57,11 @@ export default function Card({
       fontSize={'sm'}
       direction={'column'}
       bg={'yellow.100'}
-      shadow={'md'}
+      shadow={'base'}
       width={150}
       height={'fit-content'}
       borderWidth="1px"
+      borderColor={'yellow.200'}
       padding={2}
       cursor={'pointer'}
       onClick={onClick}

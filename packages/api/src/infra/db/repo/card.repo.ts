@@ -9,7 +9,6 @@ export class CardRepo implements ICardRepo {
   async save(input: Card): Promise<Card> {
     const model = new CardModel(input);
     const data = await model.save();
-    console.log('save', data);
     return CardAdapter.adapt(data);
   }
   async list(input: IListCardInput): Promise<Card[]> {
@@ -18,17 +17,14 @@ export class CardRepo implements ICardRepo {
   }
   async getById(id: string): Promise<Card> {
     const data = await CardModel.findById(id);
-    console.log(data);
     return CardAdapter.adapt(data);
   }
   async update(input: Card): Promise<Card> {
     const data = await CardModel.findByIdAndUpdate(input.id, input);
-    console.log(data);
     return CardAdapter.adapt(data);
   }
   async remove(id: string): Promise<boolean> {
     const data = await CardModel.findByIdAndUpdate(id, { active: false });
-    console.log(data);
     return Promise.resolve(true);
   }
 }

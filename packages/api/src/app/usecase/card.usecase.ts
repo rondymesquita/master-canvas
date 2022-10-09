@@ -25,7 +25,7 @@ export class SaveCard implements ISaveCard {
 export class UpdateCard implements IUpdateCard {
   constructor(@Inject('ICardRepo') private cartRepo: ICardRepo) {}
   async handle(input: IUpdateCardInput): Promise<Card> {
-    console.log({ input });
+    // console.log({ input });
     return await this.cartRepo.update(input);
   }
 }

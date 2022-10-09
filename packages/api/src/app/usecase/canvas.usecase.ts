@@ -22,7 +22,7 @@ export class SaveCanvas implements ISaveCanvas {
 export class UpdateCanvas implements IUpdateCanvas {
   constructor(@Inject('ICanvasRepo') private canvasRepo: ICanvasRepo) {}
   async handle(input: IUpdateCanvasInput): Promise<Canvas> {
-    console.log({ input });
+    // console.log({ input });
 
     // if (input != userId) {
     // throw new Unauthorized();

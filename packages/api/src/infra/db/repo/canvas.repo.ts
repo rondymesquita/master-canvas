@@ -14,7 +14,6 @@ export class CanvasRepo implements ICanvasRepo {
   async save(input: Canvas): Promise<Canvas> {
     const model = new CanvasModel(input);
     const data = await model.save();
-    console.log(data);
     return this.adapter.adapt(data);
   }
   async list(input: IListCanvasInput): Promise<Canvas[]> {

@@ -40,8 +40,6 @@ export class CardController {
 
   @Get('/:canvasId')
   async list(@Param('canvasId') canvasId: string): Promise<Card[]> {
-    console.log({ canvasId });
-
     return await this.listCard.handle({ canvas: canvasId });
   }
 
@@ -53,8 +51,6 @@ export class CardController {
     @Body() input: CardUpdateInputDTO,
     @UserCookie() user: User,
   ): Promise<Card> {
-    console.log({ input });
-
     return await this.updateCard.handle(input);
     // return {} as Card;
   }

@@ -135,7 +135,6 @@ export default function ViewCanvasPage() {
   };
 
   const onCanvasExportPDF = () => {
-    console.log('>>');
     exportPDF(cards);
   };
 
@@ -170,11 +169,7 @@ export default function ViewCanvasPage() {
           category={currentCard?.category}
         ></CardEdit>
 
-        <Flex>
-          <Button colorScheme={'primary'} onClick={onCanvasExportPDF}>
-            Exportar PDF
-          </Button>
-          {/* {cards.length > 0 ? 'true' : 'false'} */}
+        <Flex py={4}>
           {cards.length > 0 && <DownloadLinkComponent cards={cards} />}
         </Flex>
 

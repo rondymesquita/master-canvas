@@ -11,6 +11,7 @@ import {
   PDFDownloadLink,
 } from '@react-pdf/renderer';
 import CardExportPDF from '../../../presentation/modules/card/components/CardExportPDF';
+import { Button } from '@chakra-ui/react';
 
 // Create styles
 const styles = StyleSheet.create({
@@ -66,7 +67,7 @@ export default function useExportPDF(): any {
 
     return (
       <PDFDownloadLink document={<MyDocument cards={cards} />}>
-        Meu PDF2
+        <Button colorScheme={'primary'}>Exportar PDF</Button>
       </PDFDownloadLink>
     );
   };

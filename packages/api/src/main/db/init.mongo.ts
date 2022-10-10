@@ -1,10 +1,11 @@
 import { connect } from 'mongoose';
+import { Env } from '../../config/env';
 
 export const initDB = async () => {
-  await connect('mongodb://localhost:27017', {
-    // user: 'root',
-    // pass: 'root',
-    dbName: 'canvas',
+  await connect(Env().DB_HOST, {
+    user: Env().DB_USER,
+    pass: Env().DB_PASS,
+    dbName: Env().DB_NAME,
   });
   console.log('mongo initialized');
 };

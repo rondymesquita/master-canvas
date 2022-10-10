@@ -1,12 +1,17 @@
 import { Injectable } from '@nestjs/common';
 import { Card } from 'src/domain/model/card';
-import { ICardRepo, IListCardInput } from 'src/app/service/repo/icard.repo';
+import {
+  ICardRepo,
+  IListCardInput,
+  ISaveCardRepoInput,
+  IUpdateCardRepoInput,
+} from 'src/app/service/repo/icard.repo';
 import { CardAdapter } from '../adapter/card.adapter';
 import { CardModel } from '../model/card.model';
 
 @Injectable()
 export class CardRepo implements ICardRepo {
-  async save(input: Card): Promise<Card> {
+  async save(input: ISaveCardRepoInput): Promise<Card> {
     const model = new CardModel(input);
     const data = await model.save();
     return CardAdapter.adapt(data);
@@ -19,7 +24,7 @@ export class CardRepo implements ICardRepo {
     const data = await CardModel.findById(id);
     return CardAdapter.adapt(data);
   }
-  async update(input: Card): Promise<Card> {
+  async update(input: IUpdateCardRepoInput): Promise<Card> {
     const data = await CardModel.findByIdAndUpdate(input.id, input);
     return CardAdapter.adapt(data);
   }

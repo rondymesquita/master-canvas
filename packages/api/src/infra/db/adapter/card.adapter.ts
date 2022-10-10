@@ -11,6 +11,7 @@ export class CardAdapter {
       id: record._id.toString(),
       title: record.title,
       active: record.active,
+      code: record.code,
       category: CardCategory[record.category],
       createdAt: record.createdAt,
       updatedAt: record.updatedAt,

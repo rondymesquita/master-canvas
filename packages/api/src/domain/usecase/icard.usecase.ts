@@ -1,9 +1,10 @@
 import { Card } from '../model/card';
 
-export interface SaveCardOutput {}
-
+export type ISaveCardInput = Required<
+  Pick<Card, 'title' | 'content' | 'category' | 'canvas'>
+>;
 export interface ISaveCard {
-  handle(input: Card): Promise<Card>;
+  handle(input: ISaveCardInput): Promise<Card>;
 }
 
 export type IUpdateCardInput = Required<Pick<Card, 'id' | 'title' | 'content'>>;
@@ -12,7 +13,7 @@ export interface IUpdateCard {
 }
 
 export interface IGetByIdCard {
-  handle(id: string): SaveCardOutput;
+  handle(id: string): Card;
 }
 
 export interface IListCardInput {

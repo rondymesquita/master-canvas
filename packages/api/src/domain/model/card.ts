@@ -13,13 +13,26 @@ export interface CardRequirementContent {
   infra: string;
   risk: string;
 }
+
+export interface CardDataContent {
+  stakeholders: string;
+  business: string;
+  security: string;
+  maintenance: string;
+  training: string;
+  risk: string;
+}
+
+export type CardContent = CardRequirementContent | CardDataContent | string;
+
 export interface Card {
-  id?: string;
+  id: string;
+  code: number;
   title: string;
-  active?: boolean;
-  category?: CardCategory;
-  content: CardRequirementContent | string;
-  canvas?: string;
-  createdAt?: Date;
-  updatedAt?: Date;
+  active: boolean;
+  category: CardCategory;
+  content: CardContent;
+  canvas: string;
+  createdAt: Date;
+  updatedAt: Date;
 }

@@ -52,7 +52,6 @@ export class CardController {
     @UserCookie() user: User,
   ): Promise<Card> {
     return await this.updateCard.handle(input);
-    // return {} as Card;
   }
 
   @Delete('/:id')

@@ -5,7 +5,7 @@ export enum CardCategory {
   DATA = 'DATA',
 }
 
-export interface RequirementContentModel {
+export interface CardRequirementContentModel {
   persona: string;
   business: string;
   acceptance: string;
@@ -14,7 +14,7 @@ export interface RequirementContentModel {
   risk: string;
 }
 
-export interface DataContentModel {
+export interface CardDataContentModel {
   stakeholders: string;
   business: string;
   security: string;
@@ -23,15 +23,28 @@ export interface DataContentModel {
   risk: string;
 }
 
-export type ContentModel = RequirementContentModel | DataContentModel | string;
+// export interface CardRiskContentModel {
+//   stakeholders: string;
+//   business: string;
+//   security: string;
+//   maintenance: string;
+//   training: string;
+//   risk: string;
+// }
 
-export class CardModel {
+export type CardContent =
+  | CardRequirementContentModel
+  | CardDataContentModel
+  | string;
+
+export interface CardModel {
   id: string;
+  code?: number;
   title: string;
   active?: boolean;
   category: CardCategory;
-  content: ContentModel;
+  content: CardContent;
   canvas: string;
   createdAt?: Date;
-  updatedAt?: Date;
+  updatedAt: Date;
 }

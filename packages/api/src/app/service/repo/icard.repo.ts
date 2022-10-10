@@ -6,10 +6,18 @@ export interface IListCardInput {
   canvas: string;
 }
 
+export type ISaveCardRepoInput = Required<
+  Pick<Card, 'title' | 'content' | 'category' | 'canvas'>
+>;
+
+export type IUpdateCardRepoInput = Required<
+  Pick<Card, 'id' | 'title' | 'content'>
+>;
+
 export interface ICardRepo {
-  save(input: Card): Promise<Card>;
+  save(input: ISaveCardRepoInput): Promise<Card>;
   getById(id: string): Promise<Card>;
   list(input: IListCardInput): Promise<Card[]>;
-  update(input: Card): Promise<Card>;
+  update(input: IUpdateCardRepoInput): Promise<Card>;
   remove(id: string): Promise<boolean>;
 }

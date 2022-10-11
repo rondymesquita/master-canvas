@@ -6,7 +6,9 @@
   "scripts": {
     "configure": "lerna exec npm install",
     "dev": "lerna run dev",
-    "build": "lerna run build"
+    "build": "lerna run build",
+    "start:web": "npx pm2 serve --name web ./packages/web/dist/ 5005",
+    "start:api": "npx pm2 start --name api ./packages/api/dist/main.js"
   },
   "repository": {
     "type": "git",

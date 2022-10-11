@@ -27,7 +27,7 @@ import RedirectWhenLoggedRoute from './route/components/redirect.when.logged.rou
 import { Env } from '../config/env';
 
 function App() {
-  const basename = import.meta.env.DEV ? '/' : '/master-canvas/';
+  const basename = import.meta.env.DEV ? '/' : '/';
 
   Env.init(import.meta.env.DEV ? 'dev' : 'prod');
 

@@ -18,6 +18,8 @@
     "strictBindCallApply": false,
     "forceConsistentCasingInFileNames": false,
     "noFallthroughCasesInSwitch": false
-  }
+  },
+  "include": ["src", "test"],
+  "exclude": ["coverage"]
   // "exclude": ["node_modules", "**/dist/*"]
 }

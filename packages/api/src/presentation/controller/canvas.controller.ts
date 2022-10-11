@@ -1,6 +1,6 @@
 import { UserModel } from './../../infra/db/model/user.model';
 import { COOKIE_NAME } from './../../config/constants';
-import { User } from './../../domain/model/user';
+import { User } from '../../domain/model/user';
 import { CanvasListOutputDTO } from './../dto/canvas.list.output.dto';
 import {
   IRemoveCanvas,

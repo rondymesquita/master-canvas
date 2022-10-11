@@ -1,4 +1,4 @@
-import { User } from './../../domain/model/user';
+import { User } from '../../domain/model/user';
 import { COOKIE_NAME } from './../../config/constants';
 import { createParamDecorator, ExecutionContext } from '@nestjs/common';
 import { Request } from 'express';

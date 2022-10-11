@@ -1,4 +1,4 @@
-import { User } from './../../../domain/model/user';
+import { User } from '../../../domain/model/user';
 import { PassportStrategy } from '@nestjs/passport';
 import { Strategy, VerifyCallback } from 'passport-google-oauth20';
 import { config } from 'dotenv';

@@ -11,7 +11,7 @@ import { GoogleStrategy } from './infra/service/auth/google.strategy';
 import { GoogleSerializer } from './infra/service/auth/passport.serializer';
 import { AuthGuard } from './infra/guard/auth.guard';
 import { LogoutGuard } from './infra/guard/logout.guard';
-import { LoginGuard } from './infra/guard/login.guard';
+import { HealthModule } from './main/ioc/health.module';
 
 @Module({
   imports: [
@@ -19,6 +19,7 @@ import { LoginGuard } from './infra/guard/login.guard';
     AuthModule,
     CardModule,
     CanvasModule,
+    HealthModule,
     PassportModule.register({
       defaultStrategy: 'local',
       session: true,

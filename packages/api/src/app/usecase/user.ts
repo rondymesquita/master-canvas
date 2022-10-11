@@ -1,5 +1,5 @@
 import { IUserRepo } from './../service/repo/iuser.repo';
-import { User } from './../../domain/model/user';
+import { User } from '../../domain/model/user';
 import { Inject, Injectable } from '@nestjs/common';
 import { IFindOrSaveUser } from './../../domain/usecase/user';
 

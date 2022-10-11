@@ -1,4 +1,4 @@
-import { User } from './../../domain/model/user';
+import { User } from '../../domain/model/user';
 import { IFindOrSaveUser } from './../../domain/usecase/user';
 import { Env } from '../../config/env';
 import {

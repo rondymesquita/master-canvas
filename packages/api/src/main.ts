@@ -21,7 +21,11 @@ class CustomPassportSerializer extends PassportSerializer {
 }
 
 async function bootstrap() {
-  await initDB();
+  try {
+    initDB();
+  } catch (err) {
+    console.log({ err });
+  }
 
   const app = await NestFactory.create(AppModule);
 

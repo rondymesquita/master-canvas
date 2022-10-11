@@ -6,11 +6,15 @@ import Logo from '../../components/Logo';
 import { name, version } from '../../../../package.json';
 import useUser from '../../../app/usecase/user/useUser';
 import { Env } from '../../../config/env';
+import useGetAppHealth from '../../../app/usecase/health/useGetAppHealth';
+import { Health } from '../../../domain/health';
 
 // const getEmptyCardUseCase = new GetEmptyCardUseCase();
 
 export default function LoginPage() {
-  // const { user, setUser } = useUser();
+  const { user, setUser } = useUser();
+  const [health] = useGetAppHealth();
+
   return (
     <Flex
       justifyContent={'center'}
@@ -26,7 +30,6 @@ export default function LoginPage() {
         bg={'primary.500'}
         shadow="2xl"
       >
-        {/* {JSON.stringify(user)} */}
         <Flex flexDirection={'column'} gap={8}>
           <Center>
             <Logo />
@@ -52,9 +55,22 @@ export default function LoginPage() {
           >
             Login com Google
           </Button>
-          <Center color="primary.800">
-            {name} - {version}
-          </Center>
+          {
+            health && (
+              <Flex direction={'column'} color="primary.900">
+                <Center>
+                  {name} - {version}
+                </Center>
+                <Center>
+                  {health.name} - {health.version}
+                </Center>
+                <Center>
+                  {health.services[0].name} - {health.services[0].status}
+                </Center>
+              </Flex>
+            )
+            /* {JSON.stringify(health)} */
+          }
         </Flex>
       </Center>
     </Flex>

@@ -6,7 +6,7 @@
   "scripts": {
     "configure": "lerna exec npm install",
     "dev": "lerna run dev",
-    "build": "lerna run build"
+    "build": "lerna run build --ci"
   },
   "repository": {
     "type": "git",

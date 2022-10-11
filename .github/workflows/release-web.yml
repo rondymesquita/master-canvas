@@ -8,19 +8,27 @@ jobs:
   build:
     runs-on: ubuntu-latest
 
-    strategy:
-      matrix:
-        node-version: [16.x]
+    env:
+      GH_TOKEN: ${{ secrets.GH_TOKEN }}
 
     steps:
-      - uses: actions/checkout@v2
-      - name: Use Node.js ${{ matrix.node-version }}
+      - name: checkout
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+      - name: Use Node.js 16x
         uses: actions/setup-node@v2
         with:
-          node-version: ${{ matrix.node-version }}
-          cache: 'npm'
+          node-version: 16x
+      - name: set user name
+        run: |
+          git config --local user.email "github-actions[bot]@users.noreply.github.com"
+          git config --local user.name "github-actions[bot]"
+      - run: npm ci
       - run: npx lerna exec npm install
       - run: npx lerna run build
+      - name: Release
+        run: npx lerna version --conventional-commits --create-release github --yes
       - name: Deploy 🚀
         uses: JamesIves/github-pages-deploy-action@4.1.5
         with:

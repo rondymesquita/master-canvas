@@ -1,6 +1,6 @@
 import { Button, Flex } from '@chakra-ui/react';
 import React from 'react';
-import { CardCategory, ContentModel } from '../../../../domain/card';
+import { CardCategory, CardContentModel } from '../../../../domain/card';
 import DataContent from './DataContent';
 import RequirementContent from './RequirementContent';
 import RiskContent from './RiskContent';
@@ -111,7 +111,7 @@ export default function CardExportPDF({
         <View>
           <View style={styles.block}>
             <Text style={styles.title}>Risco</Text>
-            <Text>{content}</Text>
+            <Text>{content.risk}</Text>
           </View>
         </View>
       )}

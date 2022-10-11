@@ -23,7 +23,14 @@ export interface CardDataContent {
   risk: string;
 }
 
-export type CardContent = CardRequirementContent | CardDataContent | string;
+export interface CardRiskContent {
+  risk: string;
+}
+
+export type CardContent =
+  | CardRequirementContent
+  | CardDataContent
+  | CardRiskContent;
 
 export interface Card {
   id: string;

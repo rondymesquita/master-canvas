@@ -4,9 +4,15 @@ import ContentHeading from '../../../components/ContentHeading';
 
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
-// import { ContentModel } from '../../../../domain/card';
+import { CardRequirementContentModel } from '../../../../domain/card';
 
-export default function RequirementContent({ content, onContentChange }: any) {
+export default function RequirementContent({
+  content,
+  onContentChange,
+}: {
+  content: CardRequirementContentModel;
+  onContentChange?: (payload: CardRequirementContentModel) => void;
+}) {
   const [state, setState] = useState(content);
 
   const onChange = (property: string, value: string) => {

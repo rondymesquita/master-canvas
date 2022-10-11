@@ -41,6 +41,7 @@ export default function LoginPage() {
             // variant={}
             // as={Link}
             onClick={() => {
+              // @ts-ignore
               window.location = `${Env.getEnv().API_HOST}/auth/google`;
             }}
             // to={{ pathname: `${Env.getEnv().API_HOST}/auth/google` }}

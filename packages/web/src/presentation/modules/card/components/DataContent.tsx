@@ -4,11 +4,11 @@ import ContentHeading from '../../../components/ContentHeading';
 
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
-import { DataContentModel } from '../../../../domain/card';
+import { CardDataContentModel } from '../../../../domain/card';
 
 type DataContentType = {
-  content: DataContentModel;
-  onContentChange?: (payload: DataContentModel) => void;
+  content: CardDataContentModel;
+  onContentChange?: (payload: CardDataContentModel) => void;
 };
 export default function DataContent({
   content,

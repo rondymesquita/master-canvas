@@ -23,19 +23,14 @@ export interface CardDataContentModel {
   risk: string;
 }
 
-// export interface CardRiskContentModel {
-//   stakeholders: string;
-//   business: string;
-//   security: string;
-//   maintenance: string;
-//   training: string;
-//   risk: string;
-// }
+export interface CardRiskContentModel {
+  risk: string;
+}
 
-export type CardContent =
+export type CardContentModel =
   | CardRequirementContentModel
   | CardDataContentModel
-  | string;
+  | CardRiskContentModel;
 
 export interface CardModel {
   id: string;
@@ -43,8 +38,8 @@ export interface CardModel {
   title: string;
   active?: boolean;
   category: CardCategory;
-  content: CardContent;
+  content: CardContentModel;
   canvas: string;
   createdAt?: Date;
-  updatedAt: Date;
+  updatedAt?: Date;
 }

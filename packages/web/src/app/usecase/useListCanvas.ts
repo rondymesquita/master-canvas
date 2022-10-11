@@ -11,10 +11,10 @@ export default function useListCanvas(): any {
 
   const [error, setError] = useState(null);
 
-  const list = async (canvas: CanvasModel) => {
-    const [response, err] = await waitPromise(() => service.list());
-    console.log({ response });
-
+  const list = async () => {
+    const [response, err] = await waitPromise<{ data: any }>(() =>
+      service.list()
+    );
     err && setError(err);
     return response?.data;
   };

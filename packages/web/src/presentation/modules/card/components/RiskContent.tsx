@@ -4,16 +4,24 @@ import ContentHeading from '../../../components/ContentHeading';
 
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
+import { CardRiskContentModel } from '../../../../domain/card';
 
 type RiskContentType = {
-  content: string;
-  onContentChange?: (payload: string) => void;
+  content: CardRiskContentModel;
+  onContentChange?: (payload: CardRiskContentModel) => void;
 };
 export default function RiskContent({
   content,
   onContentChange,
 }: RiskContentType) {
   const [state, setState] = useState(content);
+
+  const onChange = (property: string, value: string) => {
+    setState((prevState: any) => ({
+      ...prevState,
+      [property]: value,
+    }));
+  };
 
   useEffect(() => {
     onContentChange && onContentChange(state);
@@ -23,7 +31,11 @@ export default function RiskContent({
     <div>
       <ContentBlock>
         <ContentHeading>Risco</ContentHeading>
-        <ReactQuill theme="snow" value={state} onChange={setState} />
+        <ReactQuill
+          theme="snow"
+          value={state.risk}
+          onChange={(value) => onChange('risk', value)}
+        />
       </ContentBlock>
     </div>
   );

@@ -1,4 +1,5 @@
 export type errorType = Error | any | unknown;
+
 export const waitPromise = async <T extends unknown>(
   promise: () => Promise<any>
 ): Promise<[T, errorType]> => {

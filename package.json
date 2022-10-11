@@ -4,9 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "configure": "lerna exec npm install",
+    "configure": "lerna exec npm install -- --legacy-peer-deps",
     "dev": "lerna run dev",
-    "build": "lerna run build --ci"
+    "build": "lerna run build"
   },
   "repository": {
     "type": "git",

@@ -2,6 +2,9 @@ FROM node:14-alpine
 
 WORKDIR /home
 
+RUN npm config rm proxy
+RUN npm config rm https-proxy
+
 RUN npm i npm@latest -g
 
 COPY ./package*.json ./

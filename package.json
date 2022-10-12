@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "configure": "npx lerna exec npm install",
+    "configure": "npx lerna exec npm install -- --legacy-peer-deps",
     "dev": "npx lerna run dev",
     "build": "npx lerna run build",
     "start": "npm run start:api && npm run start:web && npm run start:proxy",

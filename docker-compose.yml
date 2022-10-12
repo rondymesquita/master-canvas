@@ -13,3 +13,11 @@ services:
       dockerfile: Dockerfile
     ports:
       - 5006:5006
+  web:
+    tty: true
+    stdin_open: true
+    build:
+      context: ./packages/web
+      dockerfile: Dockerfile
+    ports:
+      - 5005:5005

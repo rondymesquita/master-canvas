@@ -8,16 +8,21 @@ services:
     tty: true
     stdin_open: true
     env_file: ./.env
+    image: api
     build:
       context: ./packages/api
       dockerfile: Dockerfile
     ports:
       - 5006:5006
-    dns:
-      - 8.8.8.8
+    deploy:
+      resources:
+        limits:
+          cpus: '0.5'
+          memory: 256M
   web:
     tty: true
     stdin_open: true
+    image: web
     build:
       context: ./packages/web
       dockerfile: Dockerfile
@@ -26,6 +31,7 @@ services:
   proxy:
     tty: true
     stdin_open: true
+    image: proxy
     build:
       context: ./packages/proxy
       dockerfile: Dockerfile

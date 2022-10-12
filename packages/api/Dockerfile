@@ -2,6 +2,11 @@ FROM node:14-alpine
 
 WORKDIR /home
 
+RUN npm config ls -l
+
+RUN npm config set fetch-retry-mintimeout 99999
+RUN npm config set fetch-retry-maxtimeout 999999
+
 RUN npm config rm proxy
 RUN npm config rm https-proxy
 

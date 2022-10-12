@@ -7,9 +7,11 @@
     "configure": "lerna exec npm install",
     "dev": "lerna run dev",
     "build": "lerna run build",
-    "start": "ts-node start.ts",
+    "start": "npm run start:api && npm run start:web && npm run start:proxy",
+    "stop": "pm2 stop all",
+    "start:proxy": "npx pm2 start --name proxy start.js",
     "start:web": "npx pm2 serve --name web ./packages/web/dist/ 5005",
-    "start:api": "npx pm2 start --name api ./packages/api/dist/main.js"
+    "start:api": "npx pm2 start --name api ./packages/api/dist/src/main.js"
   },
   "repository": {
     "type": "git",

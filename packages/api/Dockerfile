@@ -1,8 +1,9 @@
-FROM node:16-alpine3.15
+FROM node:14-alpine
 
 WORKDIR /home
 COPY . ./
 
+RUN npm i npm@latest -g
 RUN npm install --timeout=9999999
 RUN npm run build
 

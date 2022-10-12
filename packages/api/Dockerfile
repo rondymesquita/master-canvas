@@ -1,4 +1,4 @@
-FROM node:16-alpine3.15
+FROM node:16-bullseye-slim
 # FROM node:14-alpine
 
 ENV NODE_OPTIONS="–-max_old_space_size=256"
@@ -15,7 +15,7 @@ RUN echo "nameserver 8.8.4.4" > /etc/resolv.conf
 
 WORKDIR /home
 
-RUN npm i npm@latest -g
+RUN npm i npm@8.19.2 -g
 
 COPY ./package*.json ./
 RUN npm install --timeout=9999999

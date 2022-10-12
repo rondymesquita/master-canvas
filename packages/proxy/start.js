@@ -3,8 +3,8 @@ const http = require('http')
 
 const proxy = httpProxy.createServer()
 
-const webUrl = 'http://localhost:5005'
-const apiUrl = 'http://localhost:5006'
+const webUrl = 'http://web:5005'
+const apiUrl = 'http://api:5006'
 const api = '/api'
 const port = 5000
 

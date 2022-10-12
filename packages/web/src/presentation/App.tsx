@@ -28,6 +28,7 @@ import { Env } from '../config/env';
 
 function App() {
   Env.init(import.meta.env.DEV ? 'prodSimulation' : 'prod');
+  // Env.init('prodSimulation');
   const basename = Env.getEnv().HOST;
 
   const { setUser } = useUser();

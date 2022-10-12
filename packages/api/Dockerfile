@@ -8,7 +8,6 @@ RUN npm run build
 
 RUN chmod +x ./docker-entrypoint.sh
 
-
 EXPOSE 5006
 # CMD ./docker-entrypoint.sh
 CMD npm start

@@ -13,7 +13,7 @@ const environments: Record<string, Environment> = {
     HOST: '/',
   },
   prod: {
-    API_HOST: 'http://localhost:5000/api',
+    API_HOST: 'http://161.35.113.187:5000/api',
     HOST: '/',
   },
 };

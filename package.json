@@ -7,6 +7,7 @@
     "configure": "lerna exec npm install",
     "dev": "lerna run dev",
     "build": "lerna run build",
+    "start": "ts-node start.ts",
     "start:web": "npx pm2 serve --name web ./packages/web/dist/ 5005",
     "start:api": "npx pm2 start --name api ./packages/api/dist/main.js"
   },
@@ -25,7 +26,10 @@
   ],
   "private": true,
   "dependencies": {
+    "@types/http-proxy": "^1.17.9",
+    "http-proxy": "^1.18.1",
     "lerna": "^5.5.2",
-    "pm2": "^5.2.0"
+    "pm2": "^5.2.0",
+    "ts-node": "^10.9.1"
   }
 }

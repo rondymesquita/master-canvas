@@ -1,13 +1,20 @@
 export interface Environment {
   API_HOST: string;
+  HOST: string;
 }
 
 const environments: Record<string, Environment> = {
   dev: {
     API_HOST: 'http://localhost:5006',
+    HOST: '/',
+  },
+  prodSimulation: {
+    API_HOST: 'http://localhost:5000/api',
+    HOST: '/',
   },
   prod: {
-    API_HOST: 'http://localhost:5006',
+    API_HOST: 'http://localhost:5000/api',
+    HOST: '/',
   },
 };
 

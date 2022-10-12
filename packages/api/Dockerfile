@@ -1,12 +1,14 @@
-# FROM node:16-alpine3.15
-FROM node:14-alpine
+FROM node:16-alpine3.15
+# FROM node:14-alpine
 
-ENV NODE_OPTIONS="–max_old_space_size=512"
+ENV NODE_OPTIONS="–-max_old_space_size=256"
 RUN npm config set fetch-retry-mintimeout 99999
 RUN npm config set fetch-retry-maxtimeout 999999
 
 RUN npm config rm proxy
 RUN npm config rm https-proxy
+RUN npm config --global rm proxy
+RUN npm config --global rm https-proxy
 
 WORKDIR /home
 

@@ -28,6 +28,11 @@ services:
       dockerfile: Dockerfile
     ports:
       - 5005:5005
+    deploy:
+      resources:
+        limits:
+          cpus: '0.5'
+          memory: 256M
   proxy:
     tty: true
     stdin_open: true
@@ -37,3 +42,8 @@ services:
       dockerfile: Dockerfile
     ports:
       - 5000:5000
+    deploy:
+      resources:
+        limits:
+          cpus: '0.5'
+          memory: 256M

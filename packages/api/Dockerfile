@@ -1,10 +1,13 @@
 FROM node:14-alpine
 
 WORKDIR /home
-COPY . ./
 
 RUN npm i npm@latest -g
+
+COPY ./package*.json ./
 RUN npm install --timeout=9999999
+
+COPY . ./
 RUN npm run build
 
 RUN chmod +x ./docker-entrypoint.sh

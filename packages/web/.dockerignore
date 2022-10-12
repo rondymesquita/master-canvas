@@ -1,6 +1,6 @@
-./vscode
+./vscode/
 dist/
-node_modules
+node_modules/
 test/
 .prettierrc
 CHANGELOG.md

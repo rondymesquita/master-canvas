@@ -1,4 +1,5 @@
-FROM node:16-alpine3.15
+# FROM node:16-alpine3.15
+FROM node:14-alpine
 
 ENV NODE_OPTIONS="–max_old_space_size=512"
 RUN npm config set fetch-retry-mintimeout 99999

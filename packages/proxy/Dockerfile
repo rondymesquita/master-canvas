@@ -3,7 +3,7 @@ FROM node:16-alpine3.15
 WORKDIR /home
 COPY . ./
 
-RUN npm install
+RUN npm install --timeout=9999999
 
 EXPOSE 5000
 

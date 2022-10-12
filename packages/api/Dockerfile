@@ -3,7 +3,7 @@ FROM node:16-alpine3.15
 WORKDIR /home
 COPY . ./
 
-RUN npm ci
+RUN npm install --timeout=9999999
 RUN npm run build
 
 RUN chmod +x ./docker-entrypoint.sh

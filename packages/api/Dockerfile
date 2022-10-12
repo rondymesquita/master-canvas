@@ -10,6 +10,9 @@ RUN npm config rm https-proxy
 RUN npm config --global rm proxy
 RUN npm config --global rm https-proxy
 
+RUN echo "nameserver 8.8.8.8 > /etc/resolv.conf"
+RUN echo "nameserver 8.8.4.4 > /etc/resolv.conf"
+
 WORKDIR /home
 
 RUN npm i npm@latest -g

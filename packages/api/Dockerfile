@@ -1,25 +1,14 @@
-FROM node:14-alpine
+FROM node:16-alpine3.15
 
 WORKDIR /home
-
-RUN npm config ls -l
-
-RUN npm config set fetch-retry-mintimeout 99999
-RUN npm config set fetch-retry-maxtimeout 999999
-
-RUN npm config rm proxy
-RUN npm config rm https-proxy
 
 RUN npm i npm@latest -g
 
 COPY ./package*.json ./
-RUN npm install --timeout=9999999
+RUN npm install
 
 COPY . ./
 RUN npm run build
 
-RUN chmod +x ./docker-entrypoint.sh
-
 EXPOSE 5006
-# CMD ./docker-entrypoint.sh
 CMD npm start

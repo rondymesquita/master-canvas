@@ -1,9 +1,9 @@
-FROM node:14-alpine
+FROM node:16-alpine3.15
 
 WORKDIR /home
 COPY . ./
 
-RUN npm install --legacy-peer-deps --timeout=9999999
+RUN npm install --legacy-peer-deps
 RUN npm run build
 
 EXPOSE 5005

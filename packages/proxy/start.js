@@ -5,8 +5,6 @@ const fs = require('fs')
 const isDev =
   process.env.NODE_ENV === 'development' || process.env.NODE_ENV === 'dev'
 
-const proxy = httpProxy.createServer()
-
 const webUrl = 'http://localhost:5005'
 const apiUrl = 'http://localhost:5006'
 const api = '/api'
@@ -16,23 +14,25 @@ const isSslEnabled = isDev ? false : true
 
 console.log({ isDev, port, isSslEnabled, env: process.env })
 
+let ssl
+if (isSslEnabled) {
+  ssl = {
+    key: fs.readFileSync(
+      '/etc/letsencrypt/live/canvasnaweb.com.br/privkey.pem',
+      'utf8',
+    ),
+    cert: fs.readFileSync(
+      '/etc/letsencrypt/live/canvasnaweb.com.br/fullchain.pem',
+      'utf8',
+    ),
+  }
+}
+
+const proxy = httpProxy.createServer({ ssl })
+
 http
   .createServer((req, res) => {
     let target = webUrl
-
-    let ssl
-    if (isSslEnabled) {
-      ssl = {
-        key: fs.readFileSync(
-          '/etc/letsencrypt/live/canvasnaweb.com.br/privkey.pem',
-          'utf8',
-        ),
-        cert: fs.readFileSync(
-          '/etc/letsencrypt/live/canvasnaweb.com.br/fullchain.pem',
-          'utf8',
-        ),
-      }
-    }
 
     if (req.url.startsWith(api)) {
       req.url = req.url.replace(api, '/')
@@ -48,7 +48,7 @@ http
       console.log('Request', { url })
     })
 
-    proxy.web(req, res, { target, ssl })
+    proxy.web(req, res, { target })
   })
   .listen(port)
 

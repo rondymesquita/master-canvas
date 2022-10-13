@@ -6,7 +6,7 @@ const proxy = httpProxy.createServer()
 const webUrl = 'http://localhost:5005'
 const apiUrl = 'http://localhost:5006'
 const api = '/api'
-const port = parseInt(process.env.PROXY_PORT) || 80
+const port = parseInt(process.env.PROXY_PORT) || 5000
 
 http
   .createServer((req, res) => {

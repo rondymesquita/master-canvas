@@ -1,16 +1,38 @@
 const httpProxy = require('http-proxy')
 const http = require('http')
+const fs = require('fs')
+
+const isProd = NODE_ENV === 'prod' || NODE_ENV === 'production'
 
 const proxy = httpProxy.createServer()
 
 const webUrl = 'http://localhost:5005'
 const apiUrl = 'http://localhost:5006'
 const api = '/api'
-const port = parseInt(process.env.PROXY_PORT) || 5000
+
+const port = isProd ? 5000 : 5000
+const isSslEnabled = isProd ? true : false
+
+console.log({ isProd, port, isSslEnabled })
 
 http
   .createServer((req, res) => {
     let target = webUrl
+
+    let ssl
+    if (isSslEnabled) {
+      ssl = {
+        key: fs.readFileSync(
+          '/etc/letsencrypt/live/canvasnaweb.com.br/privkey.pem',
+          'utf8',
+        ),
+        cert: fs.readFileSync(
+          '/etc/letsencrypt/live/canvasnaweb.com.br/fullchain.pem',
+          'utf8',
+        ),
+      }
+    }
+
     if (req.url.startsWith(api)) {
       req.url = req.url.replace(api, '/')
       target = apiUrl
@@ -25,7 +47,7 @@ http
       console.log('Request', { url })
     })
 
-    proxy.web(req, res, { target })
+    proxy.web(req, res, { target, ssl })
   })
   .listen(port)
 

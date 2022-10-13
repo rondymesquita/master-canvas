@@ -13,7 +13,7 @@ const environments: Record<string, Environment> = {
     HOST: '/',
   },
   prod: {
-    API_HOST: 'http://161.35.113.187:5000/api',
+    API_HOST: 'http://canvasnaweb.com.br/api',
     HOST: '/',
   },
 };

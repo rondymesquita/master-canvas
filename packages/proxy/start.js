@@ -2,7 +2,8 @@ const httpProxy = require('http-proxy')
 const http = require('http')
 const fs = require('fs')
 
-const isProd = NODE_ENV === 'prod' || NODE_ENV === 'production'
+const isProd =
+  process.env.NODE_ENV === 'prod' || process.env.NODE_ENV === 'production'
 
 const proxy = httpProxy.createServer()
 
@@ -13,7 +14,7 @@ const api = '/api'
 const port = isProd ? 5000 : 5000
 const isSslEnabled = isProd ? true : false
 
-console.log({ isProd, port, isSslEnabled })
+console.log({ isProd, port, isSslEnabled, env: process.env })
 
 http
   .createServer((req, res) => {

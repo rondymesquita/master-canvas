@@ -1,3 +1,4 @@
+const httpProxy = require('http-proxy')
 const https = require('https')
 const fs = require('fs')
 

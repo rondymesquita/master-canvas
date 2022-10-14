@@ -36,7 +36,7 @@ if (isSslEnabled) {
   }
 }
 
-const proxy = httpProxy.createServer({ ssl, secure: true })
+const proxy = httpProxy.createServer({ ssl, secure: false })
 
 http
   .createServer((req, res) => {

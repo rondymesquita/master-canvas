@@ -22,10 +22,10 @@ console.log({ isDev, port })
 
 const server = https.createServer(options, function (req, res) {
   if (req.url.startsWith(apiPath)) {
-    proxy.web(req, res, { target: `http://${host}:${webPort}` })
-  } else {
     proxy.web(req, res, { target: `http://${host}:${apiPort}` })
+  } else {
+    proxy.web(req, res, { target: `http://${host}:${webPort}` })
   }
 })
 
-server.listen(port)
+server.listen(port, () => console.log(`Proxy started on ${port}`))

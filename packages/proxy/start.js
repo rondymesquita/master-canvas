@@ -9,7 +9,7 @@ const webPort = '5005'
 const apiPort = '5006'
 const api = '/api'
 
-const port = isDev ? 5000 : 5000
+const port = isDev ? 5000 : 443
 const isSslEnabled = isDev ? false : true
 
 console.log({ isDev, port, isSslEnabled, env: process.env })

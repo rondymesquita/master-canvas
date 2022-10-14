@@ -14,17 +14,25 @@ const isSslEnabled = isDev ? false : true
 
 console.log({ isDev, port, isSslEnabled, env: process.env })
 
+const certs = {
+  key: fs.readFileSync(
+    '/etc/letsencrypt/live/canvasnaweb.com.br/privkey.pem',
+    'utf8',
+  ),
+  ca: fs.readFileSync(
+    '/etc/letsencrypt/live/canvasnaweb.com.br/fullchain.pem',
+    'utf8',
+  ),
+  cert: fs.readFileSync(
+    '/etc/letsencrypt/live/canvasnaweb.com.br/cert.pem',
+    'utf8',
+  ),
+}
+
 let ssl
 if (isSslEnabled) {
   ssl = {
-    key: fs.readFileSync(
-      '/etc/letsencrypt/live/canvasnaweb.com.br/privkey.pem',
-      'utf8',
-    ),
-    cert: fs.readFileSync(
-      '/etc/letsencrypt/live/canvasnaweb.com.br/fullchain.pem',
-      'utf8',
-    ),
+    ...certs,
   }
 }
 
@@ -52,14 +60,7 @@ http
       protocol: 'http',
       host: 'localhost',
       port: targetPort,
-      ca: fs.readFileSync(
-        '/etc/letsencrypt/live/canvasnaweb.com.br/fullchain.pem',
-        'utf8',
-      ),
-      cert: fs.readFileSync(
-        '/etc/letsencrypt/live/canvasnaweb.com.br/cert.pem',
-        'utf8',
-      ),
+      ...certs,
     }
 
     proxy.web(req, res, { target })

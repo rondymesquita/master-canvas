@@ -1,5 +1,5 @@
 const httpProxy = require('http-proxy')
-const https = require('https')
+const http = require('http')
 const fs = require('fs')
 
 const options = {
@@ -7,8 +7,8 @@ const options = {
   // cert: fs.readFileSync('/etc/letsencrypt/live/canvasnaweb.com.br/cert.pem'),
 }
 
-https
-  .createServer(options, function (req, res) {
+http
+  .createServer(function (req, res) {
     res.writeHead(200)
     res.end('hello world\n')
   })

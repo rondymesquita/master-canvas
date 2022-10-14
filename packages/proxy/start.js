@@ -5,8 +5,8 @@ const fs = require('fs')
 const isDev =
   process.env.NODE_ENV === 'development' || process.env.NODE_ENV === 'dev'
 
-const webUrl = 'http://localhost:5005'
-const apiUrl = 'http://localhost:5006'
+const webPort = '5005'
+const apiPort = '5006'
 const api = '/api'
 
 const port = isDev ? 5000 : 5000
@@ -32,11 +32,11 @@ const proxy = httpProxy.createServer({ ssl })
 
 http
   .createServer((req, res) => {
-    let target = webUrl
+    let targetPort = webPort
 
     if (req.url.startsWith(api)) {
       req.url = req.url.replace(api, '/')
-      target = apiUrl
+      targetPort = apiPort
     }
 
     proxy.on('error', function (e) {
@@ -47,6 +47,20 @@ http
       const { url } = req
       console.log('Request', { url })
     })
+
+    const target = {
+      protocol: 'http',
+      host: 'localhost',
+      port: targetPort,
+      ca: fs.readFileSync(
+        '/etc/letsencrypt/live/canvasnaweb.com.br/fullchain.pem',
+        'utf8',
+      ),
+      cert: fs.readFileSync(
+        '/etc/letsencrypt/live/canvasnaweb.com.br/cert.pem',
+        'utf8',
+      ),
+    }
 
     proxy.web(req, res, { target })
   })

@@ -24,7 +24,7 @@ const certs = {
     'utf8',
   ),
   cert: fs.readFileSync(
-    '/etc/letsencrypt/live/canvasnaweb.com.br/privkey.pem',
+    '/etc/letsencrypt/live/canvasnaweb.com.br/cert.pem',
     'utf8',
   ),
 }

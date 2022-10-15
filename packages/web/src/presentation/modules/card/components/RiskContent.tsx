@@ -5,6 +5,7 @@ import ContentHeading from '../../../components/ContentHeading';
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
 import { CardRiskContentModel } from '../../../../domain/card';
+import { FaExclamationTriangle } from 'react-icons/fa';
 
 type RiskContentType = {
   content: CardRiskContentModel;
@@ -30,7 +31,7 @@ export default function RiskContent({
   return (
     <div>
       <ContentBlock>
-        <ContentHeading>Risco</ContentHeading>
+        <ContentHeading icon={FaExclamationTriangle}>Risco</ContentHeading>
         <ReactQuill
           theme="snow"
           value={state.risk}

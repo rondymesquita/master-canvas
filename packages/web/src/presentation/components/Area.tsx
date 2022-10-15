@@ -12,6 +12,16 @@ import {
 import React, { useEffect, useState } from 'react';
 
 import { AddIcon, InfoIcon } from '@chakra-ui/icons';
+import { CardCategory } from '../../domain/card';
+import {
+  FaChartPie,
+  FaCheckCircle,
+  FaExclamationCircle,
+  FaExclamationTriangle,
+  FaListAlt,
+  FaSun,
+} from 'react-icons/fa';
+import { IconType } from 'react-icons/lib';
 
 export default function Area({
   children,
@@ -19,11 +29,15 @@ export default function Area({
   onAddClick,
   category,
 }: any): JSX.Element {
-  const [option, setOption] = useState('');
+  const icons: Record<string, IconType> = {
+    [CardCategory.FUNCTIONAL]: FaListAlt,
+    [CardCategory.NON_FUNCTIONAL]: FaListAlt,
+    [CardCategory.DATA]: FaChartPie,
+    [CardCategory.RISK]: FaExclamationTriangle,
+    [CardCategory.ACCEPTANCE]: FaCheckCircle,
+  };
 
-  useEffect(() => {
-    console.log(option);
-  }, [option]);
+  const Icon = icons[category];
 
   return (
     <Box
@@ -37,7 +51,7 @@ export default function Area({
     >
       <Flex>
         <Center>
-          <InfoIcon />
+          <Icon />
         </Center>
 
         <Center padding={2}>
@@ -49,6 +63,7 @@ export default function Area({
         <Center>
           <IconButton
             size={'xs'}
+            borderRadius={'full'}
             colorScheme="primary"
             aria-label="button"
             onClick={() => onAddClick(category)}

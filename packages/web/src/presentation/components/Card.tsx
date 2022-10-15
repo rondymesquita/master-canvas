@@ -66,11 +66,17 @@ export default function Card({
       onClick={onClick}
     >
       <Flex>
-        <Center>
+        {/* <Center>
           <InfoIcon />
-        </Center>
-        <Flex paddingLeft={2} overflow={'hidden'}>
-          <Heading maxWidth={'100%'} as="h4" size="xs" noOfLines={1}>
+        </Center> */}
+        <Flex overflow={'hidden'} width={'full'}>
+          <Heading
+            width={'full'}
+            as="h4"
+            size="xs"
+            noOfLines={1}
+            textAlign={'center'}
+          >
             {title}
           </Heading>
         </Flex>

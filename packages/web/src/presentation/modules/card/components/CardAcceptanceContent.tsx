@@ -5,6 +5,7 @@ import ContentHeading from '../../../components/ContentHeading';
 import ReactQuill from 'react-quill';
 import { CardAcceptanceContentModel } from '../../../../domain/card';
 import 'react-quill/dist/quill.snow.css';
+import { FaCheckCircle } from 'react-icons/fa';
 
 export default function CardAcceptanceContent({
   content,
@@ -32,7 +33,9 @@ export default function CardAcceptanceContent({
   return (
     <div>
       <ContentBlock>
-        <ContentHeading>Critério de Aceitação</ContentHeading>
+        <ContentHeading icon={FaCheckCircle}>
+          Critério de Aceitação
+        </ContentHeading>
         <ReactQuill
           theme="snow"
           value={state.acceptance}

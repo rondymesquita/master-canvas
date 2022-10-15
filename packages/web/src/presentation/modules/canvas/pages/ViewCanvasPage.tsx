@@ -187,6 +187,7 @@ export default function ViewCanvasPage() {
             >
               <Area
                 key={index}
+                category={area.category}
                 title={area.title}
                 onAddClick={() => onAddCard(area.category)}
               >

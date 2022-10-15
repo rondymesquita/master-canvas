@@ -5,6 +5,14 @@ import ContentHeading from '../../../components/ContentHeading';
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
 import { CardDataContentModel } from '../../../../domain/card';
+import {
+  FaChartPie,
+  FaDatabase,
+  FaExclamationTriangle,
+  FaLightbulb,
+  FaLock,
+  FaNewspaper,
+} from 'react-icons/fa';
 
 type DataContentType = {
   content: CardDataContentModel;
@@ -30,7 +38,9 @@ export default function DataContent({
   return (
     <div>
       <ContentBlock>
-        <ContentHeading>Visão das Partes Interessadas dos Dados</ContentHeading>
+        <ContentHeading icon={FaDatabase}>
+          Visão das Partes Interessadas dos Dados
+        </ContentHeading>
         <ReactQuill
           theme="snow"
           value={state.stakeholders}
@@ -38,7 +48,9 @@ export default function DataContent({
         />
       </ContentBlock>
       <ContentBlock>
-        <ContentHeading>Visão de Negócio dos Dados</ContentHeading>
+        <ContentHeading icon={FaLightbulb}>
+          Visão de Negócio dos Dados
+        </ContentHeading>
         <ReactQuill
           theme="snow"
           value={state.business}
@@ -46,7 +58,9 @@ export default function DataContent({
         />
       </ContentBlock>
       <ContentBlock>
-        <ContentHeading>Visão de Segurança dos Dados</ContentHeading>
+        <ContentHeading icon={FaLock}>
+          Visão de Segurança dos Dados
+        </ContentHeading>
         <ReactQuill
           theme="snow"
           value={state.security}
@@ -54,7 +68,9 @@ export default function DataContent({
         />
       </ContentBlock>
       <ContentBlock>
-        <ContentHeading>Visão de Manutenção dos Dados</ContentHeading>
+        <ContentHeading icon={FaNewspaper}>
+          Visão de Manutenção dos Dados
+        </ContentHeading>
         <ReactQuill
           theme="snow"
           value={state.maintenance}
@@ -62,7 +78,9 @@ export default function DataContent({
         />
       </ContentBlock>
       <ContentBlock>
-        <ContentHeading>Visão de Treinamento dos Dados</ContentHeading>
+        <ContentHeading icon={FaChartPie}>
+          Visão de Treinamento dos Dados
+        </ContentHeading>
         <ReactQuill
           theme="snow"
           value={state.training}
@@ -70,7 +88,9 @@ export default function DataContent({
         />
       </ContentBlock>
       <ContentBlock>
-        <ContentHeading>Visão de Risco dos Dados</ContentHeading>
+        <ContentHeading icon={FaExclamationTriangle}>
+          Visão de Risco dos Dados
+        </ContentHeading>
         <ReactQuill
           theme="snow"
           value={state.risk}

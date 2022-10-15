@@ -18,7 +18,8 @@ export class CanvasRepo implements ICanvasRepo {
   }
   async list(input: IListCanvasInput): Promise<Canvas[]> {
     const data = await CanvasModel.find(
-      { active: true, user: input.user },
+      // { active: true, user: input.user },
+      { active: true },
       null,
       { sort: { updatedAt: -1 } },
     );

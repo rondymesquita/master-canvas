@@ -27,10 +27,15 @@ export interface CardRiskContentModel {
   risk: string;
 }
 
+export interface CardAcceptanceContentModel {
+  acceptance: string;
+}
+
 export type CardContentModel =
   | CardRequirementContentModel
   | CardDataContentModel
-  | CardRiskContentModel;
+  | CardRiskContentModel
+  | CardAcceptanceContentModel;
 
 export interface CardModel {
   id: string;

@@ -2,6 +2,7 @@ export enum CardCategory {
   FUNCTIONAL = 'FUNCTIONAL',
   NON_FUNCTIONAL = 'NON_FUNCTIONAL',
   RISK = 'RISK',
+  ACCEPTANCE = 'ACCEPTANCE',
   DATA = 'DATA',
 }
 
@@ -27,10 +28,15 @@ export interface CardRiskContent {
   risk: string;
 }
 
+export interface CardAcceptanceContent {
+  acceptance: string;
+}
+
 export type CardContent =
   | CardRequirementContent
   | CardDataContent
-  | CardRiskContent;
+  | CardRiskContent
+  | CardAcceptanceContent;
 
 export interface Card {
   id: string;

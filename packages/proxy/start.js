@@ -1,10 +1,22 @@
 const httpProxy = require('http-proxy')
 const https = require('https')
+const http = require('http')
 const fs = require('fs')
 
-const options = {
-  key: fs.readFileSync('/etc/letsencrypt/live/canvasnaweb.com.br/privkey.pem'),
-  cert: fs.readFileSync('/etc/letsencrypt/live/canvasnaweb.com.br/cert.pem'),
+const isDev =
+  process.env.NODE_ENV === 'development' || process.env.NODE_ENV === 'dev'
+
+const isProd = !isDev
+
+let options = {}
+
+if (isProd) {
+  options = {
+    key: fs.readFileSync(
+      '/etc/letsencrypt/live/canvasnaweb.com.br/privkey.pem',
+    ),
+    cert: fs.readFileSync('/etc/letsencrypt/live/canvasnaweb.com.br/cert.pem'),
+  }
 }
 
 const webPort = '5005'
@@ -14,15 +26,21 @@ const host = '127.0.0.1'
 
 const proxy = httpProxy.createProxyServer({})
 
-const isDev =
-  process.env.NODE_ENV === 'development' || process.env.NODE_ENV === 'dev'
-
 const port = isDev ? 5000 : 443
-console.log({ isDev, port })
 
-const server = https.createServer(options, function (req, res) {
+console.log({ isDev, isProd, port, NODE_ENV: process.env.NODE_ENV })
+
+const protocolModuleInstance = isDev ? http : https
+
+const server = protocolModuleInstance.createServer(options, function (
+  req,
+  res,
+) {
   if (req.url.startsWith(apiPath)) {
-    proxy.web(req, res, { target: `http://${host}:${apiPort}` })
+    req.url = req.url.replace(apiPath, '')
+    proxy.web(req, res, {
+      target: `http://${host}:${apiPort}`,
+    })
   } else {
     proxy.web(req, res, { target: `http://${host}:${webPort}` })
   }

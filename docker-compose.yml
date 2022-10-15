@@ -4,46 +4,46 @@ services:
     image: mongo:6.0.1-focal
     ports:
       - 27017:27017
-  api:
-    tty: true
-    stdin_open: true
-    env_file: ./.env
-    image: api
-    build:
-      context: ./packages/api
-      dockerfile: Dockerfile
-    ports:
-      - 5006:5006
-    deploy:
-      resources:
-        limits:
-          cpus: '0.5'
-          memory: 256M
-  web:
-    tty: true
-    stdin_open: true
-    image: web
-    build:
-      context: ./packages/web
-      dockerfile: Dockerfile
-    ports:
-      - 5005:5005
-    deploy:
-      resources:
-        limits:
-          cpus: '0.5'
-          memory: 256M
-  proxy:
-    tty: true
-    stdin_open: true
-    image: proxy
-    build:
-      context: ./packages/proxy
-      dockerfile: Dockerfile
-    ports:
-      - 5000:5000
-    deploy:
-      resources:
-        limits:
-          cpus: '0.5'
-          memory: 256M
+  # api:
+  #   tty: true
+  #   stdin_open: true
+  #   env_file: ./.env
+  #   image: api
+  #   build:
+  #     context: ./packages/api
+  #     dockerfile: Dockerfile
+  #   ports:
+  #     - 5006:5006
+  #   deploy:
+  #     resources:
+  #       limits:
+  #         cpus: '0.5'
+  #         memory: 256M
+  # web:
+  #   tty: true
+  #   stdin_open: true
+  #   image: web
+  #   build:
+  #     context: ./packages/web
+  #     dockerfile: Dockerfile
+  #   ports:
+  #     - 5005:5005
+  #   deploy:
+  #     resources:
+  #       limits:
+  #         cpus: '0.5'
+  #         memory: 256M
+  # proxy:
+  #   tty: true
+  #   stdin_open: true
+  #   image: proxy
+  #   build:
+  #     context: ./packages/proxy
+  #     dockerfile: Dockerfile
+  #   ports:
+  #     - 5000:5000
+  #   deploy:
+  #     resources:
+  #       limits:
+  #         cpus: '0.5'
+  #         memory: 256M

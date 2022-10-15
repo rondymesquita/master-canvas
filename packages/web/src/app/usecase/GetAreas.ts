@@ -2,6 +2,8 @@ import { ModalEvent } from '../../domain/events';
 import { AreaModel } from '../../domain/area';
 import { Bus } from '../../util/Bus';
 import { v4 } from 'uuid';
+import { CardCategory } from '../../domain/card';
+import { LOGIN_PAGE } from '../../presentation/route/routes';
 
 export interface IGetAreasUseCase {
   execute: () => Promise<AreaModel[]>;
@@ -12,6 +14,7 @@ export class GetAreasUseCase implements IGetAreasUseCase {
 
   async execute(): Promise<AreaModel[]> {
     // console.log('GetAreasUseCase use case called');
+
     const data = [
       {
         id: v4(),
@@ -35,6 +38,12 @@ export class GetAreasUseCase implements IGetAreasUseCase {
         id: v4(),
         title: 'Riscos',
         category: 'RISK',
+        icon: '',
+      },
+      {
+        id: v4(),
+        title: 'Critérios de Aceitação Geral',
+        category: CardCategory.ACCEPTANCE.toString(),
         icon: '',
       },
     ];

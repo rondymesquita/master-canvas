@@ -6,6 +6,7 @@ import {
   CardRiskContentModel,
   CardDataContentModel,
   CardRequirementContentModel,
+  CardAcceptanceContentModel,
 } from '../../../domain/card';
 import { CardService } from '../../../infra/rest/card.service';
 import { waitPromise } from '../../../util/waitpromise';
@@ -32,6 +33,10 @@ const riskContent: CardRiskContentModel = {
   risk: '<h1>Risk Template</h1>',
 };
 
+const acceptanceContent: CardAcceptanceContentModel = {
+  acceptance: '<p>Critério de Aceitação</p>',
+};
+
 export default function useGetTemplateCard() {
   const get = (category: CardCategory): CardContentModel => {
     const templates = {
@@ -39,6 +44,7 @@ export default function useGetTemplateCard() {
       [CardCategory.NON_FUNCTIONAL]: requirementContent,
       [CardCategory.DATA]: dataContent,
       [CardCategory.RISK]: riskContent,
+      [CardCategory.ACCEPTANCE]: acceptanceContent,
     };
 
     const template = templates[category];

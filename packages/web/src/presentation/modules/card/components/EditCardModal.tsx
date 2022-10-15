@@ -21,6 +21,7 @@ import { CardCategory } from '../../../../domain/card';
 import RequirementContent from './RequirementContent';
 import DataContent from './DataContent';
 import RiskContent from './RiskContent';
+import CardAcceptanceContent from './CardAcceptanceContent';
 
 function Actions({ children, cancel, ok }: any) {
   return (
@@ -120,6 +121,13 @@ export default function EditCardModal({
 
             {category === CardCategory.RISK && (
               <RiskContent content={content} onContentChange={setContent} />
+            )}
+
+            {category === CardCategory.ACCEPTANCE && (
+              <CardAcceptanceContent
+                content={content}
+                onContentChange={setContent}
+              />
             )}
             <Actions cancel={destroyAndClose} ok={onSaveButtonClick}></Actions>
           </ModalBody>

@@ -3,6 +3,7 @@ export enum CardCategory {
   NON_FUNCTIONAL = 'NON_FUNCTIONAL',
   RISK = 'RISK',
   DATA = 'DATA',
+  ACCEPTANCE = 'ACCEPTANCE',
 }
 
 export interface CardRequirementContentModel {

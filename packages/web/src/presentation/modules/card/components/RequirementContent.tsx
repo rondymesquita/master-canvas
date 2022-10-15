@@ -71,9 +71,7 @@ export default function RequirementContent({
         />
       </ContentBlock>
       <ContentBlock>
-        <ContentHeading>
-          Visão de Risco de Produto - Literatura de Teste
-        </ContentHeading>
+        <ContentHeading>Visão de Risco de Produto</ContentHeading>
         <ReactQuill
           theme="snow"
           value={state.risk}

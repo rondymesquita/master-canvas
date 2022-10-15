@@ -10,21 +10,21 @@ import {
 } from '@chakra-ui/react';
 import { useEffect, useRef, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import { GetAreasUseCase } from '../../../app/usecase/GetAreas';
-import useGetEmptyCard from '../../../app/usecase/card/useGetEmptyCard';
-import useListCard from '../../../app/usecase/card/useListCard';
-import useRemoveCard from '../../../app/usecase/card/useRemoveCard';
-import useSaveCard from '../../../app/usecase/card/useSaveCard';
-import { AreaModel } from '../../../domain/area';
-import { CardCategory, CardModel } from '../../../domain/card';
-import Area from '../../components/Area';
-import Card from '../../components/Card';
-import EditCardModal from '../card/components/EditCardModal';
-import Header from '../../components/Header';
-import useDisclosure from '../../hooks/useDisclosure';
-import PageTemplate from '../../templates/PageTemplate';
-import useUpdateCard from '../../../app/usecase/card/useUpdateCard';
-import useExportPDF from '../../../app/usecase/canvas/useExportPDF';
+import { GetAreasUseCase } from '../../../../app/usecase/GetAreas';
+import useGetEmptyCard from '../../../../app/usecase/card/useGetEmptyCard';
+import useListCard from '../../../../app/usecase/card/useListCard';
+import useRemoveCard from '../../../../app/usecase/card/useRemoveCard';
+import useSaveCard from '../../../../app/usecase/card/useSaveCard';
+import { AreaModel } from '../../../../domain/area';
+import { CardCategory, CardModel } from '../../../../domain/card';
+import Area from '../../../components/Area';
+import Card from '../../../components/Card';
+import EditCardModal from '../../card/components/EditCardModal';
+import Header from '../../../components/Header';
+import useDisclosure from '../../../hooks/useDisclosure';
+import PageTemplate from '../../../templates/PageTemplate';
+import useUpdateCard from '../../../../app/usecase/card/useUpdateCard';
+import useExportPDF from '../../../../app/usecase/canvas/useExportPDF';
 
 import {
   Document,
@@ -34,7 +34,7 @@ import {
   StyleSheet,
   PDFDownloadLink,
 } from '@react-pdf/renderer';
-import CardExportPDF from '../card/components/CardExportPDF';
+import CardExportPDF from '../../card/components/CardExportPDF';
 import { FaDownload, FaFileExport } from 'react-icons/fa';
 
 // import { TransformWrapper, TransformComponent } from 'react-zoom-pan-pinch';
@@ -123,7 +123,6 @@ export default function ViewCanvasPage() {
       title,
     };
     copy.splice(cardToUpdateIndex, 1, newCard);
-    // setCards(copy);
 
     await update(newCard);
     setCards(await list(currentCanvasId));
@@ -131,7 +130,6 @@ export default function ViewCanvasPage() {
   };
 
   const onClickExportPDF = async () => {
-    console.log('>>>>called');
     await exportPDF(cards);
   };
 
@@ -146,7 +144,7 @@ export default function ViewCanvasPage() {
   const getColSpanRules = (area: AreaModel) => {
     const { category } = area;
     const colSpans: any = {
-      RISK: 3,
+      RISK: 2,
     };
     return colSpans[category] || 1;
   };

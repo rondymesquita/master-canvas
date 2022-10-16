@@ -90,6 +90,8 @@ export default function EditCardModal({
           >
             <Actions cancel={destroyAndClose} ok={onSaveButtonClick}>
               <EditableText
+                placeholder={'Título do cartão'}
+                as={'textarea'}
                 flexGrow={1}
                 value={title}
                 onChange={(newTitle: string) => setTitle(newTitle)}

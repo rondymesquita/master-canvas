@@ -50,8 +50,8 @@ const server = protocolModuleInstance.createServer(options, function (
   }
 })
 
-server.on('error', function (e) {
-  console.log('error')
+server.on('error', function (err) {
+  console.log('server error', err)
 })
 
 server.on('upgrade', function (req, socket, head) {

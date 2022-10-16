@@ -27,8 +27,7 @@ import RedirectWhenLoggedRoute from './route/components/redirect.when.logged.rou
 import { Env } from '../config/env';
 
 function App() {
-  Env.init(import.meta.env.DEV ? 'prodSimulation' : 'prod');
-  // Env.init('prodSimulation');
+  Env.init(import.meta.env.DEV ? 'dev' : 'prod');
   const basename = Env.getEnv().HOST;
 
   const { setUser } = useUser();

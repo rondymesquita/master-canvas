@@ -3,6 +3,7 @@ import { CanvasRepo } from '../../infra/db/repo/canvas.repo';
 import { Module } from '@nestjs/common';
 import { CanvasController } from '../../presentation/controller/canvas.controller';
 import {
+  GetCanvasById,
   ListCanvas,
   RemoveCanvas,
   SaveCanvas,
@@ -24,6 +25,10 @@ import {
     {
       provide: 'IListCanvas',
       useClass: ListCanvas,
+    },
+    {
+      provide: 'IGetCanvasById',
+      useClass: GetCanvasById,
     },
     {
       provide: 'IRemoveCanvas',

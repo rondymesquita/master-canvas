@@ -24,7 +24,7 @@ const apiPort = '5006'
 const apiPath = '/api'
 const host = '127.0.0.1'
 
-const proxy = httpProxy.createProxyServer({})
+const proxy = httpProxy.createProxyServer({ ws: true })
 
 const port = isDev ? 5000 : 443
 
@@ -42,8 +42,16 @@ const server = protocolModuleInstance.createServer(options, function (
       target: `http://${host}:${apiPort}`,
     })
   } else {
-    proxy.web(req, res, { target: `http://${host}:${webPort}` })
+    proxy.web(req, res, { target: `http://${host}:${webPort}`, ws: true })
   }
+})
+
+server.on('error', function (e) {
+  console.log('error')
+})
+
+process.on('uncaughtException', function (err) {
+  console.log(err)
 })
 
 server.listen(port, () => console.log(`Proxy started on ${port}`))

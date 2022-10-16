@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "configure": "npx lerna exec npm install -- --legacy-peer-deps",
-    "dev": "npx lerna run dev",
+    "dev": "npx lerna run dev --concurrency=3 --stream",
     "build": "npx lerna run build",
     "start": "npm run start:api && npm run start:web && npm run start:proxy",
     "stop": "pm2 stop all",

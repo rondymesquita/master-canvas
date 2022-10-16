@@ -36,6 +36,8 @@ import {
 } from '@react-pdf/renderer';
 import CardExportPDF from '../../card/components/CardExportPDF';
 import { FaDownload, FaFileExport } from 'react-icons/fa';
+import CardPdfDocument from '../../card/components/CardPdfDocument';
+import useGetCanvasById from '../../../../app/usecase/canvas/useGetCanvasById';
 
 // import { TransformWrapper, TransformComponent } from 'react-zoom-pan-pinch';
 // import { useZoom, ZoomProvider } from '../contexts/ZoomContext';
@@ -71,6 +73,7 @@ export default function ViewCanvasPage() {
    */
 
   const [exportPDF] = useExportPDF();
+  const [canvas, getByIdError] = useGetCanvasById(canvasId);
 
   useEffect(() => {
     async function fetchData() {
@@ -130,7 +133,7 @@ export default function ViewCanvasPage() {
   };
 
   const onClickExportPDF = async () => {
-    await exportPDF(cards);
+    await exportPDF(canvas, cards);
   };
 
   const getRowSpanRules = (area: AreaModel) => {
@@ -152,6 +155,7 @@ export default function ViewCanvasPage() {
   return (
     <>
       {/* {currentCanvasId} */}
+      {JSON.stringify(canvas)}
       <PageTemplate>
         <EditCardModal
           key={currentCard?.id + new Date().toISOString()}
@@ -177,6 +181,14 @@ export default function ViewCanvasPage() {
             Exportar PDF
           </Button>
         </Flex>
+
+        <>
+          <CardPdfDocument
+            key={new Date().toISOString()}
+            canvas={canvas}
+            cards={cards}
+          />
+        </>
 
         <Grid templateColumns="repeat(3, 1fr)" shadow={'xl'}>
           {areas.map((area: AreaModel, index: number) => (

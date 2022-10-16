@@ -18,10 +18,10 @@ import {
 import EditableText from '../../../components/EditableText';
 import { SunIcon } from '@chakra-ui/icons';
 import { CardCategory } from '../../../../domain/card';
-import CardRequirementContent from './CardRequirementContent';
-import DataContent from './DataContent';
-import RiskContent from './RiskContent';
-import CardAcceptanceContent from './CardAcceptanceContent';
+// import CardRequirementContent from './CardRequirementContent';
+// import DataContent from './DataContent';
+// import RiskContent from './RiskContent';
+// import CardAcceptanceContent from './CardAcceptanceContent';
 import AbstractCardContent from './AbstractCardContent';
 
 function Actions({ children, cancel, ok }: any) {

@@ -1,26 +1,27 @@
 import React, { useEffect, useState } from 'react';
-import ContentBlock from '../../../components/ContentBlock';
-import ContentHeading from '../../../components/ContentHeading';
+import ContentBlock from '../../../../components/ContentBlock';
+import ContentHeading from '../../../../components/ContentHeading';
 
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
-import { CardRequirementContentModel } from '../../../../domain/card';
+import { CardDataContentModel } from '../../../../../domain/card';
 import {
   FaChartPie,
-  FaCheckCircle,
+  FaDatabase,
   FaExclamationTriangle,
   FaLightbulb,
-  FaServer,
-  FaUser,
+  FaLock,
+  FaNewspaper,
 } from 'react-icons/fa';
 
-export default function CardRequirementContent({
+type DataContentType = {
+  content: CardDataContentModel;
+  onContentChange?: (payload: CardDataContentModel) => void;
+};
+export default function DataContent({
   content,
   onContentChange,
-}: {
-  content: CardRequirementContentModel;
-  onContentChange?: (payload: CardRequirementContentModel) => void;
-}) {
+}: DataContentType) {
   const [state, setState] = useState(content);
 
   const onChange = (property: string, value: string) => {
@@ -37,15 +38,19 @@ export default function CardRequirementContent({
   return (
     <div>
       <ContentBlock>
-        <ContentHeading icon={FaUser}>Visão de Persona</ContentHeading>
+        <ContentHeading icon={FaDatabase}>
+          Visão das Partes Interessadas dos Dados
+        </ContentHeading>
         <ReactQuill
           theme="snow"
-          value={state.persona}
-          onChange={(value) => onChange('persona', value)}
+          value={state.stakeholders}
+          onChange={(value) => onChange('stakeholders', value)}
         />
       </ContentBlock>
       <ContentBlock>
-        <ContentHeading icon={FaLightbulb}>Visão de Negócio</ContentHeading>
+        <ContentHeading icon={FaLightbulb}>
+          Visão de Negócio dos Dados
+        </ContentHeading>
         <ReactQuill
           theme="snow"
           value={state.business}
@@ -53,34 +58,38 @@ export default function CardRequirementContent({
         />
       </ContentBlock>
       <ContentBlock>
-        <ContentHeading icon={FaCheckCircle}>
-          Visão de Critério de Aceitação
+        <ContentHeading icon={FaLock}>
+          Visão de Segurança dos Dados
         </ContentHeading>
         <ReactQuill
           theme="snow"
-          value={state.acceptance}
-          onChange={(value) => onChange('acceptance', value)}
+          value={state.security}
+          onChange={(value) => onChange('security', value)}
         />
       </ContentBlock>
       <ContentBlock>
-        <ContentHeading icon={FaChartPie}>Visão de Dados</ContentHeading>
+        <ContentHeading icon={FaNewspaper}>
+          Visão de Manutenção dos Dados
+        </ContentHeading>
         <ReactQuill
           theme="snow"
-          value={state.data}
-          onChange={(value) => onChange('data', value)}
+          value={state.maintenance}
+          onChange={(value) => onChange('maintenance', value)}
         />
       </ContentBlock>
       <ContentBlock>
-        <ContentHeading icon={FaServer}>Visão de Infraestrutura</ContentHeading>
+        <ContentHeading icon={FaChartPie}>
+          Visão de Treinamento dos Dados
+        </ContentHeading>
         <ReactQuill
           theme="snow"
-          value={state.infra}
-          onChange={(value) => onChange('infra', value)}
+          value={state.training}
+          onChange={(value) => onChange('training', value)}
         />
       </ContentBlock>
       <ContentBlock>
         <ContentHeading icon={FaExclamationTriangle}>
-          Visão de Risco de Produto
+          Visão de Risco dos Dados
         </ContentHeading>
         <ReactQuill
           theme="snow"

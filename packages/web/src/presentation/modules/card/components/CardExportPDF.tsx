@@ -2,7 +2,7 @@ import { Button, Flex } from '@chakra-ui/react';
 import React from 'react';
 import { CardCategory, CardContentModel } from '../../../../domain/card';
 import DataContent from './DataContent';
-import RequirementContent from './RequirementContent';
+import RequirementContent from './CardRequirementContent';
 import RiskContent from './RiskContent';
 
 import {

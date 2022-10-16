@@ -7,6 +7,7 @@ export enum CardCategory {
 }
 
 export interface CardRequirementContent {
+  interdependency: string;
   persona: string;
   business: string;
   acceptance: string;

@@ -14,7 +14,7 @@ import {
   FaUser,
 } from 'react-icons/fa';
 
-export default function RequirementContent({
+export default function CardRequirementContent({
   content,
   onContentChange,
 }: {

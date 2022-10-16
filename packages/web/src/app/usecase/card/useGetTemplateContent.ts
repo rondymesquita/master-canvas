@@ -12,6 +12,7 @@ import { CardService } from '../../../infra/rest/card.service';
 import { waitPromise } from '../../../util/waitpromise';
 
 const requirementContent: CardRequirementContentModel = {
+  interdependency: '<p>Dependencia</p>',
   persona: `<p><strong>Exemplo:</strong> Esta funcionalidade é destinada para &lt;Corredor&gt; que possui a seguinte necessidade humana &lt; ter mais variedade em suas corridas para não ficar entediado e parar de correr, deseja acompanhar suas corridas diárias para que possa se preparar para 10k em seis meses ou conhecer outros corredores em seu nível de habilidade para que eles possam se manter motivados para continuar correndo&gt; .</p>`,
   business: `<p><strong>Exemplo Requisito Funcional: </strong>Como &lt;GERENTE DE LOJA&gt;, preciso saber &lt;QUAL O NÚMERO TOTAL DE CLIENTES NA LOJA?&gt;, para que eu possa tomar a &lt;DECISÃO SOBRE No DE CAIXAS&gt;, a fim de alcançar &lt;REDUZIR A ESPERA NO CHECK- LINHAS DE FORA&gt;</p>`,
   acceptance: `<p><strong>Exemplo: </strong>Manter 100% desta funcionalidade livre de caráter discriminatório, seja por, idade, incapacidade, mudança de sexo, casamento e parceria civil, gravidez e maternidade, religião ou crença, sexo ou orientação sexual. <strong>Link para consultar as características protegidas que podem gerar descriminação: </strong><a href="https://www.equalityhumanrights.com/en/equality-act/protected-characteristics" target="_blank">https://www.equalityhumanrights.com/en/equality-act/protected-characteristics</a>.</p>`,

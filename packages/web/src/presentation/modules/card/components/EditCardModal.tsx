@@ -18,10 +18,11 @@ import {
 import EditableText from '../../../components/EditableText';
 import { SunIcon } from '@chakra-ui/icons';
 import { CardCategory } from '../../../../domain/card';
-import RequirementContent from './RequirementContent';
+import CardRequirementContent from './CardRequirementContent';
 import DataContent from './DataContent';
 import RiskContent from './RiskContent';
 import CardAcceptanceContent from './CardAcceptanceContent';
+import AbstractCardContent from './AbstractCardContent';
 
 function Actions({ children, cancel, ok }: any) {
   return (
@@ -107,11 +108,18 @@ export default function EditCardModal({
                 />
               </Center> */}
           </ModalHeader>
-          <ModalBody bg={'white'}>
-            <Flex mb={4} justifyContent={'flex-end'}></Flex>
-            {(category === CardCategory.FUNCTIONAL ||
+          <ModalBody pt={4} bg={'white'}>
+            <Flex justifyContent={'flex-end'}></Flex>
+
+            <AbstractCardContent
+              category={category}
+              content={content}
+              onContentChange={setContent}
+            />
+
+            {/* {(category === CardCategory.FUNCTIONAL ||
               category === CardCategory.NON_FUNCTIONAL) && (
-              <RequirementContent
+              <CardRequirementContent
                 content={content}
                 onContentChange={setContent}
               />
@@ -130,7 +138,7 @@ export default function EditCardModal({
                 content={content}
                 onContentChange={setContent}
               />
-            )}
+            )} */}
             <Actions cancel={destroyAndClose} ok={onSaveButtonClick}></Actions>
           </ModalBody>
 

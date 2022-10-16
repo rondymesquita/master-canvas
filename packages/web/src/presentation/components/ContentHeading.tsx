@@ -3,7 +3,7 @@ import { Center, Flex, Heading, Icon } from '@chakra-ui/react';
 import React from 'react';
 
 export default function ContentHeading({ children, icon }: any) {
-  const iconFontSize = '2xl';
+  const iconFontSize = '3xl';
   return (
     <Flex>
       <Center p="2">

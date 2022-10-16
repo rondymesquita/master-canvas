@@ -70,22 +70,19 @@ export default function Card({
           <InfoIcon />
         </Center> */}
         <Flex overflow={'hidden'} width={'full'}>
-          <Heading
+          <Text
             width={'full'}
-            as="h4"
-            size="xs"
-            noOfLines={1}
-            textAlign={'center'}
+            noOfLines={5}
           >
             {title}
-          </Heading>
+          </Text>
         </Flex>
       </Flex>
-      <Text
+      {/* <Text
         noOfLines={5}
         my="4"
         dangerouslySetInnerHTML={createHTMLfromContent()}
-      ></Text>
+      ></Text> */}
       <Flex mt="4">
         <Spacer />
         <IconButton

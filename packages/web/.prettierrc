@@ -2,7 +2,5 @@
   "semi": true,
   "useTabs": false,
   "singleQuote": true,
-  "tabWidth": 2,
-  "pluginSearchDirs": ["./node_modules"],
-  "plugins": ["prettier-plugin-organize-imports"]
+  "tabWidth": 2
 }

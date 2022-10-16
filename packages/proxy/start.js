@@ -36,13 +36,17 @@ const server = protocolModuleInstance.createServer(options, function (
   req,
   res,
 ) {
-  if (req.url.startsWith(apiPath)) {
-    req.url = req.url.replace(apiPath, '')
-    proxy.web(req, res, {
-      target: `http://${host}:${apiPort}`,
-    })
-  } else {
-    proxy.web(req, res, { target: `http://${host}:${webPort}`, ws: true })
+  try {
+    if (req.url.startsWith(apiPath)) {
+      req.url = req.url.replace(apiPath, '')
+      proxy.web(req, res, {
+        target: `http://${host}:${apiPort}`,
+      })
+    } else {
+      proxy.web(req, res, { target: `http://${host}:${webPort}`, ws: true })
+    }
+  } catch (err) {
+    console.log('error on proxy', err)
   }
 })
 
@@ -50,8 +54,12 @@ server.on('error', function (e) {
   console.log('error')
 })
 
+server.on('upgrade', function (req, socket, head) {
+  proxy.ws(req, socket, head)
+})
+
 process.on('uncaughtException', function (err) {
-  console.log(err)
+  console.log('uncaughtException', err)
 })
 
 server.listen(port, () => console.log(`Proxy started on ${port}`))

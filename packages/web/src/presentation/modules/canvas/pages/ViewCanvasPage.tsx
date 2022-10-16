@@ -155,7 +155,7 @@ export default function ViewCanvasPage() {
   return (
     <>
       {/* {currentCanvasId} */}
-      {JSON.stringify(canvas)}
+      {/* {JSON.stringify(canvas)} */}
       <PageTemplate>
         <EditCardModal
           key={currentCard?.id + new Date().toISOString()}
@@ -183,11 +183,11 @@ export default function ViewCanvasPage() {
         </Flex>
 
         <>
-          <CardPdfDocument
+          {/* <CardPdfDocument
             key={new Date().toISOString()}
             canvas={canvas}
             cards={cards}
-          />
+          /> */}
         </>
 
         <Grid templateColumns="repeat(3, 1fr)" shadow={'xl'}>

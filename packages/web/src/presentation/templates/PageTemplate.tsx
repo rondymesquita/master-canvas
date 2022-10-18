@@ -11,12 +11,12 @@ export default function PageTemplate({ children }: any) {
       <HeaderContainer />
       <Flex
         px={4}
-        borderRadius={'2xl'}
+        borderRadius={'xl'}
         bg={'background.100'}
         zIndex={999}
         top={'-4'}
         position={'relative'}
-        boxShadow={'inner'}
+        // boxShadow={'inner'}
       >
         <Container
           maxWidth={'container.lg'}

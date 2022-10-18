@@ -1,4 +1,5 @@
 import {
+  Box,
   Button,
   Container,
   Flex,
@@ -168,18 +169,20 @@ export default function ViewCanvasPage() {
           category={currentCard?.category}
         ></EditCardModal>
 
-        <Flex py={4}>
-          {/* <DownloadLinkComponent
-            ref={downloadLinkComponentRef}
-            cards={cardsToExportPDF}
-          /> */}
-          <Button
-            leftIcon={<Icon as={FaDownload} />}
-            colorScheme={'primary'}
-            onClick={onClickExportPDF}
-          >
-            Exportar PDF
-          </Button>
+        <Flex flexDirection={'column'} py={4}>
+          {/* {JSON.stringify(canvas)} */}
+          <Heading size={'lg'} mb={4}>
+            {canvas?.title}
+          </Heading>
+          <Flex>
+            <Button
+              leftIcon={<Icon as={FaDownload} />}
+              colorScheme={'primary'}
+              onClick={onClickExportPDF}
+            >
+              Exportar PDF
+            </Button>
+          </Flex>
         </Flex>
 
         <>

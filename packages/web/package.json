@@ -22,6 +22,7 @@
     "framer-motion": "^7.2.1",
     "js-event-bus": "^1.1.1",
     "pm2": "^5.2.0",
+    "polished": "^4.2.2",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-icons": "^4.4.0",

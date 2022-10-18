@@ -1,4 +1,4 @@
-import { Button, Center, Flex, Icon } from '@chakra-ui/react';
+import { Button, Center, Flex, Icon, Text } from '@chakra-ui/react';
 
 import { FaGoogle } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
@@ -19,58 +19,63 @@ export default function LoginPage() {
     <Flex
       justifyContent={'center'}
       alignItems={'center'}
-      bg={'gray.700'}
+      // bg={'gray.700'}
+      bg={'primary.50'}
       width={'full'}
       height={'100vh'}
     >
       <Center
-        borderRadius={'md'}
-        px={'36'}
+        borderRadius={'xl'}
+        width={'clamp(fit-content, 50%, 400px)'}
+        px={{
+          base: 4,
+          sm: 16,
+          md: 24,
+        }}
         height={400}
-        bg={'primary.500'}
+        bg={'white'}
         shadow="2xl"
       >
         <Flex flexDirection={'column'} gap={8}>
           <Center>
-            <Logo />
+            <Logo color={'primary.600'} />
           </Center>
-          {/* <Button
-            colorScheme="primary"
-            leftIcon={<Icon as={FaGoogle} />}
-          >
-            Login com Google
-          </Button> */}
           <Button
-            // variant={}
-            // as={Link}
+            colorScheme={'primary'}
             onClick={() => {
-              // @ts-ignore
-              window.location = `${Env.getEnv().API_HOST}/auth/google`;
+              window.location.href = `${Env.getEnv().API_HOST}/auth/google`;
             }}
-            // to={{ pathname: `${Env.getEnv().API_HOST}/auth/google` }}
-            colorScheme={'white'}
-            bg={'white'}
-            color="black"
             leftIcon={<Icon as={FaGoogle} />}
           >
-            Login com Google
+            Entrar com Google
           </Button>
-          {
-            health && (
-              <Flex direction={'column'} color="primary.900">
-                <Center>
-                  {name} - {version}
-                </Center>
-                <Center>
-                  {health.name} - {health.version}
-                </Center>
-                <Center>
-                  {health.services[0].name} - {health.services[0].status}
-                </Center>
-              </Flex>
-            )
-            /* {JSON.stringify(health)} */
-          }
+          <Center>
+            <Text maxW={'fit-content'} textAlign={'center'}>
+              Se você não possuir uma conta no Canvas, uma nova será criada.
+            </Text>
+          </Center>
+          <Center>
+            {
+              health && (
+                <Flex
+                  fontSize={'xs'}
+                  direction={'column'}
+                  color="foreground.400"
+                >
+                  <Center>
+                    {name} - {version}
+                  </Center>
+                  <Center>
+                    {health.name} - {health.version}
+                  </Center>
+                  <Center>
+                    {health.services[0].name} - {health.services[0].status}
+                  </Center>
+                </Flex>
+              )
+              /* {JSON.stringify(health)} */
+            }
+          </Center>
         </Flex>
       </Center>
     </Flex>

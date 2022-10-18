@@ -55,7 +55,7 @@ export default function AbstractCardContent({
       risk: 'Visão de Risco de Produto',
     },
     NON_FUNCTIONAL: {
-      interdependency: 'Visão de Pré-Requisito e Interdependencia',
+      interdependency: 'Visão de Pré-Requisito e Interdependência',
       persona: 'Visão de Persona',
       business: 'Visão de Negócio',
       acceptance: 'Visão de Critério de Aceitação',

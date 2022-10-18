@@ -117,21 +117,23 @@ export default function AbstractCardContent({
   return (
     <div>
       {/* {category} */}
-      {Object.entries(state).map(([propertyName, propertyValue]) => {
-        return (
-          <ContentBlock>
-            <ContentHeading icon={icons[category][propertyName]}>
-              {labels[category][propertyName]}
-            </ContentHeading>
-            <ReactQuill
-              theme="snow"
-              // @ts-ignore
-              value={state[propertyName]}
-              onChange={(value) => onChange(propertyName, value)}
-            />
-          </ContentBlock>
-        );
-      })}
+      {Object.entries(state).map(
+        ([propertyName, propertyValue], index: number) => {
+          return (
+            <ContentBlock key={index}>
+              <ContentHeading icon={icons[category][propertyName]}>
+                {labels[category][propertyName]}
+              </ContentHeading>
+              <ReactQuill
+                theme="snow"
+                // @ts-ignore
+                value={state[propertyName]}
+                onChange={(value) => onChange(propertyName, value)}
+              />
+            </ContentBlock>
+          );
+        }
+      )}
     </div>
   );
 }

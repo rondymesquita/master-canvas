@@ -52,7 +52,7 @@ export default function Project({
           Editar
         </Button>
         <Button
-          colorScheme={'accent'}
+          colorScheme={'secondary'}
           size={'sm'}
           leftIcon={<Icon as={FaTrash} />}
           onClick={(e) => {

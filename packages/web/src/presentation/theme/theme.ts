@@ -48,7 +48,7 @@ export const theme = extendTheme({
         },
       },
       baseStyle: {
-        borderRadius: 'full',
+        borderRadius: 'lg',
         // boxShadow:
         //   '0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05)',
         // '&:hover': {
@@ -62,7 +62,7 @@ export const theme = extendTheme({
   colors: {
     primary: defaultTheme.colors.purple,
     // primary: colors.plum,
-    accent: colors.plum,
+    secondary: colors.slate,
     destructive: colors.plum,
     background: colors.slate,
     foreground: colors.slate,

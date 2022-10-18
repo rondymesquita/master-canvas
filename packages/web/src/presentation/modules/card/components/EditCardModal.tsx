@@ -13,6 +13,7 @@ import {
   Heading,
   Center,
   Spacer,
+  IconButton,
 } from '@chakra-ui/react';
 
 import EditableText from '../../../components/EditableText';
@@ -23,22 +24,27 @@ import { CardCategory } from '../../../../domain/card';
 // import RiskContent from './RiskContent';
 // import CardAcceptanceContent from './CardAcceptanceContent';
 import AbstractCardContent from './AbstractCardContent';
+import { FaBars, FaSave } from 'react-icons/fa';
 
 function Actions({ children, cancel, ok }: any) {
   return (
     <Flex gap={2}>
-      <Box>
-        <Button colorScheme="secondary" variant="outline" onClick={cancel}>
-          Cancelar
-        </Button>
-      </Box>
-      {/* <Spacer /> */}
+      <Button colorScheme="secondary" variant="outline" onClick={cancel}>
+        Cancelar
+      </Button>
       <Box flexGrow={1}>{children}</Box>
-      <Box>
-        <Button colorScheme="primary" onClick={ok}>
-          Salvar
-        </Button>
-      </Box>
+      <Button
+        aria-label=""
+        leftIcon={<FaBars />}
+        colorScheme="secondary"
+        variant={'outline'}
+        onClick={ok}
+      >
+        Ajuda
+      </Button>
+      <Button leftIcon={<FaSave />} colorScheme="primary" onClick={ok}>
+        Salvar
+      </Button>
     </Flex>
   );
 }
@@ -98,15 +104,6 @@ export default function EditCardModal({
                 onChange={(newTitle: string) => setTitle(newTitle)}
               />
             </Actions>
-
-            {/* <Center pl="4">
-                <ModalCloseButton
-                  ref={focusRef}
-                  position={'relative'}
-                  top={0}
-                  right={0}
-                />
-              </Center> */}
           </ModalHeader>
           <ModalBody pt={4} bg={'white'}>
             <Flex justifyContent={'flex-end'}></Flex>
@@ -116,29 +113,6 @@ export default function EditCardModal({
               content={content}
               onContentChange={setContent}
             />
-
-            {/* {(category === CardCategory.FUNCTIONAL ||
-              category === CardCategory.NON_FUNCTIONAL) && (
-              <CardRequirementContent
-                content={content}
-                onContentChange={setContent}
-              />
-            )}
-
-            {category === CardCategory.DATA && (
-              <DataContent content={content} onContentChange={setContent} />
-            )}
-
-            {category === CardCategory.RISK && (
-              <RiskContent content={content} onContentChange={setContent} />
-            )}
-
-            {category === CardCategory.ACCEPTANCE && (
-              <CardAcceptanceContent
-                content={content}
-                onContentChange={setContent}
-              />
-            )} */}
             <Actions cancel={destroyAndClose} ok={onSaveButtonClick}></Actions>
           </ModalBody>
 

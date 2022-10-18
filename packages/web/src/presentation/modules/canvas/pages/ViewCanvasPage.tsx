@@ -36,9 +36,16 @@ import {
   PDFDownloadLink,
 } from '@react-pdf/renderer';
 import CardExportPDF from '../../card/components/CardExportPDF';
-import { FaDownload, FaFileExport } from 'react-icons/fa';
+import {
+  FaBars,
+  FaDownload,
+  FaEye,
+  FaFileExport,
+  FaHamburger,
+} from 'react-icons/fa';
 import CardPdfDocument from '../../card/components/CardPdfDocument';
 import useGetCanvasById from '../../../../app/usecase/canvas/useGetCanvasById';
+import DrawerHelpCardsContainer from '../../../containers/DrawerHelpCardsContainer';
 
 // import { TransformWrapper, TransformComponent } from 'react-zoom-pan-pinch';
 // import { useZoom, ZoomProvider } from '../contexts/ZoomContext';
@@ -51,6 +58,7 @@ export default function ViewCanvasPage() {
 
   const [isOpen, onOpen, onClose] = useDisclosure();
   const [isModalOpen, onModalOpen, onModalClose] = useDisclosure();
+  const [isDrawerOpen, onDrawerOpen, onDrawerClose] = useDisclosure();
 
   const zoomRef = useRef();
 
@@ -133,8 +141,12 @@ export default function ViewCanvasPage() {
     onModalClose();
   };
 
-  const onClickExportPDF = async () => {
+  const exportCanvasAsPDF = async () => {
     await exportPDF(canvas, cards);
+  };
+
+  const showHelpCards = async () => {
+    onDrawerOpen();
   };
 
   const getRowSpanRules = (area: AreaModel) => {
@@ -157,34 +169,33 @@ export default function ViewCanvasPage() {
     <>
       {/* {currentCanvasId} */}
       {/* {JSON.stringify(canvas)} */}
-      <PageTemplate>
-        <EditCardModal
-          key={currentCard?.id + new Date().toISOString()}
-          isOpen={isModalOpen}
-          onOpen={onModalOpen}
-          onClose={onModalClose}
-          onSave={onCardSave}
-          title={currentCard?.title}
-          content={currentCard?.content}
-          category={currentCard?.category}
-        ></EditCardModal>
-
-        <Flex flexDirection={'column'} py={4}>
-          {/* {JSON.stringify(canvas)} */}
-          <Heading size={'lg'} mb={4}>
-            {canvas?.title}
-          </Heading>
-          <Flex>
-            <Button
-              leftIcon={<Icon as={FaDownload} />}
-              colorScheme={'primary'}
-              onClick={onClickExportPDF}
-            >
-              Exportar PDF
-            </Button>
-          </Flex>
-        </Flex>
-
+      <PageTemplate
+        titleBar={
+          <>
+            <Heading size={'lg'} mb={2}>
+              {canvas?.title}
+            </Heading>
+            <Flex>
+              <Button
+                leftIcon={<Icon as={FaDownload} />}
+                colorScheme={'primary'}
+                onClick={exportCanvasAsPDF}
+              >
+                Exportar PDF
+              </Button>
+              <Spacer></Spacer>
+              <Button
+                variant={'outline'}
+                leftIcon={<Icon as={FaBars} />}
+                colorScheme={'secondary'}
+                onClick={showHelpCards}
+              >
+                Ver Ajuda
+              </Button>
+            </Flex>
+          </>
+        }
+      >
         <>
           {/* <CardPdfDocument
             key={new Date().toISOString()}
@@ -224,6 +235,23 @@ export default function ViewCanvasPage() {
             </GridItem>
           ))}
         </Grid>
+
+        <DrawerHelpCardsContainer
+          category={'TEST'}
+          isOpen={isDrawerOpen}
+          onClose={onDrawerClose}
+        />
+
+        <EditCardModal
+          key={currentCard?.id + new Date().toISOString()}
+          isOpen={isModalOpen}
+          onOpen={onModalOpen}
+          onClose={onModalClose}
+          onSave={onCardSave}
+          title={currentCard?.title}
+          content={currentCard?.content}
+          category={currentCard?.category}
+        ></EditCardModal>
       </PageTemplate>
     </>
   );

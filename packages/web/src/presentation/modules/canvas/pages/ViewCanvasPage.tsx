@@ -193,6 +193,8 @@ export default function ViewCanvasPage() {
         <Grid templateColumns="repeat(3, 1fr)" shadow={'xl'}>
           {areas.map((area: AreaModel, index: number) => (
             <GridItem
+              // border
+              // borderColor={'background.500'}
               key={index}
               rowSpan={getRowSpanRules(area)}
               colSpan={getColSpanRules(area)}

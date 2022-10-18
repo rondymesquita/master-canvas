@@ -28,12 +28,14 @@ export default function LoginPage() {
         borderRadius={'xl'}
         width={'clamp(fit-content, 50%, 400px)'}
         px={{
-          base: 4,
+          base: 8,
           sm: 16,
           md: 24,
+          lg: 36,
         }}
         height={400}
         bg={'white'}
+        // bgGradient="linear(to-r, primary.200, destructive.500)"
         shadow="2xl"
       >
         <Flex flexDirection={'column'} gap={8}>
@@ -42,6 +44,7 @@ export default function LoginPage() {
           </Center>
           <Button
             colorScheme={'primary'}
+            // bgGradient="linear(to-r, primary.500, destructive.200)"
             onClick={() => {
               window.location.href = `${Env.getEnv().API_HOST}/auth/google`;
             }}

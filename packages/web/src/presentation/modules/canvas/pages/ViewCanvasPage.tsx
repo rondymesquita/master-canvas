@@ -46,6 +46,7 @@ import {
 import CardPdfDocument from '../../card/components/CardPdfDocument';
 import useGetCanvasById from '../../../../app/usecase/canvas/useGetCanvasById';
 import DrawerHelpCardsContainer from '../../../containers/DrawerHelpCardsContainer';
+import { usePortal } from '../../../contexts/PortalContext';
 
 // import { TransformWrapper, TransformComponent } from 'react-zoom-pan-pinch';
 // import { useZoom, ZoomProvider } from '../contexts/ZoomContext';
@@ -55,6 +56,7 @@ const getAreasUseCase = new GetAreasUseCase();
 
 export default function ViewCanvasPage() {
   let { canvasId } = useParams();
+  const { portalRef } = usePortal();
 
   const [isOpen, onOpen, onClose] = useDisclosure();
   const [isModalOpen, onModalOpen, onModalClose] = useDisclosure();
@@ -248,6 +250,7 @@ export default function ViewCanvasPage() {
           onOpen={onModalOpen}
           onClose={onModalClose}
           onSave={onCardSave}
+          onHelp={showHelpCards}
           title={currentCard?.title}
           content={currentCard?.content}
           category={currentCard?.category}

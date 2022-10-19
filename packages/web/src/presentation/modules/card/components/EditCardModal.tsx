@@ -25,8 +25,9 @@ import { CardCategory } from '../../../../domain/card';
 // import CardAcceptanceContent from './CardAcceptanceContent';
 import AbstractCardContent from './AbstractCardContent';
 import { FaBars, FaSave } from 'react-icons/fa';
+import { usePortal } from '../../../contexts/PortalContext';
 
-function Actions({ children, cancel, ok }: any) {
+function Actions({ children, cancel, ok, help }: any) {
   return (
     <Flex gap={2}>
       <Button colorScheme="secondary" variant="outline" onClick={cancel}>
@@ -38,7 +39,7 @@ function Actions({ children, cancel, ok }: any) {
         leftIcon={<FaBars />}
         colorScheme="secondary"
         variant={'outline'}
-        onClick={ok}
+        onClick={help}
       >
         Ajuda
       </Button>
@@ -54,6 +55,7 @@ export default function EditCardModal({
   onOpen,
   onClose,
   onSave,
+  onHelp,
   category,
   title: inputTitle,
   content: inputContent,
@@ -62,6 +64,7 @@ export default function EditCardModal({
   const [content, setContent] = useState(inputContent);
 
   const focusRef = useRef(null);
+  const { portalRef } = usePortal();
 
   const onSaveButtonClick = () => {
     onSave({
@@ -82,6 +85,9 @@ export default function EditCardModal({
   return (
     <>
       <Modal
+        data-testid={'editcardmodal'}
+        motionPreset={'none'}
+        portalProps={{ containerRef: portalRef }}
         closeOnOverlayClick={false}
         closeOnEsc={false}
         isOpen={isOpen}
@@ -95,7 +101,11 @@ export default function EditCardModal({
             borderBottomWidth={1}
             borderBottomColor={'background.300'}
           >
-            <Actions cancel={destroyAndClose} ok={onSaveButtonClick}>
+            <Actions
+              cancel={destroyAndClose}
+              ok={onSaveButtonClick}
+              help={onHelp}
+            >
               <EditableText
                 placeholder={'Título do cartão'}
                 as={'textarea'}

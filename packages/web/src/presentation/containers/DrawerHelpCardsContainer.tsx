@@ -1,10 +1,11 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import {
   Alert,
   AlertIcon,
+  Box,
   Button,
   Center,
-  Drawer as CDrawer,
+  Drawer,
   DrawerBody,
   DrawerCloseButton,
   DrawerContent,
@@ -12,8 +13,11 @@ import {
   DrawerHeader,
   DrawerOverlay,
   Heading,
+  Portal,
   Stack,
 } from '@chakra-ui/react';
+
+import { usePortal } from '../contexts/PortalContext';
 
 export type DrawerHelpCardsContainerProps = {
   category: string;
@@ -25,11 +29,29 @@ export default function DrawerHelpCardsContainer({
   isOpen,
   onClose,
 }: DrawerHelpCardsContainerProps) {
+  const { portalRef } = usePortal();
+
   return (
     <>
-      <CDrawer isOpen={isOpen} placement="right" onClose={onClose} size={'md'}>
+      {/* <Portal containerRef={portalRef}> */}
+      <Drawer
+        portalProps={
+          {
+            // containerRef: portalRef,
+          }
+        }
+        preserveScrollBarGap={true}
+        blockScrollOnMount={false}
+        isOpen={isOpen}
+        placement="right"
+        onClose={onClose}
+        size={'sm'}
+        closeOnOverlayClick={false}
+        // isFullHeight={false}
+        // key={new Date().toISOString()}
+      >
         {/* <DrawerOverlay /> */}
-        <DrawerContent bg={'background.100'}>
+        <DrawerContent bg={'background.500'}>
           <DrawerCloseButton />
           <DrawerHeader>
             <Center>
@@ -38,7 +60,13 @@ export default function DrawerHelpCardsContainer({
             </Center>
           </DrawerHeader>
 
-          <DrawerBody>
+          <DrawerBody id={'drawer'}>
+            {/* <Portal containerRef={ref}>
+              Portal: This text is portaled to the yellow box!
+            </Portal> */}
+            {/* <Box ref={ref} bg="yellow.500">
+                <div>Container: Hey,</div>
+              </Box> */}
             {/* <Stack gap={2}>
               {templates.length > 0 ? (
                 templates.map((template: CardModel) => {
@@ -64,7 +92,8 @@ export default function DrawerHelpCardsContainer({
 
           <DrawerFooter hidden></DrawerFooter>
         </DrawerContent>
-      </CDrawer>
+      </Drawer>
+      {/* </Portal> */}
     </>
   );
 }

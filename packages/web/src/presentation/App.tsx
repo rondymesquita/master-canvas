@@ -25,6 +25,7 @@ import useAuthCookie from './hooks/useAuthCookie';
 import { useEffect } from 'react';
 import RedirectWhenLoggedRoute from './route/components/redirect.when.logged.route';
 import { Env } from '../config/env';
+import { PortalProvider } from './contexts/PortalContext';
 
 function App() {
   Env.init(import.meta.env.DEV ? 'dev' : 'prod');
@@ -42,43 +43,45 @@ function App() {
   return (
     <ChakraProvider theme={theme} resetCSS={true}>
       <CommanderProvider>
-        <ModalProvider>
-          {/* <>{JSON.stringify(user?.firstName)}</> */}
-          <HashRouter basename={basename}>
-            <Container maxWidth={'full'} p={0}>
-              <Routes>
-                <Route
-                  path={HOME_PAGE}
-                  element={<Navigate to={CANVAS_PAGE} />}
-                ></Route>
-                <Route
-                  path={CANVAS_PAGE}
-                  element={
-                    <PrivateRoute>
-                      <ListCanvasPage />
-                    </PrivateRoute>
-                  }
-                ></Route>
-                <Route
-                  path={LOGIN_PAGE}
-                  element={
-                    <RedirectWhenLoggedRoute>
-                      <LoginPage />
-                    </RedirectWhenLoggedRoute>
-                  }
-                />
-                <Route
-                  path={CANVAS_VIEW_PAGE}
-                  element={
-                    <PrivateRoute>
-                      <ViewCanvasPage />
-                    </PrivateRoute>
-                  }
-                ></Route>
-              </Routes>
-            </Container>
-          </HashRouter>
-        </ModalProvider>
+        <PortalProvider>
+          <ModalProvider>
+            {/* <>{JSON.stringify(user?.firstName)}</> */}
+            <HashRouter basename={basename}>
+              <Container maxWidth={'full'} p={0}>
+                <Routes>
+                  <Route
+                    path={HOME_PAGE}
+                    element={<Navigate to={CANVAS_PAGE} />}
+                  ></Route>
+                  <Route
+                    path={CANVAS_PAGE}
+                    element={
+                      <PrivateRoute>
+                        <ListCanvasPage />
+                      </PrivateRoute>
+                    }
+                  ></Route>
+                  <Route
+                    path={LOGIN_PAGE}
+                    element={
+                      <RedirectWhenLoggedRoute>
+                        <LoginPage />
+                      </RedirectWhenLoggedRoute>
+                    }
+                  />
+                  <Route
+                    path={CANVAS_VIEW_PAGE}
+                    element={
+                      <PrivateRoute>
+                        <ViewCanvasPage />
+                      </PrivateRoute>
+                    }
+                  ></Route>
+                </Routes>
+              </Container>
+            </HashRouter>
+          </ModalProvider>
+        </PortalProvider>
       </CommanderProvider>
     </ChakraProvider>
   );

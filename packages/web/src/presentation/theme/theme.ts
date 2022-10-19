@@ -15,9 +15,12 @@ console.log(defaultTheme);
 export const theme = extendTheme({
   styles: {
     global: {
+      body: {
+        overflow: 'auto',
+      },
       'html,body': {
         fontFamily,
-        color: 'background.900',
+        color: 'background.800',
         background: 'background.100',
       },
       '.quill .ql-editor': {
@@ -67,5 +70,21 @@ export const theme = extendTheme({
     background: colors.slate,
     foreground: colors.slate,
     background2: colors.stone,
+  },
+  zIndices: {
+    hide: -1,
+    auto: 'auto',
+    base: 0,
+    docked: 10,
+    dropdown: 1000,
+    sticky: 1100,
+    banner: 1200,
+    overlay: 1300,
+    modal: 1400,
+    drawer: 1450,
+    popover: 1500,
+    skipLink: 1600,
+    toast: 1700,
+    tooltip: 1800,
   },
 });

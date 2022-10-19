@@ -21,6 +21,7 @@ import {
   FaUser,
 } from 'react-icons/fa';
 import { IconType } from 'react-icons/lib';
+// import { useThrottleFn, useThrottle } from 'react-use';
 
 export default function AbstractCardContent({
   category,
@@ -39,10 +40,6 @@ export default function AbstractCardContent({
       [property]: value,
     }));
   };
-
-  useEffect(() => {
-    onContentChange && onContentChange(state);
-  }, [state]);
 
   const labels: Record<string, Record<string, string>> = {
     FUNCTIONAL: {

@@ -14,6 +14,7 @@ import {
   Center,
   Spacer,
   IconButton,
+  Portal,
 } from '@chakra-ui/react';
 
 import EditableText from '../../../components/EditableText';
@@ -29,7 +30,7 @@ import { usePortal } from '../../../contexts/PortalContext';
 
 function Actions({ children, cancel, ok, help }: any) {
   return (
-    <Flex gap={2}>
+    <Flex gap={2} width="full">
       <Button colorScheme="secondary" variant="outline" onClick={cancel}>
         Cancelar
       </Button>
@@ -63,7 +64,6 @@ export default function EditCardModal({
   const [title, setTitle] = useState(inputTitle);
   const [content, setContent] = useState(inputContent);
 
-  const focusRef = useRef(null);
   const { portalRef } = usePortal();
 
   const onSaveButtonClick = () => {
@@ -71,6 +71,7 @@ export default function EditCardModal({
       title,
       content,
     });
+    onClose();
   };
 
   const destroyAndClose = () => {
@@ -78,57 +79,57 @@ export default function EditCardModal({
     onClose();
   };
 
-  useEffect(() => {
-    // console.log(content);
-  }, [content]);
+  if (!category) {
+    return <>error</>;
+  }
 
   return (
     <>
-      <Modal
-        data-testid={'editcardmodal'}
-        motionPreset={'none'}
-        portalProps={{ containerRef: portalRef }}
-        closeOnOverlayClick={false}
-        closeOnEsc={false}
-        isOpen={isOpen}
-        onClose={destroyAndClose}
-        size={'full'}
-        initialFocusRef={focusRef}
-      >
-        <ModalOverlay />
-        <ModalContent bg={'background.100'}>
-          <ModalHeader
-            borderBottomWidth={1}
-            borderBottomColor={'background.300'}
+      <Portal containerRef={portalRef} appendToParentPortal={false}>
+        {isOpen && (
+          <Flex
+            bg={'background.100'}
+            // borderWidth={5}
+            // borderColor={'red'}
+            display={'relative'}
+            flexDirection={'column'}
           >
-            <Actions
-              cancel={destroyAndClose}
-              ok={onSaveButtonClick}
-              help={onHelp}
+            <Flex
+              borderBottomWidth={1}
+              borderBottomColor={'background.300'}
+              width={'full'}
+              p={4}
             >
-              <EditableText
-                placeholder={'Título do cartão'}
-                as={'textarea'}
-                flexGrow={1}
-                value={title}
-                onChange={(newTitle: string) => setTitle(newTitle)}
+              <Actions
+                cancel={destroyAndClose}
+                ok={onSaveButtonClick}
+                help={onHelp}
+              >
+                <EditableText
+                  placeholder={'Título do cartão'}
+                  as={'textarea'}
+                  flexGrow={1}
+                  value={title}
+                  onChange={setTitle}
+                />
+              </Actions>
+            </Flex>
+            <Flex pt={4} bg={'white'} flexDirection={'column'}>
+              <Flex justifyContent={'flex-end'}></Flex>
+
+              <AbstractCardContent
+                category={category}
+                content={content}
+                onContentChange={setContent}
               />
-            </Actions>
-          </ModalHeader>
-          <ModalBody pt={4} bg={'white'}>
-            <Flex justifyContent={'flex-end'}></Flex>
-
-            <AbstractCardContent
-              category={category}
-              content={content}
-              onContentChange={setContent}
-            />
-            <Actions cancel={destroyAndClose} ok={onSaveButtonClick}></Actions>
-          </ModalBody>
-
-          {/* <ModalFooter justifyContent={'center'}></ModalFooter> */}
-        </ModalContent>
-      </Modal>
+              <Actions
+                cancel={destroyAndClose}
+                ok={onSaveButtonClick}
+              ></Actions>
+            </Flex>
+          </Flex>
+        )}
+      </Portal>
     </>
   );
 }

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import ContentBlock from '../../../components/ContentBlock';
 import ContentHeading from '../../../components/ContentHeading';
 
@@ -21,9 +21,11 @@ import {
   FaUser,
 } from 'react-icons/fa';
 import { IconType } from 'react-icons/lib';
+import { memo } from 'react';
 // import { useThrottleFn, useThrottle } from 'react-use';
 
-export default function AbstractCardContent({
+export default memo(AbstractCardContent);
+function AbstractCardContent({
   category,
   content,
   onContentChange,
@@ -40,6 +42,10 @@ export default function AbstractCardContent({
       [property]: value,
     }));
   };
+
+  useEffect(() => {
+    onContentChange(state);
+  }, [state]);
 
   const labels: Record<string, Record<string, string>> = {
     FUNCTIONAL: {
@@ -125,7 +131,9 @@ export default function AbstractCardContent({
                 theme="snow"
                 // @ts-ignore
                 value={state[propertyName]}
-                onChange={(value) => onChange(propertyName, value)}
+                onChange={(value) => {
+                  onChange(propertyName, value);
+                }}
               />
             </ContentBlock>
           );

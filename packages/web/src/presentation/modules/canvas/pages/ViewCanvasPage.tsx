@@ -58,7 +58,7 @@ export default function ViewCanvasPage() {
   let { canvasId } = useParams();
   const { portalRef } = usePortal();
 
-  const [isOpen, onOpen, onClose] = useDisclosure();
+  // const [isOpen, onOpen, onClose] = useDisclosure();
   const [isModalOpen, onModalOpen, onModalClose] = useDisclosure();
   const [isDrawerOpen, onDrawerOpen, onDrawerClose] = useDisclosure();
 
@@ -140,7 +140,6 @@ export default function ViewCanvasPage() {
 
     await update(newCard);
     setCards(await list(currentCanvasId));
-    onModalClose();
   };
 
   const exportCanvasAsPDF = async () => {
@@ -238,11 +237,11 @@ export default function ViewCanvasPage() {
           ))}
         </Grid>
 
-        <DrawerHelpCardsContainer
+        {/* <DrawerHelpCardsContainer
           category={'TEST'}
           isOpen={isDrawerOpen}
           onClose={onDrawerClose}
-        />
+        /> */}
 
         <EditCardModal
           key={currentCard?.id + new Date().toISOString()}

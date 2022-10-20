@@ -64,8 +64,7 @@ export default function EditableText({
   placeholder,
   minHeight = '2em',
 }: any) {
-  const [isEditing, setOnEdit] = useState(false);
-  // const minHeight = '4em';
+  // const [isEditing, setOnEdit] = useState(false);
 
   return (
     <Flex gap={2}>
@@ -74,9 +73,9 @@ export default function EditableText({
         flexDirection={'row'}
         gap={2}
         width={'full'}
-        onEdit={() => setOnEdit(true)}
-        onCancel={() => setOnEdit(false)}
-        onSubmit={() => setOnEdit(false)}
+        // onEdit={() => setOnEdit(true)}
+        // onCancel={() => setOnEdit(false)}
+        // onSubmit={() => setOnEdit(false)}
         defaultValue={value}
         onChange={onChange}
         boxShadow={'none'}
@@ -89,6 +88,7 @@ export default function EditableText({
           px={2}
           minHeight={minHeight}
           borderColor={'primary.500'}
+          bg={'primary.50'}
         />
 
         {as === 'input' ? (

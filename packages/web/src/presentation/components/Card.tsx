@@ -20,7 +20,7 @@ import {
   EditablePreview,
 } from '@chakra-ui/react';
 import React from 'react';
-import { FaPencilAlt, FaTrash, FaTrashAlt } from 'react-icons/fa';
+import { FaEdit, FaPencilAlt, FaTrash, FaTrashAlt } from 'react-icons/fa';
 import EditableQuestion from './EditableQuestion';
 import LoremIpsum from './LoremIpsum';
 
@@ -83,25 +83,25 @@ export default function Card({
       ></Text> */}
       <Flex mt="4">
         <IconButton
-          colorScheme={'yellow'}
-          onClick={(e) => {
-            e.stopPropagation();
-            onClick();
-          }}
-          size={'xs'}
-          aria-label=""
-          icon={<FaPencilAlt />}
-        />
-        <Spacer />
-        <IconButton
           colorScheme={'destructive'}
+          variant="ghost"
           onClick={(e) => {
             e.stopPropagation();
             onDelete();
           }}
-          size={'xs'}
           aria-label=""
           icon={<FaTrashAlt />}
+        />
+        <Spacer />
+        <IconButton
+          colorScheme={'primary'}
+          variant="ghost"
+          onClick={(e) => {
+            e.stopPropagation();
+            onClick();
+          }}
+          aria-label=""
+          icon={<FaEdit />}
         />
       </Flex>
     </Flex>

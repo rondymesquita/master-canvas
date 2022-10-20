@@ -16,7 +16,7 @@ export const theme = extendTheme({
   styles: {
     global: {
       body: {
-        overflow: 'auto',
+        // overflow: 'auto !important',
       },
       'html,body': {
         fontFamily,

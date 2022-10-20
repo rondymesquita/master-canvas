@@ -38,6 +38,7 @@ export default function DrawerHelpCardsContainer({
         portalProps={
           {
             // containerRef: portalRef,
+            // appendToParentPortal: false,
           }
         }
         preserveScrollBarGap={true}

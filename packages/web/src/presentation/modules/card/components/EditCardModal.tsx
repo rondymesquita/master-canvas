@@ -35,15 +35,6 @@ function Actions({ children, cancel, ok, help }: any) {
         Cancelar
       </Button>
       <Box flexGrow={1}>{children}</Box>
-      <Button
-        aria-label=""
-        leftIcon={<FaBars />}
-        colorScheme="secondary"
-        variant={'outline'}
-        onClick={help}
-      >
-        Ajuda
-      </Button>
       <Button leftIcon={<FaSave />} colorScheme="primary" onClick={ok}>
         Salvar
       </Button>
@@ -108,6 +99,17 @@ export default function EditCardModal({
                   onChange={setTitle}
                 />
               </Actions>
+            </Flex>
+            <Flex width={'full'} justifyContent={'end'} pb={2}>
+              <Button
+                aria-label=""
+                leftIcon={<FaBars />}
+                colorScheme="secondary"
+                variant={'outline'}
+                onClick={onHelp}
+              >
+                Ajuda
+              </Button>
             </Flex>
             <Flex flexDirection={'column'}>
               <Flex justifyContent={'flex-end'}></Flex>

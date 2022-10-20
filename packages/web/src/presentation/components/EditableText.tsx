@@ -67,7 +67,7 @@ export default function EditableText({
   // const [isEditing, setOnEdit] = useState(false);
 
   return (
-    <Flex gap={2}>
+    <Flex gap={2} height={'100%'}>
       <Editable
         display={'flex'}
         flexDirection={'row'}

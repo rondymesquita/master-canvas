@@ -13,12 +13,18 @@ export enum HelpCardVariant {
   DETAIL = 'DETAIL',
 }
 
+export interface HelpCardQuestion {
+  question: string;
+  response: string;
+}
+
 export interface HelpCard {
   icon: string;
   title: string;
-  key?: number;
+  helpCardNumber?: number;
   description?: string;
   content?: string;
+  questions?: HelpCardQuestion[];
   category: HelpCardCategory;
   variant: HelpCardVariant;
 }

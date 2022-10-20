@@ -15,7 +15,7 @@ import Logo from './Logo';
 export default function Header({ isLogged = true, user, onActionClick }: any) {
   return (
     <header>
-      <Flex px={4} pt={2} pb={4} bg={'background.0'}>
+      <Flex px={4} pt={2} pb={4} bg={'bg.0'}>
         {/* <Spacer /> */}
         <Center>
           <Box>

@@ -60,11 +60,7 @@ export default function LoginPage() {
           <Center>
             {
               health && (
-                <Flex
-                  fontSize={'xs'}
-                  direction={'column'}
-                  color="foreground.400"
-                >
+                <Flex fontSize={'xs'} direction={'column'} color="fg.400">
                   <Center>
                     {name} - {version}
                   </Center>

@@ -23,8 +23,8 @@ export const theme = extendTheme({
       },
       'html,body': {
         fontFamily,
-        color: 'background.800',
-        background: 'background.100',
+        color: 'bg.800',
+        background: 'bg.100',
       },
       '.quill .ql-editor': {
         fontSize: '1.1em',
@@ -70,9 +70,8 @@ export const theme = extendTheme({
     // primary: colors.plum,
     secondary: colors.slate,
     destructive: colors.plum,
-    background: colors.slate,
-    foreground: colors.slate,
-    background2: colors.stone,
+    bg: { 0: 'white', ...colors.slate },
+    fg: { 0: 'black', ...colors.slate },
   },
   zIndices: {
     hide: -1,

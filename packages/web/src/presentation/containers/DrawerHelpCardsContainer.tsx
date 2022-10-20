@@ -16,13 +16,18 @@ import {
   Heading,
   Icon,
   Portal,
+  Spacer,
   Square,
   Stack,
   Text,
 } from '@chakra-ui/react';
 
 import { usePortal } from '../contexts/PortalContext';
-import { HelpCard, HelpCardVariant } from '../../domain/help-card';
+import {
+  HelpCard,
+  HelpCardQuestion,
+  HelpCardVariant,
+} from '../../domain/help-card';
 import { FaHome } from 'react-icons/fa';
 
 function HelpCardCoverComponent({ title, category }: any) {
@@ -51,11 +56,16 @@ function HelpCardDetailComponent({
   title,
   category,
   description,
-  content,
-}: any) {
+  questions,
+}: {
+  title: string;
+  category: string;
+  description: string;
+  questions: HelpCardQuestion[];
+}) {
   return (
-    <Flex p={2} flexDirection="column">
-      <Flex gap={2} height="fit-content" pb={2} color={'primary.600'}>
+    <Flex p={2} flexDirection="column" bg={'bg.100'}>
+      <Flex gap={2} height="fit-content" color={'primary.600'}>
         <Square
           borderRadius="full"
           // borderColor={'primary.500'}
@@ -74,41 +84,59 @@ function HelpCardDetailComponent({
         <Heading textAlign={'center'} size={'xs'}>
           {title}
         </Heading>
+        {/* <Text>{description}</Text> */}
       </Flex>
-      <Flex>
-        <Text fontSize={'0.75em'} color={'foreground.500'}>
+      <Flex py={4}>
+        <Text fontSize={'sm'} color={'fg.500'}>
           {description}
         </Text>
+      </Flex>
+      <Flex py={4} flexDirection={'column'}>
+        <Heading fontSize={'sm'} mb={4}>
+          Perguntas e Respostas
+        </Heading>
+        {questions.map((question: HelpCardQuestion, index: number) => (
+          <Box key={index} mb={4}>
+            <Box fontWeight={'600'} mb={2}>
+              {/* <Text fontSize={'sm'}>{index}</Text> */}
+              <Text fontSize={'sm'}>
+                {index + 1}. <Box display={'inline-block'} />
+                {question.question}
+              </Text>
+            </Box>
+            <Text fontSize={'sm'}>
+              <strong>Exemplo:</strong> {question.response}
+            </Text>
+          </Box>
+        ))}
       </Flex>
     </Flex>
   );
 }
 
-function HelpCardComponent({
-  title,
-  variant,
-  category,
-  description,
-  content,
-}: any) {
+function HelpCardComponent({ helpCard }: { helpCard: HelpCard }) {
   return (
     <Flex
       borderWidth={1}
       // borderColor={'primary.500'}
       borderRadius="lg"
-      width={'200px'}
-      height={'300px'}
-      bg={'background.50'}
+      minWidth={'250px'}
+      minHeight={'300px'}
+      bg={'bg.50'}
       boxShadow={'lg'}
+      p={4}
     >
-      {variant === HelpCardVariant.COVER ? (
-        <HelpCardCoverComponent title={title} category={category} />
+      {helpCard.variant === HelpCardVariant.COVER ? (
+        <HelpCardCoverComponent
+          title={helpCard.title}
+          category={helpCard.category}
+        />
       ) : (
         <HelpCardDetailComponent
-          title={title}
-          category={category}
-          description={description}
-          content={content}
+          title={helpCard.title}
+          category={helpCard.category}
+          description={helpCard.description}
+          questions={helpCard.questions}
         />
       )}
     </Flex>
@@ -135,13 +163,12 @@ export default function DrawerHelpCardsContainer({
       <Portal containerRef={portalRightRef}>
         {isOpen && (
           <Flex
-            // bg={'background.100'}
-
             height={'100vh'}
             width={'50%'}
             position={'fixed'}
             flexDirection="column"
             p={2}
+            bg={'bg.0'}
           >
             <Flex pb={2}>
               <Center>
@@ -158,36 +185,20 @@ export default function DrawerHelpCardsContainer({
 
             <Flex
               p={2}
-              // bg={'background.100'}
+              // bg={'bg.100'}
               bg={'white'}
               height={'100%'}
               flexDirection={'column'}
               overflow="auto"
             >
-              {JSON.stringify(helpCards[0])}
+              {/* {JSON.stringify(helpCards[0])} */}
 
               {helpCards.map((cardPerCategory: HelpCard[]) => {
                 return (
-                  <Flex flexDirection={'row'}>
-                    {cardPerCategory.map(
-                      ({
-                        title,
-                        variant,
-                        category,
-                        description,
-                        content,
-                      }: HelpCard) => {
-                        return (
-                          <HelpCardComponent
-                            title={title}
-                            variant={variant}
-                            category={category}
-                            description={description}
-                            content={description}
-                          />
-                        );
-                      }
-                    )}
+                  <Flex flexDirection={'row'} gap={2} width={'fit-content'}>
+                    {cardPerCategory.map((helpCard: HelpCard) => {
+                      return <HelpCardComponent helpCard={helpCard} />;
+                    })}
                   </Flex>
                 );
               })}

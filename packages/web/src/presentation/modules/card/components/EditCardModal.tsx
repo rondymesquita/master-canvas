@@ -79,7 +79,7 @@ export default function EditCardModal({
       <Portal containerRef={portalRef}>
         {isOpen && (
           <Flex
-            bg={'background.100'}
+            bg={'bg.100'}
             p={2}
             position={'relative'}
             flexDirection={'column'}

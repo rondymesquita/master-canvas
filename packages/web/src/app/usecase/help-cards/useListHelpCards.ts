@@ -27,16 +27,29 @@ const functional: HelpCard[] = [
     title: 'Visão Macro dos Requisitos Funcionais',
     description:
       'Identificação das necessidades do cliente ou usuário para o sistema em alto nível. Agrupamento de informações sobre o sistema requerido e os sistemas existentes.',
-    content: `PERGUNTAS e RESPOSTAS
-    1. O que o sistema deve fazer e os serviços que deve oferecer para os seus usuários em alto nível, ou seja, de forma mais macro? Descrever de modo que sejam compreensíveis para os usuários do sistema que não tenham conhecimentos técnicos.
-    Exemplo: O sistema deve sugerir diversas opções de locais para o usuário se exercitar próximo a sua residência.`,
     icon: '',
+    questions: [
+      {
+        question:
+          'O que o sistema deve fazer e os serviços que deve oferecer para os seus usuários em alto nível, ou seja, de forma mais macro? Descrever de modo que sejam compreensíveis para os usuários do sistema que não tenham conhecimentos técnicos',
+        response:
+          'O sistema deve sugerir diversas opções de locais para o usuário se exercitar próximo a sua residência.',
+      },
+    ],
   },
 ];
 
 export default function useListHelpCards() {
   const list = (): HelpCard[][] => {
-    const helpCards: HelpCard[][] = [functional];
+    const helpCards: HelpCard[][] = [
+      [
+        ...functional,
+        ...functional,
+        ...functional,
+        ...functional,
+        ...functional,
+      ],
+    ];
     return helpCards;
   };
   return [list];

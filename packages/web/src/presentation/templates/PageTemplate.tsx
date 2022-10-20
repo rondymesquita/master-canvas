@@ -12,7 +12,7 @@ export default function PageTemplate({ children, titleBar, toolBar }: any) {
       <Flex
         px={4}
         borderRadius={'xl'}
-        bg={'background.100'}
+        bg={'white'}
         zIndex={999}
         top={'-4'}
         position={'relative'}

@@ -41,12 +41,12 @@ export default function Area({
 
   return (
     <Box
-      bg={'background.0'}
+      bg={'bg.0'}
       w="full"
       h={'full'}
       minH={600}
       borderWidth="1px"
-      borderColor={'background.500'}
+      borderColor={'bg.500'}
       p="2"
     >
       <Flex>

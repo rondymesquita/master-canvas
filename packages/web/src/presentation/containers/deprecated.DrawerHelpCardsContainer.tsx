@@ -52,7 +52,7 @@ export default function DeprecatedDrawerHelpCardsContainer({
         // key={new Date().toISOString()}
       >
         {/* <DrawerOverlay /> */}
-        <DrawerContent bg={'background.500'}>
+        <DrawerContent bg={'bg.500'}>
           <DrawerCloseButton />
           <DrawerHeader>
             <Center>

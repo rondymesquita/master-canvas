@@ -221,7 +221,7 @@ export default function ViewCanvasPage() {
           {areas.map((area: AreaModel, index: number) => (
             <GridItem
               // border
-              // borderColor={'background.500'}
+              // borderColor={'bg.500'}
               key={index}
               rowSpan={getRowSpanRules(area)}
               colSpan={getColSpanRules(area)}

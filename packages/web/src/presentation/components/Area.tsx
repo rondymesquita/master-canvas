@@ -45,8 +45,13 @@ export default function Area({
       w="full"
       h={'full'}
       minH={600}
-      borderWidth="1px"
-      borderColor={'bg.500'}
+      outline={'solid'}
+      sx={{
+        outlineWidth: '1px',
+      }}
+      outlineColor={'bg.500'}
+      // borderWidth="1px"
+      // borderColor={'bg.500'}
       p="2"
     >
       <Flex>

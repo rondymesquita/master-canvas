@@ -15,6 +15,7 @@ import {
   Flex,
   Heading,
   Icon,
+  IconButton,
   Portal,
   Spacer,
   Square,
@@ -28,7 +29,7 @@ import {
   HelpCardQuestion,
   HelpCardVariant,
 } from '../../domain/help-card';
-import { FaHome } from 'react-icons/fa';
+import { FaHome, FaTimes } from 'react-icons/fa';
 
 function HelpCardCoverComponent({ title, category }: any) {
   return (
@@ -86,7 +87,7 @@ function HelpCardDetailComponent({
         {/* <Text>{description}</Text> */}
       </Flex>
       <Flex py={4}>
-        <Text fontSize={'sm'} color={'fg.500'}>
+        <Text fontSize={'sm'} color={'fg.600'}>
           {description}
         </Text>
       </Flex>
@@ -98,10 +99,10 @@ function HelpCardDetailComponent({
           <Box key={index} mb={4}>
             <Box fontWeight={'600'} mb={2}>
               {/* <Text fontSize={'sm'}>{index}</Text> */}
-              <Text fontSize={'sm'}>
-                {index + 1}. <Box display={'inline-block'} />
+              <Box fontSize={'sm'}>
+                {index + 1}. <Box as={'p'} display={'inline-block'} />
                 {question.question}
-              </Text>
+              </Box>
             </Box>
             <Text fontSize={'sm'}>
               <strong>Exemplo:</strong> {question.response}
@@ -117,12 +118,13 @@ function HelpCardComponent({ helpCard }: { helpCard: HelpCard }) {
   return (
     <Flex
       borderWidth={1}
-      borderColor={'primary.100'}
+      borderColor={'primary.200'}
       borderRadius="lg"
       minWidth={'270px'}
-      height={'fit-content'}
+      width={'350px'}
       minHeight={'350px'}
-      bg={'bg.50'}
+      // bg={'bg.50'}
+      bgGradient="linear(to-b, bg.0, bg.50)"
       boxShadow={'lg'}
       p={4}
     >
@@ -164,25 +166,33 @@ export default function DrawerHelpCardsContainer({
         {isOpen && (
           <Flex
             height={'100vh'}
-            width={'50%'}
-            position={'fixed'}
             flexDirection="column"
             borderWidth={1}
             shadow={'lg'}
             p={2}
             bg={'bg.0'}
+            position={'fixed'}
+            right={0}
           >
-            <Flex pb={2}>
-              <Center>
-                <Button
-                  variant={'outline'}
-                  colorScheme={'secondary'}
-                  onClick={onClose}
-                >
-                  Close
-                </Button>
-                <Heading size={'md'}>Templates "{category}"</Heading>
-              </Center>
+            <Flex p={2} gap={2} width="full">
+              <IconButton
+                size={'sm'}
+                position={'absolute'}
+                aria-label=""
+                variant={'outline'}
+                colorScheme={'secondary'}
+                onClick={onClose}
+                icon={<FaTimes />}
+              ></IconButton>
+              <Heading
+                p={2}
+                flexGrow="1"
+                size={'md'}
+                textAlign={'center'}
+                alignSelf={'center'}
+              >
+                Cartas de Ajuda
+              </Heading>
             </Flex>
 
             <Flex
@@ -190,15 +200,23 @@ export default function DrawerHelpCardsContainer({
               height={'100%'}
               flexDirection={'column'}
               overflow="auto"
+              gap={4}
             >
-              {/* {JSON.stringify(helpCards[0])} */}
-
-              {helpCards.map((cardPerCategory: HelpCard[]) => {
+              {helpCards.map((cardPerCategory: HelpCard[], index: number) => {
                 return (
-                  <Flex flexDirection={'row'} gap={2} width={'fit-content'}>
-                    {cardPerCategory.map((helpCard: HelpCard) => {
-                      return <HelpCardComponent helpCard={helpCard} />;
-                    })}
+                  <Flex
+                    flexDirection={'column'}
+                    gap={2}
+                    width={'fit-content'}
+                    key={index}
+                  >
+                    {cardPerCategory.map(
+                      (helpCard: HelpCard, jndex: number) => {
+                        return (
+                          <HelpCardComponent key={jndex} helpCard={helpCard} />
+                        );
+                      }
+                    )}
                   </Flex>
                 );
               })}

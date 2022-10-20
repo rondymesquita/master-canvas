@@ -25,14 +25,19 @@ import { CardCategory } from '../../../../domain/card';
 // import RiskContent from './RiskContent';
 // import CardAcceptanceContent from './CardAcceptanceContent';
 import AbstractCardContent from './AbstractCardContent';
-import { FaBars, FaSave } from 'react-icons/fa';
+import { FaBars, FaSave, FaTimes } from 'react-icons/fa';
 import { usePortal } from '../../../contexts/PortalContext';
 
 function Actions({ children, cancel, ok, help }: any) {
   return (
     <Flex gap={2} width="full">
-      <Button colorScheme="secondary" variant="outline" onClick={cancel}>
-        Cancelar
+      <Button
+        leftIcon={<FaTimes />}
+        colorScheme="secondary"
+        variant="outline"
+        onClick={cancel}
+      >
+        Voltar
       </Button>
       <Box flexGrow={1}>{children}</Box>
       <Button leftIcon={<FaSave />} colorScheme="primary" onClick={ok}>
@@ -79,7 +84,7 @@ export default function EditCardModal({
       <Portal containerRef={portalRef}>
         {isOpen && (
           <Flex
-            bg={'bg.100'}
+            bg={'bg.0'}
             p={2}
             position={'relative'}
             flexDirection={'column'}
@@ -108,7 +113,7 @@ export default function EditCardModal({
                 variant={'outline'}
                 onClick={onHelp}
               >
-                Ajuda
+                Ver Cartas de Ajuda
               </Button>
             </Flex>
             <Flex flexDirection={'column'}>

@@ -15,8 +15,9 @@ export function PortalProvider({ children }: any) {
 
   return (
     <PortalContext.Provider value={value}>
-      <Flex>
+      <Flex data-testid="portal-provider">
         <Flex
+          data-testid="portal-content"
           // bg="red.500"
           // p={2}
           width="full"
@@ -30,6 +31,7 @@ export function PortalProvider({ children }: any) {
             // p={2}
             flexShrink={1}
             width={'100%'}
+            // flexGrow={2}
             ref={portalRef}
             data-testid={'portal-left'}
             sx={{
@@ -38,15 +40,19 @@ export function PortalProvider({ children }: any) {
             }}
           ></Flex>
           <Flex
-            // bg="blue.500"
-            // p={2}
-            flexShrink={1}
-            width={'100%'}
+            bg="primary.500"
+            // position={'fixed'}
+            right={0}
+            p={2}
+            flexGrow={1}
+            // width={'100%'}
+            width={'fit-content'}
             ref={portalRightRef}
             data-testid={'portal-right'}
-            flexDirection={'revert'}
+            // flexDirection={'revert'}
+            justifyContent={'end'}
             sx={{
-              position: 'relative',
+              // position: 'relative',
               zIndex: 1400,
             }}
           ></Flex>

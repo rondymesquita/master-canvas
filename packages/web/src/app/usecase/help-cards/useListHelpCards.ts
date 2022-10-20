@@ -41,15 +41,7 @@ const functional: HelpCard[] = [
 
 export default function useListHelpCards() {
   const list = (): HelpCard[][] => {
-    const helpCards: HelpCard[][] = [
-      [
-        ...functional,
-        ...functional,
-        ...functional,
-        ...functional,
-        ...functional,
-      ],
-    ];
+    const helpCards: HelpCard[][] = [functional, functional];
     return helpCards;
   };
   return [list];

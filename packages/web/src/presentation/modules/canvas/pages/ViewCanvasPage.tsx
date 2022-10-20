@@ -185,7 +185,7 @@ export default function ViewCanvasPage() {
       <PageTemplate
         titleBar={
           <>
-            <Heading size={'lg'} mb={2}>
+            <Heading size={'md'} mb={2}>
               {canvas?.title}
             </Heading>
             <Flex>
@@ -203,7 +203,7 @@ export default function ViewCanvasPage() {
                 colorScheme={'secondary'}
                 onClick={showHelpCards}
               >
-                Ver Ajuda
+                Ver Cartas de Ajuda{' '}
               </Button>
             </Flex>
           </>

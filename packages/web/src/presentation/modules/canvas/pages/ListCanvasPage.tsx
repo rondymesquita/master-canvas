@@ -110,7 +110,7 @@ export default function ListCanvasPage() {
 
       {/* Tollbar */}
       <Flex py={2} flexDirection={'column'}>
-        <Heading size={'lg'} mb={4}>
+        <Heading size={'md'} mb={4}>
           Meus Canvas
         </Heading>
         <Button

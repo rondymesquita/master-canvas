@@ -44,7 +44,8 @@ export default function LoginPage() {
           </Center>
           <Button
             colorScheme={'primary'}
-            // bgGradient="linear(to-r, primary.500, destructive.200)"
+            size="md"
+            bgGradient="linear(to-r, primary.500, primary.300)"
             onClick={() => {
               window.location.href = `${Env.getEnv().API_HOST}/auth/google`;
             }}
@@ -58,22 +59,19 @@ export default function LoginPage() {
             </Text>
           </Center>
           <Center>
-            {
-              health && (
-                <Flex fontSize={'xs'} direction={'column'} color="fg.400">
-                  <Center>
-                    {name} - {version}
-                  </Center>
-                  <Center>
-                    {health.name} - {health.version}
-                  </Center>
-                  <Center>
-                    {health.services[0].name} - {health.services[0].status}
-                  </Center>
-                </Flex>
-              )
-              /* {JSON.stringify(health)} */
-            }
+            {health && (
+              <Flex fontSize={'xs'} direction={'column'} color="fg.400">
+                <Center>
+                  {name} - {version}
+                </Center>
+                <Center>
+                  {health.name} - {health.version}
+                </Center>
+                <Center>
+                  {health.services[0].name} - {health.services[0].status}
+                </Center>
+              </Flex>
+            )}
           </Center>
         </Flex>
       </Center>

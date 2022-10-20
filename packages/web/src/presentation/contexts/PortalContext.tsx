@@ -42,10 +42,10 @@ export function PortalProvider({ children }: any) {
             }}
           ></Flex>
           <Flex
-            bg="primary.500"
+            // bg="primary.500"
             // position={'fixed'}
             // right={0}
-            p={2}
+            // p={2}
             flexShrink={1}
             // width={'100%'}
             width={'fit-content'}

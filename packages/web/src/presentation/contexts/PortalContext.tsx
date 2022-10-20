@@ -44,6 +44,7 @@ export function PortalProvider({ children }: any) {
             width={'100%'}
             ref={portalRightRef}
             data-testid={'portal-right'}
+            flexDirection={'revert'}
             sx={{
               position: 'relative',
               zIndex: 1400,

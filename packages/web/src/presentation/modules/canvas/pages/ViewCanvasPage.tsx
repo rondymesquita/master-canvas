@@ -47,6 +47,7 @@ import CardPdfDocument from '../../card/components/CardPdfDocument';
 import useGetCanvasById from '../../../../app/usecase/canvas/useGetCanvasById';
 import DrawerHelpCardsContainer from '../../../containers/DrawerHelpCardsContainer';
 import { usePortal } from '../../../contexts/PortalContext';
+import useListHelpCards from '../../../../app/usecase/help-cards/useListHelpCards';
 
 // import { TransformWrapper, TransformComponent } from 'react-zoom-pan-pinch';
 // import { useZoom, ZoomProvider } from '../contexts/ZoomContext';
@@ -64,6 +65,9 @@ export default function ViewCanvasPage() {
 
   const zoomRef = useRef();
 
+  /**
+   *
+   */
   const [areas, setAreas] = useState<AreaModel[]>([]);
   const [templates, setTemplates] = useState<CardModel[]>([]);
   const [cards, setCards] = useState<CardModel[]>([]);
@@ -82,9 +86,17 @@ export default function ViewCanvasPage() {
   /**
    *
    */
-
   const [exportPDF] = useExportPDF();
+
+  /**
+   *
+   */
   const [canvas, getByIdError] = useGetCanvasById(canvasId);
+
+  /**
+   *
+   */
+  const [listHelpCards] = useListHelpCards();
 
   useEffect(() => {
     async function fetchData() {
@@ -241,6 +253,7 @@ export default function ViewCanvasPage() {
           category={'TEST'}
           isOpen={isDrawerOpen}
           onClose={onDrawerClose}
+          helpCards={listHelpCards()}
         />
 
         <EditCardModal

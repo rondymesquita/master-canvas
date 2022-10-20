@@ -7,10 +7,12 @@ export const usePortal = () => useContext(PortalContext);
 export function PortalProvider({ children }: any) {
   const portalRef = useRef(null);
   const portalRightRef = useRef(null);
+  const contentRef = useRef(null);
 
   const value = {
     portalRef,
     portalRightRef,
+    contentRef,
   };
 
   return (
@@ -58,7 +60,7 @@ export function PortalProvider({ children }: any) {
           ></Flex>
         </Flex>
 
-        <Flex flexShrink={1} width={'100%'}>
+        <Flex flexShrink={1} width={'100%'} ref={contentRef} overflow="auto">
           {children}
         </Flex>
       </Flex>

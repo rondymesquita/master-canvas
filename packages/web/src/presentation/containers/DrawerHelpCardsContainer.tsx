@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import {
   Alert,
   AlertIcon,
@@ -31,6 +31,7 @@ import {
   HelpCardVariant,
 } from '../../domain/help-card';
 import { FaHome, FaTimes } from 'react-icons/fa';
+import { useDebounce } from 'react-use';
 
 const cardColors: Record<string, string> = {
   [HelpCardCategory.FUNCTIONAL]: 'primary',
@@ -168,13 +169,33 @@ export type DrawerHelpCardsContainerProps = {
   helpCards: HelpCard[][];
 };
 
+const useScroll = () => {
+  const [scrollPosition, setScrollPosition] = useState(0);
+
+  const handleScroll = () => {
+    const position = window.pageYOffset;
+    setScrollPosition(position);
+  };
+
+  useEffect(() => {
+    window.addEventListener('scroll', handleScroll, { passive: true });
+
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+    };
+  }, []);
+
+  return { scrollPosition };
+};
+
 export default function DrawerHelpCardsContainer({
   category,
   isOpen,
   onClose,
   helpCards,
 }: DrawerHelpCardsContainerProps) {
-  const { portalRightRef } = usePortal();
+  const { portalRightRef, contentRef } = usePortal();
+  const { scrollPosition } = useScroll();
 
   return (
     <>
@@ -187,7 +208,8 @@ export default function DrawerHelpCardsContainer({
             shadow={'lg'}
             p={2}
             bg={'bg.0'}
-            // position={'fixed'}
+            top={scrollPosition}
+            position={'relative'}
             right={0}
           >
             <Flex p={2} gap={2} width="full">

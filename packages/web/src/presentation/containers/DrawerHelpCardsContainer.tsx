@@ -64,14 +64,13 @@ function HelpCardDetailComponent({
   questions: HelpCardQuestion[];
 }) {
   return (
-    <Flex p={2} flexDirection="column" bg={'bg.100'}>
+    <Flex p={2} flexDirection="column">
       <Flex gap={2} height="fit-content" color={'primary.600'}>
         <Square
           borderRadius="full"
           // borderColor={'primary.500'}
           // borderWidth={1}
           centerContent={true}
-          bg={'white'}
           size={'fit-content'}
           p={2}
           alignSelf={'center'}
@@ -118,10 +117,11 @@ function HelpCardComponent({ helpCard }: { helpCard: HelpCard }) {
   return (
     <Flex
       borderWidth={1}
-      // borderColor={'primary.500'}
+      borderColor={'primary.100'}
       borderRadius="lg"
-      minWidth={'250px'}
-      minHeight={'300px'}
+      minWidth={'270px'}
+      height={'fit-content'}
+      minHeight={'350px'}
       bg={'bg.50'}
       boxShadow={'lg'}
       p={4}
@@ -167,6 +167,8 @@ export default function DrawerHelpCardsContainer({
             width={'50%'}
             position={'fixed'}
             flexDirection="column"
+            borderWidth={1}
+            shadow={'lg'}
             p={2}
             bg={'bg.0'}
           >
@@ -185,8 +187,6 @@ export default function DrawerHelpCardsContainer({
 
             <Flex
               p={2}
-              // bg={'bg.100'}
-              bg={'white'}
               height={'100%'}
               flexDirection={'column'}
               overflow="auto"

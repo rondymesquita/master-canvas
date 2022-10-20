@@ -18,6 +18,9 @@ export const theme = extendTheme({
       body: {
         // overflow: 'auto !important',
       },
+      '*': {
+        boxSizing: 'border-box',
+      },
       'html,body': {
         fontFamily,
         color: 'background.800',

@@ -237,19 +237,24 @@ export default function ViewCanvasPage() {
           ))}
         </Grid>
 
-        {/* <DrawerHelpCardsContainer
+        <DrawerHelpCardsContainer
           category={'TEST'}
           isOpen={isDrawerOpen}
           onClose={onDrawerClose}
-        /> */}
+        />
 
         <EditCardModal
           key={currentCard?.id + new Date().toISOString()}
           isOpen={isModalOpen}
           onOpen={onModalOpen}
-          onClose={onModalClose}
+          onClose={() => {
+            onModalClose();
+            onDrawerClose();
+          }}
           onSave={onCardSave}
-          onHelp={showHelpCards}
+          onHelp={() => {
+            isDrawerOpen ? onDrawerClose() : onDrawerOpen();
+          }}
           title={currentCard?.title}
           content={currentCard?.content}
           category={currentCard?.category}

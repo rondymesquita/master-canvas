@@ -85,21 +85,16 @@ export default function EditCardModal({
 
   return (
     <>
-      <Portal containerRef={portalRef} appendToParentPortal={false}>
+      <Portal containerRef={portalRef}>
         {isOpen && (
           <Flex
             bg={'background.100'}
-            // borderWidth={5}
-            // borderColor={'red'}
-            display={'relative'}
+            p={2}
+            position={'relative'}
             flexDirection={'column'}
+            width={'full'}
           >
-            <Flex
-              borderBottomWidth={1}
-              borderBottomColor={'background.300'}
-              width={'full'}
-              p={4}
-            >
+            <Flex width={'full'} pb={2}>
               <Actions
                 cancel={destroyAndClose}
                 ok={onSaveButtonClick}
@@ -114,7 +109,7 @@ export default function EditCardModal({
                 />
               </Actions>
             </Flex>
-            <Flex pt={4} bg={'white'} flexDirection={'column'}>
+            <Flex flexDirection={'column'}>
               <Flex justifyContent={'flex-end'}></Flex>
 
               <AbstractCardContent

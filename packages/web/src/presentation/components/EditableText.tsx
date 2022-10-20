@@ -119,7 +119,7 @@ export default function EditableText({
           />
         )}
 
-        <EditableControls />
+        {/* <EditableControls /> */}
       </Editable>
       {/* <IconButton
         colorScheme={'secondary'}

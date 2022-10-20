@@ -9,6 +9,7 @@ export default function ContentBlock({ children }: any) {
       borderWidth={1}
       borderColor={'primary.500'}
       borderRadius="md"
+      bg={'white'}
     >
       {children}
     </Box>

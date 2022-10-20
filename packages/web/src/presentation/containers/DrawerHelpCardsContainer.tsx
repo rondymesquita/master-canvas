@@ -26,14 +26,27 @@ import {
 import { usePortal } from '../contexts/PortalContext';
 import {
   HelpCard,
+  HelpCardCategory,
   HelpCardQuestion,
   HelpCardVariant,
 } from '../../domain/help-card';
 import { FaHome, FaTimes } from 'react-icons/fa';
 
-function HelpCardCoverComponent({ title, category }: any) {
+const cardColors: Record<string, string> = {
+  [HelpCardCategory.FUNCTIONAL]: 'primary',
+  [HelpCardCategory.NON_FUNCTIONAL]: 'emerald',
+};
+
+function HelpCardCoverComponent({
+  title,
+  category,
+}: {
+  title: string;
+  category: string;
+}) {
+  const color = cardColors[category];
   return (
-    <Flex p={2} color={'primary.600'}>
+    <Flex p={2} color={`${color}.800`}>
       <Center flexDirection={'column'} width={'full'} gap={6}>
         <Square
           borderRadius="full"
@@ -41,7 +54,7 @@ function HelpCardCoverComponent({ title, category }: any) {
           bg={'white'}
           size={'90'}
           sx={{
-            boxShadow: '0 8px 15px -15px var(--chakra-colors-primary-800)',
+            boxShadow: `0 8px 15px -15px var(--chakra-colors-${color}-800)`,
           }}
         >
           <Icon fontSize={'6xl'} as={FaHome} />
@@ -64,9 +77,10 @@ function HelpCardDetailComponent({
   description: string;
   questions: HelpCardQuestion[];
 }) {
+  const color = cardColors[category];
   return (
     <Flex p={2} flexDirection="column">
-      <Flex gap={2} height="fit-content" color={'primary.600'}>
+      <Flex gap={2} height="fit-content" color={`${color}.800`}>
         <Square
           borderRadius="full"
           // borderColor={'primary.500'}
@@ -76,7 +90,7 @@ function HelpCardDetailComponent({
           p={2}
           alignSelf={'center'}
           sx={{
-            boxShadow: '0 6px 8px -7px var(--chakra-colors-primary-800)',
+            boxShadow: `0 6px 8px -7px var(--chakra-colors-${color}-800)`,
           }}
         >
           <Icon fontSize={'sm'} as={FaHome} />
@@ -115,16 +129,18 @@ function HelpCardDetailComponent({
 }
 
 function HelpCardComponent({ helpCard }: { helpCard: HelpCard }) {
+  const color = cardColors[helpCard.category];
+
   return (
     <Flex
       borderWidth={1}
-      borderColor={'primary.200'}
+      borderColor={`${color}.200`}
       borderRadius="lg"
       minWidth={'270px'}
       width={'350px'}
       minHeight={'350px'}
       // bg={'bg.50'}
-      bgGradient="linear(to-b, bg.0, bg.50)"
+      bgGradient={`linear(to-t, bg.0, ${color}.50)`}
       boxShadow={'lg'}
       p={4}
     >
@@ -171,7 +187,7 @@ export default function DrawerHelpCardsContainer({
             shadow={'lg'}
             p={2}
             bg={'bg.0'}
-            position={'fixed'}
+            // position={'fixed'}
             right={0}
           >
             <Flex p={2} gap={2} width="full">
@@ -213,7 +229,10 @@ export default function DrawerHelpCardsContainer({
                     {cardPerCategory.map(
                       (helpCard: HelpCard, jndex: number) => {
                         return (
-                          <HelpCardComponent key={jndex} helpCard={helpCard} />
+                          <HelpCardComponent
+                            key={`${index}-${jndex}`}
+                            helpCard={helpCard}
+                          />
                         );
                       }
                     )}

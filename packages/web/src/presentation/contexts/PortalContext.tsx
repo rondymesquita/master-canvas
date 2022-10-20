@@ -42,9 +42,9 @@ export function PortalProvider({ children }: any) {
           <Flex
             bg="primary.500"
             // position={'fixed'}
-            right={0}
+            // right={0}
             p={2}
-            flexGrow={1}
+            flexShrink={1}
             // width={'100%'}
             width={'fit-content'}
             ref={portalRightRef}

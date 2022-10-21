@@ -7,7 +7,10 @@ import {
 } from '@chakra-ui/react';
 import { colors } from './colors';
 
-const fontFamily = 'Chivo, Inter, Avenir, Helvetica, Arial, sans-serif';
+// const fontFamily = 'Lexend, Avenir, Helvetica, Arial, sans-serif';
+// const fontFamily = 'Chivo, Avenir, Helvetica, Arial, sans-serif';
+// const fontFamily = 'Helvetica, Arial, sans-serif';
+const fontFamily = 'Nunito Sans, Helvetica, Arial, sans-serif';
 const defaultTheme = extendTheme();
 
 console.log(defaultTheme);
@@ -44,9 +47,14 @@ export const theme = extendTheme({
       defaultProps: {
         size: 'sm',
       },
+      sizes: {
+        sm: { h: '8', minW: '8', fontSize: 'xs', px: '8' },
+      },
       variants: {
+        base: {
+          ...defaultTheme.components.Button.baseStyle,
+        },
         call: {
-          // ...defaultTheme.components.Button.baseStyle,
           boxShadow:
             '0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05)',
           '&:hover': {
@@ -57,40 +65,16 @@ export const theme = extendTheme({
         },
       },
       baseStyle: {
-        borderRadius: 'lg',
-        // boxShadow:
-        //   '0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05)',
-        // '&:hover': {
-        //   boxShadow:
-        //     '0 10px 15px -3px rgb(0 0 0 / 10%), 0 15px 15px -2px rgb(0 0 0 / 10%)',
-        //   transform: 'scale(1.03)',
-        // },
+        borderRadius: 'md',
       },
     },
   },
   colors: {
-    // primary: defaultTheme.colors.twitter,
-    primary: colors.blue,
+    primary: colors.nanquin,
     secondary: colors.slate,
     destructive: colors.plum,
     bg: { 0: 'white', ...colors.slate },
     fg: { 0: 'black', ...colors.slate },
     ...colors,
   },
-  // zIndices: {
-  //   hide: -1,
-  //   auto: 'auto',
-  //   base: 0,
-  //   docked: 10,
-  //   dropdown: 1000,
-  //   sticky: 1100,
-  //   banner: 1200,
-  //   overlay: 1300,
-  //   modal: 1400,
-  //   drawer: 1450,
-  //   popover: 1500,
-  //   skipLink: 1600,
-  //   toast: 1700,
-  //   tooltip: 1800,
-  // },
 });

@@ -7,16 +7,15 @@ import HeaderContainer from '../containers/HeaderContainer';
 export default function PageTemplate({ children, titleBar, toolBar }: any) {
   return (
     <Flex width={'full'} direction={'column'}>
-      <Spacer />
       <HeaderContainer />
       <Flex
         px={4}
-        borderRadius={'xl'}
         bg={'white'}
-        zIndex={999}
-        top={'-4'}
-        position={'relative'}
-        // boxShadow={'inner'}
+        outline={'solid'}
+        sx={{
+          outlineWidth: '1px',
+        }}
+        outlineColor={'bg.300'}
       >
         <Container
           maxWidth={'container.lg'}

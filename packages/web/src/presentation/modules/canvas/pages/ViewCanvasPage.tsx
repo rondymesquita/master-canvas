@@ -184,15 +184,23 @@ export default function ViewCanvasPage() {
       {/* {JSON.stringify(canvas)} */}
       <PageTemplate
         titleBar={
-          <>
+          <Flex
+            flexDirection={'column'}
+            borderTopWidth={1}
+            borderColor={'bg.300'}
+            position={'relative'}
+            py={2}
+          >
             <Heading size={'md'} mb={2}>
               {canvas?.title}
             </Heading>
+
             <Flex>
               <Button
                 leftIcon={<Icon as={FaDownload} />}
                 colorScheme={'primary'}
                 onClick={exportCanvasAsPDF}
+                variant={'primary'}
               >
                 Exportar PDF
               </Button>
@@ -206,7 +214,7 @@ export default function ViewCanvasPage() {
                 Ver Cartas de Ajuda{' '}
               </Button>
             </Flex>
-          </>
+          </Flex>
         }
       >
         <>
@@ -217,11 +225,9 @@ export default function ViewCanvasPage() {
           /> */}
         </>
 
-        <Grid templateColumns="repeat(3, 1fr)" shadow={'xl'}>
+        <Grid templateColumns="repeat(3, 1fr)">
           {areas.map((area: AreaModel, index: number) => (
             <GridItem
-              // border
-              // borderColor={'bg.500'}
               key={index}
               rowSpan={getRowSpanRules(area)}
               colSpan={getColSpanRules(area)}

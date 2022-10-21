@@ -72,7 +72,7 @@ export default function EditCardModal({
       title,
       content: updatedContent,
     });
-    // onClose();
+    onClose();
   };
 
   const destroyAndClose = () => {

@@ -51,9 +51,10 @@ export const theme = extendTheme({
         sm: { h: '8', minW: '8', fontSize: 'xs', px: '8' },
       },
       variants: {
-        base: {
-          ...defaultTheme.components.Button.baseStyle,
-        },
+        primary: (props: any) => ({
+          ...defaultTheme.components.Button.variants.solid(props),
+          bgGradient: 'linear(to-r, primary.500, primary.400)',
+        }),
         call: {
           boxShadow:
             '0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05)',
@@ -70,7 +71,7 @@ export const theme = extendTheme({
     },
   },
   colors: {
-    primary: colors.nanquin,
+    primary: colors.blue,
     secondary: colors.slate,
     destructive: colors.plum,
     bg: { 0: 'white', ...colors.slate },

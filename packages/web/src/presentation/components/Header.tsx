@@ -15,9 +15,8 @@ import Logo from './Logo';
 export default function Header({ isLogged = true, user, onActionClick }: any) {
   return (
     <header>
-      <Flex px={4} pt={2} pb={4} bg={'bg.0'}>
-        {/* <Spacer /> */}
-        <Center>
+      <Flex px={2} bg={'bg.0'}>
+        <Center px={8}>
           <Box>
             <Link to={HOME_PAGE}>
               <Logo color={'primary.500'} size="2xl" />
@@ -33,12 +32,9 @@ export default function Header({ isLogged = true, user, onActionClick }: any) {
                 <Avatar size={'sm'} src={user.picture} />
                 <Heading size={'sm'}>{user.name}</Heading>
                 <Button
-                  ml={8}
                   onClick={onActionClick ? onActionClick : () => {}}
-                  // background={'primary.400'}
                   colorScheme={'destructive'}
                   variant={'ghost'}
-                  size={'sm'}
                 >
                   Sair
                 </Button>

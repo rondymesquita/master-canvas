@@ -27,11 +27,12 @@ export default function Canvas({
 
   return (
     <Box
-      // borderWidth={1}
+      borderWidth={1}
+      borderColor={'bg.300'}
       p={3}
       bg={'bg.0'}
       borderRadius="lg"
-      boxShadow={'xl'}
+      // boxShadow={'xl'}
       _hover={{ cursor: 'pointer' }}
       onClick={() => onClick(canvas)}
     >

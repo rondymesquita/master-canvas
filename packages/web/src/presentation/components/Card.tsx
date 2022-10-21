@@ -60,9 +60,11 @@ export default function Card({
       shadow={'base'}
       width={150}
       height={'fit-content'}
-      borderWidth="1px"
+      borderWidth={1}
+      borderLeftWidth={10}
       borderColor={'yellow.200'}
-      padding={2}
+      px={2}
+      py={4}
       // cursor={'grab'}
       // onClick={onClick}
     >

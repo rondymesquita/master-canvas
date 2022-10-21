@@ -56,32 +56,27 @@ export default function EditCardModal({
   onHelp,
   category,
   title: inputTitle,
-  content: inputContent,
+  content,
 }: any) {
   const [title, setTitle] = useState(inputTitle);
-  const [content, setContent] = useState(inputContent);
 
   const { portalRef } = usePortal();
   const cardContentRef = useRef<any>();
 
   const onSaveButtonClick = () => {
-    // console.log(cardContentRef.current.getUpdatedContent());
+    const updatedContent = cardContentRef.current.getUpdatedContent();
 
-    // console.log(cardContentRef.current.getEditor().getText());
-
-    const newContent = cardContentRef.current.getUpdatedContent();
-    // setContent(newContent);
-    // console.log(newContent.interdependency);
+    console.log(updatedContent.interdependency);
 
     onSave({
       title,
-      content: newContent,
+      content: updatedContent,
     });
-    onClose();
+    // onClose();
   };
 
   const destroyAndClose = () => {
-    setContent({});
+    setTitle('');
     onClose();
   };
 
@@ -133,7 +128,6 @@ export default function EditCardModal({
                 ref={cardContentRef}
                 category={category}
                 content={content}
-                // onContentChange={setContent}
               />
               <Actions
                 cancel={destroyAndClose}

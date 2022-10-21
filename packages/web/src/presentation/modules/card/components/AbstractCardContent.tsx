@@ -101,11 +101,17 @@ const icons: Record<string, Record<string, IconType>> = {
   },
 };
 
+const LINEBREAK_PATTERN = '<p><br></p>';
+const SINGLE_LINEBREAK_PATTERN = '<p><br></p>';
+const addExtraLineBreak = (text: string) => {
+  return text.replaceAll(SINGLE_LINEBREAK_PATTERN, LINEBREAK_PATTERN);
+};
+
 export default forwardRef(AbstractCardContent);
 function AbstractCardContent(
   {
     category,
-    content,
+    content: inputContent,
   }: {
     category: string;
     content: CardContentModel;
@@ -113,19 +119,34 @@ function AbstractCardContent(
   ref: any
 ) {
   const createRefs = (): { [key: string]: any } => {
-    const list = Object.keys(content).map((propertyName) => {
+    const list = Object.keys(inputContent).map((propertyName) => {
       return [propertyName, createRef()];
     });
 
     return Object.fromEntries(list);
   };
   const refs = createRefs();
+  const [content, setContent] = useState({});
+
+  const parse = (input: any, replaceFn: (value: string) => string) => {
+    const contentAsArray = Object.entries(input).map(
+      ([propertyName, propertyValue]: [any, any]) => {
+        return [propertyName, replaceFn(propertyValue)];
+      }
+    );
+    return Object.fromEntries(contentAsArray);
+  };
+
+  useEffect(() => {
+    setContent(parse(inputContent, addExtraLineBreak));
+  }, []);
 
   const getContentFromQuill = () => {
     const contentAsArray = Object.entries(refs).map(([propertyName, ref]) => {
       const editor = ref.current.getEditor();
-      const unprivilegedEditor = ref.current.makeUnprivilegedEditor(editor);
-      return [propertyName, unprivilegedEditor.getHTML()];
+      const valueAsHTML = ref.current.makeUnprivilegedEditor(editor).getHTML();
+      // return [propertyName, removeExtraLineBreak(valueAsHTML)];
+      return [propertyName, valueAsHTML];
     });
     return Object.fromEntries(contentAsArray);
   };
@@ -150,11 +171,17 @@ function AbstractCardContent(
                 {labels[category][propertyName]}
               </ContentHeading>
               <ReactQuill
+                preserveWhitespace={false}
                 theme="snow"
                 // @ts-ignore
                 ref={refs[propertyName]}
                 // @ts-ignore
                 defaultValue={content[propertyName]}
+                modules={{
+                  clipboard: {
+                    matchVisual: false,
+                  },
+                }}
               />
             </ContentBlock>
           );

@@ -27,6 +27,7 @@ import { CardCategory } from '../../../../domain/card';
 import AbstractCardContent from './AbstractCardContent';
 import { FaBars, FaSave, FaTimes } from 'react-icons/fa';
 import { usePortal } from '../../../contexts/PortalContext';
+import ReactQuill from 'react-quill';
 
 function Actions({ children, cancel, ok, help }: any) {
   return (
@@ -61,11 +62,20 @@ export default function EditCardModal({
   const [content, setContent] = useState(inputContent);
 
   const { portalRef } = usePortal();
+  const cardContentRef = useRef<any>();
 
   const onSaveButtonClick = () => {
+    // console.log(cardContentRef.current.getUpdatedContent());
+
+    // console.log(cardContentRef.current.getEditor().getText());
+
+    const newContent = cardContentRef.current.getUpdatedContent();
+    // setContent(newContent);
+    // console.log(newContent.interdependency);
+
     onSave({
       title,
-      content,
+      content: newContent,
     });
     onClose();
   };
@@ -76,7 +86,7 @@ export default function EditCardModal({
   };
 
   if (!category) {
-    return <>error</>;
+    return <>no category</>;
   }
 
   return (
@@ -120,9 +130,10 @@ export default function EditCardModal({
               <Flex justifyContent={'flex-end'}></Flex>
 
               <AbstractCardContent
+                ref={cardContentRef}
                 category={category}
                 content={content}
-                onContentChange={setContent}
+                // onContentChange={setContent}
               />
               <Actions
                 cancel={destroyAndClose}

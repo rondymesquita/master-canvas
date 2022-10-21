@@ -8,7 +8,7 @@ export class CanvasAdapter {
     });
   }
   adapt(record: CanvasSchema) {
-    console.log({ record });
+    // console.log({ record });
 
     const canvas: Canvas = {
       id: record._id.toString(),

@@ -52,7 +52,7 @@ export default function Area({
       outlineColor={'bg.500'}
       // borderWidth="1px"
       // borderColor={'bg.500'}
-      p="2"
+      p="4"
     >
       <Flex>
         <Center>

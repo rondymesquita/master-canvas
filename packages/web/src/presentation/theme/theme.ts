@@ -26,8 +26,11 @@ export const theme = extendTheme({
       },
       'html,body': {
         fontFamily,
-        color: 'bg.800',
-        background: 'bg.100',
+        color: 'fg.700',
+        background: 'bg.0',
+      },
+      em: {
+        color: 'fg.500',
       },
       '.quill .ql-editor': {
         fontSize: '1.1em',
@@ -55,7 +58,8 @@ export const theme = extendTheme({
           ...defaultTheme.components.Button.variants.solid(props),
           bgGradient: 'linear(to-r, primary.500, primary.400)',
         }),
-        call: {
+        action: (props: any) => ({
+          ...defaultTheme.components.Button.variants.solid(props),
           boxShadow:
             '0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05)',
           '&:hover': {
@@ -63,7 +67,7 @@ export const theme = extendTheme({
               '0 10px 15px -3px rgb(0 0 0 / 10%), 0 15px 15px -2px rgb(0 0 0 / 10%)',
             transform: 'scale(1.03)',
           },
-        },
+        }),
       },
       baseStyle: {
         borderRadius: 'md',

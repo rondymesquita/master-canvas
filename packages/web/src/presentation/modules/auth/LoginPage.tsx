@@ -43,6 +43,7 @@ export default function LoginPage() {
             <Logo color={'primary.600'} />
           </Center>
           <Button
+            variant={'action'}
             colorScheme={'primary'}
             size="md"
             bgGradient="linear(to-r, primary.500, primary.300)"
@@ -68,8 +69,10 @@ export default function LoginPage() {
                   {health.name} - {health.version}
                 </Center>
                 <Center>
-                  {health.services[0].name} - {health.services[0].status}
+                  {/* {health.services[0].name} - {health.services[0].status} */}
+                  database - {health.services[0].status}
                 </Center>
+                <Center>services - {health.status}</Center>
               </Flex>
             )}
           </Center>

@@ -47,7 +47,7 @@ function HelpCardCoverComponent({
 }) {
   const color = cardColors[category];
   return (
-    <Flex p={2} color={`${color}.700`}>
+    <Flex p={2} color={`${color}.600`}>
       <Center flexDirection={'column'} width={'full'} gap={6}>
         <Square
           borderRadius="full"

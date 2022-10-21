@@ -64,7 +64,8 @@ export default function Card({
       borderLeftWidth={10}
       borderColor={'yellow.200'}
       px={2}
-      py={4}
+      pt={4}
+      pb={0}
       // cursor={'grab'}
       // onClick={onClick}
     >

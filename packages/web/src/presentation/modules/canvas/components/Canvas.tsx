@@ -41,10 +41,10 @@ export default function Canvas({
         <Avatar name={canvas.title} />
       </Center>
       <Flex justifyContent={'start'} flexDirection={'column'}>
-        <Text color="fg.500" fontSize={'sm'} mb={4}>
+        <Text as={'em'} fontSize={'sm'} mb={4}>
           <strong>Criado:</strong> {formatDate(canvas.createdAt)}
         </Text>
-        <Text color="fg.500" fontSize={'sm'}>
+        <Text as={'em'} fontSize={'sm'}>
           <strong>Atualizado:</strong> {formatDate(canvas.updatedAt)}
         </Text>
       </Flex>

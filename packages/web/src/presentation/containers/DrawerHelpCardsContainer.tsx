@@ -131,17 +131,23 @@ function HelpCardDetailComponent({
             </Box>
             <Flex fontSize={'sm'} flexDirection="column" data-testid="response">
               {Array.isArray(question.response) ? (
-                question.response.map((response: HelpCardQuestionResponse) => (
-                  <Flex mb={2} flexDirection="column">
-                    <strong>Exemplo {}:</strong>{' '}
+                question.response.map(
+                  (response: HelpCardQuestionResponse, jndex: number) => (
                     <Flex
+                      key={`${index}-${jndex}`}
+                      mb={2}
                       flexDirection="column"
-                      dangerouslySetInnerHTML={createHTMLfrom(
-                        response as string
-                      )}
-                    ></Flex>
-                  </Flex>
-                ))
+                    >
+                      <strong>Exemplo {}:</strong>{' '}
+                      <Flex
+                        flexDirection="column"
+                        dangerouslySetInnerHTML={createHTMLfrom(
+                          response as string
+                        )}
+                      ></Flex>
+                    </Flex>
+                  )
+                )
               ) : (
                 <>
                   <strong>Exemplo:</strong>{' '}

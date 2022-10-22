@@ -2,7 +2,7 @@ import { CardModel } from '../../../domain/card';
 
 import { Document, Page, StyleSheet, pdf } from '@react-pdf/renderer';
 import { saveAs } from 'file-saver';
-import CardPdfDocument from '../../../presentation/modules/card/components/CardPdfDocument';
+import CardPdfDocument from '../../../presentation/modules/card/components/PdfDocument';
 import { CanvasModel } from '../../../domain/canvas';
 
 // Create styles

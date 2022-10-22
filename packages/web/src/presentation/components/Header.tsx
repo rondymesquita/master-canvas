@@ -15,7 +15,7 @@ import Logo from './Logo';
 export default function Header({ isLogged = true, user, onActionClick }: any) {
   return (
     <header>
-      <Flex px={2} bg={'bg.0'}>
+      <Flex px={2} py={2} bg={'bg.0'}>
         <Center px={8}>
           <Box>
             <Link
@@ -24,7 +24,7 @@ export default function Header({ isLogged = true, user, onActionClick }: any) {
                 textDecoration: 'none',
               }}
             >
-              <Logo color={'primary.500'} size="2xl" />
+              <Logo color={'fg.800'} size="2xl" />
             </Link>
           </Box>
         </Center>

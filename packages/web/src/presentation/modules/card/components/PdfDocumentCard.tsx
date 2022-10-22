@@ -1,18 +1,8 @@
-import { Button, Flex } from '@chakra-ui/react';
 import React from 'react';
 import { CardCategory, CardContentModel } from '../../../../domain/card';
-import DataContent from './deprecated/DataContent';
-import RequirementContent from './deprecated/CardRequirementContent';
-import RiskContent from './deprecated/RiskContent';
 
-import {
-  Document,
-  Page,
-  Text,
-  View,
-  StyleSheet,
-  PDFDownloadLink,
-} from '@react-pdf/renderer';
+import { Text, View, StyleSheet } from '@react-pdf/renderer';
+import { categories, labels } from './labels';
 
 const styles = StyleSheet.create({
   card: {
@@ -20,43 +10,69 @@ const styles = StyleSheet.create({
   },
   cardHeader: {
     display: 'flex',
+    flexDirection: 'column',
   },
   cardTitle: {
-    fontSize: '18px',
+    fontSize: '16px',
+    fontWeight: 900,
+  },
+  cardSubtitle: {
+    fontSize: '16px',
     fontWeight: 900,
   },
   block: {
     display: 'flex',
     flexDirection: 'column',
-    padding: '16px',
+    padding: '14px',
     border: '1px solid black',
     borderRadius: '24px',
     marginBottom: '8px',
   },
   blockTitle: {
-    fontSize: '18px',
+    fontSize: '16px',
     fontWeight: 900,
   },
   blockText: {
-    fontSize: '14px',
+    fontSize: '12px',
   },
 });
 
-export default function CardExportPdf({
+export default function PdfDocumentCard({
   title,
   category,
   content,
 }: {
   title: string;
   category: string;
-  content: any;
+  content: CardContentModel;
 }) {
+  console.log(Object.keys(content));
+
   return (
     <View style={styles.card}>
+      {/* header */}
       <View style={styles.cardHeader}>
         <Text style={styles.cardTitle}>{title}</Text>
+        <Text style={styles.cardSubtitle}>Tipo: {categories[category]}</Text>
       </View>
-      {(category === CardCategory.FUNCTIONAL ||
+      {/* body */}
+      <View>
+        {Object.entries(content).map(
+          ([propertyName, propertyValue]: any, index: number) => {
+            return (
+              <View key={index}>
+                <View style={styles.block}>
+                  <Text style={styles.blockTitle}>
+                    {labels[category][propertyName]}
+                  </Text>
+                  <Text style={styles.blockText}>{propertyValue}</Text>
+                </View>
+              </View>
+            );
+          }
+        )}
+
+        {/* {(category === CardCategory.FUNCTIONAL ||
         category === CardCategory.NON_FUNCTIONAL) && (
         <View>
           <View style={styles.block}>
@@ -139,7 +155,8 @@ export default function CardExportPdf({
             <Text style={styles.blockText}>{content.acceptance}</Text>
           </View>
         </View>
-      )}
+      )} */}
+      </View>
     </View>
   );
 }

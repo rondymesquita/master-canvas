@@ -35,7 +35,7 @@ import {
   StyleSheet,
   PDFDownloadLink,
 } from '@react-pdf/renderer';
-import CardExportPDF from '../../card/components/CardExportPDF';
+import PdfDocumentCard from '../../card/components/PdfDocumentCard';
 import {
   FaBars,
   FaDownload,
@@ -43,7 +43,7 @@ import {
   FaFileExport,
   FaHamburger,
 } from 'react-icons/fa';
-import CardPdfDocument from '../../card/components/CardPdfDocument';
+import PdfDocument from '../../card/components/PdfDocument';
 import useGetCanvasById from '../../../../app/usecase/canvas/useGetCanvasById';
 import DrawerHelpCardsContainer from '../../../containers/DrawerHelpCardsContainer';
 import { usePortal } from '../../../contexts/PortalContext';
@@ -218,7 +218,7 @@ export default function ViewCanvasPage() {
         }
       >
         <>
-          {/* <CardPdfDocument
+          {/* <PdfDocument
             key={new Date().toISOString()}
             canvas={canvas}
             cards={cards}

@@ -7,7 +7,7 @@ import {
   Text,
   Link,
 } from '@react-pdf/renderer';
-import CardExportPdf from './CardExportPDF';
+import CardExportPdf from './PdfDocumentCard';
 
 function getTextFromHtml(html: string) {
   var divContainer = document.createElement('div');

@@ -354,8 +354,9 @@ const functionalNonFunctionalSpecification: HelpCard[] = [
   {
     category: HelpCardCategory.FUNCTIONAL_NON_FUNCTIONAL_SPECIFICATION,
     variant: HelpCardVariant.DETAIL,
-    title: 'Visão de Negócio - Tomadores de Decisão',
-    description: 'Quem são esses tomadores de decisão?',
+    title: 'Visão de Negócio - Requisito Não Funcional',
+    description:
+      'Identificação das características de qualidade e das restrições do sistema, como confiabilidade, desempenho, sistema operacional, entre outros.',
     icon: '',
     questions: [
       {
@@ -379,9 +380,8 @@ const functionalNonFunctionalSpecification: HelpCard[] = [
   {
     category: HelpCardCategory.FUNCTIONAL_NON_FUNCTIONAL_SPECIFICATION,
     variant: HelpCardVariant.DETAIL,
-    title: 'Visão de Negócio - Requisito Não Funcional',
-    description:
-      'Identificação das características de qualidade e das restrições do sistema, como confiabilidade, desempenho, sistema operacional, entre outros.',
+    title: 'Visão de Negócio - Tomadores de Decisão',
+    description: 'Quem são esses tomadores de decisão?',
     icon: '',
     questions: [
       {
@@ -404,7 +404,7 @@ const functionalNonFunctionalSpecification: HelpCard[] = [
         question:
           'Quais são as perguntas que vêm à sua mente (e eles precisam ter uma resposta) durante suas atividades de tomada de decisão?',
         response:
-          'O corredor  precisará se perguntar se deve continua correndo ao passar 45 minutos ou deve descansar e recomeçar novamente no dia seguinte.',
+          'O corredor precisará se perguntar se deve continua correndo ao passar 45 minutos ou deve descansar e recomeçar novamente no dia seguinte.',
       },
     ],
   },
@@ -433,6 +433,29 @@ const functionalNonFunctionalSpecification: HelpCard[] = [
           'Quais são os requisitos de proteção e segurança dos dados associado a esta funcionalidade que precisam ser verificados e validados?',
         response:
           '<p>Manter 100% dos dados pessoas do usuário protegidos através da criptografia.</p><p>Link para consultar a lei de proteção dos dados geral e do Brasil: </p><a href="https://www.gov.br/cidadania/pt-br/acesso-a-informacao/lgpd" target="_blank">https://www.gov.br/cidadania/pt-br/acesso-a-informacao/lgpd</a>',
+      },
+      {
+        question:
+          'Quais são as medidas de desempenho (Exemplo: Exatidão, Precisão, Recall, pontuação F1, erro quadrático médio) associado a esta funcionalidade que precisam ser verificadas e validadas?',
+        response: 'Manter 75% da Exatidão, Precisão, Recall aderente.',
+      },
+      {
+        question:
+          'Quais são as características de qualidade dos dados  que serão verificadas e validadas nos dados utilizados para treinamento e teste da IA contida nesta funcionalidade?',
+        response:
+          'Precisão: 100% dos dados utilizado nesta funcionalidade para treinar e testar a inteligência artificial devem ser verdadeiros/corretos.',
+      },
+      {
+        question:
+          'Quais são as projeções, avaliações da função de recompensa (função de perda) e optimizações que será usada para determinar previsões “certas” versus “erradas”, relacionados a esta funcionalidade?',
+        response:
+          'A função de recompensa ou projeção deve manter 95% do Verdadeiros positivos, ou seja, a IA prevendo corretamente um resultado positivo. Exemplo: A IA sugeriu uma corrida que o usuário gostou e optou por continuar.',
+      },
+      {
+        question:
+          'Quais são os testes que podem ser aplicados para validar esta funcionalidade?',
+        response:
+          'Manter a cobertura de 85% dos testes de unidade visando testar cada componente do sistema isoladamente.',
       },
     ],
   },
@@ -697,7 +720,7 @@ const dataNeeds: HelpCard[] = [
     questions: [
       {
         question:
-          '1. Quais ameaças ou riscos pode ocorrer em consequências do uso dos dados que atendem aos requisitos do projeto?',
+          'Quais ameaças ou riscos pode ocorrer em consequências do uso dos dados que atendem aos requisitos do projeto?',
         response: [
           'Pode haver vieses humanos relacionados a raça nos dados utilizados.',
           'Há a possibilidade desta funcionalidade não ser factível de ser construída, pois a qualidade dos dados não é suficiente',

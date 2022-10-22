@@ -40,6 +40,8 @@ const cardColors: Record<string, string> = {
   [HelpCardCategory.DATA]: 'cyan',
   [HelpCardCategory.RISK]: 'plum',
   [HelpCardCategory.ACCEPTANCE]: 'emerald',
+  [HelpCardCategory.FUNCTIONAL_NON_FUNCTIONAL_SPECIFICATION]: 'amber',
+  [HelpCardCategory.DATA_NEEDS]: 'purple',
 };
 
 function HelpCardCoverComponent({
@@ -133,6 +135,7 @@ function HelpCardDetailComponent({
                   <Flex mb={2} flexDirection="column">
                     <strong>Exemplo {}:</strong>{' '}
                     <Flex
+                      flexDirection="column"
                       dangerouslySetInnerHTML={createHTMLfrom(
                         response as string
                       )}
@@ -143,6 +146,7 @@ function HelpCardDetailComponent({
                 <>
                   <strong>Exemplo:</strong>{' '}
                   <Flex
+                    flexDirection="column"
                     dangerouslySetInnerHTML={createHTMLfrom(question.response)}
                   ></Flex>
                 </>

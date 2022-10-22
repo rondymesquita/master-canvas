@@ -259,6 +259,266 @@ const acceptance: HelpCard[] = [
   },
 ];
 
+const functionalNonFunctionalSpecification: HelpCard[] = [
+  {
+    category: HelpCardCategory.FUNCTIONAL_NON_FUNCTIONAL_SPECIFICATION,
+    variant: HelpCardVariant.COVER,
+    title: 'Especificação dos Requisitos Funcionais e Não Funcionais',
+    icon: '',
+  },
+  {
+    category: HelpCardCategory.FUNCTIONAL_NON_FUNCTIONAL_SPECIFICATION,
+    variant: HelpCardVariant.DETAIL,
+    title: 'Visão de Pré - Requisito e Interdependência',
+    description:
+      'Identificação dos pré-requisitos que devem estar concluídos para especificar a funcionalidade e quais requisitos a funcionalidade se integra.',
+    icon: '',
+    questions: [
+      {
+        question:
+          'Quais são os pré-requisitos ou atividades que precisam ser concluídas para especificar ou implementar a funcionalidade?',
+        response: 'Concluir a atividade de exploração dos dado',
+      },
+      {
+        question:
+          'Quais são os requisitos que esta funcionalidade se integra ou têm uma interdependência?',
+        response:
+          'A história de Usuário [01] tem uma integração ou interdependência com a história de Usuário [07].',
+      },
+    ],
+  },
+  {
+    category: HelpCardCategory.FUNCTIONAL_NON_FUNCTIONAL_SPECIFICATION,
+    variant: HelpCardVariant.DETAIL,
+    title: 'Visão de Persona',
+    description:
+      'Identificação dos atores/personas envolvido na funcionalidade e suas necessidades.',
+    icon: '',
+    questions: [
+      {
+        question:
+          'Quem ou o que - humano/não humano, indivíduo/organizacional/rede - são os usuários, e para quem ou o que o design deveria ser desejável? Ou seja, para quem a funcionalidade é destinada?',
+        response: 'Corredor de corrida profissional.',
+      },
+      {
+        question:
+          'Quais são as necessidades humanas que o ator/persona possui?',
+        response:
+          'O corredor deseja ter mais variedade em suas corridas para não ficar entediado e não parar de correr.',
+      },
+      {
+        question:
+          'Quais são as atividades mais comuns que o ator/persona realiza (tanto pessoal quanto profissionalmente)?',
+        response:
+          'O corredor gosta de visualizar sugestões de lugares próxima a sua residência disponível para correr.',
+      },
+      {
+        question: 'Quais são seus objetivos, suas dificuldades ou desafios?',
+        response:
+          'O corredor tem como objetivo acompanhar suas corridas diárias para que possa se preparar para 10k em seis meses.',
+      },
+    ],
+  },
+  // {
+  //   category: HelpCardCategory.FUNCTIONAL_NON_FUNCTIONAL_SPECIFICATION,
+  //   variant: HelpCardVariant.DETAIL,
+  //   title: 'Visão de Negócio - Requisito Funcional',
+  //   description:
+  //     'Identificação do que precisa ser desenvolvido para o usuário, ou seja, quais são as funcionalidades. Representam a descrição das funcionalidades e serviços que se esperam do sistema',
+  //   icon: '',
+  //   questions: [
+  //     {
+  //       question:
+  //         'Quais são as principais estratégias de negócios em seu domínio de interesse?',
+  //       response: 'Melhorar a saúde do corredor.',
+  //     },
+  //   ],
+  // },
+  {
+    category: HelpCardCategory.FUNCTIONAL_NON_FUNCTIONAL_SPECIFICATION,
+    variant: HelpCardVariant.DETAIL,
+    title: 'Visão de Negócio - Tomadores de Decisão',
+    description: 'Quem são esses tomadores de decisão?',
+    icon: '',
+    questions: [
+      {
+        question:
+          'Quais são as restrições ou os requisitos não funcionais do sistema?',
+        response: [
+          'Requisitos de usabilidade (facilidade de uso). Ex.: usuários deverão operar o sistema após um determinado tempo de treinamento.',
+          'Requisitos de eficiência. Ex.: o sistema deverá processar n requisições por um determinado tempo.',
+          'Requisitos de confiabilidade. Ex.: o sistema deverá ter alta disponibilidade, exemplo, 99% do tempo.',
+          'Requisitos de portabilidade. Ex.: o sistema deverá executar em qualquer plataforma.',
+          'Requisitos de entrega. Ex.: um relatório de acompanhamento deverá ser fornecido toda segunda-feira.',
+          'Requisitos de implementação. Ex.: o sistema deverá ser desenvolvido na linguagem Java.',
+          'Requisitos de padrões. Ex.: uso de programação orientada a objeto sob a plataforma A.',
+          'Requisitos de interoperabilidade. Ex.: o sistema deverá se comunicar com o banco SQL Server.',
+          'Requisitos éticos. Ex.: o sistema não apresentará aos usuários quaisquer dados de cunho privativo.',
+          'Requisitos legais. Ex.: o sistema deverá atender às normas legais, tais como padrões, leis, etc.',
+        ],
+      },
+    ],
+  },
+  {
+    category: HelpCardCategory.FUNCTIONAL_NON_FUNCTIONAL_SPECIFICATION,
+    variant: HelpCardVariant.DETAIL,
+    title: 'Visão de Negócio - Requisito Não Funcional',
+    description:
+      'Identificação das características de qualidade e das restrições do sistema, como confiabilidade, desempenho, sistema operacional, entre outros.',
+    icon: '',
+    questions: [
+      {
+        question:
+          'Por que eles precisariam tomar tais decisões? De qual objetivo de negócios cada decisão faz parte? De qual processo de negócios (rotina) essa decisão faz parte?',
+        response: 'O tomador de decisão será o corredor.',
+      },
+      {
+        question: 'Qual é a frequência de cada decisão (com que frequência)?',
+        response:
+          'O corredor terás que tomar decisões a cada 30 minutos após o início da corrida utilizando a aplicação.',
+      },
+      {
+        question:
+          'O que o(s) decisor(es) precisa(m) saber durante os processos de decisão?',
+        response:
+          'O corredor precisará saber como estás a sua frequência cárdia para que possa tomar a decisão, por exemplo, de aumentar a quilometragem e a velocidade de corrida.',
+      },
+      {
+        question:
+          'Quais são as perguntas que vêm à sua mente (e eles precisam ter uma resposta) durante suas atividades de tomada de decisão?',
+        response:
+          'O corredor  precisará se perguntar se deve continua correndo ao passar 45 minutos ou deve descansar e recomeçar novamente no dia seguinte.',
+      },
+    ],
+  },
+  {
+    category: HelpCardCategory.FUNCTIONAL_NON_FUNCTIONAL_SPECIFICATION,
+    variant: HelpCardVariant.DETAIL,
+    title: 'Visão de Critério de Aceitação',
+    description:
+      'Identificação dos critérios de aceitação para a funcionalidade ser considerada concluída.',
+    icon: '',
+    questions: [
+      {
+        question:
+          'Quais são os requisitos éticos/justo associado a esta funcionalidade que precisam ser verificados e validados? Consultar guia de vieses humanos.',
+        response:
+          '<p>Manter 100% desta funcionalidade livre de caráter discriminatório por orientação sexual.</p><p>Link para consultar ideias de discriminação:</p><a href="https://www.equalityhumanrights.com/en/equality-act/protected-characteristics" target="_blank">https://www.equalityhumanrights.com/en/equality-act/protected-characteristics</a>',
+      },
+      {
+        question:
+          'Quais são os requisitos éticos (viés humano) associado a esta funcionalidade que precisam ser verificados e validados? Consultar guia de vieses humanos.',
+        response:
+          'Manter 100% desta funcionalidade livre de vieses humanos, seja por preconceito no grupo.</p><p>Link para consultar ideias de vieses humanos: </p><a href="https://developers.google.com/machine-learning/crash-course/fairness/types-of-bias" target="_blank">https://developers.google.com/machine-learning/crash-course/fairness/types-of-bias.</a>',
+      },
+      {
+        question:
+          'Quais são os requisitos de proteção e segurança dos dados associado a esta funcionalidade que precisam ser verificados e validados?',
+        response:
+          '<p>Manter 100% dos dados pessoas do usuário protegidos através da criptografia.</p><p>Link para consultar a lei de proteção dos dados geral e do Brasil: </p><a href="https://www.gov.br/cidadania/pt-br/acesso-a-informacao/lgpd" target="_blank">https://www.gov.br/cidadania/pt-br/acesso-a-informacao/lgpd</a>',
+      },
+    ],
+  },
+  {
+    category: HelpCardCategory.FUNCTIONAL_NON_FUNCTIONAL_SPECIFICATION,
+    variant: HelpCardVariant.DETAIL,
+    title: 'Visão de Dados',
+    description:
+      'Identificação das necessidades dos dados para implementar a funcionalidade.',
+    icon: '',
+    questions: [
+      {
+        question:
+          'Que tipo de dados seria relevante para gerar os insights e responder à questão de negócios em questão?',
+        response: 'Coleções de imagens, vídeos, texto, áudio, etc.',
+      },
+      {
+        question: 'Qual formato do dado é relevante?',
+        response: 'SQL, CSV, GEOSPATIAL, JSON, etc',
+      },
+      {
+        question:
+          'Qual é a fonte dos dados, ou seja, de onde eles serão obtidos?',
+        response:
+          'Google Dataset Search, tabelas X,Y, Z de banco de dados, serviços de terceiros, etc.',
+      },
+      {
+        question:
+          'Qual é o escopo do dado a ser utilizado para desenvolver a funcionalidade que contém IA? Quais são os dados reais que representem o problema no mundo real.',
+        response:
+          'Precisaremos de dados que apresentam a iteração do usuário final com o sistema.',
+      },
+    ],
+  },
+  {
+    category: HelpCardCategory.FUNCTIONAL_NON_FUNCTIONAL_SPECIFICATION,
+    variant: HelpCardVariant.DETAIL,
+    title: 'Visão de Infraestrutura',
+    description:
+      'Identificação da infraestrutura necessária para que a funcionalidade possa se integrar com outros serviços.',
+    icon: '',
+    questions: [
+      {
+        question:
+          'Esta funcionalidade irá se integrar com o restante da funcionalidade do sistema?',
+        response:
+          'Esta funcionalidade precisará da infraestrutura baseado em nuvem (cloud) para poder se integrar com as outras funcionalidades/serviços do sistema, a estratégia de vaporização de dados será transporte de dados em tempo real e o banco de dados X.',
+      },
+      {
+        question: 'Qual é a estratégia de vaporização de dados usada?',
+        response:
+          'Transporte de dados em tempo real ou em lotes, Streaming de dados).',
+      },
+      {
+        question:
+          'Como o modelo do sistema habilitado para IA será executado e consumido?',
+        response:
+          'Do lado do cliente, back-end, baseado em nuvem ou ponto final de serviço da Web.',
+      },
+    ],
+  },
+  {
+    category: HelpCardCategory.FUNCTIONAL_NON_FUNCTIONAL_SPECIFICATION,
+    variant: HelpCardVariant.DETAIL,
+    title: 'Visão de Risco do Produto',
+    description:
+      'Identificação dos riscos/ameaças relacionados ao produto ou implementação da solução com IA.',
+    icon: '',
+    questions: [
+      {
+        question:
+          'Esta funcionalidade tem valor para o cliente? O usuário confiará neste sistema?',
+        response:
+          'Pode haver falta de interesse por parte do usuário final, pois a interface não é atraente.',
+      },
+      {
+        question:
+          'Esta funcionalidade é factível de ser construído do ponto de vista de código, engenharia e arquitetura de software, e a empresa tem estrutura para desenvolvê-lo?',
+        response:
+          'Há a possibilidade desta funcionalidade não ser factível de ser construída do ponto de vista de arquitetura de software, pois a empresa não tem a estrutura adequada para desenvolvê-la.',
+      },
+      {
+        question:
+          'Esta funcionalidade é factível de ser testada ou não, seja por motivo de custo, tempo e possibilidade de teste? Quais tipos de testes e quais casos de testes é possível realizar? A cobertura dos testes é viável? A escolha dos tipos de testes e revisões é adequada? A priorização dos testes, o planejamento e a execução está aderente a funcionalidade?',
+        response:
+          'Há a possibilidade desta funcionalidade não ser testada devido o tempo do projeto ser curto',
+      },
+      {
+        question:
+          'Quais são os riscos relacionados ao fornecimento de coleta, preparação, criação dos dados, limitações do conjunto de dados e modelo e da alteração nos dados usados para implementar esta funcionalidade?',
+        response:
+          'Pode haver atraso na liberação dos dados que serão utilizados no desenvolvimento desta funcionalidade devido à restrição de acesso e questões de confidencialidade.',
+      },
+      {
+        question:
+          'Quais são os riscos relacionados a privacidade e segurança dos dados usados para implementar esta funcionalidade?',
+        response:
+          'Pode haver falha de segurança devido a equipe técnica do projeto não estar utilizando nenhuma prática voltada a desenvolvimento seguro. Pode-se ter problemas de segurança e de internalização junto ao Centro de Processamento de Dados (CPD) da empresa.',
+      },
+    ],
+  },
+];
+
 export default function useListHelpCards() {
   const list = (): HelpCard[][] => {
     const helpCards: HelpCard[][] = [
@@ -267,6 +527,7 @@ export default function useListHelpCards() {
       data,
       risk,
       acceptance,
+      functionalNonFunctionalSpecification,
     ];
     return helpCards;
   };

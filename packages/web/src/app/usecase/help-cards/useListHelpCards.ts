@@ -231,9 +231,43 @@ const risk: HelpCard[] = [
   },
 ];
 
+const acceptance: HelpCard[] = [
+  {
+    category: HelpCardCategory.ACCEPTANCE,
+    variant: HelpCardVariant.COVER,
+    title: 'Critérios de Aceitação Geral',
+    icon: '',
+  },
+  {
+    category: HelpCardCategory.ACCEPTANCE,
+    variant: HelpCardVariant.DETAIL,
+    title: 'Critérios de Aceitação Geral',
+    description:
+      'Identificação dos critérios de aceitação geral que são necessários e comuns para todas as histórias de usuário do sistema para evitar a repetição das informações.',
+    icon: '',
+    questions: [
+      {
+        question:
+          'Quais são os critérios de aceitação geral que são necessários para todas as histórias de usuário do sistema para evitar a repetição da informação em cada história de usuário? Exemplo: Critérios de Testes e Critérios associado a segurança e proteção dos dados',
+        response: [
+          'Todas as histórias de usuário do projeto devem manter a cobertura de 85% dos testes de unidade visando testar cada componente do sistema isoladamente.',
+          'Todas as histórias de usuário do projeto devem manter a cobertura de 85% do teste sistêmico visando verificar se todas as funcionalidades que contém a IA estão funcionando de acordo com o previsto.',
+          'Todas as histórias de usuário do projeto relacionadas a informações pessoas devem manter 100% dos dados pessoas do usuário protegidos através da criptografia.',
+        ],
+      },
+    ],
+  },
+];
+
 export default function useListHelpCards() {
   const list = (): HelpCard[][] => {
-    const helpCards: HelpCard[][] = [functional, nonFunctional, data, risk];
+    const helpCards: HelpCard[][] = [
+      functional,
+      nonFunctional,
+      data,
+      risk,
+      acceptance,
+    ];
     return helpCards;
   };
   return [list];

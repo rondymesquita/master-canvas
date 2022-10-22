@@ -28,6 +28,7 @@ import {
   HelpCard,
   HelpCardCategory,
   HelpCardQuestion,
+  HelpCardQuestionResponse,
   HelpCardVariant,
 } from '../../domain/help-card';
 import { FaHome, FaTimes } from 'react-icons/fa';
@@ -89,24 +90,25 @@ function HelpCardDetailComponent({
 
   return (
     <Flex p={2} flexDirection="column">
-      <Flex gap={2} height="fit-content" color={`${color}.800`}>
-        <Square
-          borderRadius="full"
-          bg={'white'}
-          centerContent={true}
-          size={'fit-content'}
-          p={2}
-          alignSelf={'center'}
-          sx={{
-            boxShadow: `0 6px 8px -7px var(--chakra-colors-${color}-800)`,
-          }}
-        >
-          <Icon fontSize={'sm'} as={FaHome} />
-        </Square>
-        <Heading textAlign={'center'} size={'xs'}>
-          {title}
-        </Heading>
-        {/* <Text>{description}</Text> */}
+      <Flex gap={2} height="fit-content" color={`${color}.600`}>
+        <Center>
+          <Square
+            borderRadius="full"
+            bg={'white'}
+            centerContent={true}
+            size={'fit-content'}
+            p={2}
+            alignSelf={'center'}
+            sx={{
+              boxShadow: `0 6px 8px -7px var(--chakra-colors-${color}-800)`,
+            }}
+          >
+            <Icon fontSize={'sm'} as={FaHome} />
+          </Square>
+          <Heading textAlign={'center'} size={'xs'} ml={2}>
+            {title}
+          </Heading>
+        </Center>
       </Flex>
       <Flex py={4}>
         <Text fontSize={'sm'} color={'fg.600'}>
@@ -125,11 +127,26 @@ function HelpCardDetailComponent({
                 <strong>{question.question}</strong>
               </Box>
             </Box>
-            <Flex fontSize={'sm'} flexDirection="column">
-              <strong>Exemplo:</strong>{' '}
-              <Flex
-                dangerouslySetInnerHTML={createHTMLfrom(question.response)}
-              ></Flex>
+            <Flex fontSize={'sm'} flexDirection="column" data-testid="response">
+              {Array.isArray(question.response) ? (
+                question.response.map((response: HelpCardQuestionResponse) => (
+                  <Flex mb={2} flexDirection="column">
+                    <strong>Exemplo {}:</strong>{' '}
+                    <Flex
+                      dangerouslySetInnerHTML={createHTMLfrom(
+                        response as string
+                      )}
+                    ></Flex>
+                  </Flex>
+                ))
+              ) : (
+                <>
+                  <strong>Exemplo:</strong>{' '}
+                  <Flex
+                    dangerouslySetInnerHTML={createHTMLfrom(question.response)}
+                  ></Flex>
+                </>
+              )}
             </Flex>
           </Box>
         ))}

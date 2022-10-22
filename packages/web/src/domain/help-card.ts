@@ -13,9 +13,11 @@ export enum HelpCardVariant {
   DETAIL = 'DETAIL',
 }
 
+export type HelpCardQuestionResponse = string | string[];
+
 export interface HelpCardQuestion {
   question: string;
-  response: string;
+  response: HelpCardQuestionResponse;
 }
 
 export interface HelpCard {

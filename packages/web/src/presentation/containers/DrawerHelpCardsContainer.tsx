@@ -41,7 +41,7 @@ const cardColors: Record<string, string> = {
   [HelpCardCategory.RISK]: 'plum',
   [HelpCardCategory.ACCEPTANCE]: 'emerald',
   [HelpCardCategory.FUNCTIONAL_NON_FUNCTIONAL_SPECIFICATION]: 'amber',
-  [HelpCardCategory.DATA_NEEDS]: 'purple',
+  [HelpCardCategory.DATA_NEEDS]: 'pink',
 };
 
 function HelpCardCoverComponent({

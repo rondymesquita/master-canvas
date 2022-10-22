@@ -319,21 +319,38 @@ const functionalNonFunctionalSpecification: HelpCard[] = [
       },
     ],
   },
-  // {
-  //   category: HelpCardCategory.FUNCTIONAL_NON_FUNCTIONAL_SPECIFICATION,
-  //   variant: HelpCardVariant.DETAIL,
-  //   title: 'Visão de Negócio - Requisito Funcional',
-  //   description:
-  //     'Identificação do que precisa ser desenvolvido para o usuário, ou seja, quais são as funcionalidades. Representam a descrição das funcionalidades e serviços que se esperam do sistema',
-  //   icon: '',
-  //   questions: [
-  //     {
-  //       question:
-  //         'Quais são as principais estratégias de negócios em seu domínio de interesse?',
-  //       response: 'Melhorar a saúde do corredor.',
-  //     },
-  //   ],
-  // },
+  {
+    category: HelpCardCategory.FUNCTIONAL_NON_FUNCTIONAL_SPECIFICATION,
+    variant: HelpCardVariant.DETAIL,
+    title: 'Visão de Negócio - Requisito Funcional',
+    description:
+      'Identificação do que precisa ser desenvolvido para o usuário, ou seja, quais são as funcionalidades. Representam a descrição das funcionalidades e serviços que se esperam do sistema',
+    icon: '',
+    questions: [
+      {
+        question:
+          'O que o sistema deve fazer e os serviços que deve oferecer para os seus usuários em detalhes? Descreva em detalhes os serviços, funções, entradas e saídas da aplicação para cada requisito de usuário.',
+        response:
+          'O sistema deve sugerir diversas opções de locais para o usuário se exercitar próximo a sua residência.',
+      },
+      {
+        question:
+          'Quem é responsável por/objetivo de alcançar esses objetivos?',
+        response: 'O usuário final é responsável por alcançar esses objetivos.',
+      },
+      {
+        question:
+          'Quais são os principais indicadores de desempenho neste contexto?',
+        response:
+          'Será utilizado o indicador de recall para avaliar o desempenho do sistema inteligente.',
+      },
+      {
+        question: 'Identificar quem irá repassar a visão de negócio.',
+        response:
+          'A área de negócio do cliente irá repassar a visão de negócio para o time que irá desenvolver o sistema.',
+      },
+    ],
+  },
   {
     category: HelpCardCategory.FUNCTIONAL_NON_FUNCTIONAL_SPECIFICATION,
     variant: HelpCardVariant.DETAIL,
@@ -519,6 +536,178 @@ const functionalNonFunctionalSpecification: HelpCard[] = [
   },
 ];
 
+const dataNeeds: HelpCard[] = [
+  {
+    category: HelpCardCategory.DATA_NEEDS,
+    variant: HelpCardVariant.COVER,
+    title: 'Especificação dos Requisitos das Necessidades dos Dados',
+    icon: '',
+  },
+  {
+    category: HelpCardCategory.DATA_NEEDS,
+    variant: HelpCardVariant.DETAIL,
+    title: 'Visão das partes interessadas dos Dados',
+    description:
+      'Identificação dos stakeholder que irão fornecer, coletar, preparar e criar os dados.',
+    icon: '',
+    questions: [
+      {
+        question:
+          'Quem são os seus stakeholder do projeto que irão fornecer, coletar, preparar e criar os dados?',
+        response:
+          'Para implementar as funcionalidades do sistema, será necessário que o <cliente> forneça os dados e/ou <cientista de dados> crie, prepare e colete os dados.',
+      },
+    ],
+  },
+  {
+    category: HelpCardCategory.DATA_NEEDS,
+    variant: HelpCardVariant.DETAIL,
+    title: 'Visão de Negócio dos Dados',
+    description:
+      'Identificação de quais informações são pertinentes para o escopo necessário de dados que serão utilizados na elaboração da inteligência artificial.',
+    icon: '',
+    questions: [
+      {
+        question:
+          'Qual é a motivação, ou seja, o problema ou contexto que explica porque os dados são necessários?',
+        response:
+          'Os dados do usuário que apresenta a quantidade de cliques de iteração na tela são necessários para que possamos verificar a relevância do sistema para os usuários finais.',
+      },
+      {
+        question:
+          'Qual é o escopo (conjunto de dados adequados para os propósitos pretendidos) necessários para criar e treinar um modelo de IA que possa atender às necessidades dos usuários? Esses dados refletem o contexto (o mundo real) de maneira confiável? ',
+        response:
+          'Os dados que representam a quantidade de cliques de iteração do usuário na tela',
+      },
+      {
+        question:
+          'Qual é o tipo de dado necessário para criar e treinar o modelo de IA?',
+        response: 'Podem ser coleções de imagens, vídeos, texto, áudio etc...',
+      },
+      {
+        question: 'Quais são as operações aplicadas nos Dados?',
+        response: 'Limpeza e rotulagem de dados.',
+      },
+      {
+        question: 'Qual é o formato dos dados?',
+        response: 'SQL, CSV, GEOSPATIAL, JSON, JPEG, etc...',
+      },
+      {
+        question:
+          'Quais rótulos são necessários aplicar nos dados para criar e treinar o modelo de IA? E quantos dados precisam ser rotulados?',
+        response:
+          'Imagem formatada, propriedades da planta e rótulos “seguro para tocar” e “seguro para comer”), (DD/MM/AAAA vs. MM/DD/AAAA), os dados não deve conter valores ausentes, erros de ortografia e formatação incorreta.',
+      },
+      {
+        question:
+          'Qual é a fonte dos dados usada para criar e treinar o modelo de IA? Ou seja, de onde vem os dados e como serão coletados?',
+        response:
+          '<p>Ao dados utilizados para construir e treinar o modelo serão extraídos do dataset público <a href="https://datasetsearch.research.google.com/" target="_blank">X, Y, Z</a>, <a href="https://cloud.google.com/automl/" target="_blank">Google Cloud AutoML</a> , <a href="https://toolbox.google.com/datasetsearch" target="_blank">Google Dataset Search</a> , <a href="https://ai.google/tools/datasets/" target="_blank">dados Google AI</a> ,<a href="https://www.kaggle.com/datasets" target="_blank">Kaggle</a>, usaremos a saída de outro sistema de IA como um recurso de entrada para treinar o modelo, servidor de arquivos, API, FTP, fornecedores, serviços de terceiros, tabelas de banco de dados, métodos de API ou sites para raspar, etc.</p>',
+      },
+      {
+        question:
+          'Quantos dados são necessários para criar e treinar o modelo de IA?',
+        response: 'Precisaremos de 10.000 dados do usuário.',
+      },
+      {
+        question:
+          'Que dados ruidosos, ou seja, dados menos que perfeitos, mas que se assemelham as situações do mundo real serão utilizados na criação e treinamento do modelo de IA?',
+        response: 'Precisaremos dos dados X,Y,Z com baixa qualidade.',
+      },
+    ],
+  },
+  {
+    category: HelpCardCategory.DATA_NEEDS,
+    variant: HelpCardVariant.DETAIL,
+    title: 'Visão de Segurança dos Dados',
+    description:
+      'Informar como será realizado a segurança dos dados que serão utilizados na inteligência artificial.',
+    icon: '',
+    questions: [
+      {
+        question:
+          'Quais abordagens (tipo de tratamento nos Dados) serão usadas para anonimizar os dados quando houver dados sensíveis que contém informações de identificação pessoal ou características protegidas?',
+        response:
+          'Aplicaremos a abordagem agregação ou redação para anonimize nomes, endereços.',
+      },
+      {
+        question:
+          'Onde os dados serão armazenados e por quanto tempo devem ser retidos mantendo a segurança dos mesmos?',
+        response:
+          'Os dados serão armazenados no SVN do projeto por todo o período do projeto.',
+      },
+      {
+        question:
+          'Os dados devem ser disponibilizados para outras equipes? Se sim, quais seriam os dados?',
+        response:
+          'Não, os dados devem ser restritos para uso apenas da equipe técnica de desenvolvimento do projeto durante todo o ciclo de vida de desenvolvimento.',
+      },
+      {
+        question:
+          'Quem são os responsáveis por provar os dados versionados em uma baseline, ou seja, validar que o dado é coerente e apto para ser usado na solução inteligente?',
+        response:
+          'O especialista de domínio do projeto irá aprovar a liberação dos dados e indicar se estes dados que serão utilizados tem uma versão X salva no repositório de controle de versão do projeto.',
+      },
+      {
+        question:
+          'Quem é o responsável por consentir o uso dos dados durante todo o ciclo de desenvolvimento do projeto por parte do time interno da implementação da solução?',
+        response:
+          'O responsável por consentir o uso dos dados é o cliente e a área jurídica da empresa.',
+      },
+    ],
+  },
+  {
+    category: HelpCardCategory.DATA_NEEDS,
+    variant: HelpCardVariant.DETAIL,
+    title: 'Visão de Manutenção dos Dados',
+    description:
+      'Informar como será realizado a manutenibilidade dos dados que serão utilizados no desenvolvimento das funcionalidades do sistema que contém inteligência artificial.',
+    icon: '',
+    questions: [
+      {
+        question:
+          'Os dados devem ser atualizados regularmente? Se sim, com que frequência?',
+        response: 'Os dados devem ser atualizados a cada 3 meses.',
+      },
+    ],
+  },
+  {
+    category: HelpCardCategory.DATA_NEEDS,
+    variant: HelpCardVariant.DETAIL,
+    title: 'Visão de Treinamento dos Dados',
+    description:
+      'Informar como será realizado a distribuição dos dados que serão utilizados para o treinamento e teste no desenvolvimento das funcionalidades do sistema que contém inteligência artificial.',
+    icon: '',
+    questions: [
+      {
+        question:
+          'Qual será o % de dados utilizados para treinamento e teste? Estes dados são suficientes para concluir o modelo?',
+        response:
+          ' 60% dos dados serão usados no treinamento do modelo e 40% usados nas validações e nos testes.',
+      },
+    ],
+  },
+  {
+    category: HelpCardCategory.DATA_NEEDS,
+    variant: HelpCardVariant.DETAIL,
+    title: 'Visão de Risco nos Dados',
+    description:
+      'Informar que ameaças ou riscos podem ocorrer em consequências do uso destes dados para atender os requisitos do projeto.',
+    icon: '',
+    questions: [
+      {
+        question:
+          '1. Quais ameaças ou riscos pode ocorrer em consequências do uso dos dados que atendem aos requisitos do projeto?',
+        response: [
+          'Pode haver vieses humanos relacionados a raça nos dados utilizados.',
+          'Há a possibilidade desta funcionalidade não ser factível de ser construída, pois a qualidade dos dados não é suficiente',
+          'Pode haver a modelagem do modelo enviesada, pois o dado utilizado foi disponibilizado pelo cliente enviesado.',
+        ],
+      },
+    ],
+  },
+];
+
 export default function useListHelpCards() {
   const list = (): HelpCard[][] => {
     const helpCards: HelpCard[][] = [
@@ -528,6 +717,7 @@ export default function useListHelpCards() {
       risk,
       acceptance,
       functionalNonFunctionalSpecification,
+      dataNeeds,
     ];
     return helpCards;
   };

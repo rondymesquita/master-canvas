@@ -79,7 +79,7 @@ export const theme = extendTheme({
     },
   },
   colors: {
-    primary: colors.blue,
+    primary: colors.bic,
     secondary: colors.slate,
     destructive: colors.plum,
     bg: { 0: 'white', ...colors.slate },

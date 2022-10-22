@@ -18,7 +18,12 @@ export default function Header({ isLogged = true, user, onActionClick }: any) {
       <Flex px={2} bg={'bg.0'}>
         <Center px={8}>
           <Box>
-            <Link to={HOME_PAGE}>
+            <Link
+              to={HOME_PAGE}
+              style={{
+                textDecoration: 'none',
+              }}
+            >
               <Logo color={'primary.500'} size="2xl" />
             </Link>
           </Box>

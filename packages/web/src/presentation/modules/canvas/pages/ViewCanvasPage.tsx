@@ -1,4 +1,5 @@
 import {
+  Box,
   Button,
   Container,
   Flex,
@@ -10,21 +11,21 @@ import {
 } from '@chakra-ui/react';
 import { useEffect, useRef, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import { GetAreasUseCase } from '../../../app/usecase/GetAreas';
-import useGetEmptyCard from '../../../app/usecase/card/useGetEmptyCard';
-import useListCard from '../../../app/usecase/card/useListCard';
-import useRemoveCard from '../../../app/usecase/card/useRemoveCard';
-import useSaveCard from '../../../app/usecase/card/useSaveCard';
-import { AreaModel } from '../../../domain/area';
-import { CardCategory, CardModel } from '../../../domain/card';
-import Area from '../../components/Area';
-import Card from '../../components/Card';
-import EditCardModal from '../card/components/EditCardModal';
-import Header from '../../components/Header';
-import useDisclosure from '../../hooks/useDisclosure';
-import PageTemplate from '../../templates/PageTemplate';
-import useUpdateCard from '../../../app/usecase/card/useUpdateCard';
-import useExportPDF from '../../../app/usecase/canvas/useExportPDF';
+import { GetAreasUseCase } from '../../../../app/usecase/GetAreas';
+import useGetEmptyCard from '../../../../app/usecase/card/useGetEmptyCard';
+import useListCard from '../../../../app/usecase/card/useListCard';
+import useRemoveCard from '../../../../app/usecase/card/useRemoveCard';
+import useSaveCard from '../../../../app/usecase/card/useSaveCard';
+import { AreaModel } from '../../../../domain/area';
+import { CardCategory, CardModel } from '../../../../domain/card';
+import Area from '../../../components/Area';
+import Card from '../../../components/Card';
+import EditCardModal from '../../card/components/EditCardModal';
+import Header from '../../../components/Header';
+import useDisclosure from '../../../hooks/useDisclosure';
+import PageTemplate from '../../../templates/PageTemplate';
+import useUpdateCard from '../../../../app/usecase/card/useUpdateCard';
+import useExportPDF from '../../../../app/usecase/canvas/useExportPDF';
 
 import {
   Document,
@@ -34,8 +35,19 @@ import {
   StyleSheet,
   PDFDownloadLink,
 } from '@react-pdf/renderer';
-import CardExportPDF from '../card/components/CardExportPDF';
-import { FaDownload, FaFileExport } from 'react-icons/fa';
+import PdfDocumentCard from '../../card/components/PdfDocumentCard';
+import {
+  FaBars,
+  FaDownload,
+  FaEye,
+  FaFileExport,
+  FaHamburger,
+} from 'react-icons/fa';
+import PdfDocument from '../../card/components/PdfDocument';
+import useGetCanvasById from '../../../../app/usecase/canvas/useGetCanvasById';
+import DrawerHelpCardsContainer from '../../../containers/DrawerHelpCardsContainer';
+import { usePortal } from '../../../contexts/PortalContext';
+import useListHelpCards from '../../../../app/usecase/help-cards/useListHelpCards';
 
 // import { TransformWrapper, TransformComponent } from 'react-zoom-pan-pinch';
 // import { useZoom, ZoomProvider } from '../contexts/ZoomContext';
@@ -45,12 +57,17 @@ const getAreasUseCase = new GetAreasUseCase();
 
 export default function ViewCanvasPage() {
   let { canvasId } = useParams();
+  const { portalRef } = usePortal();
 
-  const [isOpen, onOpen, onClose] = useDisclosure();
+  // const [isOpen, onOpen, onClose] = useDisclosure();
   const [isModalOpen, onModalOpen, onModalClose] = useDisclosure();
+  const [isDrawerOpen, onDrawerOpen, onDrawerClose] = useDisclosure();
 
   const zoomRef = useRef();
 
+  /**
+   *
+   */
   const [areas, setAreas] = useState<AreaModel[]>([]);
   const [templates, setTemplates] = useState<CardModel[]>([]);
   const [cards, setCards] = useState<CardModel[]>([]);
@@ -69,8 +86,17 @@ export default function ViewCanvasPage() {
   /**
    *
    */
-
   const [exportPDF] = useExportPDF();
+
+  /**
+   *
+   */
+  const [canvas, getByIdError] = useGetCanvasById(canvasId);
+
+  /**
+   *
+   */
+  const [listHelpCards] = useListHelpCards();
 
   useEffect(() => {
     async function fetchData() {
@@ -123,16 +149,17 @@ export default function ViewCanvasPage() {
       title,
     };
     copy.splice(cardToUpdateIndex, 1, newCard);
-    // setCards(copy);
 
     await update(newCard);
     setCards(await list(currentCanvasId));
-    onModalClose();
   };
 
-  const onClickExportPDF = async () => {
-    console.log('>>>>called');
-    await exportPDF(cards);
+  const exportCanvasAsPDF = async () => {
+    await exportPDF(canvas, cards);
+  };
+
+  const showHelpCards = async () => {
+    onDrawerOpen();
   };
 
   const getRowSpanRules = (area: AreaModel) => {
@@ -146,7 +173,7 @@ export default function ViewCanvasPage() {
   const getColSpanRules = (area: AreaModel) => {
     const { category } = area;
     const colSpans: any = {
-      RISK: 3,
+      RISK: 2,
     };
     return colSpans[category] || 1;
   };
@@ -154,33 +181,51 @@ export default function ViewCanvasPage() {
   return (
     <>
       {/* {currentCanvasId} */}
-      <PageTemplate>
-        <EditCardModal
-          key={currentCard?.id + new Date().toISOString()}
-          isOpen={isModalOpen}
-          onOpen={onModalOpen}
-          onClose={onModalClose}
-          onSave={onCardSave}
-          title={currentCard?.title}
-          content={currentCard?.content}
-          category={currentCard?.category}
-        ></EditCardModal>
-
-        <Flex py={4}>
-          {/* <DownloadLinkComponent
-            ref={downloadLinkComponentRef}
-            cards={cardsToExportPDF}
-          /> */}
-          <Button
-            leftIcon={<Icon as={FaDownload} />}
-            colorScheme={'primary'}
-            onClick={onClickExportPDF}
+      {/* {JSON.stringify(canvas)} */}
+      <PageTemplate
+        titleBar={
+          <Flex
+            flexDirection={'column'}
+            borderTopWidth={1}
+            borderColor={'bg.300'}
+            position={'relative'}
+            py={2}
           >
-            Exportar PDF
-          </Button>
-        </Flex>
+            <Heading size={'md'} mb={2}>
+              {canvas?.title}
+            </Heading>
 
-        <Grid templateColumns="repeat(3, 1fr)" shadow={'xl'}>
+            <Flex>
+              <Button
+                leftIcon={<Icon as={FaDownload} />}
+                colorScheme={'primary'}
+                onClick={exportCanvasAsPDF}
+                variant={'primary'}
+              >
+                Exportar PDF
+              </Button>
+              <Spacer></Spacer>
+              <Button
+                variant={'outline'}
+                leftIcon={<Icon as={FaBars} />}
+                colorScheme={'secondary'}
+                onClick={showHelpCards}
+              >
+                Ver Cartas de Ajuda{' '}
+              </Button>
+            </Flex>
+          </Flex>
+        }
+      >
+        <>
+          {/* <PdfDocument
+            key={new Date().toISOString()}
+            canvas={canvas}
+            cards={cards}
+          /> */}
+        </>
+
+        <Grid templateColumns="repeat(3, 1fr)">
           {areas.map((area: AreaModel, index: number) => (
             <GridItem
               key={index}
@@ -189,6 +234,7 @@ export default function ViewCanvasPage() {
             >
               <Area
                 key={index}
+                category={area.category}
                 title={area.title}
                 onAddClick={() => onAddCard(area.category)}
               >
@@ -208,6 +254,30 @@ export default function ViewCanvasPage() {
             </GridItem>
           ))}
         </Grid>
+
+        <DrawerHelpCardsContainer
+          category={'TEST'}
+          isOpen={isDrawerOpen}
+          onClose={onDrawerClose}
+          helpCards={listHelpCards()}
+        />
+
+        <EditCardModal
+          key={currentCard?.id + new Date().toISOString()}
+          isOpen={isModalOpen}
+          onOpen={onModalOpen}
+          onClose={() => {
+            onModalClose();
+            onDrawerClose();
+          }}
+          onSave={onCardSave}
+          onHelp={() => {
+            isDrawerOpen ? onDrawerClose() : onDrawerOpen();
+          }}
+          title={currentCard?.title}
+          content={currentCard?.content}
+          category={currentCard?.category}
+        ></EditCardModal>
       </PageTemplate>
     </>
   );

@@ -20,6 +20,7 @@ import {
   EditablePreview,
 } from '@chakra-ui/react';
 import React from 'react';
+import { FaEdit, FaPencilAlt, FaTrash, FaTrashAlt } from 'react-icons/fa';
 import EditableQuestion from './EditableQuestion';
 import LoremIpsum from './LoremIpsum';
 
@@ -59,38 +60,51 @@ export default function Card({
       shadow={'base'}
       width={150}
       height={'fit-content'}
-      borderWidth="1px"
+      borderWidth={1}
+      borderLeftWidth={10}
       borderColor={'yellow.200'}
-      padding={2}
-      cursor={'pointer'}
-      onClick={onClick}
+      px={2}
+      pt={4}
+      pb={0}
+      // cursor={'grab'}
+      // onClick={onClick}
     >
       <Flex>
-        <Center>
+        {/* <Center>
           <InfoIcon />
-        </Center>
-        <Flex paddingLeft={2} overflow={'hidden'}>
-          <Heading maxWidth={'100%'} as="h4" size="xs" noOfLines={1}>
+        </Center> */}
+        <Flex overflow={'hidden'} width={'full'}>
+          <Text width={'full'} noOfLines={5}>
             {title}
-          </Heading>
+          </Text>
         </Flex>
       </Flex>
-      <Text
+      {/* <Text
         noOfLines={5}
         my="4"
         dangerouslySetInnerHTML={createHTMLfromContent()}
-      ></Text>
+      ></Text> */}
       <Flex mt="4">
-        <Spacer />
         <IconButton
-          colorScheme={'yellow'}
+          colorScheme={'destructive'}
+          variant="ghost"
           onClick={(e) => {
             e.stopPropagation();
             onDelete();
           }}
-          size={'sm'}
           aria-label=""
-          icon={<DeleteIcon />}
+          icon={<FaTrashAlt />}
+        />
+        <Spacer />
+        <IconButton
+          colorScheme={'primary'}
+          variant="ghost"
+          onClick={(e) => {
+            e.stopPropagation();
+            onClick();
+          }}
+          aria-label=""
+          icon={<FaEdit />}
         />
       </Flex>
     </Flex>

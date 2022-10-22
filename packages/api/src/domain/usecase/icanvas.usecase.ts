@@ -11,7 +11,7 @@ export interface IUpdateCanvas {
   handle(input: IUpdateCanvasInput): Promise<Canvas>;
 }
 
-export interface IGetByIdCanvas {
+export interface IGetCanvasById {
   handle(id: string): Promise<Canvas>;
 }
 

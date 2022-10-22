@@ -4,7 +4,8 @@
   "description": "",
   "main": "start.js",
   "scripts": {
-    "start": "npx pm2 start --name proxy start.js"
+    "start": "npx pm2 start --name proxy start.js",
+    "dev": "cross-env NODE_ENV=development nodemon -w start.js start.js"
   },
   "keywords": [],
   "author": "",

@@ -3,9 +3,11 @@ export enum CardCategory {
   NON_FUNCTIONAL = 'NON_FUNCTIONAL',
   RISK = 'RISK',
   DATA = 'DATA',
+  ACCEPTANCE = 'ACCEPTANCE',
 }
 
 export interface CardRequirementContentModel {
+  interdependency: string;
   persona: string;
   business: string;
   acceptance: string;
@@ -27,10 +29,15 @@ export interface CardRiskContentModel {
   risk: string;
 }
 
+export interface CardAcceptanceContentModel {
+  acceptance: string;
+}
+
 export type CardContentModel =
   | CardRequirementContentModel
   | CardDataContentModel
-  | CardRiskContentModel;
+  | CardRiskContentModel
+  | CardAcceptanceContentModel;
 
 export interface CardModel {
   id: string;

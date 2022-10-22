@@ -13,30 +13,37 @@ import {
   Heading,
   Center,
   Spacer,
+  IconButton,
+  Portal,
 } from '@chakra-ui/react';
 
 import EditableText from '../../../components/EditableText';
 import { SunIcon } from '@chakra-ui/icons';
 import { CardCategory } from '../../../../domain/card';
-import RequirementContent from './RequirementContent';
-import DataContent from './DataContent';
-import RiskContent from './RiskContent';
+// import CardRequirementContent from './CardRequirementContent';
+// import DataContent from './DataContent';
+// import RiskContent from './RiskContent';
+// import CardAcceptanceContent from './CardAcceptanceContent';
+import AbstractCardContent from './AbstractCardContent';
+import { FaBars, FaSave, FaTimes } from 'react-icons/fa';
+import { usePortal } from '../../../contexts/PortalContext';
+import ReactQuill from 'react-quill';
 
-function Actions({ children, cancel, ok }: any) {
+function Actions({ children, cancel, ok, help }: any) {
   return (
-    <Flex gap={2}>
-      <Box>
-        <Button colorScheme="secondary" variant="outline" onClick={cancel}>
-          Cancelar
-        </Button>
-      </Box>
-      {/* <Spacer /> */}
+    <Flex gap={2} width="full">
+      <Button
+        leftIcon={<FaTimes />}
+        colorScheme="secondary"
+        variant="outline"
+        onClick={cancel}
+      >
+        Voltar
+      </Button>
       <Box flexGrow={1}>{children}</Box>
-      <Box>
-        <Button colorScheme="primary" onClick={ok}>
-          Salvar
-        </Button>
-      </Box>
+      <Button leftIcon={<FaSave />} colorScheme="primary" onClick={ok}>
+        Salvar
+      </Button>
     </Flex>
   );
 }
@@ -46,87 +53,90 @@ export default function EditCardModal({
   onOpen,
   onClose,
   onSave,
+  onHelp,
   category,
   title: inputTitle,
-  content: inputContent,
+  content,
 }: any) {
   const [title, setTitle] = useState(inputTitle);
-  const [content, setContent] = useState(inputContent);
 
-  const focusRef = useRef(null);
+  const { portalRef } = usePortal();
+  const cardContentRef = useRef<any>();
 
   const onSaveButtonClick = () => {
+    const updatedContent = cardContentRef.current.getUpdatedContent();
+
+    console.log(updatedContent.interdependency);
+
     onSave({
       title,
-      content,
+      content: updatedContent,
     });
-  };
-
-  const destroyAndClose = () => {
-    setContent({});
     onClose();
   };
 
-  useEffect(() => {
-    // console.log(content);
-  }, [content]);
+  const destroyAndClose = () => {
+    setTitle('');
+    onClose();
+  };
+
+  if (!category) {
+    return <>no category</>;
+  }
 
   return (
     <>
-      <Modal
-        closeOnOverlayClick={false}
-        closeOnEsc={false}
-        isOpen={isOpen}
-        onClose={destroyAndClose}
-        size={'full'}
-        initialFocusRef={focusRef}
-      >
-        <ModalOverlay />
-        <ModalContent bg={'background.100'}>
-          <ModalHeader
-            borderBottomWidth={1}
-            borderBottomColor={'background.300'}
+      <Portal containerRef={portalRef}>
+        {isOpen && (
+          <Flex
+            bg={'bg.0'}
+            p={2}
+            position={'relative'}
+            flexDirection={'column'}
+            width={'full'}
           >
-            <Actions cancel={destroyAndClose} ok={onSaveButtonClick}>
-              <EditableText
-                flexGrow={1}
-                value={title}
-                onChange={(newTitle: string) => setTitle(newTitle)}
-              />
-            </Actions>
-
-            {/* <Center pl="4">
-                <ModalCloseButton
-                  ref={focusRef}
-                  position={'relative'}
-                  top={0}
-                  right={0}
+            <Flex width={'full'} pb={2}>
+              <Actions
+                cancel={destroyAndClose}
+                ok={onSaveButtonClick}
+                help={onHelp}
+              >
+                <EditableText
+                  placeholder={'Título do cartão'}
+                  as={'textarea'}
+                  flexGrow={1}
+                  value={title}
+                  onChange={setTitle}
                 />
-              </Center> */}
-          </ModalHeader>
-          <ModalBody bg={'white'}>
-            <Flex mb={4} justifyContent={'flex-end'}></Flex>
-            {(category === CardCategory.FUNCTIONAL ||
-              category === CardCategory.NON_FUNCTIONAL) && (
-              <RequirementContent
+              </Actions>
+            </Flex>
+            <Flex width={'full'} justifyContent={'end'} pb={2}>
+              <Button
+                aria-label=""
+                leftIcon={<FaBars />}
+                colorScheme="secondary"
+                variant={'outline'}
+                onClick={onHelp}
+              >
+                Ver Cartas de Ajuda
+              </Button>
+            </Flex>
+            <Flex flexDirection={'column'}>
+              <Flex justifyContent={'flex-end'}></Flex>
+
+              <AbstractCardContent
+                ref={cardContentRef}
+                category={category}
                 content={content}
-                onContentChange={setContent}
               />
-            )}
-
-            {category === CardCategory.DATA && (
-              <DataContent content={content} onContentChange={setContent} />
-            )}
-
-            {category === CardCategory.RISK && (
-              <RiskContent content={content} onContentChange={setContent} />
-            )}
-            <Actions cancel={destroyAndClose} ok={onSaveButtonClick}></Actions>
-          </ModalBody>
-
-          {/* <ModalFooter justifyContent={'center'}></ModalFooter> */}
-        </ModalContent>
-      </Modal>
+              <Actions
+                cancel={destroyAndClose}
+                ok={onSaveButtonClick}
+              ></Actions>
+            </Flex>
+          </Flex>
+        )}
+      </Portal>
     </>
   );
 }

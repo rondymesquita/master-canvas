@@ -3,6 +3,7 @@ import { COOKIE_NAME } from './../../config/constants';
 import { User } from '../../domain/model/user';
 import { CanvasListOutputDTO } from './../dto/canvas.list.output.dto';
 import {
+  IGetCanvasById,
   IRemoveCanvas,
   IUpdateCanvas,
 } from '../../domain/usecase/icanvas.usecase';
@@ -40,6 +41,7 @@ export class CanvasController {
   constructor(
     @Inject('ISaveCanvas') private readonly saveCanvas: ISaveCanvas,
     @Inject('IListCanvas') private readonly listCanvas: IListCanvas,
+    @Inject('IGetCanvasById') private readonly getCanvasById: IGetCanvasById,
     @Inject('IRemoveCanvas') private readonly removeCanvas: IRemoveCanvas,
     @Inject('IUpdateCanvas') private readonly updateCanvas: IUpdateCanvas,
   ) {}
@@ -50,6 +52,14 @@ export class CanvasController {
   })
   async list(@UserCookie() user: User): Promise<Canvas[]> {
     return await this.listCanvas.handle({ user: user.id });
+  }
+
+  @Get('/:id')
+  async getById(
+    @Param('id') id: string,
+    @UserCookie() user: User,
+  ): Promise<any> {
+    return await this.getCanvasById.handle(id);
   }
 
   @Post('/')

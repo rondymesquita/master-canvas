@@ -20,7 +20,6 @@ export default function Breadcrumb({
     <>
       <ChakraBreadcrumb
         spacing="8px"
-        fontSize={'lg'}
         separator={<ChevronRightIcon color="gray.500" />}
       >
         {links.map((link: BreadcrumbLinkModel) => (

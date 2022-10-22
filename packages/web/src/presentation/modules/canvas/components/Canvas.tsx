@@ -27,11 +27,12 @@ export default function Canvas({
 
   return (
     <Box
-      // borderWidth={1}
+      borderWidth={1}
+      borderColor={'bg.300'}
       p={3}
-      bg={'background.0'}
+      bg={'bg.0'}
       borderRadius="lg"
-      boxShadow={'xl'}
+      // boxShadow={'xl'}
       _hover={{ cursor: 'pointer' }}
       onClick={() => onClick(canvas)}
     >
@@ -40,10 +41,10 @@ export default function Canvas({
         <Avatar name={canvas.title} />
       </Center>
       <Flex justifyContent={'start'} flexDirection={'column'}>
-        <Text color="foreground.500" fontSize={'sm'} mb={4}>
+        <Text as={'em'} fontSize={'sm'} mb={4}>
           <strong>Criado:</strong> {formatDate(canvas.createdAt)}
         </Text>
-        <Text color="foreground.500" fontSize={'sm'}>
+        <Text as={'em'} fontSize={'sm'}>
           <strong>Atualizado:</strong> {formatDate(canvas.updatedAt)}
         </Text>
       </Flex>

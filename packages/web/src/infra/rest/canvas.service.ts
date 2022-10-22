@@ -28,4 +28,8 @@ export class CanvasService {
   async list() {
     return await this.client.get('/');
   }
+
+  async getById(id: string) {
+    return await this.client.get(`/${id}`);
+  }
 }

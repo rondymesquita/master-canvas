@@ -4,6 +4,7 @@ import {
   IUpdateCanvas,
   IListCanvasInput,
   IUpdateCanvasInput,
+  IGetCanvasById,
 } from '../../domain/usecase/icanvas.usecase';
 import { Inject, Injectable } from '@nestjs/common';
 import { Canvas } from '../../domain/model/canvas';
@@ -33,6 +34,14 @@ export class UpdateCanvas implements IUpdateCanvas {
     // );
     // if (!canvas) throw Error('not found');
     return await this.canvasRepo.update(input);
+  }
+}
+
+@Injectable()
+export class GetCanvasById implements IGetCanvasById {
+  constructor(@Inject('ICanvasRepo') private canvasRepo: ICanvasRepo) {}
+  async handle(id: string): Promise<Canvas> {
+    return await this.canvasRepo.getById(id, '0');
   }
 }
 

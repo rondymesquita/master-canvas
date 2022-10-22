@@ -8,20 +8,20 @@ import {
   Input,
 } from '@chakra-ui/react';
 import { useEffect, useState } from 'react';
-import PageTemplate from '../../templates/PageTemplate';
+import PageTemplate from '../../../templates/PageTemplate';
 
 import { FaPlus, FaSearch } from 'react-icons/fa';
 import { v4 } from 'uuid';
-import { CanvasModel } from '../../../domain/canvas';
-import Canvas from './components/Canvas';
-import useDisclosure from '../../hooks/useDisclosure';
-import NewCanvasModal from './components/NewCanvasModal';
+import { CanvasModel } from '../../../../domain/canvas';
+import Canvas from '../components/Canvas';
+import useDisclosure from '../../../hooks/useDisclosure';
+import NewCanvasModal from '../components/NewCanvasModal';
 import { useNavigate } from 'react-router-dom';
-import useListCanvas from '../../../app/usecase/useListCanvas';
-import useSaveCanvas from '../../../app/usecase/useSaveCanvas';
-import useRemoveCanvas from '../../../app/usecase/useRemoveCanvas';
-import useUpdateCanvas from '../../../app/usecase/useUpdateCanvas';
-import EditCanvasModal from './components/EditCanvasModal';
+import useListCanvas from '../../../../app/usecase/useListCanvas';
+import useSaveCanvas from '../../../../app/usecase/useSaveCanvas';
+import useRemoveCanvas from '../../../../app/usecase/useRemoveCanvas';
+import useUpdateCanvas from '../../../../app/usecase/useUpdateCanvas';
+import EditCanvasModal from '../components/EditCanvasModal';
 
 export default function ListCanvasPage() {
   const [canvases, setCanvases] = useState<CanvasModel[]>([]);
@@ -110,7 +110,7 @@ export default function ListCanvasPage() {
 
       {/* Tollbar */}
       <Flex py={2} flexDirection={'column'}>
-        <Heading size={'lg'} mb={4}>
+        <Heading size={'md'} mb={4}>
           Meus Canvas
         </Heading>
         <Button

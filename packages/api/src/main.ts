@@ -47,6 +47,7 @@ async function bootstrap() {
     session({
       secret: 'secret',
       name: COOKIE_NAME,
+      resave: true,
       saveUninitialized: false,
       cookie: {
         httpOnly: false,

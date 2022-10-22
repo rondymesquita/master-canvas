@@ -1,12 +1,20 @@
 import React, { useEffect, useState } from 'react';
-import ContentBlock from '../../../components/ContentBlock';
-import ContentHeading from '../../../components/ContentHeading';
+import ContentBlock from '../../../../components/ContentBlock';
+import ContentHeading from '../../../../components/ContentHeading';
 
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
-import { CardRequirementContentModel } from '../../../../domain/card';
+import { CardRequirementContentModel } from '../../../../../domain/card';
+import {
+  FaChartPie,
+  FaCheckCircle,
+  FaExclamationTriangle,
+  FaLightbulb,
+  FaServer,
+  FaUser,
+} from 'react-icons/fa';
 
-export default function RequirementContent({
+export default function CardRequirementContent({
   content,
   onContentChange,
 }: {
@@ -29,9 +37,7 @@ export default function RequirementContent({
   return (
     <div>
       <ContentBlock>
-        <ContentHeading>
-          Visão de Persona - Experiência do Usuário
-        </ContentHeading>
+        <ContentHeading icon={FaUser}>Visão de Persona</ContentHeading>
         <ReactQuill
           theme="snow"
           value={state.persona}
@@ -39,7 +45,7 @@ export default function RequirementContent({
         />
       </ContentBlock>
       <ContentBlock>
-        <ContentHeading>Visão de Negócio</ContentHeading>
+        <ContentHeading icon={FaLightbulb}>Visão de Negócio</ContentHeading>
         <ReactQuill
           theme="snow"
           value={state.business}
@@ -47,7 +53,9 @@ export default function RequirementContent({
         />
       </ContentBlock>
       <ContentBlock>
-        <ContentHeading>Visão de Critério de Aceitação</ContentHeading>
+        <ContentHeading icon={FaCheckCircle}>
+          Visão de Critério de Aceitação
+        </ContentHeading>
         <ReactQuill
           theme="snow"
           value={state.acceptance}
@@ -55,7 +63,7 @@ export default function RequirementContent({
         />
       </ContentBlock>
       <ContentBlock>
-        <ContentHeading>Visão de Dados</ContentHeading>
+        <ContentHeading icon={FaChartPie}>Visão de Dados</ContentHeading>
         <ReactQuill
           theme="snow"
           value={state.data}
@@ -63,7 +71,7 @@ export default function RequirementContent({
         />
       </ContentBlock>
       <ContentBlock>
-        <ContentHeading>Visão de Infraestrutura</ContentHeading>
+        <ContentHeading icon={FaServer}>Visão de Infraestrutura</ContentHeading>
         <ReactQuill
           theme="snow"
           value={state.infra}
@@ -71,8 +79,8 @@ export default function RequirementContent({
         />
       </ContentBlock>
       <ContentBlock>
-        <ContentHeading>
-          Visão de Risco de Produto - Literatura de Teste
+        <ContentHeading icon={FaExclamationTriangle}>
+          Visão de Risco de Produto
         </ContentHeading>
         <ReactQuill
           theme="snow"

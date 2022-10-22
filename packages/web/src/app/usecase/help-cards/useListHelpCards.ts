@@ -90,16 +90,16 @@ const nonFunctional: HelpCard[] = [
         question:
           'Quais são os requisitos gerais de sistemas derivados das políticas e procedimentos da organização do cliente e do desenvolvedor? É interessante identificar os: Requisitos do processo operacional, que definem como o sistema será usado, os requisitos do processo de desenvolvimento que especificam a linguagem de programação, o ambiente de desenvolvimento ou normas de processo a serem usadas, bem como os requisitos ambientais que especificam o ambiente operacional do sistema.',
         response:
-          'Para desenvolver este sistema será necessário utilizar a linguagem de programação Javascript',
+          'Para desenvolver este sistema será necessário utilizar a linguagem de programação Javascript.',
       },
     ],
   },
   {
     category: HelpCardCategory.NON_FUNCTIONAL,
     variant: HelpCardVariant.DETAIL,
-    title: 'Identificação dos requisitos não funcionais de fontes externas.',
+    title: 'Visão Macro dos Requisitos Não Funcionais Externos',
     description:
-      'Identificação dos requisitos não funcionais da organização que desenvolve o software (requisitos organizacionais).',
+      'Identificação dos requisitos não funcionais de fontes externas.',
     icon: '',
     questions: [
       {
@@ -112,9 +112,69 @@ const nonFunctional: HelpCard[] = [
   },
 ];
 
+const data: HelpCard[] = [
+  {
+    category: HelpCardCategory.DATA,
+    variant: HelpCardVariant.COVER,
+    title: 'Visão Macro dos Requisitos dos Dados',
+    icon: '',
+  },
+  {
+    category: HelpCardCategory.DATA,
+    variant: HelpCardVariant.DETAIL,
+    title: 'Visão Macro dos Requisitos dos Dados',
+    description:
+      'Identificação dos dados necessários para a análise que apoiaram a construção da inteligência artificial.',
+    icon: '',
+    questions: [
+      {
+        question: 'Quem são os responsáveis por fornecer os dados?',
+        response: 'Cliente',
+      },
+      {
+        question:
+          'Quem são os responsáveis por coletar, preparar ou criar os dados?',
+        response: 'Cientista de Dados',
+      },
+      {
+        question: 'Os dados coletados são públicos ou privados?',
+        response:
+          'Os dados coletados são dados privados do cliente ou os dados coletados são dados públicos (de código aberto).',
+      },
+      {
+        question:
+          'Quais dados devem ser mantidos e quais dados devem ser descartados para criar e treinar o modelo de IA?',
+        response:
+          'Os dados mantidos são os que contém boa qualidade e os dados que serão descartados são os que contém ruído ou baixa qualidade.',
+      },
+      {
+        question:
+          'Qual é o escopo (conjunto de dados adequados para os propósitos pretendidos) necessários para criar e treinar um modelo de IA que possa atender às necessidades dos usuários? Esses dados refletem o contexto (o mundo real) de maneira confiável?',
+        response:
+          'Os dados do usuário que apresenta a quantidade de cliques de iteração na tela são necessários para que possamos verificar a relevância do sistema para os usuários finais.',
+      },
+      {
+        question:
+          'Qual é o tipo de dado necessário para criar e treinar o modelo de IA?',
+        response: 'Podem ser coleções de imagens, vídeos, texto, áudio etc...',
+      },
+      {
+        question: 'Qual é o formato dos dados?',
+        response: 'SQL, CSV, GEOSPATIAL, JSON, JPEG, etc...',
+      },
+      {
+        question:
+          'Qual é a fonte dos dados usada para criar e treinar o modelo de IA? Ou seja, de onde vem os dados e como serão coletados?',
+        response:
+          '<p>Ao dados utilizados para construir e treinar o modelo serão extraídos do dataset público <a href="https://datasetsearch.research.google.com/" target="_blank">X, Y, Z</a>, <a href="https://cloud.google.com/automl/" target="_blank">Google Cloud AutoML</a> , <a href="https://toolbox.google.com/datasetsearch" target="_blank">Google Dataset Search</a> , <a href="https://ai.google/tools/datasets/" target="_blank">dados Google AI</a> ,<a href="https://www.kaggle.com/datasets" target="_blank">Kaggle</a>, usaremos a saída de outro sistema de IA como um recurso de entrada para treinar o modelo, servidor de arquivos, API, FTP, fornecedores, serviços de terceiros, tabelas de banco de dados, métodos de API ou sites para raspar, etc.</p>',
+      },
+    ],
+  },
+];
+
 export default function useListHelpCards() {
   const list = (): HelpCard[][] => {
-    const helpCards: HelpCard[][] = [functional, nonFunctional];
+    const helpCards: HelpCard[][] = [functional, nonFunctional, data];
     return helpCards;
   };
   return [list];

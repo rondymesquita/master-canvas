@@ -60,9 +60,7 @@ export default function CardExportPdf({
         category === CardCategory.NON_FUNCTIONAL) && (
         <View>
           <View style={styles.block}>
-            <Text style={styles.blockTitle}>
-              Visão de Persona - Experiência do Usuário
-            </Text>
+            <Text style={styles.blockTitle}>Visão de Persona</Text>
             <Text style={styles.blockText}>{content.persona}</Text>
           </View>
           <View style={styles.block}>

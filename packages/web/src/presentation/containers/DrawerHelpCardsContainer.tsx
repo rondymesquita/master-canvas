@@ -36,6 +36,7 @@ import { useDebounce } from 'react-use';
 const cardColors: Record<string, string> = {
   [HelpCardCategory.FUNCTIONAL]: 'primary',
   [HelpCardCategory.NON_FUNCTIONAL]: 'emerald',
+  [HelpCardCategory.DATA]: 'plum',
 };
 
 function HelpCardCoverComponent({
@@ -79,13 +80,17 @@ function HelpCardDetailComponent({
   questions: HelpCardQuestion[];
 }) {
   const color = cardColors[category];
+
+  function createHTMLfrom(htmlString: string) {
+    return { __html: `${htmlString}` };
+  }
+
   return (
     <Flex p={2} flexDirection="column">
       <Flex gap={2} height="fit-content" color={`${color}.800`}>
         <Square
           borderRadius="full"
-          // borderColor={'primary.500'}
-          // borderWidth={1}
+          bg={'white'}
           centerContent={true}
           size={'fit-content'}
           p={2}
@@ -111,17 +116,19 @@ function HelpCardDetailComponent({
           Perguntas e Respostas
         </Heading>
         {questions.map((question: HelpCardQuestion, index: number) => (
-          <Box key={index} mb={4}>
+          <Box key={index} mb={4} borderTopWidth={1} pt={4}>
             <Box fontWeight={'600'} mb={2}>
-              {/* <Text fontSize={'sm'}>{index}</Text> */}
               <Box fontSize={'sm'}>
                 {index + 1}. <Box as={'p'} display={'inline-block'} />
-                {question.question}
+                <strong>{question.question}</strong>
               </Box>
             </Box>
-            <Text fontSize={'sm'}>
-              <strong>Exemplo:</strong> {question.response}
-            </Text>
+            <Flex fontSize={'sm'} flexDirection="column">
+              <strong>Exemplo:</strong>{' '}
+              <Flex
+                dangerouslySetInnerHTML={createHTMLfrom(question.response)}
+              ></Flex>
+            </Flex>
           </Box>
         ))}
       </Flex>

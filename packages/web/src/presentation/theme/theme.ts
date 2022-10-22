@@ -29,6 +29,10 @@ export const theme = extendTheme({
         color: 'fg.700',
         background: 'bg.0',
       },
+      a: {
+        color: 'primary.600',
+        textDecoration: 'underline',
+      },
       em: {
         color: 'fg.500',
       },

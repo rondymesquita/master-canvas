@@ -35,8 +35,10 @@ import { useDebounce } from 'react-use';
 
 const cardColors: Record<string, string> = {
   [HelpCardCategory.FUNCTIONAL]: 'primary',
-  [HelpCardCategory.NON_FUNCTIONAL]: 'emerald',
-  [HelpCardCategory.DATA]: 'plum',
+  [HelpCardCategory.NON_FUNCTIONAL]: 'amethist',
+  [HelpCardCategory.DATA]: 'cyan',
+  [HelpCardCategory.RISK]: 'plum',
+  [HelpCardCategory.ACCEPTANCE]: 'emerald',
 };
 
 function HelpCardCoverComponent({
@@ -48,7 +50,7 @@ function HelpCardCoverComponent({
 }) {
   const color = cardColors[category];
   return (
-    <Flex p={2} color={`${color}.600`}>
+    <Flex p={2} color={`${color}.600`} justifyContent="stretch" width={'full'}>
       <Center flexDirection={'column'} width={'full'} gap={6}>
         <Square
           borderRadius="full"

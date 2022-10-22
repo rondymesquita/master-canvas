@@ -172,9 +172,68 @@ const data: HelpCard[] = [
   },
 ];
 
+const risk: HelpCard[] = [
+  {
+    category: HelpCardCategory.RISK,
+    variant: HelpCardVariant.COVER,
+    title: 'Riscos do Projeto',
+    icon: '',
+  },
+  {
+    category: HelpCardCategory.RISK,
+    variant: HelpCardVariant.DETAIL,
+    title: 'Riscos',
+    description:
+      'Identificação dos riscos/ameaças relacionados ao planejamento ou implementação da solução que contém inteligência artificial.',
+    icon: '',
+    questions: [
+      {
+        question:
+          'Quais são as potenciais consequências negativas do projeto/modelo de IA? Pense nas suposições e no que pode dar errado se alguma delas estiver incorreta.',
+        response:
+          'Pode haver atraso na identificação dos requisitos devido a disponibilidade do cliente.',
+      },
+      {
+        question:
+          'Quais são os riscos relacionados ao fornecimento de coleta, preparação, criação dos dados, limitações do  conjunto de dados e modelo e da alteração nos dados?',
+        response:
+          'Pode haver atraso na liberação dos dados por parte do cliente devido a questões de confidencialidade.',
+      },
+      {
+        question:
+          'Quais são os riscos relacionados os critérios de Qualidade dos Dados conforme ISO/IEC 25012, ao qual abrange a precisão, completude, credibilidade, atualidade e consistência dos dados?',
+        response:
+          'Pode haver problemas na completude dos dados coletados devido não cobrir toda a gama de valores possíveis que são pertinentes para criar a IA.',
+      },
+      {
+        question: 'Quais são os riscos relacionados aos Stakeholders?',
+        response:
+          'Pode haver desconfiança por parte do usuário final em utilizar o sistema inteligente.',
+      },
+      {
+        question:
+          'Quais são os riscos relacionados a privacidade e segurança dos dados?',
+        response:
+          'Pode haver falha de segurança devido a equipe técnica do projeto não estar utilizando nenhuma prática voltada a desenvolvimento seguro. Pode-se ter problemas de segurança e de internalização junto ao Centro de Processamento de Dados (CPD) da empresa.',
+      },
+      {
+        question:
+          'Quais são os riscos relacionados a vieses humanos na construção do modelo de IA, ou seja, aqueles relacionados a características sensíveis como raça, etnia, gênero, nacionalidade, renda, orientação sexual, habilidade e crença política ou religiosa?',
+        response:
+          'Pode haver vieses humanos na IA que será construída relacionado a raça, pois os dados fornecidos contêm descriminação por raça.',
+      },
+      {
+        question: 'Quais são os riscos para implementar a solução com IA?',
+        response:
+          'Há a possibilidade desta funcionalidade não ser factível de ser construída do ponto de vista de arquitetura de software, pois a empresa não tem estrutura adequada para desenvolvê-lo',
+      },
+    ],
+  },
+];
+
 export default function useListHelpCards() {
   const list = (): HelpCard[][] => {
-    const helpCards: HelpCard[][] = [functional, nonFunctional, data];
+    const helpCards: HelpCard[][] = [functional, nonFunctional, data, risk];
     return helpCards;
   };
   return [list];

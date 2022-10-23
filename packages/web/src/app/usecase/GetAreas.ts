@@ -30,7 +30,7 @@ export class GetAreasUseCase implements IGetAreasUseCase {
       },
       {
         id: v4(),
-        title: 'Requisitos das necessidades e coleta do dados',
+        title: 'Requisitos de dados',
         category: 'DATA',
         icon: '',
       },

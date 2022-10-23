@@ -38,7 +38,7 @@ export const labels: Record<string, Record<string, string>> = {
 export const categories: Record<string, string> = {
   [CardCategory.FUNCTIONAL]: 'Requisitos funcionais',
   [CardCategory.NON_FUNCTIONAL]: 'Requisitos não funcionais',
-  [CardCategory.DATA]: 'Requisitos das necessidades e coleta do dados',
+  [CardCategory.DATA]: 'Requisitos de dados',
   [CardCategory.RISK]: 'Riscos',
   [CardCategory.ACCEPTANCE]: 'Critérios de Aceitação Geral',
 };

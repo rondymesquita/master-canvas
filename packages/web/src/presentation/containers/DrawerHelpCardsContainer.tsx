@@ -233,11 +233,7 @@ export default function DrawerHelpCardsContainer({
   const { portalRightRef, setPortalRightVisible } = usePortal();
   // const { scrollPosition } = useScroll();
 
-  console.log(isOpen);
-
   useEffect(() => {
-    console.log({ isOpen });
-
     setPortalRightVisible(isOpen);
   }, [isOpen]);
 

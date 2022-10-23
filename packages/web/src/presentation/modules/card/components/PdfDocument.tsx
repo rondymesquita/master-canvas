@@ -7,6 +7,7 @@ import {
   Text,
   Link,
 } from '@react-pdf/renderer';
+import { CardCategory, CardModel } from '../../../../domain/card';
 import CardExportPdf from './PdfDocumentCard';
 
 function getTextFromHtml(html: string) {
@@ -44,6 +45,17 @@ const styles = StyleSheet.create({
 });
 
 export default function PdfDocument({ canvas, cards }: any) {
+  const orderArray = Object.keys(CardCategory);
+
+  const sortedCards = [...cards].sort((left: CardModel, right: CardModel) => {
+    console.log(left.category);
+
+    return (
+      orderArray.indexOf(left.category.toString()) -
+      orderArray.indexOf(right.category.toString())
+    );
+  });
+
   const getContentInPlainText = (card: any) => {
     if (typeof card.content === 'string') {
       return getTextFromHtml(card.content);
@@ -69,7 +81,7 @@ export default function PdfDocument({ canvas, cards }: any) {
           </View>
         </View>
 
-        {cards.map((card: any, index: number) => (
+        {sortedCards.map((card: any, index: number) => (
           <CardExportPdf
             key={index}
             title={card.title}

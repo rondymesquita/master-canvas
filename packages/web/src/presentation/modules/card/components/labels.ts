@@ -2,7 +2,7 @@ import { CardCategory } from '../../../../domain/card';
 
 export const labels: Record<string, Record<string, string>> = {
   FUNCTIONAL: {
-    interdependency: 'Visão de Pré-Requisito e Interdependencia',
+    interdependency: 'Visão de Pré-Requisito e Interdependência',
     persona: 'Visão de Persona',
     business: 'Visão de Negócio',
     acceptance: 'Visão de Critério de Aceitação',

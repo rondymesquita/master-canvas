@@ -174,7 +174,7 @@ function HelpCardComponent({ helpCard }: { helpCard: HelpCard }) {
       borderColor={`${color}.200`}
       borderRadius="lg"
       minWidth={'270px'}
-      width={'350px'}
+      // width={'350px'}
       minHeight={'350px'}
       // bg={'bg.50'}
       bgGradient={`linear(to-t, bg.0, ${color}.50)`}

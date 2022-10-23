@@ -41,7 +41,7 @@ export function PortalProvider({ children }: any) {
       >
         <Flex
           data-testid="portal-content"
-          bg="red.500"
+          // bg="red.500"
           height={'100vh'}
           // width="full"
           width={portalRightVisible && !portalLeftVisible ? '50%' : '100%'}
@@ -54,7 +54,7 @@ export function PortalProvider({ children }: any) {
         >
           <Flex
             // hidden={!portalLeftVisible}
-            bg="yellow.500"
+            // bg="yellow.500"
             // flexGrow={1}
             width={'100%'}
             ref={portalLeftRef}
@@ -67,7 +67,7 @@ export function PortalProvider({ children }: any) {
           ></Flex>
           <Flex
             // hidden={!portalRightVisible}
-            bg="green.400"
+            // bg="green.400"
             flexShrink={1}
             width={'100%'}
             ref={portalRightRef}

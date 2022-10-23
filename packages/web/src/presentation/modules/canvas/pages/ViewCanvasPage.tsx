@@ -57,7 +57,7 @@ const getAreasUseCase = new GetAreasUseCase();
 
 export default function ViewCanvasPage() {
   let { canvasId } = useParams();
-  const { portalRef } = usePortal();
+  const { portalLeftRef } = usePortal();
 
   // const [isOpen, onOpen, onClose] = useDisclosure();
   const [isModalOpen, onModalOpen, onModalClose] = useDisclosure();

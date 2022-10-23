@@ -18,11 +18,9 @@ export default function EditCanvasModal({
   onClose,
   onEdit,
 }: any) {
-
   const { ref, submit, onSubmit } = useFormSubmit({ onFormData: onEdit });
 
   const [state, setState] = useState(canvas);
-  // console.log({ state, canvas });
 
   const onChange = (newValue: string, name: string) => {
     setState((prevState: any) => ({ ...prevState, ...{ [name]: newValue } }));
@@ -30,7 +28,7 @@ export default function EditCanvasModal({
 
   return (
     <Modal
-      title={`Editar Canvas ${canvas?.id}`}
+      title={`Editar "${canvas?.title}"`}
       isOpen={isOpen}
       onOpen={onOpen}
       onClose={onClose}
@@ -38,16 +36,11 @@ export default function EditCanvasModal({
       onPrimaryClick={submit}
     >
       <Flex direction={'column'}>
-        <div>{JSON.stringify(state)}</div>
         <form ref={ref} onSubmit={onSubmit} style={{ width: '100%' }}>
-
-        <VisuallyHiddenInput
-          name="id"
-          defaultValue={state?.id}
-        />
+          <VisuallyHiddenInput name="id" defaultValue={state?.id} />
 
           <FormControl>
-            <FormLabel>Nome</FormLabel>
+            <FormLabel>Novo nome</FormLabel>
             <Input
               name="title"
               defaultValue={state?.title}

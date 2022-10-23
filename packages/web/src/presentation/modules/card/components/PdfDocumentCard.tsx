@@ -46,7 +46,7 @@ export default function PdfDocumentCard({
   category: string;
   content: CardContentModel;
 }) {
-  console.log(Object.keys(content));
+  // console.log(Object.keys(content));
 
   return (
     <View style={styles.card}>

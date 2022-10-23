@@ -16,9 +16,12 @@ import { CardCategory } from '../../domain/card';
 import {
   FaChartPie,
   FaCheckCircle,
+  FaDatabase,
   FaExclamationCircle,
   FaExclamationTriangle,
+  FaFileSignature,
   FaListAlt,
+  FaShieldAlt,
   FaSun,
 } from 'react-icons/fa';
 import { IconType } from 'react-icons/lib';
@@ -30,14 +33,23 @@ export default function Area({
   category,
 }: any): JSX.Element {
   const icons: Record<string, IconType> = {
-    [CardCategory.FUNCTIONAL]: FaListAlt,
-    [CardCategory.NON_FUNCTIONAL]: FaListAlt,
-    [CardCategory.DATA]: FaChartPie,
+    [CardCategory.FUNCTIONAL]: FaFileSignature,
+    [CardCategory.NON_FUNCTIONAL]: FaShieldAlt,
+    [CardCategory.DATA]: FaDatabase,
     [CardCategory.RISK]: FaExclamationTriangle,
     [CardCategory.ACCEPTANCE]: FaCheckCircle,
   };
 
+  const colors: Record<string, string> = {
+    [CardCategory.FUNCTIONAL]: 'primary.500',
+    [CardCategory.NON_FUNCTIONAL]: 'primary.500',
+    [CardCategory.DATA]: 'violet.500',
+    [CardCategory.RISK]: 'orange.500',
+    [CardCategory.ACCEPTANCE]: 'emerald.500',
+  };
+
   const Icon = icons[category];
+  const iconColor = colors[category];
 
   return (
     <Box
@@ -54,8 +66,8 @@ export default function Area({
       // borderColor={'bg.500'}
       p="4"
     >
-      <Flex>
-        <Center>
+      <Flex mb={2}>
+        <Center color={iconColor} fontSize="xl">
           <Icon />
         </Center>
 

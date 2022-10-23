@@ -1,8 +1,8 @@
 export enum CardCategory {
   FUNCTIONAL = 'FUNCTIONAL',
   NON_FUNCTIONAL = 'NON_FUNCTIONAL',
-  RISK = 'RISK',
   DATA = 'DATA',
+  RISK = 'RISK',
   ACCEPTANCE = 'ACCEPTANCE',
 }
 

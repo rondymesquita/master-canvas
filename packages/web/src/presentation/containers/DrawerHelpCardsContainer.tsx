@@ -230,21 +230,27 @@ export default function DrawerHelpCardsContainer({
   onClose,
   helpCards,
 }: DrawerHelpCardsContainerProps) {
-  const { portalRightRef, contentRef } = usePortal();
-  const { scrollPosition } = useScroll();
+  const { portalRightRef, setPortalRightVisible } = usePortal();
+  // const { scrollPosition } = useScroll();
+
+  useEffect(() => {
+    setPortalRightVisible(isOpen);
+  }, [isOpen]);
 
   return (
     <>
-      <Portal containerRef={portalRightRef}>
+      <Portal containerRef={portalRightRef} data-testid="portal-right-content">
         {isOpen && (
           <Flex
+            data-testid="edit-card-modal"
             height={'100vh'}
+            width={'full'}
             flexDirection="column"
             borderWidth={1}
             shadow={'lg'}
             p={2}
             bg={'bg.0'}
-            top={scrollPosition}
+            // top={scrollPosition}
             position={'relative'}
             right={0}
           >

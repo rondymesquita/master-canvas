@@ -56,7 +56,7 @@ export default function LoginPage() {
           </Button>
           <Center>
             <Text maxW={'fit-content'} textAlign={'center'}>
-              Se você não possuir uma conta no Canvas, uma nova será criada.
+              Se você não possuir uma conta, uma nova será criada.
             </Text>
           </Center>
           <Center>

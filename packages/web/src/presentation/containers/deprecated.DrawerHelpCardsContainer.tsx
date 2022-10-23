@@ -29,15 +29,15 @@ export default function DeprecatedDrawerHelpCardsContainer({
   isOpen,
   onClose,
 }: DrawerHelpCardsContainerProps) {
-  const { portalRef } = usePortal();
+  const { portalLeftRef } = usePortal();
 
   return (
     <>
-      {/* <Portal containerRef={portalRef}> */}
+      {/* <Portal containerRef={portalLeftRef}> */}
       <Drawer
         portalProps={
           {
-            // containerRef: portalRef,
+            // containerRef: portalLeftRef,
             // appendToParentPortal: false,
           }
         }

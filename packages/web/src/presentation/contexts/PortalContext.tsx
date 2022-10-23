@@ -1,61 +1,81 @@
 import { Box, Container, Flex, Portal } from '@chakra-ui/react';
-import React, { useContext, useEffect, useRef } from 'react';
+import React, { useContext, useEffect, useMemo, useRef, useState } from 'react';
 export const PortalContext = React.createContext({} as any);
 
 export const usePortal = () => useContext(PortalContext);
 
 export function PortalProvider({ children }: any) {
-  const portalRef = useRef(null);
+  const portalLeftRef = useRef(null);
+  const [portalLeftVisible, setPortalLeftVisible] = useState(false);
   const portalRightRef = useRef(null);
+  const [portalRightVisible, setPortalRightVisible] = useState(false);
   const contentRef = useRef(null);
 
   const value = {
-    portalRef,
+    portalLeftRef,
+    setPortalLeftVisible,
     portalRightRef,
+    setPortalRightVisible,
     contentRef,
   };
 
+  const isAnyPortalVisible = useMemo(() => {
+    return portalLeftVisible || portalRightVisible || false;
+  }, [portalLeftVisible, portalRightVisible]);
+
+  useEffect(() => {
+    if (portalLeftVisible) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = 'auto';
+    }
+  }, [isAnyPortalVisible]);
+
   return (
     <PortalContext.Provider value={value}>
-      <Flex data-testid="portal-provider">
+      <Flex
+        data-testid="portal-provider"
+        flexDirection={
+          portalRightVisible && !portalLeftVisible ? 'row-reverse' : 'row'
+        }
+      >
         <Flex
           data-testid="portal-content"
-          // bg="red.500"
-          // p={2}
-          width="full"
+          bg="red.500"
+          height={'100vh'}
+          // width="full"
+          width={portalRightVisible && !portalLeftVisible ? '50%' : '100%'}
           sx={{
-            position: 'absolute',
-            zIndex: 1400,
+            position: 'fixed',
+            zIndex: isAnyPortalVisible ? 1400 : -1,
+            // zIndex: 1400,
           }}
+          justifyContent={'center'}
         >
           <Flex
-            // bg="yellow.500"
-            // p={2}
-            flexShrink={1}
+            // hidden={!portalLeftVisible}
+            bg="yellow.500"
+            // flexGrow={1}
             width={'100%'}
-            // flexGrow={2}
-            ref={portalRef}
+            ref={portalLeftRef}
             data-testid={'portal-left'}
             sx={{
-              position: 'relative',
-              zIndex: 1400,
+              display: portalLeftVisible ? 'block' : 'none',
+              // position: 'relative',
+              // zIndex: 1400,
             }}
           ></Flex>
           <Flex
-            // bg="primary.500"
-            // position={'fixed'}
-            // right={0}
-            // p={2}
+            // hidden={!portalRightVisible}
+            bg="green.400"
             flexShrink={1}
-            // width={'100%'}
-            width={'fit-content'}
+            width={'100%'}
             ref={portalRightRef}
             data-testid={'portal-right'}
-            // flexDirection={'revert'}
-            justifyContent={'end'}
             sx={{
-              // position: 'relative',
-              zIndex: 1400,
+              display: portalRightVisible ? 'block' : 'none',
+              // position: 'fixed',
+              // zIndex: 1400,
             }}
           ></Flex>
         </Flex>

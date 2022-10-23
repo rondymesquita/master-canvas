@@ -60,8 +60,12 @@ export default function EditCardModal({
 }: any) {
   const [title, setTitle] = useState(inputTitle);
 
-  const { portalRef } = usePortal();
+  const { portalLeftRef, setPortalLeftVisible } = usePortal();
   const cardContentRef = useRef<any>();
+
+  useEffect(() => {
+    setPortalLeftVisible(isOpen);
+  }, [isOpen]);
 
   const onSaveButtonClick = () => {
     const updatedContent = cardContentRef.current.getUpdatedContent();
@@ -86,14 +90,16 @@ export default function EditCardModal({
 
   return (
     <>
-      <Portal containerRef={portalRef}>
+      <Portal containerRef={portalLeftRef} data-testid="portal-left-content">
         {isOpen && (
           <Flex
+            height={'100vh'}
+            // width={'full'}
+            data-testid="edit-card-modal"
             bg={'bg.0'}
             p={2}
             position={'relative'}
             flexDirection={'column'}
-            width={'full'}
           >
             <Flex width={'full'} pb={2}>
               <Actions
@@ -121,14 +127,15 @@ export default function EditCardModal({
                 Ver Cartas de Ajuda
               </Button>
             </Flex>
-            <Flex flexDirection={'column'}>
-              <Flex justifyContent={'flex-end'}></Flex>
-
+            {/* body */}
+            <Flex flexDirection={'column'} grow={1} overflow="auto">
               <AbstractCardContent
                 ref={cardContentRef}
                 category={category}
                 content={content}
               />
+            </Flex>
+            <Flex justifyContent={'flex-end'}>
               <Actions
                 cancel={destroyAndClose}
                 ok={onSaveButtonClick}

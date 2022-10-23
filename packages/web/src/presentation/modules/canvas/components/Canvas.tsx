@@ -37,10 +37,10 @@ export default function Canvas({
       onClick={() => onClick(canvas)}
     >
       <Center flexDirection={'column'} gap={4} my={4}>
-        <Avatar name={canvas.title} />
         <Heading size="md" wordBreak={'break-word'}>
           {canvas.title}
         </Heading>
+        <Avatar name={canvas.title} />
       </Center>
       <Flex justifyContent={'start'} flexDirection={'column'}>
         <Text as={'em'} fontSize={'sm'}>

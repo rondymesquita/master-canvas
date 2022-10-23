@@ -40,7 +40,9 @@ function Actions({ children, cancel, ok, help }: any) {
       >
         Voltar
       </Button>
-      <Box flexGrow={1}>{children}</Box>
+      <Spacer />
+      <Box flexShrink={1}>{children}</Box>
+      <Spacer />
       <Button leftIcon={<FaSave />} colorScheme="primary" onClick={ok}>
         Salvar
       </Button>
@@ -110,7 +112,7 @@ export default function EditCardModal({
                 <EditableText
                   placeholder={'Título do cartão'}
                   as={'textarea'}
-                  flexGrow={1}
+                  flexShrink={1}
                   value={title}
                   onChange={setTitle}
                 />

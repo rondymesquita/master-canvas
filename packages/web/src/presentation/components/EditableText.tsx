@@ -84,11 +84,11 @@ export default function EditableText({
         <EditablePreview
           textAlign={'center'}
           width="full"
-          borderWidth={1}
+          // borderWidth={1}
           px={2}
           minHeight={minHeight}
-          borderColor={'primary.500'}
-          bg={'primary.50'}
+          // borderColor={'primary.500'}
+          // bg={'primary.50'}
         />
 
         {as === 'input' ? (
@@ -105,6 +105,7 @@ export default function EditableText({
           />
         ) : (
           <EditableTextarea
+            p={2}
             minHeight={minHeight}
             textAlign={'center'}
             borderWidth={1}
@@ -119,7 +120,7 @@ export default function EditableText({
           />
         )}
 
-        {/* <EditableControls /> */}
+        <EditableControls />
       </Editable>
       {/* <IconButton
         colorScheme={'secondary'}

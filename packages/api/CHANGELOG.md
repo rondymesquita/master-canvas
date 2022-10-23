@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.2.0](https://github.com/rondymesquita/master-canvas/compare/v0.1.24...v0.2.0) (2022-10-23)
+
+**Note:** Version bump only for package api
+
+
+
+
+
 ## 0.1.24 (2022-10-22)
 
 **Note:** Version bump only for package api

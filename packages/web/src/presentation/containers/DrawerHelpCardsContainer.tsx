@@ -1,38 +1,10 @@
-import React, { useEffect, useRef, useState } from 'react';
-import {
-  Alert,
-  AlertIcon,
-  Box,
-  Button,
-  Center,
-  Drawer,
-  DrawerBody,
-  DrawerCloseButton,
-  DrawerContent,
-  DrawerFooter,
-  DrawerHeader,
-  DrawerOverlay,
-  Flex,
-  Heading,
-  Icon,
-  IconButton,
-  Portal,
-  Spacer,
-  Square,
-  Stack,
-  Text,
-} from '@chakra-ui/react';
+import { Flex, Heading, IconButton, Portal } from '@chakra-ui/react';
+import { useEffect } from 'react';
 
+import { FaTimes } from 'react-icons/fa';
+import { HelpCard, HelpCardCategory } from '../../domain/model/help-card';
 import { usePortal } from '../contexts/PortalContext';
-import {
-  HelpCard,
-  HelpCardCategory,
-  HelpCardQuestion,
-  HelpCardQuestionResponse,
-  HelpCardVariant,
-} from '../../domain/model/help-card';
-import { FaHome, FaTimes } from 'react-icons/fa';
-import { useDebounce } from 'react-use';
+import HelpCardComponent from './HelpCardContainer';
 
 const cardColors: Record<string, string> = {
   [HelpCardCategory.FUNCTIONAL]: 'primary',
@@ -44,183 +16,10 @@ const cardColors: Record<string, string> = {
   [HelpCardCategory.DATA_NEEDS]: 'pink',
 };
 
-function HelpCardCoverComponent({
-  title,
-  category,
-}: {
-  title: string;
-  category: string;
-}) {
-  const color = cardColors[category];
-  return (
-    <Flex p={2} color={`${color}.600`} justifyContent="stretch" width={'full'}>
-      <Center flexDirection={'column'} width={'full'} gap={6}>
-        <Square
-          borderRadius="full"
-          centerContent={true}
-          bg={'white'}
-          size={'90'}
-          sx={{
-            boxShadow: `0 8px 15px -15px var(--chakra-colors-${color}-800)`,
-          }}
-        >
-          <Icon fontSize={'6xl'} as={FaHome} />
-        </Square>
-        <Heading size={'sm'} textAlign={'center'}>
-          {title}
-        </Heading>
-      </Center>
-    </Flex>
-  );
-}
-function HelpCardDetailComponent({
-  title,
-  category,
-  description,
-  questions,
-}: {
-  title: string;
-  category: string;
-  description: string;
-  questions: HelpCardQuestion[];
-}) {
-  const color = cardColors[category];
-
-  function createHTMLfrom(htmlString: string) {
-    return { __html: `${htmlString}` };
-  }
-
-  return (
-    <Flex p={2} flexDirection="column">
-      <Flex gap={2} height="fit-content" color={`${color}.600`}>
-        <Center>
-          <Square
-            borderRadius="full"
-            bg={'white'}
-            centerContent={true}
-            size={'fit-content'}
-            p={2}
-            alignSelf={'center'}
-            sx={{
-              boxShadow: `0 6px 8px -7px var(--chakra-colors-${color}-800)`,
-            }}
-          >
-            <Icon fontSize={'sm'} as={FaHome} />
-          </Square>
-          <Heading textAlign={'center'} size={'xs'} ml={2}>
-            {title}
-          </Heading>
-        </Center>
-      </Flex>
-      <Flex py={4}>
-        <Text fontSize={'sm'} color={'fg.600'}>
-          {description}
-        </Text>
-      </Flex>
-      <Flex py={4} flexDirection={'column'}>
-        <Heading fontSize={'sm'} mb={4}>
-          Perguntas e Respostas
-        </Heading>
-        {questions.map((question: HelpCardQuestion, index: number) => (
-          <Box key={index} mb={4} borderTopWidth={1} pt={4}>
-            <Box fontWeight={'600'} mb={2}>
-              <Box fontSize={'sm'}>
-                {index + 1}. <Box as={'p'} display={'inline-block'} />
-                <strong>{question.question}</strong>
-              </Box>
-            </Box>
-            <Flex fontSize={'sm'} flexDirection="column" data-testid="response">
-              {Array.isArray(question.response) ? (
-                question.response.map(
-                  (response: HelpCardQuestionResponse, jndex: number) => (
-                    <Flex
-                      key={`${index}-${jndex}`}
-                      mb={2}
-                      flexDirection="column"
-                    >
-                      <strong>Exemplo {}:</strong>{' '}
-                      <Flex
-                        flexDirection="column"
-                        dangerouslySetInnerHTML={createHTMLfrom(
-                          response as string
-                        )}
-                      ></Flex>
-                    </Flex>
-                  )
-                )
-              ) : (
-                <>
-                  <strong>Exemplo:</strong>{' '}
-                  <Flex
-                    flexDirection="column"
-                    dangerouslySetInnerHTML={createHTMLfrom(question.response)}
-                  ></Flex>
-                </>
-              )}
-            </Flex>
-          </Box>
-        ))}
-      </Flex>
-    </Flex>
-  );
-}
-
-function HelpCardComponent({ helpCard }: { helpCard: HelpCard }) {
-  const color = cardColors[helpCard.category];
-
-  return (
-    <Flex
-      borderWidth={1}
-      borderColor={`${color}.200`}
-      borderRadius="lg"
-      minWidth={'270px'}
-      // width={'350px'}
-      minHeight={'350px'}
-      // bg={'bg.50'}
-      bgGradient={`linear(to-t, bg.0, ${color}.50)`}
-      boxShadow={'lg'}
-      p={4}
-    >
-      {helpCard.variant === HelpCardVariant.COVER ? (
-        <HelpCardCoverComponent
-          title={helpCard.title}
-          category={helpCard.category}
-        />
-      ) : (
-        <HelpCardDetailComponent
-          title={helpCard.title}
-          category={helpCard.category}
-          description={helpCard.description}
-          questions={helpCard.questions}
-        />
-      )}
-    </Flex>
-  );
-}
-
 export type DrawerHelpCardsContainerProps = {
   isOpen: boolean;
   onClose: () => void;
   helpCards: HelpCard[][];
-};
-
-const useScroll = () => {
-  const [scrollPosition, setScrollPosition] = useState(0);
-
-  const handleScroll = () => {
-    const position = window.pageYOffset;
-    setScrollPosition(position);
-  };
-
-  useEffect(() => {
-    window.addEventListener('scroll', handleScroll, { passive: true });
-
-    return () => {
-      window.removeEventListener('scroll', handleScroll);
-    };
-  }, []);
-
-  return { scrollPosition };
 };
 
 export default function DrawerHelpCardsContainer({
@@ -229,7 +28,6 @@ export default function DrawerHelpCardsContainer({
   helpCards,
 }: DrawerHelpCardsContainerProps) {
   const { portalRightRef, setPortalRightVisible } = usePortal();
-  // const { scrollPosition } = useScroll();
 
   useEffect(() => {
     setPortalRightVisible(isOpen);
@@ -248,7 +46,6 @@ export default function DrawerHelpCardsContainer({
             shadow={'lg'}
             p={2}
             bg={'bg.0'}
-            // top={scrollPosition}
             position={'relative'}
             right={0}
           >
@@ -292,6 +89,7 @@ export default function DrawerHelpCardsContainer({
                       (helpCard: HelpCard, jndex: number) => {
                         return (
                           <HelpCardComponent
+                            color={cardColors[helpCard.category]}
                             key={`${index}-${jndex}`}
                             helpCard={helpCard}
                           />

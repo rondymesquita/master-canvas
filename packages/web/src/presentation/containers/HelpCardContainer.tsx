@@ -1,5 +1,6 @@
 import { Flex } from '@chakra-ui/react';
 import { FaLightbulb } from 'react-icons/fa';
+import { IconType } from 'react-icons/lib';
 import { HelpCard, HelpCardVariant } from '../../domain/model/help-card';
 import HelpCardCoverComponent from '../components/HelpCardCoverComponent';
 import HelpCardDetailComponent from '../components/HelpCardDetailComponent';
@@ -7,9 +8,11 @@ import HelpCardDetailComponent from '../components/HelpCardDetailComponent';
 export default function HelpCardComponent({
   helpCard,
   color,
+  icon,
 }: {
   helpCard: HelpCard;
   color: string;
+  icon: IconType;
 }) {
   return (
     <Flex
@@ -25,13 +28,13 @@ export default function HelpCardComponent({
       {helpCard.variant === HelpCardVariant.COVER ? (
         <HelpCardCoverComponent
           color={color}
-          icon={FaLightbulb}
+          icon={icon}
           title={helpCard.title}
         />
       ) : (
         <HelpCardDetailComponent
           color={color}
-          icon={FaLightbulb}
+          icon={icon}
           title={helpCard.title}
           description={helpCard.description}
           questions={helpCard.questions}

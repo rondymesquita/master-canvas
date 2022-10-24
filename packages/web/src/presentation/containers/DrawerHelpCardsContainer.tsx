@@ -1,7 +1,15 @@
 import { Flex, Heading, IconButton, Portal } from '@chakra-ui/react';
 import { useEffect } from 'react';
 
-import { FaTimes } from 'react-icons/fa';
+import {
+  FaCheckCircle,
+  FaDatabase,
+  FaExclamationTriangle,
+  FaFileSignature,
+  FaShieldAlt,
+  FaTimes,
+} from 'react-icons/fa';
+import { IconType } from 'react-icons/lib';
 import { HelpCard, HelpCardCategory } from '../../domain/model/help-card';
 import { usePortal } from '../contexts/PortalContext';
 import HelpCardComponent from './HelpCardContainer';
@@ -14,6 +22,16 @@ const cardColors: Record<string, string> = {
   [HelpCardCategory.ACCEPTANCE]: 'emerald',
   [HelpCardCategory.FUNCTIONAL_NON_FUNCTIONAL_SPECIFICATION]: 'amber',
   [HelpCardCategory.DATA_NEEDS]: 'pink',
+};
+
+const cardIcons: Record<string, IconType> = {
+  [HelpCardCategory.FUNCTIONAL]: FaFileSignature,
+  [HelpCardCategory.NON_FUNCTIONAL]: FaShieldAlt,
+  [HelpCardCategory.DATA]: FaDatabase,
+  [HelpCardCategory.RISK]: FaExclamationTriangle,
+  [HelpCardCategory.ACCEPTANCE]: FaCheckCircle,
+  [HelpCardCategory.FUNCTIONAL_NON_FUNCTIONAL_SPECIFICATION]: FaFileSignature,
+  [HelpCardCategory.DATA_NEEDS]: FaDatabase,
 };
 
 export type DrawerHelpCardsContainerProps = {
@@ -90,6 +108,7 @@ export default function DrawerHelpCardsContainer({
                         return (
                           <HelpCardComponent
                             color={cardColors[helpCard.category]}
+                            icon={cardIcons[helpCard.category]}
                             key={`${index}-${jndex}`}
                             helpCard={helpCard}
                           />

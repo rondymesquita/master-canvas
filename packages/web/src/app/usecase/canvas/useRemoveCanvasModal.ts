@@ -5,7 +5,7 @@ import {
   ModalResultModel,
   ModalResultTypeModel,
   ModalTypeModel,
-} from '../../../presentation/domain/modal';
+} from '../../../domain/ui/modal';
 import useModalConfirmation from '../../../presentation/hooks/useModalConfirmation';
 import { waitPromise } from '../../../util/waitpromise';
 
@@ -15,10 +15,10 @@ export default function useRemoveCanvasModal(): [() => ModalResultModel] {
   const handle = () => {
     setModal({
       type: ModalTypeModel.DESTRUCTIVE,
-      title: 'Apagar Registro',
-      content: 'Deseja apagar o registro? Essa ação não poderá ser desfeita.',
+      title: 'Apagar Canvas',
+      content: 'Deseja apagar o canvas? Essa ação não poderá ser desfeita.',
       primaryLabel: 'Apagar',
-      secondaryLabel: 'Cancelar',
+      secondaryLabel: 'Manter',
     });
     return showAndGetResult();
   };

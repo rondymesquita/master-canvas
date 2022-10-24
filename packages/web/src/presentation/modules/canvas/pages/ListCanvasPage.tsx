@@ -12,7 +12,7 @@ import PageTemplate from '../../../templates/PageTemplate';
 
 import { FaPlus, FaSearch } from 'react-icons/fa';
 import { v4 } from 'uuid';
-import { CanvasModel } from '../../../../domain/canvas';
+import { CanvasModel } from '../../../../domain/model/model/canvas';
 import Canvas from '../components/Canvas';
 import useDisclosure from '../../../hooks/useDisclosure';
 import NewCanvasModal from '../components/NewCanvasModal';

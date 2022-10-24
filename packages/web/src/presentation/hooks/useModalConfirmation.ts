@@ -6,7 +6,7 @@ import {
   ModalResultTypeModel,
   ModalTypeModel,
   ModalModel,
-} from '../../presentation/domain/modal';
+} from '../../domain/ui/modal';
 import { waitPromise } from '../../util/waitpromise';
 
 export default function useModalConfirmation(): [
@@ -41,8 +41,8 @@ export default function useModalConfirmation(): [
 
     waitModalResult(async (r: ModalResultTypeModel) => {
       r == ModalResultTypeModel.PRIMARY
-        ? await onPrimaryCallback()
-        : await onSecondaryCallback();
+        ? onPrimaryCallback && (await onPrimaryCallback())
+        : onSecondaryCallback && (await onSecondaryCallback());
 
       destroyCallbacks();
     });

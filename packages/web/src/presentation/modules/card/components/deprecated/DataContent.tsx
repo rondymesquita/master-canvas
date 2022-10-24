@@ -4,7 +4,7 @@ import ContentHeading from '../../../../components/ContentHeading';
 
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
-import { CardDataContentModel } from '../../../../../domain/card';
+import { CardDataContentModel } from '../../../../../domain/model/card';
 import {
   FaChartPie,
   FaDatabase,

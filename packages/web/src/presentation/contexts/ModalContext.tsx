@@ -1,4 +1,4 @@
-import { ModalEvent } from '../../domain/events';
+import { ModalEvent } from '../../domain/model/events';
 import { Bus } from '../../util/Bus';
 import React, { useEffect, useState, useContext, useRef } from 'react';
 import useDisclosure from '../hooks/useDisclosure';
@@ -7,7 +7,7 @@ import {
   ModalModel,
   ModalResultTypeModel,
   ModalTypeModel,
-} from '../domain/modal';
+} from '../../domain/model/ui/modal';
 
 export type ModalContextProps = {
   isOpen: boolean;

@@ -13,8 +13,8 @@ import {
   Icon,
 } from '@chakra-ui/react';
 import { Bus } from '../../util/Bus';
-import { ModalEvent } from '../../domain/events';
-import { ModalResultTypeModel, ModalTypeModel } from '../domain/modal';
+import { ModalEvent } from '../../domain/model/events';
+import { ModalResultTypeModel, ModalTypeModel } from '../../domain/ui/modal';
 import { IconType } from 'react-icons/lib';
 import { FaHome, FaTimes, FaTrashAlt } from 'react-icons/fa';
 import { ArrowBackIcon } from '@chakra-ui/icons';

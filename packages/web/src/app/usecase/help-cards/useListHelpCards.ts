@@ -7,12 +7,12 @@ import {
   CardDataContentModel,
   CardRequirementContentModel,
   CardAcceptanceContentModel,
-} from '../../../domain/card';
+} from '../../../domain/model/card';
 import {
   HelpCard,
   HelpCardCategory,
   HelpCardVariant,
-} from '../../../domain/help-card';
+} from '../../../domain/model/help-card';
 
 const functional: HelpCard[] = [
   {

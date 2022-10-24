@@ -14,7 +14,7 @@ import 'react-quill/dist/quill.snow.css';
 import {
   CardContentModel,
   CardRequirementContentModel,
-} from '../../../../domain/card';
+} from '../../../../domain/model/card';
 import {
   FaChartPie,
   FaCheckCircle,

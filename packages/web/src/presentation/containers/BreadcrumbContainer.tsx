@@ -1,5 +1,5 @@
 import { FaHome } from 'react-icons/fa';
-import { BreadcrumbLinkModel } from '../../domain/breadcrumblink';
+import { BreadcrumbLinkModel } from '../../domain/model/breadcrumblink';
 import Breadcrumb from '../components/Breadcrumb';
 import { HOME_PAGE } from '../route/routes';
 

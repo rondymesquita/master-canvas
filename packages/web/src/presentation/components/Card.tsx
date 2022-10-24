@@ -104,7 +104,7 @@ export default function Card({
             onClick();
           }}
           aria-label=""
-          icon={<FaEdit />}
+          icon={<FaPencilAlt />}
         />
       </Flex>
     </Flex>

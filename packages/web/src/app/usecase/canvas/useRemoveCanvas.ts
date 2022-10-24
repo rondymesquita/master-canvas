@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { CanvasService } from '../../../infra/rest/canvas.service';
-import { useModal } from '../../../presentation/contexts/ModalContext';
-import { ModalTypeModel } from '../../../presentation/domain/modal';
+import { useModalContext } from '../../../presentation/contexts/ModalContext';
+import { ModalTypeModel } from '../../../domain/ui/modal';
 import { waitPromise } from '../../../util/waitpromise';
 
 export default function useRemoveCanvas() {

@@ -8,7 +8,7 @@ import {
   Text,
 } from '@chakra-ui/react';
 import { FaHome } from 'react-icons/fa';
-import { BreadcrumbLinkModel } from '../../domain/breadcrumblink';
+import { BreadcrumbLinkModel } from '../../domain/model/breadcrumblink';
 import { Link } from 'react-router-dom';
 
 export default function Breadcrumb({

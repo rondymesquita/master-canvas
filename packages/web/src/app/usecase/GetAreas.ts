@@ -1,9 +1,7 @@
-import { ModalEvent } from '../../domain/events';
-import { AreaModel } from '../../domain/area';
+import { AreaModel } from '../../domain/model/area';
 import { Bus } from '../../util/Bus';
 import { v4 } from 'uuid';
-import { CardCategory } from '../../domain/card';
-import { LOGIN_PAGE } from '../../presentation/route/routes';
+import { CardCategory } from '../../domain/model/card';
 
 export interface IGetAreasUseCase {
   execute: () => Promise<AreaModel[]>;

@@ -4,7 +4,7 @@ import ContentHeading from '../../../../components/ContentHeading';
 
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
-import { CardRequirementContentModel } from '../../../../../domain/card';
+import { CardRequirementContentModel } from '../../../../../domain/model/card';
 import {
   FaChartPie,
   FaCheckCircle,

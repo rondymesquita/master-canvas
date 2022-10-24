@@ -30,7 +30,7 @@ import {
   HelpCardQuestion,
   HelpCardQuestionResponse,
   HelpCardVariant,
-} from '../../domain/help-card';
+} from '../../domain/model/help-card';
 import { FaHome, FaTimes } from 'react-icons/fa';
 import { useDebounce } from 'react-use';
 
@@ -199,7 +199,6 @@ function HelpCardComponent({ helpCard }: { helpCard: HelpCard }) {
 }
 
 export type DrawerHelpCardsContainerProps = {
-  category: string;
   isOpen: boolean;
   onClose: () => void;
   helpCards: HelpCard[][];
@@ -225,7 +224,6 @@ const useScroll = () => {
 };
 
 export default function DrawerHelpCardsContainer({
-  category,
   isOpen,
   onClose,
   helpCards,

@@ -12,7 +12,7 @@ import {
 import React, { useEffect, useState } from 'react';
 
 import { AddIcon, InfoIcon } from '@chakra-ui/icons';
-import { CardCategory } from '../../domain/card';
+import { CardCategory } from '../../domain/model/card';
 import {
   FaChartPie,
   FaCheckCircle,

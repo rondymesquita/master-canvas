@@ -13,9 +13,9 @@ export const CanvasModel = mongoose.model<CanvasSchema>(
   'Canvas',
   new Schema<CanvasSchema>(
     {
-      active: { type: Boolean, required: true, default: true },
+      active: { type: Boolean, required: true, default: true, index: true },
       title: { type: String, required: true },
-      user: { type: Schema.Types.ObjectId, required: true },
+      user: { type: Schema.Types.ObjectId, required: true, ref: 'User' },
     },
     { timestamps: true },
   ),

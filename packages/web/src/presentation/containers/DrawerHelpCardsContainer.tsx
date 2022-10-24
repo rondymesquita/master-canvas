@@ -8,8 +8,8 @@ import HelpCardComponent from './HelpCardContainer';
 
 const cardColors: Record<string, string> = {
   [HelpCardCategory.FUNCTIONAL]: 'primary',
-  [HelpCardCategory.NON_FUNCTIONAL]: 'amethist',
-  [HelpCardCategory.DATA]: 'cyan',
+  [HelpCardCategory.NON_FUNCTIONAL]: 'primary',
+  [HelpCardCategory.DATA]: 'amethist',
   [HelpCardCategory.RISK]: 'plum',
   [HelpCardCategory.ACCEPTANCE]: 'emerald',
   [HelpCardCategory.FUNCTIONAL_NON_FUNCTIONAL_SPECIFICATION]: 'amber',

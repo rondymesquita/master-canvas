@@ -43,7 +43,7 @@ export default function Area({
   const colors: Record<string, string> = {
     [CardCategory.FUNCTIONAL]: 'primary.500',
     [CardCategory.NON_FUNCTIONAL]: 'primary.500',
-    [CardCategory.DATA]: 'violet.500',
+    [CardCategory.DATA]: 'amethist.500',
     [CardCategory.RISK]: 'orange.500',
     [CardCategory.ACCEPTANCE]: 'emerald.500',
   };

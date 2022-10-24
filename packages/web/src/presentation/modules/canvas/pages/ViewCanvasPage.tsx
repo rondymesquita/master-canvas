@@ -1,4 +1,5 @@
 import {
+  Box,
   Button,
   Flex,
   Grid,
@@ -6,6 +7,7 @@ import {
   Heading,
   Icon,
   Spacer,
+  Text,
 } from '@chakra-ui/react';
 import { useEffect, useRef, useState } from 'react';
 import { useParams } from 'react-router-dom';
@@ -176,9 +178,12 @@ export default function ViewCanvasPage() {
             position={'relative'}
             py={2}
           >
-            <Heading size={'md'} mb={2}>
-              {canvas?.title}
-            </Heading>
+            <Box mb={2}>
+              <Heading size={'md'}>{canvas?.title}</Heading>
+              <Text as="em" fontSize="sm">
+                Criado por: {canvas?.user.name}
+              </Text>
+            </Box>
 
             <Flex>
               <Button

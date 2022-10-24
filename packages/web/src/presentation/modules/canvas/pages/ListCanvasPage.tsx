@@ -19,9 +19,11 @@ import NewCanvasModal from '../components/NewCanvasModal';
 import { useNavigate } from 'react-router-dom';
 import useListCanvas from '../../../../app/usecase/useListCanvas';
 import useSaveCanvas from '../../../../app/usecase/useSaveCanvas';
-import useRemoveCanvas from '../../../../app/usecase/useRemoveCanvas';
+import useRemoveCanvas from '../../../../app/usecase/canvas/useRemoveCanvas';
 import useUpdateCanvas from '../../../../app/usecase/useUpdateCanvas';
 import EditCanvasModal from '../components/EditCanvasModal';
+import { useModal } from '../../../contexts/ModalContext';
+import useRemoveCanvasModal from '../../../../app/usecase/canvas/useRemoveCanvasModal';
 
 export default function ListCanvasPage() {
   const [canvases, setCanvases] = useState<CanvasModel[]>([]);
@@ -33,6 +35,7 @@ export default function ListCanvasPage() {
   const [save, saveError] = useSaveCanvas();
   const [list, listError] = useListCanvas();
   const [remove, removeError] = useRemoveCanvas();
+  const [askRemove] = useRemoveCanvasModal();
   const [update, updateError] = useUpdateCanvas();
 
   const navigate = useNavigate();
@@ -47,7 +50,7 @@ export default function ListCanvasPage() {
   const onSave = async (data: CanvasModel) => {
     await save(data);
     setCanvases(await list());
-    onNewClose();
+    // onNewClose();
   };
 
   const onEdit = async (canvas: CanvasModel) => {
@@ -55,7 +58,7 @@ export default function ListCanvasPage() {
 
     await update!(canvas);
     setCanvases(await list());
-    onEditClose();
+    // onEditClose();
   };
 
   const onClickCanvas = (canvas: CanvasModel) => {
@@ -63,8 +66,26 @@ export default function ListCanvasPage() {
   };
 
   const onDeleteCanvasClick = async (canvas: CanvasModel) => {
-    await remove!(canvas.id);
-    setCanvases(await list());
+    // await showRemoveModal().then();
+    // const response = await askRemove();
+    askRemove()
+      .onPrimary(async () => {
+        await remove(canvas.id);
+        setCanvases(await list());
+        // console.log('primary');
+      })
+      .onSecondary(() => {
+        // console.log('secondary');
+      });
+    // askRemove(
+    //   async () => {
+    //     await remove(canvas.id);
+    //     setCanvases(await list());
+    //   },
+    //   async () => {
+    //     console.log('secondary');
+    //   }
+    // );
   };
 
   const onEditCanvasClick = async (canvas: CanvasModel) => {

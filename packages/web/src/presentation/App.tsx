@@ -8,7 +8,7 @@ import {
 } from 'react-router-dom';
 import ViewCanvasPage from './modules/canvas/pages/ViewCanvasPage';
 import ListCanvasPage from './modules/canvas/pages/ListCanvasPage';
-import { ModalProvider } from './contexts/ModalContext';
+import { ModalProvider, useModal } from './contexts/ModalContext';
 import { CommanderProvider } from './contexts/CommanderContext';
 import LoginPage from './modules/auth/LoginPage';
 import { theme } from './theme/theme';
@@ -26,6 +26,7 @@ import { useEffect } from 'react';
 import RedirectWhenLoggedRoute from './route/components/redirect.when.logged.route';
 import { Env } from '../config/env';
 import { PortalProvider } from './contexts/PortalContext';
+import ModalContainer from './containers/ModalContainer';
 
 function App() {
   Env.init(import.meta.env.DEV ? 'dev' : 'prod');
@@ -46,6 +47,11 @@ function App() {
         <PortalProvider>
           <ModalProvider>
             {/* <>{JSON.stringify(user?.firstName)}</> */}
+
+            <>
+              <ModalContainer></ModalContainer>
+            </>
+
             <HashRouter basename={basename}>
               <Container maxWidth={'full'} p={0}>
                 <Routes>

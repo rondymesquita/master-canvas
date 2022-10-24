@@ -1,7 +1,7 @@
 import React, { forwardRef, useImperativeHandle } from 'react';
 
 import {
-  Modal as CModal,
+  Modal as ModalChakra,
   ModalOverlay,
   ModalContent,
   ModalHeader,
@@ -13,45 +13,52 @@ import {
 } from '@chakra-ui/react';
 import { Bus } from '../../util/Bus';
 import { ModalEvent } from '../../domain/events';
-const bus = Bus.getInstance();
+import { ModalResultModel, ModalTypeModel } from '../domain/modal';
 
+export interface ModalProps {
+  children: JSX.Element;
+  title: string;
+  type: ModalTypeModel;
+  isOpen: boolean;
+  onOpen: () => void;
+  onClose: () => void;
+  onCloseComplete?: () => void;
+  setModalResult?: (r: ModalResultModel) => void;
+  onPrimaryClick?: () => void;
+  secondaryLabel: string;
+  primaryLabel: string;
+  size?: string;
+}
 function Modal(
   {
     children,
     title,
+    type = ModalTypeModel.INFO,
     isOpen,
     onOpen,
     onClose,
     onCloseComplete,
-    size,
+    setModalResult,
     onPrimaryClick,
-  }: any,
+    secondaryLabel = 'Cancelar',
+    primaryLabel = 'Salvar',
+    size = 'md',
+  }: ModalProps,
   ref: any
 ) {
-  // const { isOpen, onOpen, onClose } = useDisclosure();
-
-  // bus.on(ModalEvent.ShowModal, () => {
-  //   console.log("Show called");
-  //   onOpen();
-  // });
-
-  // useImperativeHandle(ref, () => {
-  //   return {
-  //     show: () => {
-  //       onOpen();
-  //     },
-  //     hide: () => {
-  //       onClose();
-  //     },
-  //   };
-  // });
+  const primaryButtonColor: Record<string, string> = {
+    [ModalTypeModel.INFO]: 'primary',
+    [ModalTypeModel.DESTRUCTIVE]: 'destructive',
+  };
 
   return (
     <>
-      <CModal
+      <ModalChakra
         isOpen={isOpen}
         onClose={onClose}
-        onCloseComplete={onCloseComplete}
+        onCloseComplete={() => {
+          onCloseComplete && onCloseComplete();
+        }}
         size={size}
       >
         <ModalOverlay />
@@ -65,25 +72,26 @@ function Modal(
               variant="ghost"
               colorScheme="primary"
               mr={3}
-              onClick={onClose}
+              onClick={() => {
+                setModalResult && setModalResult(ModalResultModel.SECONDARY);
+                onClose();
+              }}
             >
-              Cancelar
+              {secondaryLabel}
             </Button>
             <Button
-              onClick={
-                onPrimaryClick
-                  ? () => {
-                      onPrimaryClick();
-                    }
-                  : () => {}
-              }
-              colorScheme="primary"
+              onClick={() => {
+                onPrimaryClick && onPrimaryClick();
+                setModalResult && setModalResult(ModalResultModel.PRIMARY);
+                onClose();
+              }}
+              colorScheme={primaryButtonColor[type]}
             >
-              Salvar
+              {primaryLabel}
             </Button>
           </ModalFooter>
         </ModalContent>
-      </CModal>
+      </ModalChakra>
     </>
   );
 }

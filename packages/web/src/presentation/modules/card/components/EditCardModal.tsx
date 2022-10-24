@@ -138,10 +138,10 @@ export default function EditCardModal({
               />
             </Flex>
             <Flex justifyContent={'flex-end'}>
-              <Actions
+              {/* <Actions
                 cancel={destroyAndClose}
                 ok={onSaveButtonClick}
-              ></Actions>
+              ></Actions> */}
             </Flex>
           </Flex>
         )}

@@ -3,7 +3,11 @@ import { Bus } from '../../util/Bus';
 import React, { useEffect, useState, useContext, useRef } from 'react';
 import useDisclosure from '../hooks/useDisclosure';
 import { JsxElement } from 'typescript';
-import { ModalModel, ModalResultModel, ModalTypeModel } from '../domain/modal';
+import {
+  ModalModel,
+  ModalResultTypeModel,
+  ModalTypeModel,
+} from '../domain/modal';
 
 export type ModalContextProps = {
   isOpen: boolean;
@@ -12,8 +16,8 @@ export type ModalContextProps = {
   toggleModalVisibility: () => void;
   modal: ModalModel;
   setModal: React.Dispatch<React.SetStateAction<ModalModel>>;
-  modalResult: ModalResultModel;
-  setModalResult: React.Dispatch<React.SetStateAction<ModalResultModel>>;
+  modalResult: ModalResultTypeModel;
+  setModalResult: React.Dispatch<React.SetStateAction<ModalResultTypeModel>>;
   waitModalResult: (callback: CallbackType) => void;
 };
 
@@ -21,15 +25,15 @@ export const ModalContext = React.createContext<ModalContextProps>(
   {} as ModalContextProps
 );
 
-export const useModal = () => useContext(ModalContext);
+export const useModalContext = () => useContext(ModalContext);
 
-type CallbackType = (r: ModalResultModel) => void;
+type CallbackType = (r: ModalResultTypeModel) => void;
 
 export function ModalProvider({ children }: any) {
   const [isOpen, onOpen, onClose] = useDisclosure();
 
   const [modal, setModal] = useState<ModalModel>();
-  const [modalResult, setModalResult] = useState<ModalResultModel>(null);
+  const [modalResult, setModalResult] = useState<ModalResultTypeModel>(null);
   const waitModalResultCallback = useRef<CallbackType>();
 
   const waitModalResult = (callback: CallbackType) => {

@@ -1,25 +1,18 @@
 import { useEffect, useState } from 'react';
 import { CanvasService } from '../../../infra/rest/canvas.service';
-import { useModal } from '../../../presentation/contexts/ModalContext';
+import { useModalContext } from '../../../presentation/contexts/ModalContext';
 import {
-  ModalHandleResult,
   ModalResultModel,
+  ModalResultTypeModel,
   ModalTypeModel,
 } from '../../../presentation/domain/modal';
+import useModalConfirmation from '../../../presentation/hooks/useModalConfirmation';
 import { waitPromise } from '../../../util/waitpromise';
 
-export default function useRemoveCanvasModal() {
-  const { onOpen, setModal, modalResult, waitModalResult } = useModal();
+export default function useRemoveCanvasModal(): [() => ModalResultModel] {
+  const [setModal, showAndGetResult] = useModalConfirmation();
 
   const handle = () => {
-    let onPrimaryCallback: () => void;
-    let onSecondaryCallback: () => void;
-
-    const destroy = () => {
-      onPrimaryCallback = null;
-      onSecondaryCallback = null;
-    };
-
     setModal({
       type: ModalTypeModel.DESTRUCTIVE,
       title: 'Apagar Registro',
@@ -27,29 +20,7 @@ export default function useRemoveCanvasModal() {
       primaryLabel: 'Apagar',
       secondaryLabel: 'Cancelar',
     });
-
-    onOpen();
-
-    const handleResult: ModalHandleResult = {
-      onPrimary: (cb: any) => {
-        onPrimaryCallback = cb;
-        return handleResult;
-      },
-      onSecondary: (cb: any) => {
-        onSecondaryCallback = cb;
-        return handleResult;
-      },
-    };
-
-    waitModalResult(async (r: ModalResultModel) => {
-      r == ModalResultModel.PRIMARY
-        ? await onPrimaryCallback()
-        : await onSecondaryCallback();
-
-      destroy();
-    });
-
-    return handleResult;
+    return showAndGetResult();
   };
 
   return [handle];

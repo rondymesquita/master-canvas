@@ -1,9 +1,9 @@
 import React from 'react';
 import Modal from '../components/Modal';
-import { useModal } from '../contexts/ModalContext';
+import { useModalContext } from '../contexts/ModalContext';
 
 export default function ModalContainer() {
-  const { isOpen, onOpen, onClose, modal, setModalResult } = useModal();
+  const { isOpen, onOpen, onClose, modal, setModalResult } = useModalContext();
 
   return (
     isOpen && (

@@ -1,56 +1,60 @@
 import { useEffect, useState } from 'react';
 import { CanvasService } from '../../infra/rest/canvas.service';
-import { useModal } from '../../presentation/contexts/ModalContext';
+import { useModalContext } from '../../presentation/contexts/ModalContext';
 import {
-  ModalHandleResult,
   ModalResultModel,
+  ModalResultTypeModel,
   ModalTypeModel,
+  ModalModel,
 } from '../../presentation/domain/modal';
 import { waitPromise } from '../../util/waitpromise';
 
-export default function useRemoveCanvasModal() {
-  const { onOpen, setModal, modalResult, waitModalResult } = useModal();
+export default function useModalConfirmation(): [
+  (modal: ModalModel) => void,
+  () => ModalResultModel
+] {
+  const {
+    onOpen,
+    setModal: setModalInContext,
+    waitModalResult,
+  } = useModalContext();
 
-  const handle = () => {
+  const showAndGetResult = (): ModalResultModel => {
     let onPrimaryCallback: () => void;
     let onSecondaryCallback: () => void;
 
-    const destroy = () => {
+    const destroyCallbacks = () => {
       onPrimaryCallback = null;
       onSecondaryCallback = null;
     };
 
-    setModal({
-      type: ModalTypeModel.DESTRUCTIVE,
-      title: 'Apagar Registro',
-      content: 'Deseja apagar o canvas? Essa ação não poderá ser desfeita.',
-      primaryLabel: 'Apagar',
-      secondaryLabel: 'Cancelar',
+    const modalResult: ModalResultModel = {
+      onPrimary: (cb: () => void) => {
+        onPrimaryCallback = cb;
+        return modalResult;
+      },
+      onSecondary: (cb: () => void) => {
+        onSecondaryCallback = cb;
+        return modalResult;
+      },
+    };
+
+    waitModalResult(async (r: ModalResultTypeModel) => {
+      r == ModalResultTypeModel.PRIMARY
+        ? await onPrimaryCallback()
+        : await onSecondaryCallback();
+
+      destroyCallbacks();
     });
 
     onOpen();
 
-    const handleResult: ModalHandleResult = {
-      onPrimary: (cb: any) => {
-        onPrimaryCallback = cb;
-        return handleResult;
-      },
-      onSecondary: (cb: any) => {
-        onSecondaryCallback = cb;
-        return handleResult;
-      },
-    };
-
-    waitModalResult(async (r: ModalResultModel) => {
-      r == ModalResultModel.PRIMARY
-        ? await onPrimaryCallback()
-        : await onSecondaryCallback();
-
-      destroy();
-    });
-
-    return handleResult;
+    return modalResult;
   };
 
-  return [handle];
+  const setModal = (modal: ModalModel) => {
+    setModalInContext(modal);
+  };
+
+  return [setModal, showAndGetResult];
 }

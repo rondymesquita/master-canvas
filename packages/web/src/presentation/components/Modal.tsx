@@ -13,7 +13,7 @@ import {
 } from '@chakra-ui/react';
 import { Bus } from '../../util/Bus';
 import { ModalEvent } from '../../domain/events';
-import { ModalResultModel, ModalTypeModel } from '../domain/modal';
+import { ModalResultTypeModel, ModalTypeModel } from '../domain/modal';
 
 export interface ModalProps {
   children: JSX.Element;
@@ -23,7 +23,7 @@ export interface ModalProps {
   onOpen: () => void;
   onClose: () => void;
   onCloseComplete?: () => void;
-  setModalResult?: (r: ModalResultModel) => void;
+  setModalResult?: (r: ModalResultTypeModel) => void;
   onPrimaryClick?: () => void;
   secondaryLabel: string;
   primaryLabel: string;
@@ -73,7 +73,8 @@ function Modal(
               colorScheme="primary"
               mr={3}
               onClick={() => {
-                setModalResult && setModalResult(ModalResultModel.SECONDARY);
+                setModalResult &&
+                  setModalResult(ModalResultTypeModel.SECONDARY);
                 onClose();
               }}
             >
@@ -82,7 +83,7 @@ function Modal(
             <Button
               onClick={() => {
                 onPrimaryClick && onPrimaryClick();
-                setModalResult && setModalResult(ModalResultModel.PRIMARY);
+                setModalResult && setModalResult(ModalResultTypeModel.PRIMARY);
                 onClose();
               }}
               colorScheme={primaryButtonColor[type]}

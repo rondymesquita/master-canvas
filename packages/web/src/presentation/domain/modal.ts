@@ -3,7 +3,7 @@ export enum ModalTypeModel {
   DESTRUCTIVE = 'DESTRUCTIVE',
 }
 
-export enum ModalResultModel {
+export enum ModalResultTypeModel {
   PRIMARY = 'PRIMARY',
   SECONDARY = 'SECONDARY',
 }
@@ -17,7 +17,7 @@ export interface ModalModel {
   secondaryLabel: string;
 }
 
-export interface ModalHandleResult {
-  onPrimary: (cb: () => void) => ModalHandleResult;
-  onSecondary: (cb: () => void) => ModalHandleResult;
+export interface ModalResultModel {
+  onPrimary: (cb: () => void) => ModalResultModel;
+  onSecondary: (cb: () => void) => ModalResultModel;
 }

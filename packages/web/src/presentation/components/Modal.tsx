@@ -1,4 +1,4 @@
-import React, { forwardRef, useImperativeHandle } from 'react';
+import React, { forwardRef, useImperativeHandle, useRef } from 'react';
 
 import {
   Modal as ModalChakra,
@@ -10,10 +10,14 @@ import {
   ModalCloseButton,
   useDisclosure,
   Button,
+  Icon,
 } from '@chakra-ui/react';
 import { Bus } from '../../util/Bus';
 import { ModalEvent } from '../../domain/events';
 import { ModalResultTypeModel, ModalTypeModel } from '../domain/modal';
+import { IconType } from 'react-icons/lib';
+import { FaHome, FaTimes, FaTrashAlt } from 'react-icons/fa';
+import { ArrowBackIcon } from '@chakra-ui/icons';
 
 export interface ModalProps {
   children: JSX.Element;
@@ -46,14 +50,22 @@ function Modal(
   }: ModalProps,
   ref: any
 ) {
+  const secondaryButtonRef = useRef();
+
   const primaryButtonColor: Record<string, string> = {
     [ModalTypeModel.INFO]: 'primary',
     [ModalTypeModel.DESTRUCTIVE]: 'destructive',
   };
 
+  const primaryButtonIcon: Record<string, IconType> = {
+    [ModalTypeModel.INFO]: FaHome,
+    [ModalTypeModel.DESTRUCTIVE]: FaTrashAlt,
+  };
+
   return (
     <>
       <ModalChakra
+        initialFocusRef={secondaryButtonRef}
         isOpen={isOpen}
         onClose={onClose}
         onCloseComplete={() => {
@@ -67,11 +79,12 @@ function Modal(
           <ModalCloseButton />
           <ModalBody>{children}</ModalBody>
 
-          <ModalFooter>
+          <ModalFooter gap={2}>
             <Button
+              ref={secondaryButtonRef}
+              leftIcon={<FaTimes />}
               variant="ghost"
               colorScheme="primary"
-              mr={3}
               onClick={() => {
                 setModalResult &&
                   setModalResult(ModalResultTypeModel.SECONDARY);
@@ -81,6 +94,7 @@ function Modal(
               {secondaryLabel}
             </Button>
             <Button
+              leftIcon={<Icon as={primaryButtonIcon[type]} />}
               onClick={() => {
                 onPrimaryClick && onPrimaryClick();
                 setModalResult && setModalResult(ModalResultTypeModel.PRIMARY);

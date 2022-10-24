@@ -10,7 +10,7 @@ import {
   Text,
 } from '@chakra-ui/react';
 import React from 'react';
-import { FaEdit, FaTrash } from 'react-icons/fa';
+import { FaEdit, FaPencilAlt, FaTrash } from 'react-icons/fa';
 
 export default function Canvas({
   canvas,
@@ -65,9 +65,9 @@ export default function Canvas({
         </Button>
         <Button
           colorScheme={'primary'}
-          variant={'ghost'}
+          // variant={'ghost'}
           size={'sm'}
-          leftIcon={<Icon as={FaEdit} />}
+          leftIcon={<Icon as={FaPencilAlt} />}
           onClick={(e) => {
             e.stopPropagation();
             onEditClick && onEditClick(canvas);

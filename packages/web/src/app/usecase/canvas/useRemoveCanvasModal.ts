@@ -16,7 +16,7 @@ export default function useRemoveCanvasModal(): [() => ModalResultModel] {
     setModal({
       type: ModalTypeModel.DESTRUCTIVE,
       title: 'Apagar Registro',
-      content: 'Deseja apagar o canvas? Essa ação não poderá ser desfeita.',
+      content: 'Deseja apagar o registro? Essa ação não poderá ser desfeita.',
       primaryLabel: 'Apagar',
       secondaryLabel: 'Cancelar',
     });

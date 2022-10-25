@@ -2,10 +2,10 @@
 import { Canvas } from 'src/domain/model/canvas';
 
 export interface ISaveCanvasInput {
-  user?: string;
+  user: string;
 }
 export interface IListCanvasInput {
-  user?: string;
+  user: string;
 }
 
 export interface IUpdateCanvasInput {

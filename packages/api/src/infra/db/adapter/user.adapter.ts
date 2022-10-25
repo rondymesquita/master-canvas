@@ -8,7 +8,7 @@ export class UserAdapter {
   }
   static adapt(record: UserSchema) {
     const user: User = {
-      // id: record._id.toString(),
+      id: record._id.toString(),
       // active: record.active,
       name: record.name,
       email: record.email,

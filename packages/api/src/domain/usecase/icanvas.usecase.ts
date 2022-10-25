@@ -3,7 +3,7 @@ import { Canvas } from '../model/canvas';
 export interface ISaveCanvasInput {
   id?: string;
   active?: boolean;
-  user?: string;
+  user: string;
   title: string;
   createdAt?: Date;
   updatedAt?: Date;

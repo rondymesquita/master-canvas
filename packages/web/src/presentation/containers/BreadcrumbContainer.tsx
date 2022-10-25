@@ -7,7 +7,7 @@ export default function BreadcrumbContainer() {
   const links: Array<BreadcrumbLinkModel> = [
     {
       href: HOME_PAGE,
-      title: 'Inicio',
+      title: 'Início',
       icon: FaHome,
     },
   ];

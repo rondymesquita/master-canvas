@@ -16,19 +16,19 @@ export class GetAreasUseCase implements IGetAreasUseCase {
     const data = [
       {
         id: v4(),
-        title: 'Requisitos funcionais',
+        title: 'Requisitos Funcionais',
         category: 'FUNCTIONAL',
         icon: '',
       },
       {
         id: v4(),
-        title: 'Requisitos não funcionais',
+        title: 'Requisitos Não Funcionais',
         category: 'NON_FUNCTIONAL',
         icon: '',
       },
       {
         id: v4(),
-        title: 'Requisitos de dados',
+        title: 'Requisitos de Dados',
         category: 'DATA',
         icon: '',
       },

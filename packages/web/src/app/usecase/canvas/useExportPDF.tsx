@@ -4,14 +4,14 @@ import { Document, Page, StyleSheet, pdf } from '@react-pdf/renderer';
 import { saveAs } from 'file-saver';
 import CardPdfDocument from '../../../presentation/modules/card/components/PdfDocument';
 import { CanvasModel } from '../../../domain/model/canvas';
-
-// Create styles
+import { PDFService } from '../../../infra/service/pdf.service';
 
 export default function useExportPDF(): any {
+  const pdfService = new PDFService();
   const exportPDF = async (canvas: CanvasModel, cards: CardModel[]) => {
-    const doc = pdf(<CardPdfDocument canvas={canvas} cards={cards} />);
-    const blob = await doc.toBlob();
-    saveAs(blob, 'document.pdf');
+    await pdfService.generateAndExport(
+      <CardPdfDocument canvas={canvas} cards={cards} />
+    );
   };
 
   return [exportPDF];

@@ -3,6 +3,22 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.3.0](https://github.com/rondymesquita/master-canvas/compare/v0.2.1...v0.3.0) (2022-10-25)
+
+
+### Bug Fixes
+
+* issue when not saving canvas due user id not informed ([2fae7fa](https://github.com/rondymesquita/master-canvas/commit/2fae7fa9010551f26cdef99047bba30e1c65c498))
+
+
+### Features
+
+* show user name creator on canvas page ([5bace9f](https://github.com/rondymesquita/master-canvas/commit/5bace9fb0f50f5d4c16c1eaa092b6a07cd909ee7))
+
+
+
+
+
 ## [0.2.1](https://github.com/rondymesquita/master-canvas/compare/v0.2.0...v0.2.1) (2022-10-23)
 
 **Note:** Version bump only for package api

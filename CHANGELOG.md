@@ -3,6 +3,26 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.3.0](https://github.com/rondymesquita/master-canvas/compare/v0.2.1...v0.3.0) (2022-10-25)
+
+
+### Bug Fixes
+
+* issue when not saving canvas due user id not informed ([2fae7fa](https://github.com/rondymesquita/master-canvas/commit/2fae7fa9010551f26cdef99047bba30e1c65c498))
+* text spelling ([f96fbbe](https://github.com/rondymesquita/master-canvas/commit/f96fbbeb1be3d31dccab386d57865e1bf8db02a2))
+
+
+### Features
+
+* add bg color to area and shadow to card ([49ec7fa](https://github.com/rondymesquita/master-canvas/commit/49ec7fa336359378b552338c06da9e1690ca3904))
+* refactor modal confirmation to separated hook ([b067a12](https://github.com/rondymesquita/master-canvas/commit/b067a12bfde522ddcff967a9de7cf27da6cd5aee))
+* show icons for help cards ([c4e4cec](https://github.com/rondymesquita/master-canvas/commit/c4e4ceccffe23ef60607cb9e85ded94d928b7ff9))
+* show user name creator on canvas page ([5bace9f](https://github.com/rondymesquita/master-canvas/commit/5bace9fb0f50f5d4c16c1eaa092b6a07cd909ee7))
+
+
+
+
+
 ## [0.2.1](https://github.com/rondymesquita/master-canvas/compare/v0.2.0...v0.2.1) (2022-10-23)
 
 **Note:** Version bump only for package canvas

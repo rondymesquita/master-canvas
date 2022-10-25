@@ -4,7 +4,7 @@ import ContentHeading from '../../../../components/ContentHeading';
 
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
-import { CardRiskContentModel } from '../../../../../domain/card';
+import { CardRiskContentModel } from '../../../../../domain/model/card';
 import { FaExclamationTriangle } from 'react-icons/fa';
 
 type RiskContentType = {

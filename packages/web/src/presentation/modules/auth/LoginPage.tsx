@@ -7,7 +7,7 @@ import { name, version } from '../../../../package.json';
 import useUser from '../../../app/usecase/user/useUser';
 import { Env } from '../../../config/env';
 import useGetAppHealth from '../../../app/usecase/health/useGetAppHealth';
-import { Health } from '../../../domain/health';
+import { Health } from '../../../domain/model/health';
 
 // const getEmptyCardUseCase = new GetEmptyCardUseCase();
 

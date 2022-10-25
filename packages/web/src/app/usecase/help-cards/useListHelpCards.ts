@@ -7,12 +7,12 @@ import {
   CardDataContentModel,
   CardRequirementContentModel,
   CardAcceptanceContentModel,
-} from '../../../domain/card';
+} from '../../../domain/model/card';
 import {
   HelpCard,
   HelpCardCategory,
   HelpCardVariant,
-} from '../../../domain/help-card';
+} from '../../../domain/model/help-card';
 
 const functional: HelpCard[] = [
   {
@@ -65,7 +65,7 @@ const nonFunctional: HelpCard[] = [
   {
     category: HelpCardCategory.NON_FUNCTIONAL,
     variant: HelpCardVariant.DETAIL,
-    title: 'Visão Macro dos Requisitos Não Funcionais - Sistema Produto',
+    title: 'Visão Macro dos Requisitos Não Funcionais - Sistema ou Produto',
     description:
       'Identificação dos requisitos não funcionais provenientes das características requeridas para o software (requisitos de produto).',
     icon: '',
@@ -578,7 +578,7 @@ const dataNeeds: HelpCard[] = [
         question:
           'Quem são os seus stakeholder do projeto que irão fornecer, coletar, preparar e criar os dados?',
         response:
-          'Para implementar as funcionalidades do sistema, será necessário que o <cliente> forneça os dados e/ou <cientista de dados> crie, prepare e colete os dados.',
+          'Para implementar as funcionalidades do sistema, será necessário que o cliente forneça os dados e/ou cientista de dados crie, prepare e colete os dados.',
       },
     ],
   },

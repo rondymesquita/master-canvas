@@ -1,4 +1,8 @@
-import { IListCanvasInput } from './../../../app/service/repo/icanvas.repo';
+import {
+  IListCanvasInput,
+  ISaveCanvasInput,
+  IUpdateCanvasInput,
+} from './../../../app/service/repo/icanvas.repo';
 import { Injectable } from '@nestjs/common';
 import { Canvas } from 'src/domain/model/canvas';
 import { ICanvasRepo } from 'src/app/service/repo/icanvas.repo';
@@ -7,11 +11,11 @@ import { CanvasModel } from '../model/canvas.model';
 
 @Injectable()
 export class CanvasRepo implements ICanvasRepo {
-  private adapter: any;
+  private adapter: CanvasAdapter;
   constructor() {
     this.adapter = new CanvasAdapter();
   }
-  async save(input: Canvas): Promise<Canvas> {
+  async save(input: ISaveCanvasInput): Promise<Canvas> {
     const model = new CanvasModel(input);
     const data = await model.save();
     return this.adapter.adapt(data);
@@ -29,11 +33,10 @@ export class CanvasRepo implements ICanvasRepo {
     // console.log('repo', { id });
 
     // const data = await CanvasModel.find({ id, user: userId });
-    const data = await CanvasModel.findById(id);
-
+    const data = await CanvasModel.findById(id).populate('user');
     return this.adapter.adapt(data);
   }
-  async update(input: Canvas): Promise<Canvas> {
+  async update(input: IUpdateCanvasInput): Promise<Canvas> {
     const data = await CanvasModel.findByIdAndUpdate(input.id, input);
     return this.adapter.adapt(data);
   }

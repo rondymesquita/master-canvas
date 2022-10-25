@@ -1,6 +1,6 @@
 import axios, { AxiosInstance } from 'axios';
 import { Env } from '../../config/env';
-import { CardModel } from '../../domain/card';
+import { CardModel } from '../../domain/model/card';
 
 export class CardService {
   private client: AxiosInstance;

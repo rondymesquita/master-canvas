@@ -19,7 +19,7 @@ import {
 
 import EditableText from '../../../components/EditableText';
 import { SunIcon } from '@chakra-ui/icons';
-import { CardCategory } from '../../../../domain/card';
+import { CardCategory } from '../../../../domain/model/card';
 // import CardRequirementContent from './CardRequirementContent';
 // import DataContent from './DataContent';
 // import RiskContent from './RiskContent';
@@ -71,8 +71,6 @@ export default function EditCardModal({
 
   const onSaveButtonClick = () => {
     const updatedContent = cardContentRef.current.getUpdatedContent();
-
-    console.log(updatedContent.interdependency);
 
     onSave({
       title,
@@ -138,10 +136,10 @@ export default function EditCardModal({
               />
             </Flex>
             <Flex justifyContent={'flex-end'}>
-              <Actions
+              {/* <Actions
                 cancel={destroyAndClose}
                 ok={onSaveButtonClick}
-              ></Actions>
+              ></Actions> */}
             </Flex>
           </Flex>
         )}

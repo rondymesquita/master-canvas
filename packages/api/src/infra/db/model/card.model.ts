@@ -14,7 +14,7 @@ export interface CardSchema {
 const schema = new Schema<CardSchema>(
   {
     code: { type: Number },
-    active: { type: Boolean, required: true, default: true },
+    active: { type: Boolean, required: true, default: true, index: true },
     title: { type: String, required: true },
     category: { type: String, required: true },
     content: { type: Object, required: true },

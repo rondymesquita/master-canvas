@@ -1,5 +1,5 @@
 import React from 'react';
-import { CardCategory, CardContentModel } from '../../../../domain/card';
+import { CardCategory, CardContentModel } from '../../../../domain/model/card';
 
 import { Text, View, StyleSheet } from '@react-pdf/renderer';
 import { categories, labels } from './labels';

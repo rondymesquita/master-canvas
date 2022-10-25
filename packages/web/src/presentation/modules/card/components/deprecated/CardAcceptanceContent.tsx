@@ -3,7 +3,7 @@ import ContentBlock from '../../../../components/ContentBlock';
 import ContentHeading from '../../../../components/ContentHeading';
 
 import ReactQuill from 'react-quill';
-import { CardAcceptanceContentModel } from '../../../../../domain/card';
+import { CardAcceptanceContentModel } from '../../../../../domain/model/card';
 import 'react-quill/dist/quill.snow.css';
 import { FaCheckCircle } from 'react-icons/fa';
 

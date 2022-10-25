@@ -1,4 +1,4 @@
-import { CardModel } from '../../../domain/card';
+import { CardModel } from '../../../domain/model/card';
 import { useState } from 'react';
 import { CardService } from '../../../infra/rest/card.service';
 import { waitPromise } from '../../../util/waitpromise';

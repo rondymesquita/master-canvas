@@ -1,7 +1,7 @@
-import React, { forwardRef, useImperativeHandle } from 'react';
+import React, { forwardRef, useImperativeHandle, useRef } from 'react';
 
 import {
-  Modal as CModal,
+  Modal as ModalChakra,
   ModalOverlay,
   ModalContent,
   ModalHeader,
@@ -10,48 +10,67 @@ import {
   ModalCloseButton,
   useDisclosure,
   Button,
+  Icon,
 } from '@chakra-ui/react';
 import { Bus } from '../../util/Bus';
-import { ModalEvent } from '../../domain/events';
-const bus = Bus.getInstance();
+import { ModalEvent } from '../../domain/model/events';
+import { ModalResultTypeModel, ModalTypeModel } from '../../domain/ui/modal';
+import { IconType } from 'react-icons/lib';
+import { FaHome, FaTimes, FaTrashAlt } from 'react-icons/fa';
+import { ArrowBackIcon } from '@chakra-ui/icons';
 
+export interface ModalProps {
+  children: JSX.Element;
+  title: string;
+  type?: ModalTypeModel;
+  isOpen: boolean;
+  onOpen: () => void;
+  onClose: () => void;
+  onCloseComplete?: () => void;
+  setModalResult?: (r: ModalResultTypeModel) => void;
+  onPrimaryClick?: () => void;
+  secondaryLabel?: string;
+  primaryLabel?: string;
+  size?: string;
+}
 function Modal(
   {
     children,
     title,
+    type = ModalTypeModel.INFO,
     isOpen,
     onOpen,
     onClose,
     onCloseComplete,
-    size,
+    setModalResult,
     onPrimaryClick,
-  }: any,
+    secondaryLabel = 'Cancelar',
+    primaryLabel = 'Salvar',
+    size = 'md',
+  }: ModalProps,
   ref: any
 ) {
-  // const { isOpen, onOpen, onClose } = useDisclosure();
+  const secondaryButtonRef = useRef();
 
-  // bus.on(ModalEvent.ShowModal, () => {
-  //   console.log("Show called");
-  //   onOpen();
-  // });
+  const primaryButtonColor: Record<string, string> = {
+    [ModalTypeModel.INFO]: 'primary',
+    [ModalTypeModel.DESTRUCTIVE]: 'destructive',
+  };
 
-  // useImperativeHandle(ref, () => {
-  //   return {
-  //     show: () => {
-  //       onOpen();
-  //     },
-  //     hide: () => {
-  //       onClose();
-  //     },
-  //   };
-  // });
+  const primaryButtonIcon: Record<string, IconType> = {
+    [ModalTypeModel.INFO]: FaHome,
+    [ModalTypeModel.DESTRUCTIVE]: FaTrashAlt,
+  };
 
   return (
     <>
-      <CModal
+      <ModalChakra
+        initialFocusRef={secondaryButtonRef}
         isOpen={isOpen}
         onClose={onClose}
-        onCloseComplete={onCloseComplete}
+        onCloseComplete={() => {
+          onCloseComplete && onCloseComplete();
+        }}
         size={size}
       >
         <ModalOverlay />
@@ -60,30 +79,34 @@ function Modal(
           <ModalCloseButton />
           <ModalBody>{children}</ModalBody>
 
-          <ModalFooter>
+          <ModalFooter gap={2}>
             <Button
+              ref={secondaryButtonRef}
+              leftIcon={<FaTimes />}
               variant="ghost"
               colorScheme="primary"
-              mr={3}
-              onClick={onClose}
+              onClick={() => {
+                setModalResult &&
+                  setModalResult(ModalResultTypeModel.SECONDARY);
+                onClose();
+              }}
             >
-              Cancelar
+              {secondaryLabel}
             </Button>
             <Button
-              onClick={
-                onPrimaryClick
-                  ? () => {
-                      onPrimaryClick();
-                    }
-                  : () => {}
-              }
-              colorScheme="primary"
+              leftIcon={<Icon as={primaryButtonIcon[type]} />}
+              onClick={() => {
+                onPrimaryClick && onPrimaryClick();
+                setModalResult && setModalResult(ModalResultTypeModel.PRIMARY);
+                onClose();
+              }}
+              colorScheme={primaryButtonColor[type]}
             >
-              Salvar
+              {primaryLabel}
             </Button>
           </ModalFooter>
         </ModalContent>
-      </CModal>
+      </ModalChakra>
     </>
   );
 }

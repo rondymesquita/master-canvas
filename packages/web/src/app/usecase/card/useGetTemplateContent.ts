@@ -7,7 +7,7 @@ import {
   CardDataContentModel,
   CardRequirementContentModel,
   CardAcceptanceContentModel,
-} from '../../../domain/card';
+} from '../../../domain/model/card';
 
 const requirementContent: CardRequirementContentModel = {
   interdependency:

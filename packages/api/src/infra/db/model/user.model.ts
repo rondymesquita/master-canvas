@@ -14,7 +14,7 @@ export const UserModel = mongoose.model<UserSchema>(
   'User',
   new Schema<UserSchema>(
     {
-      active: { type: Boolean, required: true, default: true },
+      active: { type: Boolean, required: true, default: true, index: true },
       email: { type: String, required: true },
       name: { type: String, required: true },
       picture: { type: String, required: true },

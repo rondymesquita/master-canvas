@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { useEffect, useState } from 'react';
-import { CanvasModel } from '../../domain/canvas';
+import { CanvasModel } from '../../domain/model/canvas';
 import { CanvasService } from '../../infra/rest/canvas.service';
 import { waitPromise } from '../../util/waitpromise';
 import { QueryClient, useQuery } from '@tanstack/react-query';

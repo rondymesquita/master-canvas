@@ -9,12 +9,12 @@ export class UserAdapter {
   static adapt(record: UserSchema) {
     const user: User = {
       id: record._id.toString(),
-      active: record.active,
+      // active: record.active,
       name: record.name,
       email: record.email,
       picture: record.picture,
-      createdAt: record.createdAt,
-      updatedAt: record.updatedAt,
+      // createdAt: record.createdAt,
+      // updatedAt: record.updatedAt,
     };
 
     return user;

@@ -7,7 +7,7 @@ import {
   Text,
   Link,
 } from '@react-pdf/renderer';
-import { CardCategory, CardModel } from '../../../../domain/card';
+import { CardCategory, CardModel } from '../../../../domain/model/card';
 import CardExportPdf from './PdfDocumentCard';
 
 function getTextFromHtml(html: string) {

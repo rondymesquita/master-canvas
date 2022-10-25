@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { CardCategory, CardModel } from '../../../domain/card';
+import { CardCategory, CardModel } from '../../../domain/model/card';
 import { CardService } from '../../../infra/rest/card.service';
 import { waitPromise } from '../../../util/waitpromise';
 import useGetTemplateCard from './useGetTemplateContent';

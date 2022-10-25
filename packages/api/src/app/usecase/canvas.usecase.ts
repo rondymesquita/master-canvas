@@ -5,6 +5,7 @@ import {
   IListCanvasInput,
   IUpdateCanvasInput,
   IGetCanvasById,
+  ISaveCanvasInput,
 } from '../../domain/usecase/icanvas.usecase';
 import { Inject, Injectable } from '@nestjs/common';
 import { Canvas } from '../../domain/model/canvas';
@@ -14,7 +15,7 @@ import { ICanvasRepo } from '../service/repo/icanvas.repo';
 @Injectable()
 export class SaveCanvas implements ISaveCanvas {
   constructor(@Inject('ICanvasRepo') private canvasRepo: ICanvasRepo) {}
-  async handle(input: Canvas): Promise<Canvas> {
+  async handle(input: ISaveCanvasInput): Promise<Canvas> {
     return await this.canvasRepo.save(input);
   }
 }

@@ -1,53 +1,37 @@
 import {
   Box,
   Button,
-  Container,
   Flex,
   Grid,
   GridItem,
   Heading,
   Icon,
   Spacer,
+  Text,
 } from '@chakra-ui/react';
 import { useEffect, useRef, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import { GetAreasUseCase } from '../../../../app/usecase/GetAreas';
+import useExportPDF from '../../../../app/usecase/canvas/useExportPDF';
 import useGetEmptyCard from '../../../../app/usecase/card/useGetEmptyCard';
 import useListCard from '../../../../app/usecase/card/useListCard';
 import useRemoveCard from '../../../../app/usecase/card/useRemoveCard';
 import useSaveCard from '../../../../app/usecase/card/useSaveCard';
-import { AreaModel } from '../../../../domain/area';
-import { CardCategory, CardModel } from '../../../../domain/card';
+import useUpdateCard from '../../../../app/usecase/card/useUpdateCard';
+import { GetAreasUseCase } from '../../../../app/usecase/GetAreas';
+import { AreaModel } from '../../../../domain/model/area';
+import { CardCategory, CardModel } from '../../../../domain/model/card';
 import Area from '../../../components/Area';
 import Card from '../../../components/Card';
-import EditCardModal from '../../card/components/EditCardModal';
-import Header from '../../../components/Header';
 import useDisclosure from '../../../hooks/useDisclosure';
 import PageTemplate from '../../../templates/PageTemplate';
-import useUpdateCard from '../../../../app/usecase/card/useUpdateCard';
-import useExportPDF from '../../../../app/usecase/canvas/useExportPDF';
+import EditCardModal from '../../card/components/EditCardModal';
 
-import {
-  Document,
-  Page,
-  Text,
-  View,
-  StyleSheet,
-  PDFDownloadLink,
-} from '@react-pdf/renderer';
-import PdfDocumentCard from '../../card/components/PdfDocumentCard';
-import {
-  FaBars,
-  FaDownload,
-  FaEye,
-  FaFileExport,
-  FaHamburger,
-} from 'react-icons/fa';
-import PdfDocument from '../../card/components/PdfDocument';
+import { FaBars, FaDownload } from 'react-icons/fa';
 import useGetCanvasById from '../../../../app/usecase/canvas/useGetCanvasById';
+import useListHelpCards from '../../../../app/usecase/help-cards/useListHelpCards';
 import DrawerHelpCardsContainer from '../../../containers/DrawerHelpCardsContainer';
 import { usePortal } from '../../../contexts/PortalContext';
-import useListHelpCards from '../../../../app/usecase/help-cards/useListHelpCards';
+import useRemoveCardModal from '../../../../app/usecase/card/useRemoveCardModal';
 
 // import { TransformWrapper, TransformComponent } from 'react-zoom-pan-pinch';
 // import { useZoom, ZoomProvider } from '../contexts/ZoomContext';
@@ -82,6 +66,7 @@ export default function ViewCanvasPage() {
   const [list] = useListCard();
   const [get] = useGetEmptyCard();
   const [remove, removeError] = useRemoveCard();
+  const [removeCardConfirmationModal] = useRemoveCardModal();
 
   /**
    *
@@ -109,8 +94,10 @@ export default function ViewCanvasPage() {
   }, []);
 
   const onCardDelete = async (cardId: string) => {
-    await remove!(cardId);
-    setCards(await list(currentCanvasId));
+    removeCardConfirmationModal().onPrimary(async () => {
+      await remove!(cardId);
+      setCards(await list(currentCanvasId));
+    });
   };
 
   const onAddCard = async (categoryAsString: string) => {
@@ -191,9 +178,12 @@ export default function ViewCanvasPage() {
             position={'relative'}
             py={2}
           >
-            <Heading size={'md'} mb={2}>
-              {canvas?.title}
-            </Heading>
+            <Box mb={2}>
+              <Heading size={'md'}>{canvas?.title}</Heading>
+              <Text as="em" fontSize="sm">
+                Criado por: {canvas?.user.name}
+              </Text>
+            </Box>
 
             <Flex>
               <Button
@@ -256,7 +246,6 @@ export default function ViewCanvasPage() {
         </Grid>
 
         <DrawerHelpCardsContainer
-          category={'TEST'}
           isOpen={isDrawerOpen}
           onClose={onDrawerClose}
           helpCards={listHelpCards()}

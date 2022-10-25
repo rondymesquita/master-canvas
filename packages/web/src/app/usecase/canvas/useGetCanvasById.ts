@@ -1,6 +1,5 @@
 import { useEffect, useState } from 'react';
-import { CanvasModel } from '../../../domain/canvas';
-import { CardModel } from '../../../domain/card';
+import { CanvasModel } from '../../../domain/model/canvas';
 import { CanvasService } from '../../../infra/rest/canvas.service';
 import { waitPromise } from '../../../util/waitpromise';
 
@@ -17,6 +16,7 @@ export default function useGetCanvasById(id: string) {
     );
     err && setError(err);
     setData(response.data);
+
     return response.data;
   };
 

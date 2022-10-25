@@ -1,4 +1,4 @@
-import { CardCategory } from '../../../../domain/card';
+import { CardCategory } from '../../../../domain/model/card';
 
 export const labels: Record<string, Record<string, string>> = {
   FUNCTIONAL: {

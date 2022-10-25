@@ -1,9 +1,7 @@
-import { ModalEvent } from '../../domain/events';
-import { AreaModel } from '../../domain/area';
+import { AreaModel } from '../../domain/model/area';
 import { Bus } from '../../util/Bus';
 import { v4 } from 'uuid';
-import { CardCategory } from '../../domain/card';
-import { LOGIN_PAGE } from '../../presentation/route/routes';
+import { CardCategory } from '../../domain/model/card';
 
 export interface IGetAreasUseCase {
   execute: () => Promise<AreaModel[]>;
@@ -18,19 +16,19 @@ export class GetAreasUseCase implements IGetAreasUseCase {
     const data = [
       {
         id: v4(),
-        title: 'Requisitos funcionais',
+        title: 'Requisitos Funcionais',
         category: 'FUNCTIONAL',
         icon: '',
       },
       {
         id: v4(),
-        title: 'Requisitos não funcionais',
+        title: 'Requisitos Não Funcionais',
         category: 'NON_FUNCTIONAL',
         icon: '',
       },
       {
         id: v4(),
-        title: 'Requisitos de dados',
+        title: 'Requisitos de Dados',
         category: 'DATA',
         icon: '',
       },

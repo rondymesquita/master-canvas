@@ -41,19 +41,20 @@ export default function Area({
   };
 
   const colors: Record<string, string> = {
-    [CardCategory.FUNCTIONAL]: 'primary.500',
-    [CardCategory.NON_FUNCTIONAL]: 'primary.500',
-    [CardCategory.DATA]: 'amethist.500',
-    [CardCategory.RISK]: 'orange.500',
-    [CardCategory.ACCEPTANCE]: 'emerald.500',
+    [CardCategory.FUNCTIONAL]: 'primary',
+    [CardCategory.NON_FUNCTIONAL]: 'primary',
+    [CardCategory.DATA]: 'amethist',
+    [CardCategory.RISK]: 'orange',
+    [CardCategory.ACCEPTANCE]: 'emerald',
   };
 
   const Icon = icons[category];
-  const iconColor = colors[category];
+  const color = colors[category];
 
   return (
     <Box
-      bg={'bg.0'}
+      // bg={'bg.100'}
+      bg={`${color}.50`}
       w="full"
       h={'full'}
       minH={600}
@@ -67,7 +68,7 @@ export default function Area({
       p="4"
     >
       <Flex mb={2}>
-        <Center color={iconColor} fontSize="xl">
+        <Center color={`${color}.500`} fontSize="xl">
           <Icon />
         </Center>
 

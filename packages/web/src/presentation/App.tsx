@@ -8,7 +8,7 @@ import {
 } from 'react-router-dom';
 import ViewCanvasPage from './modules/canvas/pages/ViewCanvasPage';
 import ListCanvasPage from './modules/canvas/pages/ListCanvasPage';
-import { ModalProvider, useModal } from './contexts/ModalContext';
+import { ModalProvider } from './contexts/ModalContext';
 import { CommanderProvider } from './contexts/CommanderContext';
 import LoginPage from './modules/auth/LoginPage';
 import { theme } from './theme/theme';

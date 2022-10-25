@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { CardModel } from '../../../domain/card';
+import { CardModel } from '../../../domain/model/card';
 import { CardService } from '../../../infra/rest/card.service';
 import { waitPromise } from '../../../util/waitpromise';
 

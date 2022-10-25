@@ -1,9 +1,9 @@
-import { CardModel } from '../../../domain/card';
+import { CardModel } from '../../../domain/model/card';
 
 import { Document, Page, StyleSheet, pdf } from '@react-pdf/renderer';
 import { saveAs } from 'file-saver';
 import CardPdfDocument from '../../../presentation/modules/card/components/PdfDocument';
-import { CanvasModel } from '../../../domain/canvas';
+import { CanvasModel } from '../../../domain/model/canvas';
 
 // Create styles
 

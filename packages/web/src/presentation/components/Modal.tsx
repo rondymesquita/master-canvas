@@ -22,15 +22,15 @@ import { ArrowBackIcon } from '@chakra-ui/icons';
 export interface ModalProps {
   children: JSX.Element;
   title: string;
-  type: ModalTypeModel;
+  type?: ModalTypeModel;
   isOpen: boolean;
   onOpen: () => void;
   onClose: () => void;
   onCloseComplete?: () => void;
   setModalResult?: (r: ModalResultTypeModel) => void;
   onPrimaryClick?: () => void;
-  secondaryLabel: string;
-  primaryLabel: string;
+  secondaryLabel?: string;
+  primaryLabel?: string;
   size?: string;
 }
 function Modal(

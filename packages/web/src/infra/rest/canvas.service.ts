@@ -1,6 +1,6 @@
 import axios, { AxiosInstance } from 'axios';
 import { Env } from '../../config/env';
-import { CanvasModel } from '../../domain/canvas';
+import { CanvasModel } from '../../domain/model/canvas';
 
 export class CanvasService {
   private client: AxiosInstance;

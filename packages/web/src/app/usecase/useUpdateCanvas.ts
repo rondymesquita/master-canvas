@@ -1,4 +1,4 @@
-import { CanvasModel } from '../../domain/canvas';
+import { CanvasModel } from '../../domain/model/canvas';
 import { useEffect, useState } from 'react';
 import { CanvasService } from '../../infra/rest/canvas.service';
 import { waitPromise } from '../../util/waitpromise';

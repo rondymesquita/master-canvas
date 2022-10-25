@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Health } from '../../../domain/health';
+import { Health } from '../../../domain/model/health';
 import { HealthService } from '../../../infra/rest/health.service';
 import { waitPromise } from '../../../util/waitpromise';
 

@@ -7,7 +7,7 @@ import {
   ModalModel,
   ModalResultTypeModel,
   ModalTypeModel,
-} from '../../domain/model/ui/modal';
+} from '../../domain/ui/modal';
 
 export type ModalContextProps = {
   isOpen: boolean;

@@ -1,5 +1,5 @@
 import create from 'zustand';
-import { UserModel } from '../../domain/user';
+import { UserModel } from '../../domain/model/user';
 
 // export intef
 export interface GlobalStore {

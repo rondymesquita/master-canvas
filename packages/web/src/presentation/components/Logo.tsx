@@ -10,7 +10,7 @@ export default function Logo({ color, fontSize }: LogoProps) {
       color={color ? color : 'white'}
       // textShadow="1px 2px var(--chakra-colors-gray-700)"
     >
-      Fersi
+      FERSI
     </Text>
   );
 }

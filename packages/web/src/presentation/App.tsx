@@ -27,6 +27,7 @@ import RedirectWhenLoggedRoute from './route/components/redirect.when.logged.rou
 import { Env } from '../config/env';
 import { PortalProvider } from './contexts/PortalContext';
 import ModalContainer from './containers/ModalContainer';
+import { BreadcrumbProvider } from './contexts/BreadcrumbContext';
 
 function App() {
   Env.init(import.meta.env.DEV ? 'dev' : 'prod');
@@ -53,38 +54,40 @@ function App() {
             </>
 
             <HashRouter basename={basename}>
-              <Container maxWidth={'full'} p={0}>
-                <Routes>
-                  <Route
-                    path={HOME_PAGE}
-                    element={<Navigate to={CANVAS_PAGE} />}
-                  ></Route>
-                  <Route
-                    path={CANVAS_PAGE}
-                    element={
-                      <PrivateRoute>
-                        <ListCanvasPage />
-                      </PrivateRoute>
-                    }
-                  ></Route>
-                  <Route
-                    path={LOGIN_PAGE}
-                    element={
-                      <RedirectWhenLoggedRoute>
-                        <LoginPage />
-                      </RedirectWhenLoggedRoute>
-                    }
-                  />
-                  <Route
-                    path={CANVAS_VIEW_PAGE}
-                    element={
-                      <PrivateRoute>
-                        <ViewCanvasPage />
-                      </PrivateRoute>
-                    }
-                  ></Route>
-                </Routes>
-              </Container>
+              <BreadcrumbProvider>
+                <Container maxWidth={'full'} p={0}>
+                  <Routes>
+                    <Route
+                      path={LOGIN_PAGE}
+                      element={
+                        <RedirectWhenLoggedRoute>
+                          <LoginPage />
+                        </RedirectWhenLoggedRoute>
+                      }
+                    />
+                    <Route
+                      path={HOME_PAGE}
+                      element={<Navigate to={CANVAS_PAGE} />}
+                    ></Route>
+                    <Route
+                      path={CANVAS_PAGE}
+                      element={
+                        <PrivateRoute>
+                          <ListCanvasPage />
+                        </PrivateRoute>
+                      }
+                    ></Route>
+                    <Route
+                      path={CANVAS_VIEW_PAGE}
+                      element={
+                        <PrivateRoute>
+                          <ViewCanvasPage />
+                        </PrivateRoute>
+                      }
+                    ></Route>
+                  </Routes>
+                </Container>
+              </BreadcrumbProvider>
             </HashRouter>
           </ModalProvider>
         </PortalProvider>

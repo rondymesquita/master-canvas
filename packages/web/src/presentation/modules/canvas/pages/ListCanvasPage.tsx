@@ -10,7 +10,7 @@ import {
 import { useEffect, useState } from 'react';
 import PageTemplate from '../../../templates/PageTemplate';
 
-import { FaPlus, FaSearch } from 'react-icons/fa';
+import { FaHome, FaPlus, FaSearch } from 'react-icons/fa';
 import { v4 } from 'uuid';
 import { CanvasModel } from '../../../../domain/model/canvas';
 import Canvas from '../components/Canvas';
@@ -23,6 +23,8 @@ import useRemoveCanvas from '../../../../app/usecase/canvas/useRemoveCanvas';
 import useUpdateCanvas from '../../../../app/usecase/useUpdateCanvas';
 import EditCanvasModal from '../components/EditCanvasModal';
 import useRemoveCanvasModal from '../../../../app/usecase/canvas/useRemoveCanvasModal';
+import { useBreadcrumbContext } from '../../../contexts/BreadcrumbContext';
+import { HOME_PAGE } from '../../../route/routes';
 
 export default function ListCanvasPage() {
   const [canvases, setCanvases] = useState<CanvasModel[]>([]);
@@ -37,6 +39,8 @@ export default function ListCanvasPage() {
   const [removeCanvasModalConfirmation] = useRemoveCanvasModal();
   const [update, updateError] = useUpdateCanvas();
 
+  const { setBreadcrumbs } = useBreadcrumbContext();
+
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -44,6 +48,13 @@ export default function ListCanvasPage() {
       setCanvases(await list());
     }
     fetchData();
+    setBreadcrumbs([
+      {
+        href: HOME_PAGE,
+        title: 'Início',
+        icon: FaHome,
+      },
+    ]);
   }, []);
 
   const onSave = async (data: CanvasModel) => {

@@ -26,12 +26,15 @@ import useDisclosure from '../../../hooks/useDisclosure';
 import PageTemplate from '../../../templates/PageTemplate';
 import EditCardModal from '../../card/components/EditCardModal';
 
-import { FaBars, FaDownload } from 'react-icons/fa';
+import { FaBars, FaChalkboard, FaDownload, FaHome } from 'react-icons/fa';
 import useGetCanvasById from '../../../../app/usecase/canvas/useGetCanvasById';
 import useListHelpCards from '../../../../app/usecase/help-cards/useListHelpCards';
 import DrawerHelpCardsContainer from '../../../containers/DrawerHelpCardsContainer';
 import { usePortal } from '../../../contexts/PortalContext';
 import useRemoveCardModal from '../../../../app/usecase/card/useRemoveCardModal';
+import { useBreadcrumbContext } from '../../../contexts/BreadcrumbContext';
+import { CANVAS_VIEW_PAGE, HOME_PAGE } from '../../../route/routes';
+import { useLocation } from 'react-use';
 
 // import { TransformWrapper, TransformComponent } from 'react-zoom-pan-pinch';
 // import { useZoom, ZoomProvider } from '../contexts/ZoomContext';
@@ -41,6 +44,11 @@ const getAreasUseCase = new GetAreasUseCase();
 
 export default function ViewCanvasPage() {
   let { canvasId } = useParams();
+
+  // console.log({ canvasId });
+
+  const { setBreadcrumbs } = useBreadcrumbContext();
+
   const { portalLeftRef } = usePortal();
 
   // const [isOpen, onOpen, onClose] = useDisclosure();
@@ -91,6 +99,18 @@ export default function ViewCanvasPage() {
       setCards(await list(currentCanvasId));
     }
     fetchData();
+    setBreadcrumbs([
+      {
+        href: HOME_PAGE,
+        title: 'Início',
+        icon: FaHome,
+      },
+      {
+        href: CANVAS_VIEW_PAGE.replace(':canvasId', canvasId),
+        title: 'Canvas',
+        icon: FaChalkboard,
+      },
+    ]);
   }, []);
 
   const onCardDelete = async (cardId: string) => {

@@ -40,7 +40,7 @@ export default function LoginPage() {
       >
         <Flex flexDirection={'column'} gap={8}>
           <Center>
-            <Logo color={'primary.600'} />
+            <Logo color={'primary.600'} fontSize={'3xl'} boxSize={12} />
           </Center>
           <Button
             variant={'action'}

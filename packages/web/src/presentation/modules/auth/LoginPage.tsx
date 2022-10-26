@@ -46,7 +46,6 @@ export default function LoginPage() {
             variant={'action'}
             colorScheme={'primary'}
             size="md"
-            bgGradient="linear(to-r, primary.500, primary.300)"
             onClick={() => {
               window.location.href = `${Env.getEnv().API_HOST}/auth/google`;
             }}

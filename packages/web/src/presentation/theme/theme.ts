@@ -60,16 +60,18 @@ export const theme = extendTheme({
       variants: {
         primary: (props: any) => ({
           ...defaultTheme.components.Button.variants.solid(props),
-          bgGradient: 'linear(to-r, primary.500, primary.400)',
+          bgGradient: 'linear(to-r, primary.500, primary.300)',
         }),
         action: (props: any) => ({
           ...defaultTheme.components.Button.variants.solid(props),
+          bgGradient: 'linear(to-r, primary.500, primary.300)',
           boxShadow:
             '0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05)',
           '&:hover': {
             boxShadow:
-              '0 10px 15px -3px rgb(0 0 0 / 10%), 0 15px 15px -2px rgb(0 0 0 / 10%)',
-            transform: 'scale(1.03)',
+              // '0 10px 15px -3px rgb(0 0 0 / 10%), 0 15px 15px -2px rgb(0 0 0 / 10%)',
+              '0 10px 15px -3px rgb(0 0 0 / 10%), 0 2px 3px -2px rgb(0 0 0 / 10%)',
+            // transform: 'scale(1.03)',
           },
         }),
       },

@@ -121,6 +121,7 @@ export default function ListCanvasPage() {
         </Heading>
         <Button
           width={'fit-content'}
+          variant={'primary'}
           colorScheme={'primary'}
           leftIcon={<Icon as={FaPlus} />}
           onClick={() => onNewOpen()}

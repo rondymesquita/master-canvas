@@ -45,83 +45,81 @@ export default function DrawerHelpCardsContainer({
   onClose,
   helpCards,
 }: DrawerHelpCardsContainerProps) {
-  const { portalRightRef, setPortalRightVisible } = usePortal();
+  // const { portalRightRef, setPortalRightVisible } = usePortal();
 
-  useEffect(() => {
-    setPortalRightVisible(isOpen);
-  }, [isOpen]);
+  // useEffect(() => {
+  //   setPortalRightVisible(isOpen);
+  // }, [isOpen]);
 
   return (
     <>
-      <Portal containerRef={portalRightRef} data-testid="portal-right-content">
-        {isOpen && (
-          <Flex
-            data-testid="edit-card-modal"
-            height={'100vh'}
-            width={'full'}
-            flexDirection="column"
-            borderWidth={1}
-            shadow={'lg'}
+      {/* <Portal containerRef={portalRightRef} data-testid="portal-right-content"> */}
+      {/* {isOpen && ( */}
+      <Flex
+        data-testid="edit-card-modal"
+        height={'100vh'}
+        width={'full'}
+        flexDirection="column"
+        borderWidth={1}
+        shadow={'lg'}
+        p={2}
+        bg={'bg.0'}
+        position={'relative'}
+        right={0}
+      >
+        <Flex p={2} gap={2} width="full">
+          <IconButton
+            size={'sm'}
+            position={'absolute'}
+            aria-label=""
+            variant={'outline'}
+            colorScheme={'secondary'}
+            onClick={onClose}
+            icon={<FaTimes />}
+          ></IconButton>
+          <Heading
             p={2}
-            bg={'bg.0'}
-            position={'relative'}
-            right={0}
+            flexGrow="1"
+            size={'md'}
+            textAlign={'center'}
+            alignSelf={'center'}
           >
-            <Flex p={2} gap={2} width="full">
-              <IconButton
-                size={'sm'}
-                position={'absolute'}
-                aria-label=""
-                variant={'outline'}
-                colorScheme={'secondary'}
-                onClick={onClose}
-                icon={<FaTimes />}
-              ></IconButton>
-              <Heading
-                p={2}
-                flexGrow="1"
-                size={'md'}
-                textAlign={'center'}
-                alignSelf={'center'}
-              >
-                Cartas de Ajuda
-              </Heading>
-            </Flex>
+            Cartas de Ajuda
+          </Heading>
+        </Flex>
 
-            <Flex
-              p={2}
-              height={'100%'}
-              flexDirection={'column'}
-              overflow="auto"
-              gap={4}
-            >
-              {helpCards.map((cardPerCategory: HelpCard[], index: number) => {
-                return (
-                  <Flex
-                    flexDirection={'column'}
-                    gap={2}
-                    width={'fit-content'}
-                    key={index}
-                  >
-                    {cardPerCategory.map(
-                      (helpCard: HelpCard, jndex: number) => {
-                        return (
-                          <HelpCardComponent
-                            color={cardColors[helpCard.category]}
-                            icon={cardIcons[helpCard.category]}
-                            key={`${index}-${jndex}`}
-                            helpCard={helpCard}
-                          />
-                        );
-                      }
-                    )}
-                  </Flex>
-                );
-              })}
-            </Flex>
-          </Flex>
-        )}
-      </Portal>
+        <Flex
+          p={2}
+          height={'100%'}
+          flexDirection={'column'}
+          overflow="auto"
+          gap={4}
+        >
+          {helpCards.map((cardPerCategory: HelpCard[], index: number) => {
+            return (
+              <Flex
+                flexDirection={'column'}
+                gap={2}
+                width={'fit-content'}
+                key={index}
+              >
+                {cardPerCategory.map((helpCard: HelpCard, jndex: number) => {
+                  return (
+                    <HelpCardComponent
+                      color={cardColors[helpCard.category]}
+                      icon={cardIcons[helpCard.category]}
+                      key={`${index}-${jndex}`}
+                      helpCard={helpCard}
+                    />
+                  );
+                })}
+              </Flex>
+            );
+          })}
+        </Flex>
+      </Flex>
+      {/* )} */}
+      {/* </Portal> */}
     </>
   );
 }

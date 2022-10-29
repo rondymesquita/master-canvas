@@ -1,6 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
 import {
-  Modal,
   ModalOverlay,
   ModalContent,
   ModalHeader,
@@ -28,6 +27,8 @@ import AbstractCardContent from './AbstractCardContent';
 import { FaBars, FaSave, FaTimes } from 'react-icons/fa';
 import { usePortal } from '../../../contexts/PortalContext';
 import ReactQuill from 'react-quill';
+import Modal from '../../../components/Modal';
+import ConfirmationDialog from '../../../components/ConfirmationDialog';
 
 function Actions({ children, cancel, ok, help }: any) {
   return (
@@ -62,12 +63,7 @@ export default function EditCardModal({
 }: any) {
   const [title, setTitle] = useState(inputTitle);
 
-  const { portalLeftRef, setPortalLeftVisible } = usePortal();
   const cardContentRef = useRef<any>();
-
-  useEffect(() => {
-    setPortalLeftVisible(isOpen);
-  }, [isOpen]);
 
   const onSaveButtonClick = () => {
     const updatedContent = cardContentRef.current.getUpdatedContent();
@@ -90,18 +86,15 @@ export default function EditCardModal({
 
   return (
     <>
-      <Portal containerRef={portalLeftRef} data-testid="portal-left-content">
-        {isOpen && (
-          <Flex
-            height={'100vh'}
-            // width={'full'}
-            data-testid="edit-card-modal"
-            bg={'bg.0'}
-            p={2}
-            position={'relative'}
-            flexDirection={'column'}
-          >
-            <Flex width={'full'} pb={2}>
+      <Modal
+        isFixedHeader={true}
+        onOpen={onOpen}
+        isOpen={isOpen}
+        onClose={onClose}
+        size={'full'}
+        header={
+          <>
+            <Flex>
               <Actions
                 cancel={destroyAndClose}
                 ok={onSaveButtonClick}
@@ -116,7 +109,7 @@ export default function EditCardModal({
                 />
               </Actions>
             </Flex>
-            <Flex width={'full'} justifyContent={'end'} pb={2}>
+            <Flex justifyContent={'end'}>
               <Button
                 aria-label=""
                 leftIcon={<FaBars />}
@@ -127,23 +120,26 @@ export default function EditCardModal({
                 Ver Cartas de Ajuda
               </Button>
             </Flex>
-            {/* body */}
-            <Flex flexDirection={'column'} grow={1} overflow="auto">
-              <AbstractCardContent
-                ref={cardContentRef}
-                category={category}
-                content={content}
-              />
-            </Flex>
-            <Flex justifyContent={'flex-end'}>
-              {/* <Actions
-                cancel={destroyAndClose}
-                ok={onSaveButtonClick}
-              ></Actions> */}
-            </Flex>
+          </>
+        }
+      >
+        <Flex
+          data-testid="edit-card-modal"
+          bg={'bg.0'}
+          p={0}
+          position={'relative'}
+          flexDirection={'column'}
+        >
+          <Flex flexDirection={'column'} grow={1}>
+            <AbstractCardContent
+              ref={cardContentRef}
+              category={category}
+              content={content}
+            />
           </Flex>
-        )}
-      </Portal>
+          <Flex justifyContent={'flex-end'}></Flex>
+        </Flex>
+      </Modal>
     </>
   );
 }

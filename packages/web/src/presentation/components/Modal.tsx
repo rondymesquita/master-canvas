@@ -1,4 +1,9 @@
-import React, { forwardRef, useImperativeHandle, useRef } from 'react';
+import React, {
+  forwardRef,
+  RefObject,
+  useImperativeHandle,
+  useRef,
+} from 'react';
 
 import {
   Modal as ModalChakra,
@@ -11,6 +16,8 @@ import {
   useDisclosure,
   Button,
   Icon,
+  Box,
+  Flex,
 } from '@chakra-ui/react';
 import { Bus } from '../../util/Bus';
 import { ModalEvent } from '../../domain/model/events';
@@ -21,7 +28,7 @@ import { ArrowBackIcon } from '@chakra-ui/icons';
 
 export interface ModalProps {
   children: JSX.Element;
-  title: string;
+  title?: string;
   type?: ModalTypeModel;
   isOpen: boolean;
   onOpen: () => void;
@@ -32,6 +39,10 @@ export interface ModalProps {
   secondaryLabel?: string;
   primaryLabel?: string;
   size?: string;
+  header?: JSX.Element;
+  footer?: JSX.Element;
+  initialFocusRef?: RefObject<any>;
+  isFixedHeader?: boolean;
 }
 function Modal(
   {
@@ -47,25 +58,18 @@ function Modal(
     secondaryLabel = 'Cancelar',
     primaryLabel = 'Salvar',
     size = 'md',
+    header,
+    footer,
+    initialFocusRef = null,
+    isFixedHeader = false,
   }: ModalProps,
   ref: any
 ) {
-  const secondaryButtonRef = useRef();
-
-  const primaryButtonColor: Record<string, string> = {
-    [ModalTypeModel.INFO]: 'primary',
-    [ModalTypeModel.DESTRUCTIVE]: 'destructive',
-  };
-
-  const primaryButtonIcon: Record<string, IconType> = {
-    [ModalTypeModel.INFO]: FaHome,
-    [ModalTypeModel.DESTRUCTIVE]: FaTrashAlt,
-  };
-
   return (
     <>
       <ModalChakra
-        initialFocusRef={secondaryButtonRef}
+        // sx={{ height: '100vh' }}
+        initialFocusRef={initialFocusRef}
         isOpen={isOpen}
         onClose={onClose}
         onCloseComplete={() => {
@@ -74,37 +78,24 @@ function Modal(
         size={size}
       >
         <ModalOverlay />
-        <ModalContent>
-          <ModalHeader>{title}</ModalHeader>
-          <ModalCloseButton />
-          <ModalBody>{children}</ModalBody>
+        <ModalContent height={isFixedHeader && size === 'full' ? '1' : 'auto'}>
+          {title && <ModalHeader>{title}</ModalHeader>}
+          {header && (
+            <ModalHeader>
+              <Flex flexDirection={'column'}>
+                <Box position="relative">
+                  <ModalCloseButton position={'absolute'} right="0" top={0} />
+                </Box>
+                <Box>{header}</Box>
+              </Flex>
+            </ModalHeader>
+          )}
 
-          <ModalFooter gap={2}>
-            <Button
-              ref={secondaryButtonRef}
-              leftIcon={<FaTimes />}
-              variant="ghost"
-              colorScheme="primary"
-              onClick={() => {
-                setModalResult &&
-                  setModalResult(ModalResultTypeModel.SECONDARY);
-                onClose();
-              }}
-            >
-              {secondaryLabel}
-            </Button>
-            <Button
-              leftIcon={<Icon as={primaryButtonIcon[type]} />}
-              onClick={() => {
-                onPrimaryClick && onPrimaryClick();
-                setModalResult && setModalResult(ModalResultTypeModel.PRIMARY);
-                onClose();
-              }}
-              colorScheme={primaryButtonColor[type]}
-            >
-              {primaryLabel}
-            </Button>
-          </ModalFooter>
+          <ModalBody overflow={isFixedHeader ? 'auto' : 'inherit'}>
+            {children}
+          </ModalBody>
+
+          {footer && <ModalFooter gap={2}>{footer}</ModalFooter>}
         </ModalContent>
       </ModalChakra>
     </>

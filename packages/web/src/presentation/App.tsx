@@ -45,52 +45,52 @@ function App() {
   return (
     <ChakraProvider theme={theme} resetCSS={true}>
       <CommanderProvider>
-        <PortalProvider>
-          <ModalProvider>
-            {/* <>{JSON.stringify(user?.firstName)}</> */}
+        {/* <PortalProvider> */}
+        <ModalProvider>
+          {/* <>{JSON.stringify(user?.firstName)}</> */}
 
-            <>
-              <ModalContainer></ModalContainer>
-            </>
+          <>
+            <ModalContainer></ModalContainer>
+          </>
 
-            <HashRouter basename={basename}>
-              <BreadcrumbProvider>
-                <Container maxWidth={'full'} p={0}>
-                  <Routes>
-                    <Route
-                      path={LOGIN_PAGE}
-                      element={
-                        <RedirectWhenLoggedRoute>
-                          <LoginPage />
-                        </RedirectWhenLoggedRoute>
-                      }
-                    />
-                    <Route
-                      path={HOME_PAGE}
-                      element={<Navigate to={CANVAS_PAGE} />}
-                    ></Route>
-                    <Route
-                      path={CANVAS_PAGE}
-                      element={
-                        <PrivateRoute>
-                          <ListCanvasPage />
-                        </PrivateRoute>
-                      }
-                    ></Route>
-                    <Route
-                      path={CANVAS_VIEW_PAGE}
-                      element={
-                        <PrivateRoute>
-                          <ViewCanvasPage />
-                        </PrivateRoute>
-                      }
-                    ></Route>
-                  </Routes>
-                </Container>
-              </BreadcrumbProvider>
-            </HashRouter>
-          </ModalProvider>
-        </PortalProvider>
+          <HashRouter basename={basename}>
+            <BreadcrumbProvider>
+              <Container maxWidth={'full'} p={0}>
+                <Routes>
+                  <Route
+                    path={LOGIN_PAGE}
+                    element={
+                      <RedirectWhenLoggedRoute>
+                        <LoginPage />
+                      </RedirectWhenLoggedRoute>
+                    }
+                  />
+                  <Route
+                    path={HOME_PAGE}
+                    element={<Navigate to={CANVAS_PAGE} />}
+                  ></Route>
+                  <Route
+                    path={CANVAS_PAGE}
+                    element={
+                      <PrivateRoute>
+                        <ListCanvasPage />
+                      </PrivateRoute>
+                    }
+                  ></Route>
+                  <Route
+                    path={CANVAS_VIEW_PAGE}
+                    element={
+                      <PrivateRoute>
+                        <ViewCanvasPage />
+                      </PrivateRoute>
+                    }
+                  ></Route>
+                </Routes>
+              </Container>
+            </BreadcrumbProvider>
+          </HashRouter>
+        </ModalProvider>
+        {/* </PortalProvider> */}
       </CommanderProvider>
     </ChakraProvider>
   );

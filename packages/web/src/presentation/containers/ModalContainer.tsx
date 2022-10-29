@@ -1,4 +1,5 @@
 import React from 'react';
+import ConfirmationDialog from '../components/ConfirmationDialog';
 import Modal from '../components/Modal';
 import { useModalContext } from '../contexts/ModalContext';
 
@@ -7,7 +8,7 @@ export default function ModalContainer() {
 
   return (
     isOpen && (
-      <Modal
+      <ConfirmationDialog
         onCloseComplete={() => ({})}
         title={modal.title}
         type={modal.type}
@@ -19,7 +20,7 @@ export default function ModalContainer() {
         secondaryLabel={modal.secondaryLabel}
       >
         <>{modal.content}</>
-      </Modal>
+      </ConfirmationDialog>
     )
   );
 }

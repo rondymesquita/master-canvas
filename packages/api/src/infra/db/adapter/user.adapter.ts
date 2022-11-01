@@ -7,6 +7,15 @@ export class UserAdapter {
     });
   }
   static adapt(record: UserSchema) {
+    if (!record) {
+      return {
+        id: '0',
+        name: 'Usuário desconhecido',
+        email: 'email@email.com',
+        picture: '',
+      };
+    }
+
     const user: User = {
       id: record._id.toString(),
       // active: record.active,

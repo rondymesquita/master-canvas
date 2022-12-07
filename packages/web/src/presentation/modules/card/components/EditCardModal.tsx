@@ -17,6 +17,8 @@ import {
   Portal,
   Text,
   Icon,
+  Alert,
+  AlertIcon,
 } from '@chakra-ui/react';
 
 import EditableText from '../../../components/EditableText';
@@ -130,39 +132,21 @@ export default function EditCardModal({
               </Button>
             </Flex>
             {/* body */}
-            <Flex
-              mb={2}
-              p={4}
-              borderRadius="md"
-              color="primary.700"
-              bg="primary.50"
-              borderWidth={'1px'}
-              borderColor={'primary.700'}
-            >
-              <Center mr={2}>
-                <Icon as={FaInfoCircle}></Icon>
-              </Center>
-              <Text>
-                Os campos abaixo estão preenchidos com <b>exemplos</b> e você
-                poderá utilizá-los ou não, <b>conforme sua necessidade</b>.
-              </Text>
-            </Flex>
-            <Flex
-              mb={2}
-              p={4}
-              borderRadius="md"
-              color="primary.700"
-              bg="primary.50"
-              borderWidth={'1px'}
-              borderColor={'primary.700'}
-            >
-              <Center mr={2}>
-                <Icon as={FaInfoCircle}></Icon>
-              </Center>
-              <Text>
-                Caso a visão não se aplique ao requisito, o campo poderá ficar
-                <b>vazio</b> ou inserir o texto <b>"Não se aplica"</b>.
-              </Text>
+            <Flex p={2} flexDirection="column" gap={2}>
+              <Alert status="info">
+                <AlertIcon />
+                <Text>
+                  Os campos abaixo estão preenchidos com <b>exemplos</b> e você
+                  poderá utilizá-los ou não, <b>conforme sua necessidade</b>.
+                </Text>
+              </Alert>
+              <Alert status="info">
+                <AlertIcon />
+                <Text>
+                  Caso a visão não se aplique ao requisito, o campo poderá ficar
+                  <b>vazio</b> ou inserir o texto <b>"Não se aplica"</b>.
+                </Text>
+              </Alert>
             </Flex>
             <Flex flexDirection={'column'} grow={1} overflow="auto">
               <AbstractCardContent

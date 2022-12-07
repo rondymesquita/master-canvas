@@ -15,6 +15,8 @@ import {
   Spacer,
   IconButton,
   Portal,
+  Text,
+  Icon,
 } from '@chakra-ui/react';
 
 import EditableText from '../../../components/EditableText';
@@ -25,7 +27,7 @@ import { CardCategory } from '../../../../domain/model/card';
 // import RiskContent from './RiskContent';
 // import CardAcceptanceContent from './CardAcceptanceContent';
 import AbstractCardContent from './AbstractCardContent';
-import { FaBars, FaSave, FaTimes } from 'react-icons/fa';
+import { FaBars, FaInfoCircle, FaSave, FaTimes } from 'react-icons/fa';
 import { usePortal } from '../../../contexts/PortalContext';
 import ReactQuill from 'react-quill';
 
@@ -128,6 +130,40 @@ export default function EditCardModal({
               </Button>
             </Flex>
             {/* body */}
+            <Flex
+              mb={2}
+              p={4}
+              borderRadius="md"
+              color="primary.700"
+              bg="primary.50"
+              borderWidth={'1px'}
+              borderColor={'primary.700'}
+            >
+              <Center mr={2}>
+                <Icon as={FaInfoCircle}></Icon>
+              </Center>
+              <Text>
+                Os campos abaixo estão preenchidos com <b>exemplos</b> e você
+                poderá utilizá-los ou não, <b>conforme sua necessidade</b>.
+              </Text>
+            </Flex>
+            <Flex
+              mb={2}
+              p={4}
+              borderRadius="md"
+              color="primary.700"
+              bg="primary.50"
+              borderWidth={'1px'}
+              borderColor={'primary.700'}
+            >
+              <Center mr={2}>
+                <Icon as={FaInfoCircle}></Icon>
+              </Center>
+              <Text>
+                Caso a visão não se aplique ao requisito, o campo poderá ficar
+                <b>vazio</b> ou inserir o texto <b>"Não se aplica"</b>.
+              </Text>
+            </Flex>
             <Flex flexDirection={'column'} grow={1} overflow="auto">
               <AbstractCardContent
                 ref={cardContentRef}

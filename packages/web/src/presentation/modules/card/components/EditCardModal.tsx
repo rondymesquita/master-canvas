@@ -143,8 +143,8 @@ export default function EditCardModal({
               <Alert status="info">
                 <AlertIcon />
                 <Text>
-                  Caso a visão não se aplique ao requisito, o campo poderá ficar
-                  <b>vazio</b> ou inserir o texto <b>"Não se aplica"</b>.
+                  Caso a visão não se aplique ao requisito, você pode deixar o
+                  campo <b>vazio</b> ou inserir o texto <b>"Não se aplica"</b>.
                 </Text>
               </Alert>
             </Flex>

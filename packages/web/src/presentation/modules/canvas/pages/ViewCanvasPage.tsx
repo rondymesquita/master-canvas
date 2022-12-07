@@ -162,7 +162,7 @@ export default function ViewCanvasPage() {
   };
 
   const exportCanvasAsPDF = async () => {
-    await exportPDF(canvas, cards);
+    await exportPDF(canvas.id, canvas, cards);
   };
 
   const showHelpCards = async () => {

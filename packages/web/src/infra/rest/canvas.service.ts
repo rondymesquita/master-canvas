@@ -32,4 +32,8 @@ export class CanvasService {
   async getById(id: string) {
     return await this.client.get(`/${id}`);
   }
+
+  async export_(id: string) {
+    return await this.client.get(`/${id}/export`, { responseType: 'blob' });
+  }
 }

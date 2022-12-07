@@ -13,7 +13,7 @@ export default function Logo({ color, fontSize, boxSize }: LogoProps) {
           color={color ? color : 'white'}
           // textShadow="1px 2px var(--chakra-colors-gray-700)"
         >
-          Specify
+          FERSI
         </Text>
       </Center>
     </Flex>

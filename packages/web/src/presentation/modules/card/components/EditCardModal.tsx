@@ -29,7 +29,13 @@ import { CardCategory } from '../../../../domain/model/card';
 // import RiskContent from './RiskContent';
 // import CardAcceptanceContent from './CardAcceptanceContent';
 import AbstractCardContent from './AbstractCardContent';
-import { FaBars, FaInfoCircle, FaSave, FaTimes } from 'react-icons/fa';
+import {
+  FaBars,
+  FaDownload,
+  FaInfoCircle,
+  FaSave,
+  FaTimes,
+} from 'react-icons/fa';
 import { usePortal } from '../../../contexts/PortalContext';
 import ReactQuill from 'react-quill';
 
@@ -60,6 +66,7 @@ export default function EditCardModal({
   onClose,
   onSave,
   onHelp,
+  onExport,
   category,
   title: inputTitle,
   content,
@@ -92,6 +99,12 @@ export default function EditCardModal({
     return <>no category</>;
   }
 
+  const exportCardAsPDF = () => {
+    const updatedContent = cardContentRef.current.getUpdatedContent();
+    // console.log('>>', { title, content: updatedContent });
+    onExport({ title, content: updatedContent, category });
+  };
+
   return (
     <>
       <Portal containerRef={portalLeftRef} data-testid="portal-left-content">
@@ -120,7 +133,16 @@ export default function EditCardModal({
                 />
               </Actions>
             </Flex>
-            <Flex width={'full'} justifyContent={'end'} pb={2}>
+            <Flex width={'full'} justifyContent={'start'} pb={2}>
+              <Button
+                leftIcon={<Icon as={FaDownload} />}
+                colorScheme={'primary'}
+                onClick={exportCardAsPDF}
+                // variant={'primary'}
+              >
+                Exportar PDF
+              </Button>
+              <Spacer />
               <Button
                 aria-label=""
                 leftIcon={<FaBars />}

@@ -7,7 +7,7 @@ import { CanvasModel } from '../../../domain/model/canvas';
 import { PDFService } from '../../../infra/service/pdf.service';
 import { CanvasService } from '../../../infra/rest/canvas.service';
 
-export default function useExportPDF(): any {
+export default function useExportPDF() {
   const pdfService = new PDFService();
 
   const service = new CanvasService();

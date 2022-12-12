@@ -136,7 +136,7 @@ export default function ViewCanvasPage() {
     onModalOpen();
   };
 
-  const onCardSave = async ({
+  const saveCard = async ({
     title,
     content,
   }: {
@@ -163,6 +163,10 @@ export default function ViewCanvasPage() {
 
   const exportCanvasAsPDF = async () => {
     await exportPDF(canvas.id, canvas, cards);
+  };
+
+  const exportCardAsPDF = async (card: CardModel) => {
+    await exportPDF(canvas.id, canvas, [card]);
   };
 
   const showHelpCards = async () => {
@@ -279,7 +283,8 @@ export default function ViewCanvasPage() {
             onModalClose();
             onDrawerClose();
           }}
-          onSave={onCardSave}
+          onSave={saveCard}
+          onExport={exportCardAsPDF}
           onHelp={() => {
             isDrawerOpen ? onDrawerClose() : onDrawerOpen();
           }}

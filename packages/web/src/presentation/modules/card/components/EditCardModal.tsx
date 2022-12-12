@@ -1,47 +1,25 @@
-import React, { useEffect, useRef, useState } from 'react';
 import {
-  Modal,
-  ModalOverlay,
-  ModalContent,
-  ModalHeader,
-  ModalFooter,
-  ModalBody,
-  ModalCloseButton,
-  Button,
-  Flex,
-  Box,
-  Heading,
-  Center,
-  Spacer,
-  IconButton,
-  Portal,
-  Text,
-  Icon,
   Alert,
   AlertIcon,
+  Box,
+  Button,
+  Flex,
+  Icon,
+  Portal,
+  Spacer,
+  Text,
 } from '@chakra-ui/react';
+import { useEffect, useRef, useState } from 'react';
 
+import { FaBars, FaDownload, FaSave, FaTimes } from 'react-icons/fa';
 import EditableText from '../../../components/EditableText';
-import { SunIcon } from '@chakra-ui/icons';
-import { CardCategory } from '../../../../domain/model/card';
-// import CardRequirementContent from './CardRequirementContent';
-// import DataContent from './DataContent';
-// import RiskContent from './RiskContent';
-// import CardAcceptanceContent from './CardAcceptanceContent';
-import AbstractCardContent from './AbstractCardContent';
-import {
-  FaBars,
-  FaDownload,
-  FaInfoCircle,
-  FaSave,
-  FaTimes,
-} from 'react-icons/fa';
+import Select from '../../../components/Select';
 import { usePortal } from '../../../contexts/PortalContext';
-import ReactQuill from 'react-quill';
+import AbstractCardContent from './AbstractCardContent';
 
 function Actions({ children, cancel, ok, help }: any) {
   return (
-    <Flex gap={2} width="full">
+    <Flex width="full">
       <Button
         leftIcon={<FaTimes />}
         colorScheme="secondary"
@@ -68,10 +46,13 @@ export default function EditCardModal({
   onHelp,
   onExport,
   category,
+  status: inputStatus,
   title: inputTitle,
   content,
+  ui,
 }: any) {
   const [title, setTitle] = useState(inputTitle);
+  const [status, setStatus] = useState(inputStatus);
 
   const { portalLeftRef, setPortalLeftVisible } = usePortal();
   const cardContentRef = useRef<any>();
@@ -86,6 +67,7 @@ export default function EditCardModal({
     onSave({
       title,
       content: updatedContent,
+      status,
     });
     onClose();
   };
@@ -101,8 +83,7 @@ export default function EditCardModal({
 
   const exportCardAsPDF = () => {
     const updatedContent = cardContentRef.current.getUpdatedContent();
-    // console.log('>>', { title, content: updatedContent });
-    onExport({ title, content: updatedContent, category });
+    onExport({ title, content: updatedContent, category, status });
   };
 
   return (
@@ -133,15 +114,22 @@ export default function EditCardModal({
                 />
               </Actions>
             </Flex>
-            <Flex width={'full'} justifyContent={'start'} pb={2}>
+            <Flex width={'full'} justifyContent={'start'} pb={2} gap={2}>
               <Button
                 leftIcon={<Icon as={FaDownload} />}
                 colorScheme={'primary'}
                 onClick={exportCardAsPDF}
-                // variant={'primary'}
               >
                 Exportar PDF
               </Button>
+              <Spacer />
+              <Select
+                placeholder={'Status do Cartão'}
+                options={ui.allStatus}
+                value={status}
+                onChange={setStatus}
+                size={'sm'}
+              />
               <Spacer />
               <Button
                 aria-label=""

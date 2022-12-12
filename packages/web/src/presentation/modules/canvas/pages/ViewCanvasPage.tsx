@@ -19,7 +19,11 @@ import useSaveCard from '../../../../app/usecase/card/useSaveCard';
 import useUpdateCard from '../../../../app/usecase/card/useUpdateCard';
 import { GetAreasUseCase } from '../../../../app/usecase/GetAreas';
 import { AreaModel } from '../../../../domain/model/area';
-import { CardCategory, CardModel } from '../../../../domain/model/card';
+import {
+  CardCategory,
+  CardModel,
+  CardStatus,
+} from '../../../../domain/model/card';
 import Area from '../../../components/Area';
 import Card from '../../../components/Card';
 import useDisclosure from '../../../hooks/useDisclosure';
@@ -35,6 +39,7 @@ import useRemoveCardModal from '../../../../app/usecase/card/useRemoveCardModal'
 import { useBreadcrumbContext } from '../../../contexts/BreadcrumbContext';
 import { CANVAS_VIEW_PAGE, HOME_PAGE } from '../../../route/routes';
 import { useLocation } from 'react-use';
+import useGetAllCardStatus from '../../../../app/usecase/card/useGetAllCardStatus';
 
 // import { TransformWrapper, TransformComponent } from 'react-zoom-pan-pinch';
 // import { useZoom, ZoomProvider } from '../contexts/ZoomContext';
@@ -57,7 +62,11 @@ export default function ViewCanvasPage() {
 
   const zoomRef = useRef();
 
-  /**
+  /** UI data
+   *
+   */
+
+  /** State
    *
    */
   const [areas, setAreas] = useState<AreaModel[]>([]);
@@ -66,27 +75,28 @@ export default function ViewCanvasPage() {
   const [currentCard, setCurrentCard] = useState<CardModel>();
   const [currentCanvasId, setCurrentCanvasId] = useState<string>(canvasId);
 
-  /**
+  /** Card
    *
    */
   const [save, saveError] = useSaveCard();
   const [update, updateError] = useUpdateCard();
   const [list] = useListCard();
   const [get] = useGetEmptyCard();
+  const [getAllCardStatus] = useGetAllCardStatus();
   const [remove, removeError] = useRemoveCard();
   const [removeCardConfirmationModal] = useRemoveCardModal();
 
-  /**
+  /** PDF
    *
    */
   const [exportPDF] = useExportPDF();
 
-  /**
+  /** Canvas
    *
    */
   const [canvas, getByIdError] = useGetCanvasById(canvasId);
 
-  /**
+  /** Help Cards
    *
    */
   const [listHelpCards] = useListHelpCards();
@@ -139,8 +149,10 @@ export default function ViewCanvasPage() {
   const saveCard = async ({
     title,
     content,
+    status,
   }: {
     title: string;
+    status: CardStatus;
     content: any;
   }) => {
     const copy = [...cards];
@@ -154,7 +166,9 @@ export default function ViewCanvasPage() {
       ...cardToUpdate,
       content,
       title,
+      status,
     };
+
     copy.splice(cardToUpdateIndex, 1, newCard);
 
     await update(newCard);
@@ -291,6 +305,10 @@ export default function ViewCanvasPage() {
           title={currentCard?.title}
           content={currentCard?.content}
           category={currentCard?.category}
+          status={currentCard?.status}
+          ui={{
+            allStatus: getAllCardStatus(),
+          }}
         ></EditCardModal>
       </PageTemplate>
     </>

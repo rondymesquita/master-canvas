@@ -5,6 +5,7 @@ export interface CardSchema {
   code: number;
   title: string;
   category: string;
+  status: string;
   content: any;
   canvas: Types.ObjectId;
   createdAt: Date;
@@ -17,6 +18,7 @@ const schema = new Schema<CardSchema>(
     active: { type: Boolean, required: true, default: true, index: true },
     title: { type: String, required: true },
     category: { type: String, required: true },
+    status: { type: String, required: true },
     content: { type: Object, required: true },
     canvas: { type: Schema.Types.ObjectId, required: true },
   },

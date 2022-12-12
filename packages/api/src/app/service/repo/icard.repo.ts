@@ -11,7 +11,7 @@ export type ISaveCardRepoInput = Required<
 >;
 
 export type IUpdateCardRepoInput = Required<
-  Pick<Card, 'id' | 'title' | 'content'>
+  Pick<Card, 'id' | 'title' | 'content' | 'status'>
 >;
 
 export interface ICardRepo {

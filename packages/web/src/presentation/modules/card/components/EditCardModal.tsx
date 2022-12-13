@@ -11,7 +11,7 @@ import {
 } from '@chakra-ui/react';
 import { useEffect, useRef, useState } from 'react';
 
-import { FaBars, FaDownload, FaSave, FaTimes } from 'react-icons/fa';
+import { FaBars, FaDownload, FaSave, FaTimes, FaUpload } from 'react-icons/fa';
 import EditableText from '../../../components/EditableText';
 import Select from '../../../components/Select';
 import { usePortal } from '../../../contexts/PortalContext';
@@ -121,6 +121,14 @@ export default function EditCardModal({
                 onClick={exportCardAsPDF}
               >
                 Exportar PDF
+              </Button>
+              <Button
+                leftIcon={<Icon as={FaUpload} />}
+                colorScheme={'primary'}
+                variant="outline"
+                onClick={exportCardAsPDF}
+              >
+                Anexar arquivo
               </Button>
               <Spacer />
               <Select

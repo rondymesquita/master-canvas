@@ -6,6 +6,9 @@ import {
   Heading,
   Icon,
   Input,
+  Radio,
+  RadioGroup,
+  Stack,
 } from '@chakra-ui/react';
 import { useEffect, useState } from 'react';
 import PageTemplate from '../../../templates/PageTemplate';
@@ -26,9 +29,42 @@ import useRemoveCanvasModal from '../../../../app/usecase/canvas/useRemoveCanvas
 import { useBreadcrumbContext } from '../../../contexts/BreadcrumbContext';
 import { HOME_PAGE } from '../../../route/routes';
 
+const useStarredCanvas = () => {
+  const [starredCanvas, setStarredCanvas] = useState<string[]>([]);
+  const addStarredCanvas = (id: string) => {
+    setStarredCanvas((value: string[]) => {
+      console.log(value);
+      if (!value.includes(id)) {
+        return [...value, id];
+      } else {
+        return value;
+      }
+    });
+  };
+
+  const removeStarredCanvas = (id: string) => {
+    const index = starredCanvas.indexOf(id);
+    // console.log(id, index);
+    const copy = [...starredCanvas];
+    copy.splice(index, 1);
+    setStarredCanvas(copy);
+  };
+  return {
+    starredCanvas,
+    addStarredCanvas,
+    removeStarredCanvas,
+  };
+};
+
 export default function ListCanvasPage() {
-  const [canvases, setCanvases] = useState<CanvasModel[]>([]);
+  const [canvas, setCanvas] = useState<CanvasModel[]>([]);
   const [currentCanvasId, setCurrentCanvasId] = useState<string>('');
+  const [filterValue, setFilterValue] = useState<string>('all');
+  const {
+    starredCanvas,
+    addStarredCanvas,
+    removeStarredCanvas,
+  } = useStarredCanvas();
 
   const [isNewOpen, onNewOpen, onNewClose] = useDisclosure();
   const [isEditOpen, onEditOpen, onEditClose] = useDisclosure();
@@ -43,9 +79,14 @@ export default function ListCanvasPage() {
 
   const navigate = useNavigate();
 
+  const filteredCanvas =
+    filterValue === 'starred'
+      ? canvas.filter((c) => starredCanvas.includes(c.id))
+      : canvas;
+
   useEffect(() => {
     async function fetchData() {
-      setCanvases(await list());
+      setCanvas(await list());
     }
     fetchData();
     setBreadcrumbs([
@@ -59,7 +100,7 @@ export default function ListCanvasPage() {
 
   const onSave = async (data: CanvasModel) => {
     await save(data);
-    setCanvases(await list());
+    setCanvas(await list());
     // onNewClose();
   };
 
@@ -67,7 +108,7 @@ export default function ListCanvasPage() {
     console.log({ canvas });
 
     await update!(canvas);
-    setCanvases(await list());
+    setCanvas(await list());
     // onEditClose();
   };
 
@@ -79,7 +120,7 @@ export default function ListCanvasPage() {
     removeCanvasModalConfirmation()
       .onPrimary(async () => {
         await remove(canvas.id);
-        setCanvases(await list());
+        setCanvas(await list());
       })
       .onSecondary(() => {});
   };
@@ -87,6 +128,16 @@ export default function ListCanvasPage() {
   const onEditCanvasClick = async (canvas: CanvasModel) => {
     setCurrentCanvasId(canvas.id);
     onEditOpen();
+  };
+
+  const starCanvas = async (canvas: CanvasModel) => {
+    if (starredCanvas.includes(canvas.id)) {
+      removeStarredCanvas(canvas.id);
+    } else {
+      addStarredCanvas(canvas.id);
+    }
+    // console.log(canvas);
+    // alert();
   };
 
   return (
@@ -103,7 +154,7 @@ export default function ListCanvasPage() {
 
       <EditCanvasModal
         key={`EditCanvasModal${new Date().toISOString()}`}
-        canvas={canvases.map((c) => c).find((c) => c.id === currentCanvasId)}
+        canvas={canvas.map((c) => c).find((c) => c.id === currentCanvasId)}
         {...{
           isOpen: isEditOpen,
           onOpen: onEditOpen,
@@ -140,6 +191,17 @@ export default function ListCanvasPage() {
           Novo Canvas
         </Button>
       </Flex>
+      {/* {JSON.stringify(starredCanvas)} */}
+      <Flex>
+        <RadioGroup onChange={setFilterValue} value={filterValue}>
+          <b>Exibir</b>
+          <Stack direction="row">
+            <Radio value="all">Todos</Radio>
+            <Radio value="starred">Somente favoritos</Radio>
+            {/* <Radio value="3">Third</Radio> */}
+          </Stack>
+        </RadioGroup>
+      </Flex>
 
       {/* Results */}
       <Grid
@@ -157,7 +219,7 @@ export default function ListCanvasPage() {
           // lg: 'repeat(4, 1fr)',
         }}
       >
-        {canvases.map((canvas: CanvasModel) => {
+        {filteredCanvas.map((canvas: CanvasModel) => {
           return (
             <Canvas
               key={canvas.id}
@@ -165,6 +227,8 @@ export default function ListCanvasPage() {
               onClick={onClickCanvas}
               onEditClick={onEditCanvasClick}
               onDeleteClick={onDeleteCanvasClick}
+              onStarClick={starCanvas}
+              isStarred={starredCanvas.includes(canvas.id)}
             />
           );
         })}

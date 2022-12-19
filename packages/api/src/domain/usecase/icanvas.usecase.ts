@@ -32,3 +32,7 @@ export interface IListCanvas {
 export interface IRemoveCanvas {
   handle(id: string): Promise<boolean>;
 }
+
+export interface IExportCanvas {
+  handle(id: string): Promise<any>;
+}

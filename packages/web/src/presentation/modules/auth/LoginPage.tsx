@@ -40,13 +40,12 @@ export default function LoginPage() {
       >
         <Flex flexDirection={'column'} gap={8}>
           <Center>
-            <Logo color={'primary.600'} />
+            <Logo color={'primary.600'} fontSize={'3xl'} boxSize={12} />
           </Center>
           <Button
             variant={'action'}
             colorScheme={'primary'}
             size="md"
-            bgGradient="linear(to-r, primary.500, primary.300)"
             onClick={() => {
               window.location.href = `${Env.getEnv().API_HOST}/auth/google`;
             }}

@@ -34,7 +34,7 @@ export class GetAreasUseCase implements IGetAreasUseCase {
       },
       {
         id: v4(),
-        title: 'Riscos',
+        title: 'Riscos Gerais do Projeto',
         category: 'RISK',
         icon: '',
       },

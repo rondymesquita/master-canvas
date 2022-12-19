@@ -24,7 +24,7 @@ export default function Header({ isLogged = true, user, onActionClick }: any) {
                 textDecoration: 'none',
               }}
             >
-              <Logo color={'fg.800'} size="2xl" />
+              <Logo color={'primary.600'} size="2xl" />
             </Link>
           </Box>
         </Center>

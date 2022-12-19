@@ -1,37 +1,25 @@
-import React, { useEffect, useRef, useState } from 'react';
 import {
-  Modal,
-  ModalOverlay,
-  ModalContent,
-  ModalHeader,
-  ModalFooter,
-  ModalBody,
-  ModalCloseButton,
+  Alert,
+  AlertIcon,
+  Box,
   Button,
   Flex,
-  Box,
-  Heading,
-  Center,
-  Spacer,
-  IconButton,
+  Icon,
   Portal,
+  Spacer,
+  Text,
 } from '@chakra-ui/react';
+import { useEffect, useRef, useState } from 'react';
 
+import { FaBars, FaDownload, FaSave, FaTimes, FaUpload } from 'react-icons/fa';
 import EditableText from '../../../components/EditableText';
-import { SunIcon } from '@chakra-ui/icons';
-import { CardCategory } from '../../../../domain/model/card';
-// import CardRequirementContent from './CardRequirementContent';
-// import DataContent from './DataContent';
-// import RiskContent from './RiskContent';
-// import CardAcceptanceContent from './CardAcceptanceContent';
-import AbstractCardContent from './AbstractCardContent';
-import { FaBars, FaSave, FaTimes } from 'react-icons/fa';
+import Select from '../../../components/Select';
 import { usePortal } from '../../../contexts/PortalContext';
-import ReactQuill from 'react-quill';
+import AbstractCardContent from './AbstractCardContent';
 
 function Actions({ children, cancel, ok, help }: any) {
   return (
-    <Flex gap={2} width="full">
+    <Flex width="full">
       <Button
         leftIcon={<FaTimes />}
         colorScheme="secondary"
@@ -56,11 +44,15 @@ export default function EditCardModal({
   onClose,
   onSave,
   onHelp,
+  onExport,
   category,
+  status: inputStatus,
   title: inputTitle,
   content,
+  ui,
 }: any) {
   const [title, setTitle] = useState(inputTitle);
+  const [status, setStatus] = useState(inputStatus);
 
   const { portalLeftRef, setPortalLeftVisible } = usePortal();
   const cardContentRef = useRef<any>();
@@ -75,6 +67,7 @@ export default function EditCardModal({
     onSave({
       title,
       content: updatedContent,
+      status,
     });
     onClose();
   };
@@ -87,6 +80,11 @@ export default function EditCardModal({
   if (!category) {
     return <>no category</>;
   }
+
+  const exportCardAsPDF = () => {
+    const updatedContent = cardContentRef.current.getUpdatedContent();
+    onExport({ title, content: updatedContent, category, status });
+  };
 
   return (
     <>
@@ -116,7 +114,31 @@ export default function EditCardModal({
                 />
               </Actions>
             </Flex>
-            <Flex width={'full'} justifyContent={'end'} pb={2}>
+            <Flex width={'full'} justifyContent={'start'} pb={2} gap={2}>
+              <Button
+                leftIcon={<Icon as={FaDownload} />}
+                colorScheme={'primary'}
+                onClick={exportCardAsPDF}
+              >
+                Exportar PDF
+              </Button>
+              <Button
+                leftIcon={<Icon as={FaUpload} />}
+                colorScheme={'primary'}
+                variant="outline"
+                onClick={exportCardAsPDF}
+              >
+                Anexar arquivo
+              </Button>
+              <Spacer />
+              <Select
+                placeholder={'Status do Cartão'}
+                options={ui.allStatus}
+                value={status}
+                onChange={setStatus}
+                size={'sm'}
+              />
+              <Spacer />
               <Button
                 aria-label=""
                 leftIcon={<FaBars />}
@@ -128,6 +150,22 @@ export default function EditCardModal({
               </Button>
             </Flex>
             {/* body */}
+            <Flex p={2} flexDirection="column" gap={2}>
+              <Alert status="info">
+                <AlertIcon />
+                <Text>
+                  Os campos abaixo estão preenchidos com <b>exemplos</b> e você
+                  poderá utilizá-los ou não, <b>conforme sua necessidade</b>.
+                </Text>
+              </Alert>
+              <Alert status="info">
+                <AlertIcon />
+                <Text>
+                  Caso a visão não se aplique ao requisito, você pode deixar o
+                  campo <b>vazio</b> ou inserir o texto <b>"Não se aplica"</b>.
+                </Text>
+              </Alert>
+            </Flex>
             <Flex flexDirection={'column'} grow={1} overflow="auto">
               <AbstractCardContent
                 ref={cardContentRef}

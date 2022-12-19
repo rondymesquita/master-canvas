@@ -6,6 +6,14 @@ export enum CardCategory {
   DATA = 'DATA',
 }
 
+export enum CardStatus {
+  NOT_STARTED = 'NOT_STARTED',
+  IN_PROGRESS = 'IN_PROGRESS',
+  BLOCKED = 'BLOCKED',
+  UNDER_REVISION = 'UNDER_REVISION',
+  DONE = 'DONE',
+}
+
 export interface CardRequirementContent {
   interdependency: string;
   persona: string;
@@ -45,6 +53,7 @@ export interface Card {
   title: string;
   active: boolean;
   category: CardCategory;
+  status: CardStatus;
   content: CardContent;
   canvas: string;
   createdAt: Date;

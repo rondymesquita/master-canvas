@@ -19,19 +19,27 @@ import useSaveCard from '../../../../app/usecase/card/useSaveCard';
 import useUpdateCard from '../../../../app/usecase/card/useUpdateCard';
 import { GetAreasUseCase } from '../../../../app/usecase/GetAreas';
 import { AreaModel } from '../../../../domain/model/area';
-import { CardCategory, CardModel } from '../../../../domain/model/card';
+import {
+  CardCategory,
+  CardModel,
+  CardStatus,
+} from '../../../../domain/model/card';
 import Area from '../../../components/Area';
 import Card from '../../../components/Card';
 import useDisclosure from '../../../hooks/useDisclosure';
 import PageTemplate from '../../../templates/PageTemplate';
 import EditCardModal from '../../card/components/EditCardModal';
 
-import { FaBars, FaDownload } from 'react-icons/fa';
+import { FaBars, FaChalkboard, FaDownload, FaHome } from 'react-icons/fa';
 import useGetCanvasById from '../../../../app/usecase/canvas/useGetCanvasById';
 import useListHelpCards from '../../../../app/usecase/help-cards/useListHelpCards';
 import DrawerHelpCardsContainer from '../../../containers/DrawerHelpCardsContainer';
 import { usePortal } from '../../../contexts/PortalContext';
 import useRemoveCardModal from '../../../../app/usecase/card/useRemoveCardModal';
+import { useBreadcrumbContext } from '../../../contexts/BreadcrumbContext';
+import { CANVAS_VIEW_PAGE, HOME_PAGE } from '../../../route/routes';
+import { useLocation } from 'react-use';
+import useGetAllCardStatus from '../../../../app/usecase/card/useGetAllCardStatus';
 
 // import { TransformWrapper, TransformComponent } from 'react-zoom-pan-pinch';
 // import { useZoom, ZoomProvider } from '../contexts/ZoomContext';
@@ -41,6 +49,11 @@ const getAreasUseCase = new GetAreasUseCase();
 
 export default function ViewCanvasPage() {
   let { canvasId } = useParams();
+
+  // console.log({ canvasId });
+
+  const { setBreadcrumbs } = useBreadcrumbContext();
+
   const { portalLeftRef } = usePortal();
 
   // const [isOpen, onOpen, onClose] = useDisclosure();
@@ -49,7 +62,11 @@ export default function ViewCanvasPage() {
 
   const zoomRef = useRef();
 
-  /**
+  /** UI data
+   *
+   */
+
+  /** State
    *
    */
   const [areas, setAreas] = useState<AreaModel[]>([]);
@@ -58,27 +75,28 @@ export default function ViewCanvasPage() {
   const [currentCard, setCurrentCard] = useState<CardModel>();
   const [currentCanvasId, setCurrentCanvasId] = useState<string>(canvasId);
 
-  /**
+  /** Card
    *
    */
   const [save, saveError] = useSaveCard();
   const [update, updateError] = useUpdateCard();
   const [list] = useListCard();
   const [get] = useGetEmptyCard();
+  const [getAllCardStatus] = useGetAllCardStatus();
   const [remove, removeError] = useRemoveCard();
   const [removeCardConfirmationModal] = useRemoveCardModal();
 
-  /**
+  /** PDF
    *
    */
   const [exportPDF] = useExportPDF();
 
-  /**
+  /** Canvas
    *
    */
   const [canvas, getByIdError] = useGetCanvasById(canvasId);
 
-  /**
+  /** Help Cards
    *
    */
   const [listHelpCards] = useListHelpCards();
@@ -91,6 +109,18 @@ export default function ViewCanvasPage() {
       setCards(await list(currentCanvasId));
     }
     fetchData();
+    setBreadcrumbs([
+      {
+        href: HOME_PAGE,
+        title: 'Início',
+        icon: FaHome,
+      },
+      {
+        href: CANVAS_VIEW_PAGE.replace(':canvasId', canvasId),
+        title: 'Canvas',
+        icon: FaChalkboard,
+      },
+    ]);
   }, []);
 
   const onCardDelete = async (cardId: string) => {
@@ -116,11 +146,13 @@ export default function ViewCanvasPage() {
     onModalOpen();
   };
 
-  const onCardSave = async ({
+  const saveCard = async ({
     title,
     content,
+    status,
   }: {
     title: string;
+    status: CardStatus;
     content: any;
   }) => {
     const copy = [...cards];
@@ -134,7 +166,9 @@ export default function ViewCanvasPage() {
       ...cardToUpdate,
       content,
       title,
+      status,
     };
+
     copy.splice(cardToUpdateIndex, 1, newCard);
 
     await update(newCard);
@@ -142,7 +176,11 @@ export default function ViewCanvasPage() {
   };
 
   const exportCanvasAsPDF = async () => {
-    await exportPDF(canvas, cards);
+    await exportPDF(canvas.id, canvas, cards);
+  };
+
+  const exportCardAsPDF = async (card: CardModel) => {
+    await exportPDF(canvas.id, canvas, [card]);
   };
 
   const showHelpCards = async () => {
@@ -259,13 +297,18 @@ export default function ViewCanvasPage() {
             onModalClose();
             onDrawerClose();
           }}
-          onSave={onCardSave}
+          onSave={saveCard}
+          onExport={exportCardAsPDF}
           onHelp={() => {
             isDrawerOpen ? onDrawerClose() : onDrawerOpen();
           }}
           title={currentCard?.title}
           content={currentCard?.content}
           category={currentCard?.category}
+          status={currentCard?.status}
+          ui={{
+            allStatus: getAllCardStatus(),
+          }}
         ></EditCardModal>
       </PageTemplate>
     </>

@@ -3,6 +3,7 @@ import { COOKIE_NAME } from './../../config/constants';
 import { User } from '../../domain/model/user';
 import { CanvasListOutputDTO } from './../dto/canvas.list.output.dto';
 import {
+  IExportCanvas,
   IGetCanvasById,
   IRemoveCanvas,
   IUpdateCanvas,
@@ -11,10 +12,12 @@ import { IListCanvas } from '../../domain/usecase/icanvas.usecase';
 import {
   Session,
   Body,
+  Response,
   ConsoleLogger,
   Controller,
   Delete,
   Get,
+  StreamableFile,
   Inject,
   Post,
   Param,
@@ -30,9 +33,11 @@ import { ISaveCanvas } from '../../domain/usecase/icanvas.usecase';
 import { CanvasCreateInputDTO } from '../dto/canvas.create.input.dto';
 import { AuthGuard } from '../../infra/guard/auth.guard';
 import * as session from 'express-session';
-import { Request } from 'express';
+
 import { UserCookie } from '../../infra/decorator/user.cookie.decorator';
 import { CanvasUpdateInputDTO } from '../dto/canvas.update.input.dto';
+import { createReadStream } from 'fs';
+import { Readable } from 'stream';
 
 @Controller('canvas')
 @ApiTags('canvas')
@@ -44,6 +49,7 @@ export class CanvasController {
     @Inject('IGetCanvasById') private readonly getCanvasById: IGetCanvasById,
     @Inject('IRemoveCanvas') private readonly removeCanvas: IRemoveCanvas,
     @Inject('IUpdateCanvas') private readonly updateCanvas: IUpdateCanvas,
+    @Inject('IExportCanvas') private readonly exportCanvas: IExportCanvas,
   ) {}
 
   @Get('/')
@@ -90,5 +96,20 @@ export class CanvasController {
     @UserCookie() user: User,
   ): Promise<any> {
     return await this.removeCanvas.handle(id);
+  }
+
+  @Get('/:id/export')
+  async exportCanvas_(
+    @Param('id') id: string,
+    @UserCookie() user: User,
+    @Response() res: any,
+  ): Promise<any> {
+    res.set('Content-Type', 'application/pdf');
+    // res.setHeader('Content-Disposition', 'inline; filename=' + filename);
+    res.set('Content-Disposition', 'attachment; filename=' + 'document.pdf');
+
+    const buffer = await this.exportCanvas.handle(id);
+    const stream = Readable.from(buffer);
+    stream.pipe(res);
   }
 }

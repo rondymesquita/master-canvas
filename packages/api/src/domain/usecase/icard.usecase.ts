@@ -7,7 +7,9 @@ export interface ISaveCard {
   handle(input: ISaveCardInput): Promise<Card>;
 }
 
-export type IUpdateCardInput = Required<Pick<Card, 'id' | 'title' | 'content'>>;
+export type IUpdateCardInput = Required<
+  Pick<Card, 'id' | 'title' | 'content' | 'status'>
+>;
 export interface IUpdateCard {
   handle(input: IUpdateCardInput): Promise<Card>;
 }

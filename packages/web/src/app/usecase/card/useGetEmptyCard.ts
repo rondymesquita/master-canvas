@@ -1,5 +1,9 @@
 import { useEffect, useState } from 'react';
-import { CardCategory, CardModel } from '../../../domain/model/card';
+import {
+  CardCategory,
+  CardModel,
+  CardStatus,
+} from '../../../domain/model/card';
 import { CardService } from '../../../infra/rest/card.service';
 import { waitPromise } from '../../../util/waitpromise';
 import useGetTemplateCard from './useGetTemplateContent';
@@ -12,6 +16,7 @@ export default function useGetEmptyCard() {
       title: 'Título do Card',
       category,
       content: getTemplate(category),
+      status: CardStatus.NOT_STARTED,
       canvas,
     };
     return data;

@@ -324,7 +324,7 @@ const functionalNonFunctionalSpecification: HelpCard[] = [
     variant: HelpCardVariant.DETAIL,
     title: 'Visão de Negócio - Requisito Funcional',
     description:
-      'Identificação do que precisa ser desenvolvido para o usuário, ou seja, quais são as funcionalidades. Representam a descrição das funcionalidades e serviços que se esperam do sistema',
+      'Identificação do que precisa ser desenvolvido para o usuário, ou seja, quais são as funcionalidades. Representam a descrição das funcionalidades e serviços que se esperam do sistema. O requisito pode ser ser descrito utilizando a visão do usuário final (Ex: estória de usuário).',
     icon: '',
     questions: [
       {

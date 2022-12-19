@@ -7,16 +7,25 @@ import {
   Flex,
   Heading,
   Icon,
+  IconButton,
   Text,
 } from '@chakra-ui/react';
 import React from 'react';
-import { FaEdit, FaPencilAlt, FaTrash } from 'react-icons/fa';
+import {
+  FaEdit,
+  FaPencilAlt,
+  FaRegStar,
+  FaStar,
+  FaTrash,
+} from 'react-icons/fa';
 
 export default function Canvas({
   canvas,
+  isStarred,
   onClick,
   onEditClick,
   onDeleteClick,
+  onStarClick,
 }: any) {
   const formatDate = (date: string) => {
     return new Intl.DateTimeFormat('pt-BR', {
@@ -37,9 +46,25 @@ export default function Canvas({
       onClick={() => onClick(canvas)}
     >
       <Center flexDirection={'column'} gap={4} my={4}>
-        <Heading size="md" wordBreak={'break-word'}>
-          {canvas.title}
-        </Heading>
+        <Flex>
+          <Center gap={2}>
+            <IconButton
+              icon={isStarred ? <FaStar /> : <FaRegStar />}
+              aria-label=""
+              // colorScheme={'yellow'}
+              color={isStarred ? 'yellow.500' : 'primary.500'}
+              size={'lg'}
+              variant={'ghost'}
+              onClick={(e) => {
+                e.stopPropagation();
+                onStarClick && onStarClick(canvas);
+              }}
+            />
+            <Heading size="md" wordBreak={'break-word'}>
+              {canvas.title}
+            </Heading>
+          </Center>
+        </Flex>
         <Avatar name={canvas.title} />
       </Center>
       <Flex justifyContent={'start'} flexDirection={'column'}>
